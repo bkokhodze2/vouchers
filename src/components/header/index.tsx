@@ -185,9 +185,7 @@ const Header: React.FC = () => {
             </div>
           </div>
         </div>
-        <header className={"w-full m-auto sticky top-[0px] z-20"} onMouseLeave={() => {
-          setChosenCategory(null)
-        }}>
+        <header className={"w-full m-auto sticky top-[0px] z-20"}>
 
           <div className={"bg-[white] w-full relative"}>
             {/*flex container max-h-[80px]*/}
@@ -339,7 +337,9 @@ const Header: React.FC = () => {
               {/*search*/}
 
             </div>
-            <div className={"w-full relative"}>
+            <div className={"w-full relative"} onMouseLeave={() => {
+              setChosenCategory(null)
+            }}>
               <div className={"flex container m-auto w-full h-[48px] overflow-x-auto"}>
                 <div className={"flex items-center"}>
                   <Image src={ICONS.shock} alt={"shock offer icon"} width={18} height={18}/>

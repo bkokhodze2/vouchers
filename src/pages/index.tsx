@@ -131,6 +131,21 @@ const Home: NextPage = ({serverData}: any) => {
           <div className={"w-full "}>
             <div className={"space-x-[30px] flex flex-row overflow-scroll container m-auto py-[84px]"}>
 
+              {/*{categories?.filter(item => item.parentCategoryId === null).map((item, index) => {*/}
+              {/*  return <Link href={"/category/4"}>*/}
+              {/*    <div*/}
+              {/*        className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>*/}
+              {/*      <div className={"bg-purple w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>*/}
+              {/*      <div className={"mt-1"}>*/}
+              {/*        <Image src={IMAGES.bag} alt={"bag image"} width={174} height={174}/>*/}
+              {/*      </div>*/}
+              {/*      <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>Tourism</h4>*/}
+              {/*      <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>*/}
+              {/*    </div>*/}
+              {/*  </Link>*/}
+              {/*})*/}
+              {/*}*/}
+
               <Link href={"/category/4"}>
                 <div
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
