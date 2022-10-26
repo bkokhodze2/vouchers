@@ -1,0 +1,316 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#__next{
+    background-color: #F5F6F8;
+}
+.textDots1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.textDots2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.textDots3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.textDots4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: transparent;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mySwiper {
+    padding-bottom: 35px !important;
+}
+
+.swiper-horizontal > .swiper-pagination {
+    position: absolute;
+    bottom: 0;
+}
+
+.mySwiper > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
+    bottom: 3px !important;
+}
+
+.mySwiper .swiper-pagination-bullet-active {
+    background: #8338EC !important;
+    width: 6px !important;
+    border: 3px solid #d4bef4 !important;
+    min-height: 12px;
+    min-width: 12px;
+}
+
+.mySwiper .swiper-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.mySwiper .swiper-button-next, .mySwiper .swiper-button-prev {
+    width: 60px;
+    min-width: 60px;
+    height: 60px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    opacity: 0;
+    transition: .3s all ease;
+}
+
+.mySwiper:hover .swiper-button-next, .mySwiper:hover .swiper-button-prev {
+    opacity: 1;
+    transition: .3s all ease;
+}
+
+.mySwiper img {
+    transition: ease all .3s;
+}
+
+.mySwiper .swiper-slide {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.mySwiper:hover img {
+    transform: scale(1.1);
+    transition: ease all .3s;
+}
+
+.mySwiper .swiper-button-next:after, .swiper-button-prev:after {
+    content: "" !important;
+    background-repeat: no-repeat;
+    padding: 10px;
+}
+
+.mySwiper .swiper-button-prev:after {
+    background-image: url("../src/assets/img/leftArrow.svg");
+    padding-right: 15px;
+}
+
+.mySwiper .swiper-button-next:after {
+    background-image: url("../src/assets/img/rightArrow.svg");
+    padding-left: 15px;
+}
+
+.mySwiper .swiper-button-next {
+    right: 50px !important;
+}
+
+.mySwiper .swiper-button-prev {
+    left: 50px !important;
+}
+
+/*offerSlider*/
+.offerSlider .swiper-button-next:after, .offerSlider .swiper-button-prev:after {
+    content: "" !important;
+    background-repeat: no-repeat;
+    padding: 10px;
+}
+
+.offerSlider .swiper-button-next {
+    right: -20px
+}
+
+.offerSlider .swiper-button-prev {
+    left: -20px
+}
+
+.offerSlider .swiper-button-prev:after {
+    background-image: url("../src/assets/img/rightArrow.svg");
+    padding-left: 15px;
+}
+
+.offerSlider .swiper-button-next:after {
+    background-image: url("../src/assets/img/leftArrow.svg");
+    padding-right: 15px;
+}
+
+.offerSlider {
+    position: relative;
+}
+
+.offerSliderPrev, .offerSliderNext {
+    position: absolute;
+    top: 50px;
+    z-index: 10;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #F5F6F8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.offerSliderPrev {
+    left: -50px;
+}
+
+.offerSliderNext {
+    right: -50px;
+}
+
+/*offerSlider*/
+
+.indiana-scroll-container {
+    height: 546px;
+    overflow-x: scroll;
+}
+
+
+.OfferItemSlider {
+    padding-bottom: 0 !important;
+    width: unset;
+    height: unset;
+}
+
+.OfferItemSlider {
+
+}
+
+/*checkbox antd*/
+.ant-checkbox-inner {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    background-color: #D9D9D980;
+    border: 1px solid #D9D9D980;
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #8338ec;
+    border: 1px solid #8338ec;
+}
+
+.ant-checkbox-checked::after {
+    border-color: transparent;
+}
+
+.ant-checkbox-inner::after {
+    left: 30%;
+}
+
+.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner {
+    border-color: #8338ec;
+}
+
+/*//checkbox antd*/
+
+/*search btn antd*/
+
+.search {
+    border-color: #8338EC;
+}
+
+.ant-input:focus, .ant-input-focused {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.search.ant-btn-primary:hover, .search.ant-btn-primary:focus {
+    border-color: #8338EC;
+    background: #8338EC;
+}
+
+.searchInput .ant-input {
+    padding-left: 24px;
+}
+
+.searchInput .ant-input::placeholder {
+    color: #383838b3;
+    font-size: 16px;
+}
+
+.searchInput .ant-input {
+    color: #383838;
+}
+
+
+/*search btn antd*/
+
+
+/*antd modal review*/
+
+.reviewModal .ant-modal-body {
+    padding: 0
+}
+
+.reviewModal .ant-modal-content {
+    border-radius: 12px;
+}
+
+
+/*antd modal review*/
+
+
+/*antd tab */
+.tabDescription .ant-tabs-ink-bar {
+    background: #8338EC;
+    height: 3px !important;
+    border-radius: 4px 4px 0 0;
+}
+
+.tabDescription .ant-tabs-tab {
+    padding-bottom: 4px;
+}
+
+.tabDescription .ant-tabs-tab-active h3 {
+    color: #8338EC;
+}
+
+/*antd tab */
+
+
+
+
+
+
+
+
