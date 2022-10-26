@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-#__next{
+#__next {
     background-color: #F5F6F8;
 }
+
 .textDots1 {
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -308,7 +309,14 @@
 /*antd tab */
 
 
+/*1665*/
 
+@media (max-width: 1665px) {
+
+    .offerSliderPrev, .offerSliderNext {
+        display: none;
+    }
+}
 
 
 
