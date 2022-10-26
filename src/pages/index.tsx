@@ -36,7 +36,6 @@ const Home: NextPage = ({serverData}: any) => {
 
   }, [])
 
-  console.log("categoriest", categories);
 
   return (
       <div className={"bg-[#F5F6F8]"}>
@@ -49,7 +48,7 @@ const Home: NextPage = ({serverData}: any) => {
         <Header/>
 
         <main className={"flex flex-col "}>
-          <div className={"w-full "}>
+          <div className={"w-full"}>
             <div className="grid grid-rows-1 mt-6 grid-cols-4 container m-auto grid-flow-col gap-[30px]">
 
               {/*Become Partner*/}
@@ -270,7 +269,6 @@ export async function getServerSideProps({query}: any) {
   const response = await fetch(`${baseApi}/vouchers?contractId=662`);
   const serverData = await response.json();
 
-  console.log("data", serverData)
 
   return {
     props: {

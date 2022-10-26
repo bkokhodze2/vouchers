@@ -61,8 +61,6 @@ const Header: React.FC = () => {
   }, [chosenCategory?.categoryId])
 
 
-  console.log("Router.query.id", Router.query.id)
-  console.log("findData", findData)
 
   useEffect(() => {
     const getData = setTimeout(() => {

@@ -25,7 +25,6 @@ export default function OfferSlider({nav = true, data}: IOfferSlider) {
   const nextRef = useRef<HTMLDivElement>(null);
   const swiper = useRef() as any;
 
-  console.log("data offer", data)
 
   if (!data) {
     return <p className={"text-[red]"}>error</p>

@@ -16,7 +16,6 @@ export default function Company({serverVoucher}: any) {
 
   const [vouchers, setVouchers] = useState<[]>(serverVoucher)
 
-  console.log("serverddd", serverVoucher)
 
   return (
       <>
@@ -151,11 +150,9 @@ Company.getLayout = function getLayout(page: any) {
 
 export async function getServerSideProps({query}: any) {
   const baseApi = process.env.baseApi;
-  console.log("querydata", query.slug)
 
   let slug = query.slug?.replaceAll('-', ' ');
 
-  console.log("comp", slug)
 
   const responseVoucher = await fetch(`${baseApi}/vouchers?contractId=662&providerName=${slug}`);
   const serverVoucher = await responseVoucher.json();

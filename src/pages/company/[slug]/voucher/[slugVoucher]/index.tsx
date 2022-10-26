@@ -1,6 +1,8 @@
 import type {NextPage} from 'next'
 import Layout from "../../../../../components/layouts/user-layout"
 import Head from 'next/head'
+import {notification} from 'antd';
+
 import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 // @ts-ignore
 import {IMAGES, ICONS} from "public/images";
@@ -20,6 +22,15 @@ import axios from "axios";
 import router, {useRouter} from "next/router";
 import OfferSlider from "../../../../../components/UI/slider/offer-slider";
 import dynamic from "next/dynamic";
+import {useDispatch, useSelector} from "react-redux";
+
+import {
+  addToCart,
+  clearCart,
+  decreaseCart,
+  getTotals,
+  removeFromCart,
+} from "../../../../../components/slices/cartSlice";
 
 const CountDown = dynamic(
     () => import("../../../../../components/UI/count-down"),
@@ -29,11 +40,33 @@ const CountDown = dynamic(
 
 export default function Details({serverOffer, serverVoucher}: any) {
   const Router = useRouter();
+  const cart = useSelector((state: any) => state.cart);
+  const dispatch = useDispatch();
+
   const [checked, setChecked] = useState(true);
   const [isWithMoney, setIsWithMoney] = useState(true);
   const baseApi = process.env.baseApi;
 
-  console.log("serverVoucher", serverVoucher)
+  console.log("cart", cart)
+
+  const handleAddToCart = (product: any) => {
+    dispatch(addToCart(product));
+    Router.push('/cart')
+
+    notification['success']({
+      message: 'item successfully add',
+
+    });
+
+  };
+
+  const handleDecreaseCart = (product: any) => {
+    dispatch(decreaseCart(product));
+  };
+
+  const handleClearCart = () => {
+    dispatch(clearCart({}));
+  };
 
   // @ts-ignore
   let slugVoucher = Router?.query.slugVoucher?.replaceAll('-', ' ');
@@ -44,7 +77,6 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
   useEffect(() => {
     axios(`${baseApi}/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`).then((res) => {
-      console.log("reees", res)
     })
   }, [])
 
@@ -221,7 +253,8 @@ export default function Details({serverOffer, serverVoucher}: any) {
             <div className={"min-w-[15px] flex"}>
               <Image src={ICONS.cart} className={"cursor-pointer"} alt={"cart icon"}/>
             </div>
-            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap"}>Add to Cart</p>
+            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap"}
+               onClick={() => handleAddToCart(serverVoucher)}>Add to Cart</p>
           </div>
         </div>
         {/* buy & cart buttons*/}
@@ -459,13 +492,11 @@ Details.getLayout = function getLayout(page: any) {
 
 export async function getServerSideProps({query}: any) {
   const baseApi = process.env.baseApi;
-  console.log("querydata", query.slugVoucher)
 
 
   let slugVoucher = query.slugVoucher?.replaceAll('-', ' ');
   let slug = query.slug?.replaceAll('-', ' ');
 
-  console.log("comp", slug, "slugVoucher", slugVoucher)
 
   const responseVoucher = await fetch(`${baseApi}/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`);
   const responseAll = await fetch(`${baseApi}/vouchers?contractId=662`);

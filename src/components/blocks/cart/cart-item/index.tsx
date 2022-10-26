@@ -5,6 +5,9 @@ import Image from "next/image";
 import Quantity from "../../../UI/quantity";
 import Lari from "../../../../../public/images/icons/lari";
 import {IMAGES} from "../../../../../public/images";
+import _ from "lodash";
+import {removeFromCart} from "../../../slices/cartSlice";
+import {useDispatch} from "react-redux";
 
 interface ICartItem {
   id?: number,
@@ -14,13 +17,15 @@ interface ICartItem {
   getCount?: any,
 }
 
-const CartItem = ({
-                    id,
-                    getCount,
-                    imgPath,
-                    name = "Campus Alba Castello Mare Hotel & Wellness Resort",
-                    price
-                  }: ICartItem) => {
+const CartItem = ({data, getCount}: any) => {
+
+  console.log(data)
+
+  const dispatch = useDispatch();
+
+  const handleRemoveFromCart = (product: any) => {
+    dispatch(removeFromCart(product));
+  };
 
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
@@ -31,18 +36,19 @@ const CartItem = ({
                  style={{objectFit: "cover"}}/>
         </div>
         <div className={"flex flex-col w-full"}>
-          <h2 className={"text-[#383838] font-bold text-[22px]"}>ASSA RESTAURANT</h2>
-          <p className={"text-base mt-[18px] text-[#38383899]"}>From 80 lari, hotel apartments in the Orbi
-            hotel network
-            in Batumi</p>
+          <h2 className={"text-[#383838] font-bold text-[22px]"}>{_.get(data, '[0].title', "")}</h2>
+          <p className={"text-base mt-[18px] text-[#38383899]"}>
+            {_.get(data, '[0]additionalInfo[0].subTitles[0].description', "")}
+          </p>
 
           <div className={"mt-[28px] flex justify-between items-end"}>
             <div className={"flex items-center"}>
-              <Quantity getCount={getCount}/>
+              <Quantity getCount={getCount} data={data} currentQuantity={data.cartQuantity}/>
               <div className={"flex flex-col items-center justify-center ml-8"}>
                 <p className={"text-[14px] text-[#383838b3] text-center whitespace-nowrap"}>Total price</p>
                 <div className={"flex items-center"}><Lari color={"#E35A43"}/><p
-                    className={"text-[#E35A43] text-[18px] ml-[5px]"}>99.99</p>
+                    className={"text-[#E35A43] text-[18px] ml-[5px]"}>{_.get(data, '[0]additionalInfo[0].servicePrice', 0) * data.cartQuantity}
+                </p>
                 </div>
               </div>
               <div onClick={() => setIsChecked(!isChecked)}
@@ -57,11 +63,10 @@ const CartItem = ({
             </div>
             <div
                 onClick={() => {
-                  console.log("delete")
                 }}
                 className={"flex items-center cursor-pointer"}>
               <Image src={ICONS.trash} alt={"trash icon"} width={24} height={24}/>
-              <p className={"text-[#383838] ml-[10px] font-[500]"}>Delete</p>
+              <p className={"text-[#383838] ml-[10px] font-[500]"} onClick={() => handleRemoveFromCart(data)}>Delete</p>
             </div>
           </div>
         </div>

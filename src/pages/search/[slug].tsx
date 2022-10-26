@@ -10,7 +10,6 @@ import Button from "../../components/UI/button";
 
 export default function Search({serverData}: any) {
 
-  console.log("serverData", serverData)
 
   const Router = useRouter();
   const [isResult, setIsResult] = useState(true);

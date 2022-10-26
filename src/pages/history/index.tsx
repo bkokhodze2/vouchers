@@ -22,7 +22,6 @@ export default function History({serverData}: any) {
   };
   const onFinishComment = (values: object) => {
 
-    console.log("values", values)
 
   }
 

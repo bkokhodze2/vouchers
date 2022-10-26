@@ -2,23 +2,53 @@ import Layout from "../../components/layouts/user-layout"
 import Head from 'next/head'
 // @ts-ignore
 import {IMAGES, ICONS} from "public/images";
-import Image from "next/image";
-import React, {useState} from "react";
-import OfferItem from "../../components/blocks/offer-item";
-import {detailsImg, offerItem} from "../../../public/images/images";
-import Location from "../../../public/images/icons/location";
-import Phone from "../../../public/images/icons/phone";
-import Link from "next/link";
+import React, {useEffect, useState} from "react";
 import Lari from "../../../public/images/icons/lari";
 import Quantity from "../../components/UI/quantity";
-import CartItem from "../../components/blocks/cart/cart-item";
 
+// import CartItem from "../../components/blocks/cart/cart-item";
+
+const CartItem = dynamic(
+    () => import('../../components/blocks/cart/cart-item'),
+    {ssr: false}
+)
+
+import {useDispatch, useSelector} from "react-redux";
+import {
+  addToCart,
+  clearCart,
+  decreaseCart,
+  getTotals,
+  removeFromCart,
+} from "../../components/slices/cartSlice";
+import dynamic from "next/dynamic";
 
 export default function Cart({serverData}: any) {
+  const cart = useSelector((state: any) => state.cart);
+  const dispatch = useDispatch();
 
+  console.log("cart", cart)
 
   const getCount = (count: number) => {
   }
+
+  useEffect(() => {
+    dispatch(getTotals({}));
+  }, [cart, dispatch]);
+
+  const handleAddToCart = (product: any) => {
+    dispatch(addToCart(product));
+  };
+  const handleDecreaseCart = (product: any) => {
+    dispatch(decreaseCart(product));
+  };
+  const handleRemoveFromCart = (product: any) => {
+    dispatch(removeFromCart(product));
+  };
+  const handleClearCart = () => {
+    dispatch(clearCart({}));
+  };
+
 
   return (
       <>
@@ -27,8 +57,9 @@ export default function Cart({serverData}: any) {
           <meta name="description" content="Company"/>
         </Head>
 
-        <div className={"bg-[white]"}>
-          <div className={"grid grid-rows-1 mt-6 mb-[100px] grid-cols-4 container m-auto grid-flow-col gap-[30px]"}>
+        <div className={"bg-[white] flex flex-col flex-1"}>
+          <div
+              className={"min-h-[60vh] grid grid-rows-1 mt-6 mb-[100px] grid-cols-4 container m-auto grid-flow-col gap-[30px]"}>
 
             {/*cart list*/}
             <div className={"col-span-3"}>
@@ -36,21 +67,15 @@ export default function Cart({serverData}: any) {
               <div className={"flex items-center"}>
                 <p className={"text-[#383838] text-[28px] font-bold relative after:content-[''] after:h-[20px] after:top-[12px] after:bg-[#38383833] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500"}>
                   My cart</p>
-                <p className={"text-[#38383899] text-base ml-[25px]"}>2 products</p>
+                <p className={"text-[#38383899] text-base ml-[25px]"}>{cart?.cartItems?.length} products</p>
               </div>
               {/*head*/}
 
               <div className={"flex flex-col space-y-[25px] mt-4"}>
-                <CartItem getCount={getCount}/>
-                <CartItem getCount={getCount}/>
-                <CartItem getCount={getCount}/>
-                <CartItem getCount={getCount}/>
-                <CartItem getCount={getCount}/>
-                <CartItem getCount={getCount}/>
-                <CartItem getCount={getCount}/>
-                <CartItem getCount={getCount}/>
-                <CartItem getCount={getCount}/>
-                <CartItem getCount={getCount}/>
+                {cart?.cartItems?.map((item: any, index: number) => {
+                  return <CartItem data={item} getCount={getCount} key={index}/>
+                })}
+
               </div>
 
             </div>
@@ -70,7 +95,7 @@ export default function Cart({serverData}: any) {
 
                   <div className={"flex items-center w-full justify-between mt-6"}>
                     <p className={"text-[22px] text-[#38383899]"}>Number of vouchers</p>
-                    <p className={"text-[22px] text-[#38383899] font-[500]"}>2</p>
+                    <p className={"text-[22px] text-[#38383899] font-[500]"}>{cart.cartTotalQuantity}</p>
                   </div>
 
                   <div className={"h-[1px] w-full bg-[#38383833] rounded-xl mt-12 mb-[30px]"}/>
@@ -79,7 +104,7 @@ export default function Cart({serverData}: any) {
                     <p className={"text-[#383838] text-[28px] font-bold "}>Total</p>
                     <div className={"flex items-center"}>
                       <Lari color={"#E35A43"} height={18} width={18}/>
-                      <p className={"text-[22px] text-[#E35A43]"}>199.98</p>
+                      <p className={"text-[22px] text-[#E35A43]"}>{cart.cartTotalPrice}</p>
                     </div>
                   </div>
                 </div>
@@ -110,7 +135,6 @@ export async function getServerSideProps({query}: any) {
   const baseApi = process.env.baseApi;
 
 
-  console.log("baseApi", baseApi)
   // const response = await fetch(`${baseApi}/company/${query.slug}`);
 
   // const data = await response.json();

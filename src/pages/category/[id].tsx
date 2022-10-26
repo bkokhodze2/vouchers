@@ -31,7 +31,6 @@ export default function Category({serverData}: any) {
   }, [Router?.query?.id])
 
   const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
   };
 
   // @ts-ignore
