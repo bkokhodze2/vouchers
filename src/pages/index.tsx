@@ -11,18 +11,32 @@ import OfferSlider from "../components/UI/slider/offer-slider";
 import Link from "next/link";
 import OfferItem from "../components/blocks/offer-item";
 import Footer from "../components/footer";
+import axios from "axios";
 
 // import Background from "../../public/images/images/test.png.png"
 
 const Home: NextPage = ({serverData}: any) => {
   const [vouchers, setVouchers] = useState<[]>(serverData?.message ? [] : serverData)
+  const baseApi = process.env.baseApi;
+  const [categories, setCategories] = useState<[any]>([{}]);
 
   // useEffect(() => {
   //   setVouchers(serverData);
   // }, [])
 
+  useEffect(() => {
 
-  console.log("serverData in client", vouchers);
+    if (!!categories) {
+      axios
+          .get(`${baseApi}/providers/categories`)
+          .then((res) => {
+            setCategories(res.data)
+          });
+    }
+
+  }, [])
+
+  console.log("categoriest", categories);
 
   return (
       <div className={"bg-[#F5F6F8]"}>
@@ -116,7 +130,8 @@ const Home: NextPage = ({serverData}: any) => {
           {/*categories*/}
           <div className={"w-full "}>
             <div className={"space-x-[30px] flex flex-row overflow-scroll container m-auto py-[84px]"}>
-              <Link href={"/"}>
+
+              <Link href={"/category/4"}>
                 <div
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-purple w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
@@ -128,7 +143,7 @@ const Home: NextPage = ({serverData}: any) => {
                 </div>
               </Link>
 
-              <Link href={"/"}>
+              <Link href={"/category/4"}>
                 <div
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-[#7B92DC] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
@@ -140,7 +155,7 @@ const Home: NextPage = ({serverData}: any) => {
                 </div>
               </Link>
 
-              <Link href={"/"}>
+              <Link href={"/category/4"}>
 
                 <div
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
@@ -152,7 +167,7 @@ const Home: NextPage = ({serverData}: any) => {
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
                 </div>
               </Link>
-              <Link href={"/"}>
+              <Link href={"/category/4"}>
                 <div
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-purple w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
@@ -165,7 +180,7 @@ const Home: NextPage = ({serverData}: any) => {
               </Link>
 
 
-              <Link href={"/"}>
+              <Link href={"/category/4"}>
                 <div
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-[#56971F] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
@@ -176,7 +191,7 @@ const Home: NextPage = ({serverData}: any) => {
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
                 </div>
               </Link>
-              <Link href={"/"}>
+              <Link href={"/category/4"}>
 
                 <div
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>

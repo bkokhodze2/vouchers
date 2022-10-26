@@ -55,37 +55,37 @@ export default function Category({serverData}: any) {
               </div>
             </div>
 
-            <div className={"h-[60px] bg-[black] mt-[54px] flex justify-between"}>
-              <div className={"flex"}>
-                <Form
-                    form={filterForm}
-                    name="validate_other"
-                    onFinish={onFinish}
-                    initialValues={{}}
+            {/*<div className={"h-[60px] bg-[black] mt-[54px] flex justify-between"}>*/}
+            {/*  <div className={"flex"}>*/}
+            {/*    <Form*/}
+            {/*        form={filterForm}*/}
+            {/*        name="validate_other"*/}
+            {/*        onFinish={onFinish}*/}
+            {/*        initialValues={{}}*/}
 
-                >
-                  <Form.Item
-                      name="select"
-                      className={"w-[100px]"}
-                  >
-                    <Select
-                        mode="tags"
-                        showSearch={false}
-                        placeholder="Please select favourite colors"
-                        maxTagCount={1}
-                        tagRender={() => <p>1</p>}
-                    >
-                      <Option value="red">Red</Option>
-                      <Option value="green">Green</Option>
-                      <Option value="blue">Blue</Option>
-                    </Select>
-                  </Form.Item>
+            {/*    >*/}
+            {/*      <Form.Item*/}
+            {/*          name="select"*/}
+            {/*          className={"w-[100px]"}*/}
+            {/*      >*/}
+            {/*        <Select*/}
+            {/*            mode="tags"*/}
+            {/*            showSearch={false}*/}
+            {/*            placeholder="Please select favourite colors"*/}
+            {/*            maxTagCount={1}*/}
+            {/*            tagRender={() => <p>1</p>}*/}
+            {/*        >*/}
+            {/*          <Option value="red">Red</Option>*/}
+            {/*          <Option value="green">Green</Option>*/}
+            {/*          <Option value="blue">Blue</Option>*/}
+            {/*        </Select>*/}
+            {/*      </Form.Item>*/}
 
-                </Form>
-              </div>
+            {/*    </Form>*/}
+            {/*  </div>*/}
 
-              <div></div>
-            </div>
+            {/*  <div></div>*/}
+            {/*</div>*/}
 
             <div className={"container m-auto mt-[20px]"}>
               <Image src={IMAGES.banner} alt={"banner"}/>
