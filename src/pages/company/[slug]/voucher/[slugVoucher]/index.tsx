@@ -31,6 +31,7 @@ import {
   getTotals,
   removeFromCart,
 } from "../../../../../components/slices/cartSlice";
+import _ from "lodash";
 
 const CountDown = dynamic(
     () => import("../../../../../components/UI/count-down"),
@@ -290,6 +291,21 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
   }
 
+  const items = [
+    {
+      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold"}>offer details</h3>,
+      key: 'item-1',
+      children: <div
+          dangerouslySetInnerHTML={{__html: serverVoucher[0]?.additionalInfo[0]?.descriptions[0]?.description}}/>
+    },
+    {
+      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold"}>conditions</h3>,
+      key: 'item-2',
+      children: <div
+          dangerouslySetInnerHTML={{__html: serverVoucher[0]?.additionalInfo[0].subDescriptions[0].description}}
+      />
+    },
+  ];
 
   return (
       <>
@@ -310,15 +326,16 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
               {/*left side*/}
               <div className={"h-full col-span-2 "}>
-                <Link href={`/company/${serverVoucher[0]?.additionalInfo[0]?.provider?.name}`}>
+                <Link href={`/company/${_.get(serverVoucher, '[0].additionalInfo[0].provider.name', '')}`}>
                   <div
                       className={"flex justify-between w-full p-6 rounded-xl items-center bg-[white] cursor-pointer"}>
                     <div className={"mr-4 flex justify-center items-center"}>
                       <Image src={IMAGES.detailsImg} height={60} width={60} alt={"image"}/>
                     </div>
                     <div className={"flex-1 flex-col"}>
-                      <h2 className={"text-[22px] font-bold text-[#383838]"}>{serverVoucher[0]?.additionalInfo[0]?.provider?.name}</h2>
-                      <p className={"text-[#38383899] mt-[11px]"}>{serverVoucher[0]?.additionalInfo[0]?.subTitles[0]?.description}</p>
+                      <h2 className={"text-[22px] font-bold text-[#383838]"}>{_.get(serverVoucher, '[0].additionalInfo[0].provider.name', '')}
+                      </h2>
+                      <p className={"text-[#38383899] mt-[11px]"}>{_.get(serverVoucher, '[0]?.additionalInfo[0].subTitles[0].description', '')}</p>
                     </div>
                     <div className={"mr-[9px]"}>
                       <Image src={ICONS.rightArrowDetails} alt={"arrow icon"}/>
@@ -428,16 +445,21 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
 
                   <div className={"flex space-x-[33px] items-center"}>
-                    {serverVoucher[0]?.additionalInfo[0]?.provider.facebookUrl && <div className={"cursor-pointer"}>
-											<Link href={serverVoucher[0]?.additionalInfo[0]?.provider.facebookUrl}
-														target={"_blank"}>
-												<Image src={ICONS.fb} alt={"fb icon"}/>
-											</Link>
-										</div>
+
+                    {_.get(serverVoucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null) &&
+												<div className={"cursor-pointer"}>
+													<Link href={_.get(serverVoucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null)}
+																target={"_blank"}>
+														<Image src={ICONS.fb} alt={"fb icon"}/>
+													</Link>
+												</div>
                     }
+
                     {
-                        serverVoucher[0]?.additionalInfo[0]?.provider.instagramUrl && <div className={"cursor-pointer"}>
-													<Link href={serverVoucher[0]?.additionalInfo[0]?.provider.instagramUrl} target={"_blank"}>
+                        _.get(serverVoucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null) &&
+												<div className={"cursor-pointer"}>
+													<Link href={_.get(serverVoucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null)}
+																target={"_blank"}>
 														<Image src={ICONS.insta} alt={"insta icon"}/>
 													</Link>
 												</div>
@@ -448,22 +470,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
                 </div>
                 {/*info*/}
                 {/*<div className={"w-full h-[1px] bg-[#d9d9d94d] my-8 "}/>*/}
-                <Tabs defaultActiveKey="1" className={"tabDescription mt-[46px]"}>
-                  <Tabs.TabPane
-                      tab={<h3 className={"capitalize text-[#383838] text-[22px] font-bold"}>offer details</h3>}
-                      key="1">
-                    <div
-                        dangerouslySetInnerHTML={{__html: serverVoucher[0]?.additionalInfo[0]?.descriptions[0]?.description}}/>
-                  </Tabs.TabPane>
-
-                  <Tabs.TabPane
-                      tab={<h3 className={"capitalize text-[#383838] text-[22px] font-bold"}>conditions</h3>}
-                      key="2">
-                    <div
-                        dangerouslySetInnerHTML={{__html: serverVoucher[0]?.additionalInfo[0].subDescriptions[0].description}}
-                    />
-                  </Tabs.TabPane>
-                </Tabs>
+                <Tabs defaultActiveKey="1" className={"tabDescription mt-[46px]"} items={items}/>
 
                 {/*Offer Details*/}
 

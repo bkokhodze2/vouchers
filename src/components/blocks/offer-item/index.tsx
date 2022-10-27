@@ -48,11 +48,11 @@ const OfferItem = ({data}: IOfferItem) => {
       <Carousel infiniteLoop showThumbs={false} swipeable={true} className={"h-[220px]"}>
 
         {
-          _.get(data, 'additionalInfo[0]?.attachments', []).length === 0 ? <div>
+          _.get(data, 'additionalInfo[0].attachments', []).length === 0 ? <div>
                 <img src={slider?.src} alt={"slider img"}
                      className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
               </div> :
-              _.get(data, 'additionalInfo[0]?.attachments', []).map((item: any, index: number) => {
+              _.get(data, 'additionalInfo[0].attachments', []).map((item: any, index: number) => {
                 return <div key={index}>
                   <img src={item?.path} alt={"slider img"}
                        className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>

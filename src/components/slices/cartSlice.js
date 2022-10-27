@@ -18,7 +18,12 @@ const cartSlice = createSlice({
 			console.log("action", action)
 
 			const existingIndex = state.cartItems.findIndex(
-					(item) => _.get(item, '[0]additionalInfo[0].genericTransactionTypeId', 1) === _.get(action, 'payload[0].additionalInfo[0].genericTransactionTypeId', 1)
+					(item) => {
+						console.log("action.payload.isPoint", action.payload.isPoint)
+						console.log("_.get(item, 'isPoint', 1)", _.get(item, 'isPoint', 1))
+
+						return (_.get(item, '[0]additionalInfo[0].genericTransactionTypeId', 1) === _.get(action, 'payload[0].additionalInfo[0].genericTransactionTypeId', 1) && action.payload.isPoint === _.get(item, 'isPoint', 1))
+					}
 			);
 
 			if (existingIndex >= 0) {
@@ -63,15 +68,20 @@ const cartSlice = createSlice({
 
 		decreaseCart(state, action) {
 			const itemIndex = state.cartItems.findIndex(
-					(item) => _.get(item, '[0]additionalInfo[0].genericTransactionTypeId', 1) === _.get(action, 'payload[0].additionalInfo[0].genericTransactionTypeId', 1)
+					(item) => {
+						return (_.get(item, '[0]additionalInfo[0].genericTransactionTypeId', 1) === _.get(action, 'payload[0].additionalInfo[0].genericTransactionTypeId', 1) && action.payload.isPoint === _.get(item, 'isPoint', 1))
+					}
 			);
 
 			if (state.cartItems[itemIndex].cartQuantity > 1) {
 				state.cartItems[itemIndex].cartQuantity -= 1;
 
 			} else if (state.cartItems[itemIndex].cartQuantity === 1) {
+
 				const nextCartItems = state.cartItems.filter(
-						(item) => _.get(item, '[0]additionalInfo[0].genericTransactionTypeId', 1) !== _.get(action, 'payload[0].additionalInfo[0].genericTransactionTypeId', 1)
+						(item) => {
+							return (_.get(item, '[0]additionalInfo[0].genericTransactionTypeId', 1) !== _.get(action, 'payload[0].additionalInfo[0].genericTransactionTypeId', 1) || action.payload.isPoint !== _.get(item, 'isPoint', 1))
+						}
 				);
 				state.cartItems = nextCartItems;
 			}
@@ -83,7 +93,9 @@ const cartSlice = createSlice({
 
 
 			const itemIndex = state.cartItems.findIndex(
-					(item) => _.get(item, '[0]additionalInfo[0].genericTransactionTypeId', 1) === _.get(action, 'payload[0].additionalInfo[0].genericTransactionTypeId', 1)
+					(item) => {
+						return (_.get(item, '[0]additionalInfo[0].genericTransactionTypeId', 1) === _.get(action, 'payload[0].additionalInfo[0].genericTransactionTypeId', 1) && action.payload.isPoint === _.get(item, 'isPoint', 1))
+					}
 			);
 
 			state.cartItems[itemIndex].isPoint = !state.cartItems[itemIndex].isPoint;
@@ -136,6 +148,7 @@ const cartSlice = createSlice({
 			total = parseFloat(total.toFixed(2));
 			state.cartTotalQuantity = quantity;
 			state.cartTotalPrice = total;
+			state.productCount = state.cartItems.length;
 		},
 		clearCart(state, action) {
 			state.cartItems = [];

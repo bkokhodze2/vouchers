@@ -234,7 +234,7 @@ const Home: NextPage = ({serverData}: any) => {
               <div className={"mt-4 grid grid-flow-row-dense grid-cols-4 gap-[30px]"}>
 
                 {
-                    !!vouchers.length && vouchers?.map((item: any, index: any) => {
+                    !!vouchers?.length && vouchers?.map((item: any, index: any) => {
                       return <OfferItem data={item} key={index}/>
                     })
                 }

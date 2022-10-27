@@ -40,9 +40,9 @@ export default function Search({serverData}: any) {
                 {/*<OfferItem/>*/}
                 {/*<OfferItem/>*/}
 
-                {serverData?.map((item: any, index: number) => {
-                  return <OfferItem data={item} key={index}/>
-                })}
+                {/*{serverData?.map((item: any, index: number) => {*/}
+                {/*  return <OfferItem data={item} key={index}/>*/}
+                {/*})}*/}
 
               </div>
             </> : <div

@@ -23,7 +23,7 @@ import {
 } from "../../components/slices/cartSlice";
 import dynamic from "next/dynamic";
 
-export default function Cart({serverData}: any) {
+export default function Cart({serverData, productCount}: any) {
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
 
@@ -45,16 +45,16 @@ export default function Cart({serverData}: any) {
   const handleRemoveFromCart = (product: any) => {
     dispatch(removeFromCart(product));
   };
-  const handleClearCart = () => {
-    dispatch(clearCart({}));
+  const getProductCount = () => {
+    return cart.cartItems.length;
   };
 
 
   return (
       <>
         <Head>
-          <title>details page</title>
-          <meta name="description" content="Company"/>
+          <title>cart page</title>
+          <meta name="description" content="cart"/>
         </Head>
 
         <div className={"bg-[white] flex flex-col flex-1"}>
@@ -67,7 +67,7 @@ export default function Cart({serverData}: any) {
               <div className={"flex items-center"}>
                 <p className={"text-[#383838] text-[28px] font-bold relative after:content-[''] after:h-[20px] after:top-[12px] after:bg-[#38383833] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500"}>
                   My cart</p>
-                <p className={"text-[#38383899] text-base ml-[25px]"}>{cart?.cartItems?.length} products</p>
+                <p className={"text-[#38383899] text-base ml-[25px]"}>{cart?.productCount} products</p>
               </div>
               {/*head*/}
 
@@ -95,7 +95,7 @@ export default function Cart({serverData}: any) {
 
                   <div className={"flex items-center w-full justify-between mt-6"}>
                     <p className={"text-[22px] text-[#38383899]"}>Number of vouchers</p>
-                    <p className={"text-[22px] text-[#38383899] font-[500]"}>{cart.cartTotalQuantity}</p>
+                    <p className={"text-[22px] text-[#38383899] font-[500]"}>{cart?.cartTotalQuantity}</p>
                   </div>
 
                   <div className={"h-[1px] w-full bg-[#38383833] rounded-xl mt-12 mb-[30px]"}/>
@@ -131,19 +131,10 @@ Cart.getLayout = function getLayout(page: any) {
   )
 }
 
-export async function getServerSideProps({query}: any) {
-  const baseApi = process.env.baseApi;
-
-
-  // const response = await fetch(`${baseApi}/company/${query.slug}`);
-
-  // const data = await response.json();
-  // let serverData = data.data;
-  let serverData = [1, 2, 3];
-
+export async function getStaticProps({}) {
   return {
-    props: {
-      serverData,
-    },
-  };
+    props: {}, // will be passed to the page component as props
+  }
 }
+
+
