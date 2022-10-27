@@ -6,7 +6,9 @@ import Quantity from "../../../UI/quantity";
 import Lari from "../../../../../public/images/icons/lari";
 import {IMAGES} from "../../../../../public/images";
 import _ from "lodash";
-import {removeFromCart} from "../../../slices/cartSlice";
+import {removeFromCart, changeIsPoint} from "../../../slices/cartSlice";
+
+
 import {useDispatch} from "react-redux";
 
 interface ICartItem {
@@ -19,12 +21,16 @@ interface ICartItem {
 
 const CartItem = ({data, getCount}: any) => {
 
-  console.log(data)
+  console.log("cartdata", _.get(data, '[0].entries[0].entryAmount', 0))
 
   const dispatch = useDispatch();
 
   const handleRemoveFromCart = (product: any) => {
     dispatch(removeFromCart(product));
+  };
+
+  const changePoint = (product: any) => {
+    dispatch(changeIsPoint(product));
   };
 
   const [isChecked, setIsChecked] = useState<boolean>(false);
@@ -43,21 +49,32 @@ const CartItem = ({data, getCount}: any) => {
 
           <div className={"mt-[28px] flex justify-between items-end"}>
             <div className={"flex items-center"}>
-              <Quantity getCount={getCount} data={data} currentQuantity={data.cartQuantity}/>
+              <Quantity getCount={getCount} data={data} currentQuantity={data.cartQuantity} isPoint={isChecked}/>
               <div className={"flex flex-col items-center justify-center ml-8"}>
                 <p className={"text-[14px] text-[#383838b3] text-center whitespace-nowrap"}>Total price</p>
-                <div className={"flex items-center"}><Lari color={"#E35A43"}/><p
-                    className={"text-[#E35A43] text-[18px] ml-[5px]"}>{_.get(data, '[0]additionalInfo[0].servicePrice', 0) * data.cartQuantity}
-                </p>
+                <div className={"flex items-center"}>
+
+                  {
+                    data.isPoint ? <p
+                        className={"text-[#E35A43] text-[18px] ml-[5px]"}>
+                      <span className={"mr-1"}>P</span>
+                      {_.get(data, '[0].entries[0].entryAmount', 0) * _.get(data, '[0].entries[0].multiplier', 0) * data.cartQuantity}
+                    </p> : <>
+                      <Lari color={"#E35A43"}/><p
+                        className={"text-[#E35A43] text-[18px] ml-[5px]"}>{_.get(data, '[0].entries[0].entryAmount', 0) * data.cartQuantity}
+                    </p>
+                    </>
+                  }
+
                 </div>
               </div>
-              <div onClick={() => setIsChecked(!isChecked)}
+              <div onClick={() => changePoint(data)}
                    className={"w-[58px] min-w-[58px] h-[28px] rounded-[100px] ml-[40px] bg-[#3838381a] relative flex items-center p-[2px] cursor-pointer justify-between"}>
-                <p style={{color: isChecked ? '#FFFFFF' : '#383838'}}
+                <p style={{color: data.isPoint ? '#FFFFFF' : '#383838'}}
                    className={"z-10 text-[14px] font-bold transition ml-[10px] pb-[2px]"}>p</p>
-                <div style={{left: isChecked ? "2px" : "25px", transition: "0.2s"}}
+                <div style={{left: data.isPoint ? "2px" : "25px", transition: "0.2s"}}
                      className={"absolute left-[2px] transition duration-200 w-[30px] h-[24px] bg-[#E35A43] rounded-[40px]"}/>
-                <Lari color={`${isChecked ? '#383838' : '#FFFFFF'}`} classes={"z-10 mr-[8px]"}/>
+                <Lari color={`${data.isPoint ? '#383838' : '#FFFFFF'}`} classes={"z-10 mr-[8px]"}/>
               </div>
 
             </div>

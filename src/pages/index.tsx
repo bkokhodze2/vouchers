@@ -20,6 +20,8 @@ const Home: NextPage = ({serverData}: any) => {
   const baseApi = process.env.baseApi;
   const [categories, setCategories] = useState<[any]>([{}]);
 
+  console.log("serverData", serverData)
+
   // useEffect(() => {
   //   setVouchers(serverData);
   // }, [])

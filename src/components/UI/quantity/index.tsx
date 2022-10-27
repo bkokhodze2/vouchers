@@ -10,13 +10,27 @@ import {
 } from "../../slices/cartSlice";
 import {notification} from "antd";
 
+interface IQuantity {
+  getCount: any,
+  currentQuantity: number,
+  data: any,
+  isPoint: boolean
+}
 
-function Quantity({getCount, currentQuantity, data}: any) {
+function Quantity({getCount, currentQuantity, data, isPoint}: IQuantity) {
   const dispatch = useDispatch();
 
   const [quantity, setQuantity] = useState<number>(currentQuantity)
 
   const handleAddToCart = (product: any) => {
+
+    console.log(product)
+
+    // let obj = {
+    //   ...product,isPoint
+    // }
+
+
     dispatch(addToCart(product));
 
     notification['success']({
@@ -26,6 +40,8 @@ function Quantity({getCount, currentQuantity, data}: any) {
   };
 
   const handleDecreaseCart = (product: any) => {
+    console.log("ispoint", isPoint)
+
     dispatch(decreaseCart(product));
 
     notification['success']({
@@ -39,7 +55,7 @@ function Quantity({getCount, currentQuantity, data}: any) {
 
   return (
       <div className={"rounded-xl bg-[#EEEEEE] h-[48px] w-full flex items-center"}>
-        <div className={"rounded-[10px] bg-[white] h-full w-full py-1 flex items-center"}>
+        <div className={"rounded-[10px] bg-[white] h-full w-full py-1 px-[10px] flex items-center"}>
           <div onClick={() => handleDecreaseCart(data)}
                className={"cursor-pointer rounded-[50%] h-6 w-6 flex items-center justify-center"}>
             <div className={"min-w-[12.5px] h-[1.5px] rounded bg-[#EEEEEE]"}/>

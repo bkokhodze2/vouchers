@@ -97,7 +97,7 @@ const OfferItem = ({data}: IOfferItem) => {
               <p className={"font-bold text-[#E35A43] text-[21px] flex items-center"}>
                 <Lari color={"#E35A43"}
                       classes={"mr-[5px]"}/>
-                {_.get(data, 'additionalInfo[0].servicePrice', 0)}
+                {_.get(data, 'entries[0].entryAmount', 0)}
               </p>
               <p className={"text-[#7B92DC] text-sm "}>
                 <span

@@ -61,17 +61,20 @@ const Header: React.FC = () => {
   }, [chosenCategory?.categoryId])
 
 
-
   useEffect(() => {
-    const getData = setTimeout(() => {
-      setIsLoading(true)
-      axios
-          .get(`${baseApi}/vouchers?contractId=662&name=${term}`)
-          .then((res) => {
-            setFindData(res.data)
-            setIsLoading(false)
-          });
-    }, 500)
+    let getData: any;
+    if (term) {
+      getData = setTimeout(() => {
+        setIsLoading(true)
+        axios
+            .get(`${baseApi}/vouchers?contractId=662&name=${term}`)
+            .then((res) => {
+              setFindData(res.data)
+              setIsLoading(false)
+            });
+      }, 500)
+    }
+
 
     return () => clearTimeout(getData)
   }, [term])

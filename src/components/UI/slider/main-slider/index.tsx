@@ -16,7 +16,6 @@ import {Pagination, Navigation} from "swiper";
 
 export default function Slider() {
 
-
   return (
       <>
         <Swiper
