@@ -8,7 +8,8 @@ const nextConfig = {
 	},
 	env: {
 		basePath: "http://accounting.pirveli.ge/api",
-		baseApi: "http://accounting.pirveli.ge/api/racoon-transactions",
+		// baseApi: "http://accounting.pirveli.ge/api/racoon-transactions",
+		baseApi: "https://vouchers.pirveli.ge/api/racoon-transactions",
 	}
 }
 

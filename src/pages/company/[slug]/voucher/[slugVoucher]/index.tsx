@@ -51,7 +51,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
   const baseApi = process.env.baseApi;
 
-  console.log("cart", cart)
+  console.log("serverVoucher", serverVoucher)
 
   const handleAddToCart = (product: any) => {
     product.quantity = quantity;
@@ -335,7 +335,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
                     <div className={"flex-1 flex-col"}>
                       <h2 className={"text-[22px] font-bold text-[#383838]"}>{_.get(serverVoucher, '[0].additionalInfo[0].provider.name', '')}
                       </h2>
-                      <p className={"text-[#38383899] mt-[11px]"}>{_.get(serverVoucher, '[0]?.additionalInfo[0].subTitles[0].description', '')}</p>
+                      <p className={"text-[#38383899] mt-[11px]"}>{_.get(serverVoucher, '[0].additionalInfo[0].subTitles[0].description', '')}</p>
                     </div>
                     <div className={"mr-[9px]"}>
                       <Image src={ICONS.rightArrowDetails} alt={"arrow icon"}/>
