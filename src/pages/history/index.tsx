@@ -208,7 +208,8 @@ History.getLayout = function getLayout(page: any) {
 export async function getServerSideProps({query}: any) {
 
   const baseApi = process.env.baseApi;
-  const response = await fetch(`${baseApi}/vouchers?contractId=662&providerId=${63}`);
+  // const response = await fetch(`${baseApi}/vouchers?contractId=662&providerId=${63}`);
+  const response = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662&providerId=${63}`);
   const serverData = await response.json();
 
   return {

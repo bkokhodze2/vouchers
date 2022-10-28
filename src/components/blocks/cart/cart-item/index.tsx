@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 // @ts-ignore
 import {ICONS} from "public/images";
 import Image from "next/image";
@@ -9,7 +9,7 @@ import _ from "lodash";
 import {removeFromCart, changeIsPoint} from "../../../slices/cartSlice";
 
 
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 interface ICartItem {
   id?: number,
@@ -20,8 +20,32 @@ interface ICartItem {
 }
 
 const CartItem = ({data, getCount}: any) => {
+  const cart = useSelector((state: any) => state.cart);
 
-  console.log("cartdata", _.get(data, '[0].entries[0].entryAmount', 0))
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+
+  console.log("cartData", data);
+
+  console.log("cart", cart)
+
+
+  useEffect(() => {
+
+
+    cart.cartItems.map((elem: any, index: number) => {
+
+
+      if (_.get(elem, '[0].additionalInf[0].genericTransactionTypeId', 0) === _.get(data, '[0].additionalInf[0].genericTransactionTypeId', 0)) {
+
+        // alert("axlll")
+        console.log("_.get(elem, '[0].additionalInf[0].genericTransactionTypeId', 0)", _.get(elem, '[0].additionalInf[0].genericTransactionTypeId', 0))
+
+      }
+    })
+
+    setIsDisabled(true)
+
+  }, [])
 
   const dispatch = useDispatch();
 
@@ -72,7 +96,11 @@ const CartItem = ({data, getCount}: any) => {
                    className={"w-[58px] min-w-[58px] h-[28px] rounded-[100px] ml-[40px] bg-[#3838381a] relative flex items-center p-[2px] cursor-pointer justify-between"}>
                 <p style={{color: data.isPoint ? '#FFFFFF' : '#383838'}}
                    className={"z-10 text-[14px] font-bold transition ml-[10px] pb-[2px]"}>p</p>
-                <div style={{left: data.isPoint ? "2px" : "25px", transition: "0.2s"}}
+                <div style={{
+                  left: data.isPoint ? "2px" : "25px",
+                  transition: "0.2s",
+                  backgroundColor: isDisabled ? "black" : "#E35A43"
+                }}
                      className={"absolute left-[2px] transition duration-200 w-[30px] h-[24px] bg-[#E35A43] rounded-[40px]"}/>
                 <Lari color={`${data.isPoint ? '#383838' : '#FFFFFF'}`} classes={"z-10 mr-[8px]"}/>
               </div>
