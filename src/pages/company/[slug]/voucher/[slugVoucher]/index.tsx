@@ -83,10 +83,10 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
   // let slug = Router?.query.slug.replaceAll('-', ' ');
 
-  useEffect(() => {
-    axios(`${baseApi}/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`).then((res) => {
-    })
-  }, [])
+  // useEffect(() => {
+  //   axios(`${baseApi}/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`).then((res) => {
+  //   })
+  // }, [])
 
   const getCount = (count: number) => {
   }
@@ -526,14 +526,16 @@ Details.getLayout = function getLayout(page: any) {
 export async function getServerSideProps({query}: any) {
   const baseApi = process.env.baseApi;
 
+  console.log("baseAapi", baseApi)
 
   let slugVoucher = query.slugVoucher?.replaceAll('-', ' ');
   let slug = query.slug?.replaceAll('-', ' ');
 
-  // const responseVoucher = await fetch(`${baseApi}/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`);
-  // const responseAll = await fetch(`${baseApi}/vouchers?contractId=662`);
-  const responseVoucher = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`);
-  const responseAll = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662`);
+  const responseVoucher = await fetch(`${baseApi}/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`);
+  const responseAll = await fetch(`${baseApi}/vouchers?contractId=662`);
+
+  // const responseVoucher = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`);
+  // const responseAll = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662`);
 
   const serverVoucher = await responseVoucher.json();
   const serverOffer = await responseAll.json();

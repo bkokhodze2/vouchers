@@ -128,7 +128,19 @@ const cartSlice = createSlice({
 
 		},
 		getTotals(state, action) {
-			let {total, quantity} = state.cartItems.reduce(
+
+			let filteredPrice = state.cartItems.filter((e) => {
+				return e.isPoint === false
+			})
+
+			let filteredPoints = state.cartItems.filter((e) => {
+				return e.isPoint === true
+			})
+
+
+			console.log("filteredPrice", filteredPrice)
+
+			let {total, quantity} = filteredPrice.reduce(
 					(cartTotal, cartItem) => {
 
 						const price = _.get(cartItem, '[0].entries[0].entryAmount', 1)
@@ -145,11 +157,38 @@ const cartSlice = createSlice({
 						quantity: 0,
 					}
 			);
+
+		//for point
+
+			let {totalPoint, quantityPoint} = filteredPoints.reduce(
+					(cartTotal, cartItem) => {
+
+						const price = _.get(cartItem, '[0].entries[0].entryAmount', 0) * _.get(cartItem, '[0].entries[0].multiplier', 0)
+
+						const cartQuantity = cartItem.cartQuantity;
+
+						const itemTotal = price * cartQuantity;
+
+						cartTotal.totalPoint += itemTotal;
+						cartTotal.quantityPoint += cartQuantity;
+
+						return cartTotal;
+					},
+					{
+						totalPoint: 0,
+						quantityPoint: 0,
+					}
+			);
+
+
 			total = parseFloat(total.toFixed(2));
 			state.cartTotalQuantity = quantity;
 			state.cartTotalPrice = total;
+			state.totalPoint = totalPoint;
 			state.productCount = state.cartItems.length;
+
 		},
+
 		clearCart(state, action) {
 			state.cartItems = [];
 			typeof window !== 'undefined' && localStorage.setItem("cartItems", JSON.stringify(state.cartItems));

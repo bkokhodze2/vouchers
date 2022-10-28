@@ -154,8 +154,8 @@ export async function getServerSideProps({query}: any) {
   let slug = query.slug?.replaceAll('-', ' ');
 
 
-  // const responseVoucher = await fetch(`${baseApi}/vouchers?contractId=662&providerName=${slug}`);
-  const responseVoucher = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662&providerName=${slug}`);
+  const responseVoucher = await fetch(`${baseApi}/vouchers?contractId=662&providerName=${slug}`);
+  // const responseVoucher = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662&providerName=${slug}`);
   const serverVoucher = await responseVoucher.json();
 
   // let serverData = [1, 2, 3];
