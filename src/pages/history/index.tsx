@@ -3,18 +3,31 @@ import Head from 'next/head'
 // @ts-ignore
 import {IMAGES, ICONS} from "public/images";
 import Image from "next/image";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Button from "../../components/UI/button";
 import Rate from "antd/lib/rate";
 import {Form, Modal, Input} from "antd";
+import axios from "axios";
 
 
 export default function History({serverData}: any) {
-  const [vouchers, setVouchers] = useState<[]>(serverData);
+  const baseApi = process.env.baseApi;
+
+  const [vouchers, setVouchers] = useState<[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const [commentForm] = Form.useForm();
   const {TextArea} = Input;
+
+
+  useEffect(() => {
+      axios.get(`${baseApi}/vouchers?contractId=662&providerId=${63}`).then((res) => {
+        setVouchers(res.data)
+      })
+
+
+  }, [])
+
 
   const handleCancel = () => {
     commentForm.resetFields();
@@ -205,16 +218,4 @@ History.getLayout = function getLayout(page: any) {
   )
 }
 
-export async function getServerSideProps({query}: any) {
 
-  const baseApi = process.env.baseApi;
-  // const response = await fetch(`${baseApi}/vouchers?contractId=662&providerId=${63}`);
-  const response = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662&providerId=${63}`);
-  const serverData = await response.json();
-
-  return {
-    props: {
-      serverData,
-    },
-  };
-}

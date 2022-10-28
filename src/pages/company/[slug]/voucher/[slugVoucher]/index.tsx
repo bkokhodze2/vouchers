@@ -1,9 +1,7 @@
-import type {NextPage} from 'next'
 import Layout from "../../../../../components/layouts/user-layout"
 import Head from 'next/head'
 import {notification} from 'antd';
 
-import type {CheckboxChangeEvent} from 'antd/es/checkbox';
 // @ts-ignore
 import {IMAGES, ICONS} from "public/images";
 import Image from "next/image";
@@ -15,7 +13,6 @@ import Watch from "../../../../../../public/images/icons/watch";
 import Location from "../../../../../../public/images/icons/location";
 import InStock from "../../../../../components/UI/in-stock";
 import Button from "../../../../../components/UI/button";
-import Quantity from "../../../../../components/UI/quantity";
 import Tabs from "antd/lib/tabs";
 import Link from "next/link";
 import axios from "axios";
@@ -38,20 +35,40 @@ const CountDown = dynamic(
     {ssr: false}
 )
 
-
 export default function Details({serverOffer, serverVoucher}: any) {
-  const Router = useRouter();
-  const cart = useSelector((state: any) => state.cart);
-  const dispatch = useDispatch();
-
-  const [checked, setChecked] = useState(true);
-  const [isWithMoney, setIsWithMoney] = useState(true);
-
-  const [quantity, setQuantity] = useState<number>(1)
-
   const baseApi = process.env.baseApi;
 
-  console.log("serverVoucher", serverVoucher)
+  const [vouchers, setVouchers] = useState<[]>([]);
+  const [voucher, setVoucher] = useState<any>([]);
+
+  const dispatch = useDispatch();
+  const Router = useRouter();
+
+  // @ts-ignore
+  let slugVoucher = Router?.query.slugVoucher?.replaceAll('-', ' ');
+  // @ts-ignore
+  let slug = Router?.query.slug?.replaceAll('-', ' ');
+
+  console.log("slugVoucher", slugVoucher)
+
+  const [isWithMoney, setIsWithMoney] = useState(true);
+  const [quantity, setQuantity] = useState<number>(1)
+
+  useEffect(() => {
+
+    if (slugVoucher && slug) {
+      axios.get(`${baseApi}/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`).then((res) => {
+        setVoucher(res.data)
+
+      })
+
+      axios.get(`${baseApi}/vouchers?contractId=662`).then((res) => {
+        setVouchers(res.data)
+      })
+
+    }
+
+  }, [slugVoucher, slug])
 
   const handleAddToCart = (product: any) => {
     product.quantity = quantity;
@@ -67,29 +84,6 @@ export default function Details({serverOffer, serverVoucher}: any) {
     });
 
   };
-
-  const handleDecreaseCart = (product: any) => {
-    dispatch(decreaseCart(product));
-  };
-
-  const handleClearCart = () => {
-    dispatch(clearCart({}));
-  };
-
-  // @ts-ignore
-  let slugVoucher = Router?.query.slugVoucher?.replaceAll('-', ' ');
-  // @ts-ignore
-  let slug = Router?.query.slug?.replaceAll('-', ' ');
-
-  // let slug = Router?.query.slug.replaceAll('-', ' ');
-
-  useEffect(() => {
-    axios(`${baseApi}/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`).then((res) => {
-    })
-  }, [])
-
-  const getCount = (count: number) => {
-  }
 
   const RightSide = () => {
 
@@ -131,8 +125,8 @@ export default function Details({serverOffer, serverVoucher}: any) {
               <div className={"flex flex-nowrap items-center"}>
                 {
                   isWithMoney ?
-                      <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>$ {serverVoucher[0]?.entries[0]?.entryAmount}</p> :
-                      <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>{serverVoucher[0]?.entries[0]?.entryAmount * serverVoucher[0]?.entries[0]?.multiplier}</p>
+                      <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>$ {voucher[0]?.entries[0]?.entryAmount}</p> :
+                      <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>{voucher[0]?.entries[0]?.entryAmount * voucher[0]?.entries[0]?.multiplier}</p>
                 }
 
                 {/*<p className={"ml-3 text-base text-[#38383899] whitespace-nowrap line-through"}>200 $</p>*/}
@@ -220,11 +214,11 @@ export default function Details({serverOffer, serverVoucher}: any) {
           <div className={""}>
             <div className={"flex mt-[34px] bg-[white] p-6 rounded-xl col-span-2"}>
               <p className={"text-purple text-base font-[500] mr-5"}>
-                <CountDown data={serverVoucher[0]?.additionalInfo[0]?.useEndDate}/>
+                <CountDown data={voucher[0]?.additionalInfo[0]?.useEndDate}/>
               </p>
 
-              <InStock max={serverVoucher[0]?.additionalInfo[0]?.limitQuantity}
-                       current={serverVoucher[0]?.additionalInfo[0]?.soldQuantity}/>
+              <InStock max={voucher[0]?.additionalInfo[0]?.limitQuantity}
+                       current={voucher[0]?.additionalInfo[0]?.soldQuantity}/>
             </div>
             {/*{*/}
             {/*    checked && <div className={"grid grid-cols-2 grid-rows-2 gap-1 gap-x-[30px] gap-y-6 mt-[22px]"}>*/}
@@ -281,7 +275,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
               <Image src={ICONS.cart} className={"cursor-pointer"} alt={"cart icon"}/>
             </div>
             <p className={"ml-3 text-base text-[#383838] whitespace-nowrap"}
-               onClick={() => handleAddToCart(serverVoucher)}>Add to Cart</p>
+               onClick={() => handleAddToCart(voucher)}>Add to Cart</p>
           </div>
         </div>
         {/* buy & cart buttons*/}
@@ -296,13 +290,13 @@ export default function Details({serverOffer, serverVoucher}: any) {
       label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold"}>offer details</h3>,
       key: 'item-1',
       children: <div
-          dangerouslySetInnerHTML={{__html: serverVoucher[0]?.additionalInfo[0]?.descriptions[0]?.description}}/>
+          dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0]?.descriptions[0]?.description}}/>
     },
     {
       label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold"}>conditions</h3>,
       key: 'item-2',
       children: <div
-          dangerouslySetInnerHTML={{__html: serverVoucher[0]?.additionalInfo[0].subDescriptions[0].description}}
+          dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0].subDescriptions[0].description}}
       />
     },
   ];
@@ -326,16 +320,16 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
               {/*left side*/}
               <div className={"h-full col-span-2 "}>
-                <Link href={`/company/${_.get(serverVoucher, '[0].additionalInfo[0].provider.name', '')}`}>
+                <Link href={`/company/${_.get(voucher, '[0].additionalInfo[0].provider.name', '')}`}>
                   <div
                       className={"flex justify-between w-full p-6 rounded-xl items-center bg-[white] cursor-pointer"}>
                     <div className={"mr-4 flex justify-center items-center"}>
                       <Image src={IMAGES.detailsImg} height={60} width={60} alt={"image"}/>
                     </div>
                     <div className={"flex-1 flex-col"}>
-                      <h2 className={"text-[22px] font-bold text-[#383838]"}>{_.get(serverVoucher, '[0].additionalInfo[0].provider.name', '')}
+                      <h2 className={"text-[22px] font-bold text-[#383838]"}>{_.get(voucher, '[0].additionalInfo[0].provider.name', '')}
                       </h2>
-                      <p className={"text-[#38383899] mt-[11px]"}>{_.get(serverVoucher, '[0].additionalInfo[0].subTitles[0].description', '')}</p>
+                      <p className={"text-[#38383899] mt-[11px]"}>{_.get(voucher, '[0].additionalInfo[0].subTitles[0].description', '')}</p>
                     </div>
                     <div className={"mr-[9px]"}>
                       <Image src={ICONS.rightArrowDetails} alt={"arrow icon"}/>
@@ -348,11 +342,11 @@ export default function Details({serverOffer, serverVoucher}: any) {
                 <div className={"flex justify-between mt-5"}>
 
                   {/*phone number*/}
-                  {serverVoucher[0]?.additionalInfo[0]?.provider?.providerContacts[0]?.value &&
+                  {voucher[0]?.additionalInfo[0]?.provider?.providerContacts[0]?.value &&
 											<div className={"group flex items-center relative"}>
 												<Phone classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
 												<p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>
-                          {serverVoucher[0]?.additionalInfo[0]?.provider?.providerContacts[0]?.value}</p>
+                          {voucher[0]?.additionalInfo[0]?.provider?.providerContacts[0]?.value}</p>
 												<div
 														className={"group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
 													<Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>
@@ -419,12 +413,12 @@ export default function Details({serverOffer, serverVoucher}: any) {
                   {/*working hours*/}
 
                   {/*location dropdown*/}
-                  {serverVoucher[0]?.additionalInfo[0]?.provider?.providerAddresses[0]?.value &&
+                  {voucher[0]?.additionalInfo[0]?.provider?.providerAddresses[0]?.value &&
 											<div className={"group flex items-center relative"}>
 												<Location classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
 
 												<p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>
-                          {serverVoucher[0]?.additionalInfo[0]?.provider?.providerAddresses[0]?.value}
+                          {voucher[0]?.additionalInfo[0]?.provider?.providerAddresses[0]?.value}
 												</p>
 												<div
 														className={"group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
@@ -446,9 +440,9 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
                   <div className={"flex space-x-[33px] items-center"}>
 
-                    {_.get(serverVoucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null) &&
+                    {_.get(voucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null) &&
 												<div className={"cursor-pointer"}>
-													<Link href={_.get(serverVoucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null)}
+													<Link href={_.get(voucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null)}
 																target={"_blank"}>
 														<Image src={ICONS.fb} alt={"fb icon"}/>
 													</Link>
@@ -456,9 +450,9 @@ export default function Details({serverOffer, serverVoucher}: any) {
                     }
 
                     {
-                        _.get(serverVoucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null) &&
+                        _.get(voucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null) &&
 												<div className={"cursor-pointer"}>
-													<Link href={_.get(serverVoucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null)}
+													<Link href={_.get(voucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null)}
 																target={"_blank"}>
 														<Image src={ICONS.insta} alt={"insta icon"}/>
 													</Link>
@@ -500,7 +494,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
               <div className={"container m-auto"}>
                 <h1 className={"text-[28px] text-[#383838] font-bold"}>Recommended</h1>
                 <div className={"mt-4"}>
-                  <OfferSlider data={serverOffer}/>
+                  <OfferSlider data={vouchers}/>
                 </div>
               </div>
             </div>
@@ -523,27 +517,29 @@ Details.getLayout = function getLayout(page: any) {
 }
 
 
-export async function getServerSideProps({query}: any) {
-  const baseApi = process.env.baseApi;
-
-
-  let slugVoucher = query.slugVoucher?.replaceAll('-', ' ');
-  let slug = query.slug?.replaceAll('-', ' ');
-
-  // const responseVoucher = await fetch(`${baseApi}/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`);
-  // const responseAll = await fetch(`${baseApi}/vouchers?contractId=662`);
-  const responseVoucher = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`);
-  const responseAll = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662`);
-
-  const serverVoucher = await responseVoucher.json();
-  const serverOffer = await responseAll.json();
-
-  // let serverData = [1, 2, 3];
-
-  return {
-    props: {
-      serverVoucher,
-      serverOffer
-    },
-  };
-}
+// export async function getServerSideProps({query}: any) {
+//   const baseApi = process.env.baseApi;
+//
+//   console.log("baseAapi", baseApi)
+//
+//   let slugVoucher = query.slugVoucher?.replaceAll('-', ' ');
+//   let slug = query.slug?.replaceAll('-', ' ');
+//
+//   const responseVoucher = await fetch(`${baseApi}/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`);
+//   const responseAll = await fetch(`${baseApi}/vouchers?contractId=662`);
+//
+//   // const responseVoucher = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`);
+//   // const responseAll = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662`);
+//
+//   const serverVoucher = await responseVoucher.json();
+//   const serverOffer = await responseAll.json();
+//
+//   // let serverData = [1, 2, 3];
+//
+//   return {
+//     props: {
+//       serverVoucher,
+//       serverOffer
+//     },
+//   };
+// }

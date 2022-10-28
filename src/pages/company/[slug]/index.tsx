@@ -3,18 +3,33 @@ import Head from 'next/head'
 // @ts-ignore
 import {IMAGES, ICONS} from "public/images";
 import Image from "next/image";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import OfferItem from "../../../components/blocks/offer-item";
 import {detailsImg} from "../../../../public/images/images";
 import Location from "../../../../public/images/icons/location";
 import Phone from "../../../../public/images/icons/phone";
 import Link from "next/link";
 import quantity from "../../../components/UI/quantity";
+import {useRouter} from "next/router";
+import axios from "axios";
 
 
-export default function Company({serverVoucher}: any) {
+export default function Company() {
+  const baseApi = process.env.baseApi;
+  const Router = useRouter();
+  const [voucher, setVoucher] = useState<any>([]);
 
-  const [vouchers, setVouchers] = useState<[]>(serverVoucher)
+  // @ts-ignore
+  let slug = Router?.query.slug?.replaceAll('-', ' ');
+
+  useEffect(() => {
+    if (slug) {
+      axios.get(`${baseApi}/vouchers?contractId=662&providerName=${slug}`).then((res) => {
+        setVoucher(res.data)
+      })
+    }
+
+  }, [slug])
 
 
   return (
@@ -40,21 +55,21 @@ export default function Company({serverVoucher}: any) {
                   </div>
                 </div>
                 <div className={"pt-[60px] px-6 pb-4 bg-[#d9d9d933] rounded-b-xl"}>
-                  <p className={"text-[22px] font-bold text-[#383838] text-center"}>{serverVoucher[0]?.additionalInfo[0]?.provider.name}</p>
+                  <p className={"text-[22px] font-bold text-[#383838] text-center"}>{voucher[0]?.additionalInfo[0]?.provider.name}</p>
                   <div className={"flex space-x-[33px] items-center justify-center mt-6"}>
 
                     <div className={"flex space-x-[33px] items-center"}>
-                      {serverVoucher[0]?.additionalInfo[0]?.provider.facebookUrl && <div className={"cursor-pointer"}>
-												<Link href={serverVoucher[0]?.additionalInfo[0]?.provider.facebookUrl}
+                      {voucher[0]?.additionalInfo[0]?.provider.facebookUrl && <div className={"cursor-pointer"}>
+												<Link href={voucher[0]?.additionalInfo[0]?.provider.facebookUrl}
 															target={"_blank"}>
 													<Image src={ICONS.fb} alt={"fb icon"}/>
 												</Link>
 											</div>
                       }
                       {
-                          serverVoucher[0]?.additionalInfo[0]?.provider.instagramUrl &&
+                          voucher[0]?.additionalInfo[0]?.provider.instagramUrl &&
 													<div className={"cursor-pointer"}>
-														<Link href={serverVoucher[0]?.additionalInfo[0]?.provider.instagramUrl} target={"_blank"}>
+														<Link href={voucher[0]?.additionalInfo[0]?.provider.instagramUrl} target={"_blank"}>
 															<Image src={ICONS.insta} alt={"insta icon"}/>
 														</Link>
 													</div>
@@ -64,17 +79,17 @@ export default function Company({serverVoucher}: any) {
                   </div>
 
                   <div className={"w-full mt-[28px] bg-[white] px-6 rounded-xl divide-y divide-[#d9d9d94d]"}>
-                    {serverVoucher[0]?.additionalInfo[0]?.provider?.providerAddresses[0]?.value &&
+                    {voucher[0]?.additionalInfo[0]?.provider?.providerAddresses[0]?.value &&
 												<div className={"flex py-[18px]"}>
 													<Location classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
-													<p className={"ml-2 text-base text-[#383838]"}>{serverVoucher[0]?.additionalInfo[0]?.provider?.providerAddresses[0]?.value}</p>
+													<p className={"ml-2 text-base text-[#383838]"}>{voucher[0]?.additionalInfo[0]?.provider?.providerAddresses[0]?.value}</p>
 												</div>}
 
-                    {serverVoucher[0]?.additionalInfo[0]?.provider?.providerContacts[0]?.value &&
+                    {voucher[0]?.additionalInfo[0]?.provider?.providerContacts[0]?.value &&
 												<div className={"flex py-[18px]"}>
 													<Phone classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
 													<a href="tel:+995 599 99 99 63"
-														 className={"ml-2 text-base text-[#383838]"}>{serverVoucher[0]?.additionalInfo[0]?.provider?.providerContacts[0]?.value}</a>
+														 className={"ml-2 text-base text-[#383838]"}>{voucher[0]?.additionalInfo[0]?.provider?.providerContacts[0]?.value}</a>
 												</div>}
                   </div>
 
@@ -124,7 +139,7 @@ export default function Company({serverVoucher}: any) {
               <div className={"grid grid-flow-row-dense grid-cols-3 gap-[30px] gap-y-[40px]"}>
 
                 {
-                  vouchers.map((item: any, index: number) => {
+                  voucher.map((item: any, index: number) => {
                     return <OfferItem data={item} key={index}/>
                   })
                 }
@@ -148,21 +163,20 @@ Company.getLayout = function getLayout(page: any) {
   )
 }
 
-export async function getServerSideProps({query}: any) {
-  const baseApi = process.env.baseApi;
-
-  let slug = query.slug?.replaceAll('-', ' ');
-
-
-  // const responseVoucher = await fetch(`${baseApi}/vouchers?contractId=662&providerName=${slug}`);
-  const responseVoucher = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662&providerName=${slug}`);
-  const serverVoucher = await responseVoucher.json();
-
-  // let serverData = [1, 2, 3];
-
-  return {
-    props: {
-      serverVoucher,
-    },
-  };
-}
+// export async function getServerSideProps({query}: any) {
+//   const baseApi = process.env.baseApi;
+//
+//   let slug = query.slug?.replaceAll('-', ' ');
+//
+//   const responseVoucher = await fetch(`${baseApi}/vouchers?contractId=662&providerName=${slug}`);
+//   // const responseVoucher = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662&providerName=${slug}`);
+//   const serverVoucher = await responseVoucher.json();
+//
+//   // let serverData = [1, 2, 3];
+//
+//   return {
+//     props: {
+//       serverVoucher,
+//     },
+//   };
+// }

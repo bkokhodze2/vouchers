@@ -85,7 +85,7 @@ export default function Cart({serverData, productCount}: any) {
             <div className={"h-full"}>
               <h5 className={"text-[#383838] text-[28px] font-bold "}>Order</h5>
 
-              <div className={"sticky top-[130px] max-h-[383px] overflow-scroll rounded-xl"}>
+              <div className={"sticky top-[130px] max-h-[500px] overflow-scroll rounded-xl"}>
                 <div className={"rounded-xl bg-[#F7F7F7] px-6 mt-4 pt-[30px] pb-[54px]"}>
 
                   <div className={"flex items-center w-full justify-between"}>
@@ -101,12 +101,22 @@ export default function Cart({serverData, productCount}: any) {
                   <div className={"h-[1px] w-full bg-[#38383833] rounded-xl mt-12 mb-[30px]"}/>
 
                   <div className={"flex justify-between"}>
-                    <p className={"text-[#383838] text-[28px] font-bold "}>Total</p>
+                    <p className={"text-[#383838] text-[28px] font-bold "}>Total Price</p>
                     <div className={"flex items-center"}>
                       <Lari color={"#E35A43"} height={18} width={18}/>
                       <p className={"text-[22px] text-[#E35A43]"}>{cart.cartTotalPrice}</p>
                     </div>
                   </div>
+
+                  <div className={"flex justify-between"}>
+                    <p className={"text-[#383838] text-[28px] font-bold "}>Total Points</p>
+                    <div className={"flex items-center"}>
+                      <p className={"z-10 text-[20px] text-[#E35A43] font-bold transition ml-[10px] pb-[2px] mr-1.5"}>p</p>
+                      <p className={"text-[22px] text-[#E35A43]"}>{cart.totalPoint}</p>
+                    </div>
+                  </div>
+
+
                 </div>
                 <div
                     className={"cursor-pointer w-full h-12 mt-6 rounded-xl bg-purple flex justify-center items-center"}>
