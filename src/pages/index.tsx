@@ -16,17 +16,17 @@ import axios from "axios";
 // import Background from "../../public/images/images/test.png.png"
 
 const Home: NextPage = ({serverData}: any) => {
-  const [vouchers, setVouchers] = useState<[]>(serverData?.message ? [] : serverData)
+  const [vouchers, setVouchers] = useState<[]>([])
   const baseApi = process.env.baseApi;
   const [categories, setCategories] = useState<[any]>([{}]);
 
-  console.log("serverData", serverData)
-
-  // useEffect(() => {
-  //   setVouchers(serverData);
-  // }, [])
-
   useEffect(() => {
+
+    axios
+        .get(`${baseApi}/vouchers?contractId=662`)
+        .then((res) => {
+          setVouchers(res.data)
+        });
 
     if (!!categories) {
       axios
@@ -266,16 +266,16 @@ const Home: NextPage = ({serverData}: any) => {
 
 export default Home
 
-export async function getServerSideProps({query}: any) {
-  const baseApi = process.env.baseApi;
-  const response = await fetch(`${baseApi}/vouchers?contractId=662`);
-  // const response = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662`);
-  const serverData = await response.json();
-
-
-  return {
-    props: {
-      serverData,
-    },
-  };
-}
+// export async function getServerSideProps({query}: any) {
+//   const baseApi = process.env.baseApi;
+//   const response = await fetch(`${baseApi}/vouchers?contractId=662`);
+//   // const response = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662`);
+//   const serverData = await response.json();
+//
+//
+//   return {
+//     props: {
+//       serverData,
+//     },
+//   };
+// }

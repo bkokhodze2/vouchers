@@ -8,7 +8,7 @@ import {useRouter} from "next/router";
 import Image from "next/image";
 import Button from "../../components/UI/button";
 
-export default function Success({serverData}: any) {
+export default function Success() {
 
   const Router = useRouter();
   const [isResult, setIsResult] = useState(true);
@@ -52,17 +52,17 @@ Success.getLayout = function getLayout(page: any) {
   )
 }
 
-export async function getServerSideProps({query}: any) {
-  const baseApi = process.env.baseApi;
-  // const response = await fetch(`${baseApi}/company/${query.slug}`);
-
-  // const data = await response.json();
-  // let serverData = data.data;
-  let serverData = [1, 2, 3];
-
-  return {
-    props: {
-      serverData,
-    },
-  };
-}
+// export async function getServerSideProps({query}: any) {
+//   const baseApi = process.env.baseApi;
+//   // const response = await fetch(`${baseApi}/company/${query.slug}`);
+//
+//   // const data = await response.json();
+//   // let serverData = data.data;
+//   let serverData = [1, 2, 3];
+//
+//   return {
+//     props: {
+//       serverData,
+//     },
+//   };
+// }
