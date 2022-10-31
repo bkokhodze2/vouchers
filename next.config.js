@@ -7,9 +7,9 @@ const nextConfig = {
 		formats: ['image/avif', 'image/webp'],
 	},
 	env: {
-		//  baseApi: "https://vouchers.pirveli.ge/api/racoon-transactions",
+		//  baseApi: "https://vouchers.pirveli.ge/api/racoon-transactions", for local
 
-		 baseApi: "http://accounting.pirveli.ge/api/racoon-transactions",
+		baseApi: "https://vouchers.pirveli.ge/api/racoon-transactions", //for server
 
 	}
 }
