@@ -9,7 +9,7 @@ function InStock({max = 101, current = 52}: IInStock) {
   const [arr, setArr] = useState({})
 
   const calculatePercentage = () => {
-    return ((current / max) * 100).toFixed(1)
+    return (((current === null ? 0 : current) / max) * 100).toFixed(1)
   };
 
   const width = useMemo(calculatePercentage, [max, current]);
@@ -21,7 +21,7 @@ function InStock({max = 101, current = 52}: IInStock) {
             <div style={{width: `${width}%`}}
                  className={`h-1 rounded-[8px] bg-purple transition transition-all w-[0%]`}></div>
           </div>
-          <p className={"ml-1"}>{current}/{max}</p>
+          <p className={"ml-1"}>{current === null ? 0 : current}/{max}</p>
         </div>
       </div>
   );

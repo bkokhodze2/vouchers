@@ -29,6 +29,9 @@ import {
   removeFromCart,
 } from "../../../../../components/slices/cartSlice";
 import _ from "lodash";
+import moment from "moment";
+
+const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 const CountDown = dynamic(
     () => import("../../../../../components/UI/count-down"),
@@ -60,6 +63,9 @@ export default function Details({serverOffer, serverVoucher}: any) {
       axios.get(`${baseApi}/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`).then((res) => {
         setVoucher(res.data)
 
+        if (res.data.length === 0) {
+          Router.push("/");
+        }
       })
 
       axios.get(`${baseApi}/vouchers?contractId=662`).then((res) => {
@@ -84,6 +90,12 @@ export default function Details({serverOffer, serverVoucher}: any) {
     });
 
   };
+
+
+  const getWeekByNumber = (index: number) => {
+    return weekDays[index - 1]
+  }
+
 
   const RightSide = () => {
 
@@ -125,8 +137,12 @@ export default function Details({serverOffer, serverVoucher}: any) {
               <div className={"flex flex-nowrap items-center"}>
                 {
                   isWithMoney ?
-                      <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>$ {voucher[0]?.entries[0]?.entryAmount}</p> :
-                      <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>{voucher[0]?.entries[0]?.entryAmount * voucher[0]?.entries[0]?.multiplier}</p>
+                      <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>
+                        ${_.get(voucher, '[0].entries[0].entryAmount', 0) * quantity}
+                      </p> :
+                      <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>
+                        {_.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0) * quantity}
+                      </p>
                 }
 
                 {/*<p className={"ml-3 text-base text-[#38383899] whitespace-nowrap line-through"}>200 $</p>*/}
@@ -172,7 +188,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
 
         <div>
-          <p className={"text-[#383838] text-[22px] font-bold mt-8"}>Room Type</p>
+          <p className={"text-[#383838] text-[22px] font-bold mt-8"}>Room Type </p>
           <div className={"rounded-xl bg-[white] mt-4 py-4 px-2"}>
             Room for 2 persons (Monday to Friday)
           </div>
@@ -270,12 +286,13 @@ export default function Details({serverOffer, serverVoucher}: any) {
             <Button text={"Buy now"} bgColor={"#8338EC"} classes={"!w-full"}/>
           </div>
           <div
-              className={"w-full rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}>
+              className={"w-full rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
+              onClick={() => handleAddToCart(voucher)}>
             <div className={"min-w-[15px] flex"}>
               <Image src={ICONS.cart} className={"cursor-pointer"} alt={"cart icon"}/>
             </div>
             <p className={"ml-3 text-base text-[#383838] whitespace-nowrap"}
-               onClick={() => handleAddToCart(voucher)}>Add to Cart</p>
+            >Add to Cart</p>
           </div>
         </div>
         {/* buy & cart buttons*/}
@@ -301,6 +318,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
     },
   ];
 
+
   return (
       <>
         <Head>
@@ -314,7 +332,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
           <div className={"flex flex-col"}>
 
-            <GalleryScroll/>
+            <GalleryScroll data={voucher}/>
 
             <div className={"container grid grid-cols-3 gap-[30px] m-auto pt-8"}>
 
@@ -342,22 +360,33 @@ export default function Details({serverOffer, serverVoucher}: any) {
                 <div className={"flex justify-between mt-5"}>
 
                   {/*phone number*/}
-                  {voucher[0]?.additionalInfo[0]?.provider?.providerContacts[0]?.value &&
+                  {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', '') &&
 											<div className={"group flex items-center relative"}>
 												<Phone classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
 												<p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>
-                          {voucher[0]?.additionalInfo[0]?.provider?.providerContacts[0]?.value}</p>
+                          {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', '')}</p>
 												<div
 														className={"group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
 													<Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>
 												</div>
 
-												<div
-														style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
-														className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
-													<p className={"text-[#383838b3] text-base"}>+ 995 577 77 79 00</p>
-													<p className={"text-[#383838b3] text-base"}>+ 995 577 57 75 07</p>
-												</div>
+                        {
+                            _.get(voucher, '[0].additionalInfo[0].provider.providerContacts', 0).length > 1 &&
+														<div
+																style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
+																className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
+
+                              {
+                                _.get(voucher, '[0].additionalInfo[0].provider.providerContacts', []).slice(1, _.get(voucher, '[0].additionalInfo[0].provider.providerContacts', 0).length).map((item: any, index: number) => {
+                                  return <p className={"text-[#383838b3] text-base"} key={index}>
+                                    {item.value}
+                                  </p>
+                                })
+
+                              }
+
+														</div>
+                        }
 											</div>
                   }
                   {/*phone number*/}
@@ -375,64 +404,51 @@ export default function Details({serverOffer, serverVoucher}: any) {
                       <Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>
                     </div>
 
-                    <div
-                        style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
-                        className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
+                    {_.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).length > 1 && <div
+												style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
+												className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
 
-                      <div className={"flex justify-between"}>
-                        <p className={"mr-6 text-[#383838b3]"}>Monday</p>
-                        <p className={"text-[#383838]"}>09:00 - 22:00</p>
-                      </div>
-                      <div className={"flex justify-between"}>
-                        <p className={"mr-6 text-[#383838b3]"}>Monda s sy</p>
-                        <p className={"text-[#383838]"}>10:00 - 21:00</p>
-                      </div>
-                      <div className={"flex justify-between"}>
-                        <p className={"mr-6 text-[#383838b3]"}>dsds sd</p>
-                        <p className={"text-[#383838]"}>09:00 - 22:00</p>
-                      </div>
-                      <div className={"flex justify-between"}>
-                        <p className={"mr-6 text-[#383838b3]"}>sd s gs</p>
-                        <p className={"text-[#383838]"}>09:00 - 22:00</p>
-                      </div>
-                      <div className={"flex justify-between"}>
-                        <p className={"mr-6 text-[#383838b3]"}>Mond sfsaay</p>
-                        <p className={"text-[#383838]"}>09:00 - 22:00</p>
-                      </div>
-                      <div className={"flex justify-between"}>
-                        <p className={"mr-6 text-[#383838b3]"}>Mon sfsfs day</p>
-                        <p className={"text-[#383838]"}>09:00 - 22:00</p>
-                      </div>
-                      <div className={"flex justify-between"}>
-                        <p className={"mr-6 text-[#383838b3]"}>f ssff s f </p>
-                        <p className={"text-[#383838]"}>09:00 - 22:00</p>
-                      </div>
+                      {
+                        _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).map((item: any, index: number) => {
+                          return <div className={"flex justify-between"} key={index}>
+                            <p className={"mr-6 text-[#383838b3]"}>{getWeekByNumber(item.dayId)}</p>
+                            <p className={"text-[#383838]"}>{item.startHour} - {item.endHour}</p>
+                          </div>
+                        })
+                      }
+										</div>
 
-                    </div>
+                    }
                   </div>
                   {/*working hours*/}
 
                   {/*location dropdown*/}
-                  {voucher[0]?.additionalInfo[0]?.provider?.providerAddresses[0]?.value &&
+                  {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses[0].value', '') &&
 											<div className={"group flex items-center relative"}>
 												<Location classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
 
 												<p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>
-                          {voucher[0]?.additionalInfo[0]?.provider?.providerAddresses[0]?.value}
+                          {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses[0].value', '')}
 												</p>
 												<div
 														className={"group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
 													<Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>
 												</div>
 
-												<div
+                        {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', []).length > 1 && <div
 														style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
 														className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
-													<p className={"text-[#383838b3] text-base"}>Telavi , village Napareuli</p>
-													<p className={"text-[#383838b3] text-base"}>Telavi , village Ikalto</p>
-													<p className={"text-[#383838b3] text-base"}>Sagarejo , village khashmi</p>
-													<p className={"text-[#383838b3] text-base"}>Telavi , village Napareuli</p>
-												</div>
+
+                          {
+                            _.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', []).slice(1, _.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', 0).length).map((item: any, index: number) => {
+                              return <p className={"text-[#383838b3] text-base"} key={index}>
+                                {item.value}
+                              </p>
+                            })
+
+                          }
+
+												</div>}
 											</div>
                   }
                   {/*location dropdown*/}

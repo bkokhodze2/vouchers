@@ -24,10 +24,12 @@ export default function Category({serverData}: any) {
 
 
   useEffect(() => {
-    axios.get(`${baseApi}/vouchers?contractId=662&categoryId=${Router?.query?.id}`).then((res) => {
-      setVouchers(res.data)
-    })
 
+    if (Router?.query?.id) {
+      axios.get(`${baseApi}/vouchers?contractId=662&categoryId=${Router?.query?.id}`).then((res) => {
+        setVouchers(res.data)
+      })
+    }
   }, [Router?.query?.id])
 
   const onFinish = (values: any) => {

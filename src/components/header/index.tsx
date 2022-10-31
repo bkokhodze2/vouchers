@@ -4,7 +4,7 @@ import {ICONS} from "public/images";
 import Image from "next/image"
 import RingLoader from "react-spinners/RingLoader";
 import PulseLoader from "react-spinners/PulseLoader";
-import {Button as AntButton, Form, Input} from 'antd';
+import {Button as AntButton, Form, Input, Badge} from 'antd';
 import Button from "../UI/button";
 import {coin} from "../../../public/images/images";
 import offerItem from "../../../public/images/images/offerItem.png";
@@ -15,6 +15,7 @@ import CartItem from "../blocks/cart/cart-item";
 import axios from "axios";
 import OfferItem from "../blocks/offer-item";
 import _ from "lodash";
+import {useDispatch, useSelector} from "react-redux";
 
 interface category {
   name: string,
@@ -22,22 +23,44 @@ interface category {
 }
 
 const Header: React.FC = () => {
+  const baseApi = process.env.baseApi;
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [findData, setFindData] = useState<[any]>([{}]);
   const [categories, setCategories] = useState<[any]>([{}]);
   const [categoryVouchers, setCategoryVouchers] = useState<[any]>([null]);
   const [chosenCategory, setChosenCategory] = useState<any>({});
-  const baseApi = process.env.baseApi;
-
+  const wrapperRef = useRef(null);
   const [term, setTerm] = useState<string>("");
-
   const listRef = useRef<HTMLDivElement>(null);
   const [searchForm] = Form.useForm();
-
   const Router = useRouter();
 
-  useEffect(() => {
+  useOutsideAlerter(wrapperRef);
 
+  // @ts-ignore
+  let cart: any = typeof window !== 'undefined' && JSON.parse(localStorage?.getItem("cartItems"))
+
+
+  function useOutsideAlerter(ref: any) {
+    useEffect(() => {
+      function handleClickOutside(event: any) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          resetFields();
+        }
+      }
+
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+
+
+  useEffect(() => {
     if (!!categories) {
       axios
           .get(`${baseApi}/providers/categories`)
@@ -206,8 +229,10 @@ const Header: React.FC = () => {
               {/*logo*/}
 
               {/*search*/}
-              <div className={"flex col-span-3"}>
-                <div className={"flex flex-grow justify-center pr-[30px]"}>
+              <div className={"flex col-span-3"} ref={wrapperRef}>
+                <div className={"flex flex-grow justify-center pr-[30px]"} onClick={(e) => {
+                  e.stopPropagation()
+                }}>
                   <Form
                       form={searchForm}
                       name="basic"
@@ -311,12 +336,15 @@ const Header: React.FC = () => {
                 {/*buttons*/}
                 <div className={"flex space-x-[30px] justify-end"}>
                   <Link href={"/cart"}>
+                    {/*<Badge count={1}>*/}
                     <div className={"flex flex-col items-center cursor-pointer"}>
                       {/*<img src={cart?.src} alt={"shock offer icon"} className={"w-[18px]"}/>*/}
                       <Image src={ICONS.cart} alt={"shock offer icon"} width={18} height={18}/>
 
                       <p className={"capitalize mt-[11px] text-base leading-4"}>Basket</p>
                     </div>
+                    {/*</Badge>*/}
+
                   </Link>
 
                   <div className={"flex flex-col items-center "}>
@@ -372,18 +400,23 @@ const Header: React.FC = () => {
               </div>
 
               {/*category hover*/}
-              {chosenCategory?.categoryId && <div
-									className={"absolute border-t-[1px] border-[#d9d9d94d] top-[48px] bg-[white] w-[100vw] left-0 h-[500px] z-30"}
-									style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.05)"}}
-							>
-								<div className={"container m-auto grid grid-rows-1 grid-cols-4 gap-x-[30px] w-full mt-4"}>
-									<div>
-										<div className={"flex justify-between items-center"}>
-											<p className={"font-bold text-[#383838] text-[22px] leading-[22px]"}>{chosenCategory?.categoryName}</p>
-											<span className={"text-[#8338EC] text-[14px] cursor-pointer"}>{getSumOffer()}</span>
-										</div>
+              {<div
+                  className={"absolute border-t-[1px] border-[#d9d9d94d] top-[48] bg-[white] w-[100vw] left-0  z-30"}
+                  style={{
+                    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.05)",
+                    transition: "all 0.3s cubic-bezier(0, 0.88, 0.83, 0.99) 0s",
+                    overflow: "hidden",
+                    height: chosenCategory?.categoryId ? "500px" : "0px"
+                  }}
+              >
+                <div className={"container m-auto grid grid-rows-1 grid-cols-4 gap-x-[30px] w-full mt-4"}>
+                  <div>
+                    <div className={"flex justify-between items-center"}>
+                      <p className={"font-bold text-[#383838] text-[22px] leading-[22px]"}>{chosenCategory?.categoryName}</p>
+                      <span className={"text-[#8338EC] text-[14px] cursor-pointer"}>{getSumOffer()}</span>
+                    </div>
 
-										<div className={"flex flex-col space-y-[20px] mt-[20px]"}>
+                    <div className={"flex flex-col space-y-[20px] mt-[20px]"}>
 
                       {
                         categories?.filter(item => item.parentCategoryId === chosenCategory?.categoryId).map((item, index) => {
@@ -397,20 +430,20 @@ const Header: React.FC = () => {
                         })
                       }
 
-										</div>
+                    </div>
 
-									</div>
-									<div className={"col-span-3"}>
-										<div className={"grid grid-flow-row-dense grid-cols-3 gap-[30px] gap-y-[40px]"}>
+                  </div>
+                  <div className={"col-span-3"}>
+                    <div className={"grid grid-flow-row-dense grid-cols-3 gap-[30px] gap-y-[40px]"}>
                       {
                           categoryVouchers?.length && categoryVouchers?.slice(0, 3).map((item: any, index: number) => {
                             return <OfferItem data={item} key={index}/>
                           })
                       }
-										</div>
-									</div>
-								</div>
-							</div>}
+                    </div>
+                  </div>
+                </div>
+              </div>}
               {/*category hover*/}
             </div>
 

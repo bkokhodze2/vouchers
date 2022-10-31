@@ -66,7 +66,7 @@
 }
 
 .mySwiper {
-    padding-bottom: 35px !important;
+    /*padding-bottom: 35px !important;*/
 }
 
 .swiper-horizontal > .swiper-pagination {
@@ -81,15 +81,35 @@
 .mySwiper .swiper-pagination-bullet-active {
     background: #8338EC !important;
     width: 6px !important;
-    border: 3px solid #d4bef4 !important;
+    border: 3px solid white !important;
     min-height: 12px;
     min-width: 12px;
+}
+
+.mySwiper .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+}
+
+.mySwiper .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next {
+    transform: scale(1);
+}
+
+.mySwiper .swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next {
+    transform: scale(1);
+
+}
+
+.mySwiper .swiper-pagination-bullet {
+    background: white;
+    opacity: 0.7;
 }
 
 .mySwiper .swiper-pagination {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 34px;
 }
 
 
@@ -311,6 +331,7 @@
 
 /*1665*/
 
+
 @media (max-width: 1665px) {
 
     .offerSliderPrev, .offerSliderNext {
@@ -319,6 +340,29 @@
 }
 
 
+/*gr*/
 
+.bgTransparent {
+    background: #00000040 linear-gradient(360deg, rgb(0 0 0 / 38%) 0%, rgb(0 0 0 / 0%) 100%) 0 0 no-repeat padding-box;
+    backdrop-filter: blur(18px);
+}
 
+.bgTransparent .ant-form-item-label {
+    padding-bottom: 0px !important;
+}
 
+.bgTransparent .ant-form-item {
+    margin-bottom: 0px;
+}
+
+.bgTransparent .ant-checkbox-wrapper {
+    align-self: end;
+
+}
+
+.bgTransparent .ant-select-selector {
+    height: 40px !important;
+    border-radius: 12px !important;
+}
+
+/*gr*/
