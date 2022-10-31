@@ -51,7 +51,7 @@ const Home: NextPage = ({serverData}: any) => {
 
         <main className={"flex flex-col "}>
           <div className={"w-full"}>
-            <div className="grid grid-rows-1 mt-6 grid-cols-4 container m-auto grid-flow-col gap-[30px]">
+            <div className="grid grid-rows-1 max-h-[552px] mt-6 grid-cols-4 container m-auto grid-flow-col gap-[30px]">
 
               {/*Become Partner*/}
               <div
@@ -64,7 +64,7 @@ const Home: NextPage = ({serverData}: any) => {
                       className={"absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[92%] rounded-[50%] h-[554px] w-[554px] bg-[#F5CE5A] "}></div>
                   <Image src={IMAGES.partner} alt={"partner"} width={312} height={312}/>
                 </div>
-                <p className={"w-full px-6 text-center leading-[23px] text-[#38383899] text-sm mt-8 z-10"}>Increase
+                <p className={"w-full px-6 text-center leading-[23px] text-[#38383899] text-sm -mt-[14px] z-10"}>Increase
                   sales,
                   attract new
                   customers and double your income with us.</p>
@@ -72,7 +72,7 @@ const Home: NextPage = ({serverData}: any) => {
               </div>
               {/*Become Partner*/}
 
-              <div className="col-span-4 flex flex-col">
+              <div className="col-span-4 flex flex-col max-w-[1140px]">
 
                 {/*slider*/}
                 <div className={"flex flex-1"}>
@@ -81,7 +81,7 @@ const Home: NextPage = ({serverData}: any) => {
                 {/*slider*/}
 
                 {/*Advertisement*/}
-                <div className={"grid grid-rows-1 gap-[30px] grid-cols-3 mt-9"}>
+                <div className={"grid grid-rows-1 gap-[30px] grid-cols-3 mt-[32px]"}>
                   <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white]"}>
                     <p className={"text-sm text-black"}>Advertsment</p>
                   </div>

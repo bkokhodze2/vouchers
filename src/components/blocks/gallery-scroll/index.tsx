@@ -7,28 +7,35 @@ import Image from "next/image";
 import {IMAGES} from "../../../../public/images";
 import {main} from "../../../../public/images/images";
 import img from "/public/images/images/mainSlider.png"
+import _ from "lodash";
 
-const GalleryScroll = () => {
+const GalleryScroll = ({data}: any) => {
+
+  console.log("gallery", _.get(data, '[0]additionalInfo[0].attachments', []))
   const [isVisibleDrawer, setIsVisibleDrawer] = useState<boolean>(false);
 
+
   const images = [
-    11, 22, 33, 44, 55, 66, 77, 88, 99, 111, 222, 333, 444, 555, 606, 777, 888, 999
+    ..._.get(data, '[0]additionalInfo[0].attachments', [])
   ]
 
+  console.log("images", images)
+
   const Slide1 = ({idx, data}: any) => {
-    return <div className={"min-w-[800px] max-w-[800px] relative ml-[50px] mr-[30px]"}
+    return <div className={"min-w-[880px] max-w-[880px] relative ml-[50px] mr-[30px] h-[546px]"}
                 style={{marginLeft: `${idx === 0 ? '50px' : '0px'}`}}>
-      <img src={img.src} className={"object-cover h-full w-full rounded-xl"} alt={idx.toString()}/>
+      <img src={_.get(data, 'path', [])} className={"object-cover h-full w-full rounded-xl"} alt={idx.toString()}/>
     </div>
   }
 
   const Slide4 = ({idx, data}: any) => {
-    return <div className={"min-w-[1100px] grid grid-rows-2 grid-cols-2 gap-[28px] mr-[30px]"}>
+    return <div className={"min-w-[1008px] grid grid-rows-2 grid-cols-2 gap-[28px] mr-[30px]"}>
 
       {[1, 2, 3, 4].map((e, index) => {
         return images[idx + index + 1] &&
-						<img key={index} src={img.src} className={"object-cover h-full w-full rounded-xl"}
-								 alt={(idx + 4).toString()}/>
+						<img key={idx + index + 1} src={_.get(images, `[${idx + index + 1}].path`, [])}
+								 className={"object-cover h-full w-full rounded-xl w-[490px] h-[258px]"}
+								 alt={(idx + index + 1).toString()}/>
       })}
 
     </div>

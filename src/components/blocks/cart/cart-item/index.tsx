@@ -21,8 +21,10 @@ interface ICartItem {
 
 const CartItem = ({data, getCount}: any) => {
   const cart = useSelector((state: any) => state.cart);
-
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+
+
+  console.log("data11", _.get(data, '[0].additionalInfo[0].attachments[0].path', []))
 
 
   useEffect(() => {
@@ -58,8 +60,10 @@ const CartItem = ({data, getCount}: any) => {
 
   return (
       <div className={"p-[30px] pr-[68px] flex bg-[#d9d9d933] rounded-2xl"}>
-        <div className={"w-full max-w-[240px] max-h-[150px] mr-[30px]"}>
-          <Image src={IMAGES.offerItem} alt={"product image"} className={"rounded-xl"}
+        <div className={"w-full max-w-[240px] mr-[30px]"}>
+          <img src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
+                 alt={"product image"}
+                 className={"rounded-xl w-full max-w-[240px] max-h-[150px]"}
                  style={{objectFit: "cover"}}/>
         </div>
         <div className={"flex flex-col w-full"}>
