@@ -17,4 +17,3 @@ export {default as electronic} from './electronicCategory.png';
 export {default as entertainment} from './entertainmentCategory.png';
 export {default as pool} from './poolCategory.png';
 export {default as reg} from './reg.png';
-export {default as grLogo} from './grLogo.png';
