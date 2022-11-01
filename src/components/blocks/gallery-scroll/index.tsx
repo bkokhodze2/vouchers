@@ -10,16 +10,12 @@ import img from "/public/images/images/mainSlider.png"
 import _ from "lodash";
 
 const GalleryScroll = ({data}: any) => {
-
-  console.log("gallery", _.get(data, '[0]additionalInfo[0].attachments', []))
   const [isVisibleDrawer, setIsVisibleDrawer] = useState<boolean>(false);
-
 
   const images = [
     ..._.get(data, '[0]additionalInfo[0].attachments', [])
   ]
 
-  console.log("images", images)
 
   const Slide1 = ({idx, data}: any) => {
     return <div className={"min-w-[880px] max-w-[880px] relative ml-[50px] mr-[30px] h-[546px]"}
@@ -46,7 +42,6 @@ const GalleryScroll = ({data}: any) => {
   const runCallback = (cb) => {
     return cb();
   };
-
 
   return (
       <div className={"w-full bg-[#F5F6F8] overflow-x-auto"}>

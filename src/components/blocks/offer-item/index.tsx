@@ -49,13 +49,21 @@ const OfferItem = ({data}: IOfferItem) => {
 
         {
           _.get(data, 'additionalInfo[0].attachments', []).length === 0 ? <div>
-                <img src={slider?.src} alt={"slider img"}
-                     className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
+                <Image src={slider?.src} alt={"slider img"}
+                       height={220}
+                       width={300}
+                       layout={"fill"}
+                       loading="lazy"
+                       className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
               </div> :
               _.get(data, 'additionalInfo[0].attachments', []).map((item: any, index: number) => {
                 return <div key={index}>
-                  <img src={item?.path} alt={"slider img"}
-                       className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
+                  <Image src={item?.path} alt={"slider img"}
+                         height={220}
+                         width={300}
+                         layout={"fill"}
+                         loading="lazy"
+                         className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
                 </div>
               })
         }

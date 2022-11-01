@@ -1,6 +1,6 @@
 import Layout from "../../../../../components/layouts/user-layout"
 import Head from 'next/head'
-import {notification} from 'antd';
+import {Badge, notification} from 'antd';
 
 // @ts-ignore
 import {IMAGES, ICONS} from "public/images";
@@ -155,7 +155,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
             <div className={"rounded-xl bg-[#EEEEEE] h-[48px] w-full flex items-center"}>
               <div className={"rounded-[10px] bg-[white] h-full w-full py-1 px-[10px] flex items-center"}>
-                <div onClick={() => setQuantity((prevState: number) => prevState - 1)}
+                <div onClick={() => quantity != 1 && setQuantity((prevState: number) => prevState - 1)}
                      className={"cursor-pointer rounded-[50%] h-6 w-6 flex items-center justify-center"}>
                   <div className={"min-w-[12.5px] h-[1.5px] rounded bg-[#EEEEEE]"}/>
                 </div>
@@ -163,14 +163,14 @@ export default function Details({serverOffer, serverVoucher}: any) {
                   <p className={"text-[#383838] text-base"}>Quantity</p>
                   <p className={"text-[#383838] text-base font-bold"}>{quantity}</p>
                 </div>
-                <div onClick={() => setQuantity((prevState: number) => prevState + 1)}
-                     className={"cursor-pointer rounded-[50%] h-6 w-6 flex items-center justify-center"}>
+                <div
+                    onClick={() => quantity < (_.get(voucher, '[0].additionalInfo[0].limitQuantity', 0) - _.get(voucher, '[0].additionalInfo[0].soldQuantity', 0)) && setQuantity((prevState: number) => prevState + 1)}
+                    className={"cursor-pointer rounded-[50%] h-6 w-6 flex items-center justify-center"}>
                   <div
                       className={"min-w-[12.5px] h-[1.5px] rounded bg-[#383838] after:content-[''] after:min-w-[12.5px] after:h-[1.5px] after:bg-[#383838] after:rounded after:rotate-90 after:absolute"}/>
                 </div>
               </div>
             </div>
-
           </div>
 
         </div>
@@ -236,55 +236,14 @@ export default function Details({serverOffer, serverVoucher}: any) {
               <InStock max={voucher[0]?.additionalInfo[0]?.limitQuantity}
                        current={voucher[0]?.additionalInfo[0]?.soldQuantity}/>
             </div>
-            {/*{*/}
-            {/*    checked && <div className={"grid grid-cols-2 grid-rows-2 gap-1 gap-x-[30px] gap-y-6 mt-[22px]"}>*/}
 
-            {/*			<div className={"bg-[white] py-2 pl-[28px] rounded-xl flex h-min"}>*/}
-            {/*				<div className={"min-w-[10px] flex items-center"}>*/}
-            {/*					<Image src={ICONS.dollar} className={"cursor-pointer "} alt={"share icon"}/>*/}
-            {/*				</div>*/}
-            {/*				<div className={"flex flex-col ml-[28px]"}>*/}
-            {/*					<p className={"text-[#383838] text-base"}>Price</p>*/}
-            {/*					<div className={"flex flex-nowrap items-center"}>*/}
-            {/*						<p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>150 $</p>*/}
-            {/*						<p className={"ml-3 text-base text-[#38383899] whitespace-nowrap line-through"}>200 $</p>*/}
-            {/*					</div>*/}
-            {/*				</div>*/}
-            {/*			</div>*/}
-
-            {/*			<div className={"bg-[white] py-2 pl-[28px] rounded-xl flex h-min"}>*/}
-            {/*				<div className={"min-w-[10px] flex items-center"}>*/}
-            {/*					<Image src={ICONS.percent} className={"cursor-pointer "} alt={"share icon"}/>*/}
-            {/*				</div>*/}
-            {/*				<div className={"flex flex-col ml-[28px]"}>*/}
-            {/*					<p className={"text-[#383838] text-base"}>Saving</p>*/}
-            {/*					<div className={"flex flex-nowrap items-center"}>*/}
-            {/*						<p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>25%</p>*/}
-            {/*						<p className={"ml-3 text-base text-[#38383899] whitespace-nowrap"}>( $50 )</p>*/}
-            {/*					</div>*/}
-            {/*				</div>*/}
-            {/*			</div>*/}
-
-            {/*			<div className={"flex bg-[#d9d9d980] p-6 rounded-xl col-span-2 justify-between"}>*/}
-            {/*				<div className={"flex items-center"}>*/}
-            {/*					<Image src={ICONS.warning} className={"cursor-pointer"} alt={"warning icon"}/>*/}
-            {/*					<p className={"text-base text-[#383838] text-base mr-5 ml-2 "}>you don&apos;t have enough point</p>*/}
-            {/*				</div>*/}
-            {/*				<p className={"text-purple uppercase font-[500] cursor-pointer"}>buy now</p>*/}
-            {/*			</div>*/}
-
-            {/*		</div>*/}
-            {/*}*/}
           </div>
 
         </div>
 
 
         {/* buy & cart buttons*/}
-        <div className={"flex gap-[30px] justify-between mt-6"}>
-          <div className={"w-full"}>
-            <Button text={"Buy now"} bgColor={"#8338EC"} classes={"!w-full"}/>
-          </div>
+        <div className={"grid grid-cols-2 grid-rows-2 gap-1 gap-x-[30px] gap-y-8 mt-8"}>
           <div
               className={"w-full rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
               onClick={() => handleAddToCart(voucher)}>
@@ -294,6 +253,21 @@ export default function Details({serverOffer, serverVoucher}: any) {
             <p className={"ml-3 text-base text-[#383838] whitespace-nowrap"}
             >Add to Cart</p>
           </div>
+          <div
+              className={"w-full rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
+              onClick={() => {
+              }}>
+            <div className={"min-w-[15px] flex"}>
+              <Image src={ICONS.heart} className={"cursor-pointer"} alt={"cart icon"}/>
+            </div>
+            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap"}
+            >save</p>
+          </div>
+
+          <div className={" col-span-2"}>
+            <Button text={"Buy now"} bgColor={"#8338EC"} classes={"!w-full"}/>
+          </div>
+
         </div>
         {/* buy & cart buttons*/}
 
@@ -365,10 +339,10 @@ export default function Details({serverOffer, serverVoucher}: any) {
 												<Phone classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
 												<p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>
                           {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', '')}</p>
-												<div
+                        {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts', 0).length > 1 && <div
 														className={"group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
 													<Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>
-												</div>
+												</div>}
 
                         {
                             _.get(voucher, '[0].additionalInfo[0].provider.providerContacts', 0).length > 1 &&
@@ -404,7 +378,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
                       <Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>
                     </div>
 
-                    {_.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).length > 1 && <div
+                    {_.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).length > 0 && <div
 												style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
 												className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
 
@@ -430,10 +404,10 @@ export default function Details({serverOffer, serverVoucher}: any) {
 												<p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>
                           {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses[0].value', '')}
 												</p>
-												<div
+                        {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', []).length > 1 && <div
 														className={"group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
 													<Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>
-												</div>
+												</div>}
 
                         {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', []).length > 1 && <div
 														style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}

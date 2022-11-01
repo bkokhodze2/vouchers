@@ -15,13 +15,8 @@ const cartSlice = createSlice({
 	reducers: {
 		addToCart(state, action) {
 
-			console.log("action", action)
-
 			const existingIndex = state.cartItems.findIndex(
 					(item) => {
-						console.log("action.payload.isPoint", action.payload.isPoint)
-						console.log("_.get(item, 'isPoint', 1)", _.get(item, 'isPoint', 1))
-
 						return (_.get(item, '[0]additionalInfo[0].genericTransactionTypeId', 1) === _.get(action, 'payload[0].additionalInfo[0].genericTransactionTypeId', 1) && action.payload.isPoint === _.get(item, 'isPoint', 1))
 					}
 			);
@@ -33,6 +28,7 @@ const cartSlice = createSlice({
 					isPoint: action.payload.isPoint,
 				};
 
+
 			} else {
 				let tempProductItem = {...action.payload, cartQuantity: 1, isPoint: action.payload.isPoint};
 				state.cartItems.push(tempProductItem);
@@ -42,21 +38,15 @@ const cartSlice = createSlice({
 		},
 		addToCartWithQuantity(state, action) {
 
-
 			const existingIndex = state.cartItems.findIndex(
 					(item) => (_.get(item, '[0]additionalInfo[0].genericTransactionTypeId', 1) === _.get(action, 'payload[0].additionalInfo[0].genericTransactionTypeId', 1) && action.payload.isPoint === item.isPoint)
 			);
 
 			if (existingIndex >= 0) {
-				console.log("action.payload.isPoint", action.payload.isPoint)
-				console.log("state.cartItems[existingIndex].isPoint", state.cartItems[existingIndex].isPoint)
-
 				state.cartItems[existingIndex] = {
 					...state.cartItems[existingIndex],
 					cartQuantity: state.cartItems[existingIndex].cartQuantity + action.payload.quantity,
 				};
-
-
 			} else {
 				let tempProductItem = {...action.payload, cartQuantity: action.payload.quantity};
 				state.cartItems.push(tempProductItem);
@@ -100,6 +90,8 @@ const cartSlice = createSlice({
 
 			state.cartItems[itemIndex].isPoint = !state.cartItems[itemIndex].isPoint;
 
+			typeof window !== 'undefined' && localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+
 		},
 
 		removeFromCart(state, action) {
@@ -137,9 +129,6 @@ const cartSlice = createSlice({
 				return e.isPoint === true
 			})
 
-
-			console.log("filteredPrice", filteredPrice)
-
 			let {total, quantity} = filteredPrice.reduce(
 					(cartTotal, cartItem) => {
 
@@ -158,7 +147,7 @@ const cartSlice = createSlice({
 					}
 			);
 
-		//for point
+			//for point
 
 			let {totalPoint, quantityPoint} = filteredPoints.reduce(
 					(cartTotal, cartItem) => {
@@ -182,7 +171,7 @@ const cartSlice = createSlice({
 
 
 			total = parseFloat(total.toFixed(2));
-			state.cartTotalQuantity = quantity;
+			state.cartTotalQuantity = quantity + quantityPoint;
 			state.cartTotalPrice = total;
 			state.totalPoint = totalPoint;
 			state.productCount = state.cartItems.length;

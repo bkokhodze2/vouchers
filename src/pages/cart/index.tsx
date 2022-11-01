@@ -27,7 +27,7 @@ export default function Cart({serverData, productCount}: any) {
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
 
-  console.log("cart", cart)
+  console.log("--------------------------------------", cart)
 
   const getCount = (count: number) => {
   }
@@ -104,7 +104,7 @@ export default function Cart({serverData, productCount}: any) {
                     <p className={"text-[#383838] text-[28px] font-bold "}>Total Price</p>
                     <div className={"flex items-center"}>
                       <Lari color={"#E35A43"} height={18} width={18}/>
-                      <p className={"text-[22px] text-[#E35A43]"}>{cart.cartTotalPrice}</p>
+                      <p className={"text-[22px] text-[#E35A43]"}>{cart?.cartTotalPrice}</p>
                     </div>
                   </div>
 
@@ -112,7 +112,7 @@ export default function Cart({serverData, productCount}: any) {
                     <p className={"text-[#383838] text-[28px] font-bold "}>Total Points</p>
                     <div className={"flex items-center"}>
                       <p className={"z-10 text-[20px] text-[#E35A43] font-bold transition ml-[10px] pb-[2px] mr-1.5"}>p</p>
-                      <p className={"text-[22px] text-[#E35A43]"}>{cart.totalPoint}</p>
+                      <p className={"text-[22px] text-[#E35A43]"}>{cart?.totalPoint}</p>
                     </div>
                   </div>
 
