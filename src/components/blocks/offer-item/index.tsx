@@ -51,7 +51,8 @@ const OfferItem = ({data}: IOfferItem) => {
           _.get(data, 'additionalInfo[0].attachments', []).length === 0 ? <div>
                 <Image src={slider?.src} alt={"slider img"}
                        height={220}
-                       width={300}
+                       width={360}
+                       style={{objectFit: "cover"}}
                        layout={"fill"}
                        loading="lazy"
                        className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
@@ -60,7 +61,8 @@ const OfferItem = ({data}: IOfferItem) => {
                 return <div key={index}>
                   <Image src={item?.path} alt={"slider img"}
                          height={220}
-                         width={300}
+                         width={360}
+                         style={{objectFit: "cover"}}
                          layout={"fill"}
                          loading="lazy"
                          className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
@@ -74,7 +76,7 @@ const OfferItem = ({data}: IOfferItem) => {
 
   return (
       <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
-        <div className={"flex flex-col items-start bg-[transparent] relative select-none"}>
+        <div className={"flex flex-col items-start bg-[transparent] relative select-none w-full"}>
 
           <div className={"h-[40px] z-10 bg-orange absolute top-5 left-4 px-[21px] rounded-[100px] flex items-center"}>
             <p className={"text-[white] text-base"}>- {_.get(data, 'additionalInfo[0].percentage', 0)}
