@@ -16,6 +16,7 @@ import axios from "axios";
 import OfferItem from "../blocks/offer-item";
 import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
+import {getTotals} from "../slices/cartSlice";
 
 interface category {
   name: string,
@@ -35,11 +36,15 @@ const Header: React.FC = () => {
   const listRef = useRef<HTMLDivElement>(null);
   const [searchForm] = Form.useForm();
   const Router = useRouter();
+  const dispatch = useDispatch();
 
   useOutsideAlerter(wrapperRef);
 
-  // @ts-ignore
-  let cart: any = typeof window !== 'undefined' && JSON.parse(localStorage?.getItem("cartItems"))
+  const cart = useSelector((state: any) => state.cart);
+
+  useEffect(() => {
+    dispatch(getTotals({}));
+  }, [JSON.stringify(cart?.cartItems), dispatch]);
 
 
   function useOutsideAlerter(ref: any) {
@@ -336,14 +341,14 @@ const Header: React.FC = () => {
                 {/*buttons*/}
                 <div className={"flex space-x-[30px] justify-end"}>
                   <Link href={"/cart"}>
-                    {/*<Badge count={1}>*/}
-                    <div className={"flex flex-col items-center cursor-pointer"}>
-                      {/*<img src={cart?.src} alt={"shock offer icon"} className={"w-[18px]"}/>*/}
-                      <Image src={ICONS.cart} alt={"shock offer icon"} width={18} height={18}/>
+                    <Badge count={cart?.productCount}>
+                      <div className={"flex flex-col items-center cursor-pointer"}>
+                        {/*<img src={cart?.src} alt={"shock offer icon"} className={"w-[18px]"}/>*/}
+                        <Image src={ICONS.cart} alt={"shock offer icon"} width={18} height={18}/>
 
-                      <p className={"capitalize mt-[11px] text-base leading-4"}>Basket</p>
-                    </div>
-                    {/*</Badge>*/}
+                        <p className={"capitalize mt-[11px] text-base leading-4"}>Basket </p>
+                      </div>
+                    </Badge>
 
                   </Link>
 

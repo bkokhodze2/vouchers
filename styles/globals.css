@@ -365,4 +365,8 @@
     border-radius: 12px !important;
 }
 
+.carousel .slider-wrapper.axis-horizontal .slider {
+    height: 220px;
+}
+
 /*gr*/

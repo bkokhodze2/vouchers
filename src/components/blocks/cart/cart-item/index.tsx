@@ -61,8 +61,11 @@ const CartItem = ({data, getCount}: any) => {
   return (
       <div className={"p-[30px] pr-[68px] flex bg-[#d9d9d933] rounded-2xl"}>
         <div className={"w-full max-w-[240px] mr-[30px]"}>
-          <img src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
+          <Image src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
                  alt={"product image"}
+              // layout={"fill"}
+                 width={240}
+                 height={146}
                  className={"rounded-xl w-full max-w-[240px] max-h-[150px]"}
                  style={{objectFit: "cover"}}/>
         </div>

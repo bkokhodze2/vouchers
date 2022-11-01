@@ -8,12 +8,8 @@ import cartReducer from "../components/slices/cartSlice";
 import type {ReactElement, ReactNode} from 'react'
 import type {NextPage} from 'next'
 import type {AppProps} from 'next/app'
+import store from "../components/store/index"
 
-const store = configureStore({
-  reducer: {
-    cart: cartReducer,
-  }
-});
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -33,3 +29,4 @@ export default function MyApp({Component, pageProps}: AppPropsWithLayout) {
       </Provider>
   )
 }
+

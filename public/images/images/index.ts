@@ -12,7 +12,6 @@ export {default as offerItem} from './offerItem.png';
 export {default as footer} from './footer.png';
 export {default as thank} from './thank.png';
 export {default as food} from './foodCategory.png';
-
 export {default as electronic} from './electronicCategory.png';
 export {default as entertainment} from './entertainmentCategory.png';
 export {default as pool} from './poolCategory.png';
