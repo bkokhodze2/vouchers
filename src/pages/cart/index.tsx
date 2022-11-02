@@ -22,8 +22,11 @@ import {
   removeFromCart,
 } from "../../components/slices/cartSlice";
 import dynamic from "next/dynamic";
+import axios from "axios";
 
 export default function Cart({serverData, productCount}: any) {
+  const baseApi = process.env.baseApi;
+
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
 
@@ -35,6 +38,45 @@ export default function Cart({serverData, productCount}: any) {
   useEffect(() => {
     dispatch(getTotals({}));
   }, [cart, dispatch]);
+
+
+  const pay = () => {
+    axios.post(`https://bog-banking.pirveli.ge/api/bog/orders`, {
+      "user_id": 1,
+      "contract_id": 572,
+      "party_id": -1234567,
+      "bog_order_request_dto": {
+        "intent": "AUTHORIZE",
+        "items": [
+          {
+            "amount": "0.01",
+            "description": "BuyingTest",
+            "quantity": "1",
+            "product_id": "270"
+          }
+        ],
+        "locale": "ka",
+        "shop_order_id": "123456",
+        "redirect_url": "https://bog-banking.pirveli.ge/callback/statusChange",
+        "show_shop_order_id_on_extract": true,
+        "capture_method": "AUTOMATIC",
+        "purchase_units": [
+          {
+            "amount": {
+              "currency_code": "GEL",
+              "value": "0.01"
+            }
+          }
+        ]
+      }
+    }).then((res) => {
+      let link = res.data.links[1].href;
+
+      typeof window !== 'undefined' && window.open(link, '_blank');
+
+      console.log("resss", res.data)
+    })
+  }
 
 
   return (
@@ -106,6 +148,7 @@ export default function Cart({serverData, productCount}: any) {
 
                 </div>
                 <div
+                    onClick={() => pay()}
                     className={"cursor-pointer w-full h-12 mt-6 rounded-xl bg-purple flex justify-center items-center"}>
                   <p className={"text-base font-[500] text-base text-[white]"}>Buy</p></div>
               </div>
