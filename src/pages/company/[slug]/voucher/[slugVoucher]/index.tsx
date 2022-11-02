@@ -102,12 +102,10 @@ export default function Details({serverOffer, serverVoucher}: any) {
   }
 
   useEffect(() => {
-    console.log("favurites", favourites.favouritesList)
     setIsFavourite(false);
     favourites.favouritesList.map((e: any) => {
       if (_.get(e, 'additionalInfo[0].genericTransactionTypeId', 0) === _.get(voucher, '[0].additionalInfo[0].genericTransactionTypeId', 0)) {
         setIsFavourite(true);
-        alert("true")
       }
     })
   }, [dispatch, favourites, voucher])

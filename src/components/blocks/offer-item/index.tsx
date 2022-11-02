@@ -101,7 +101,7 @@ const OfferItem = ({data}: IOfferItem) => {
 
           <div className={"h-[40px] z-10 bg-orange absolute top-5 left-4 px-[21px] rounded-[100px] flex items-center"}>
             <p className={"text-[white] text-base"}>- {_.get(data, 'additionalInfo[0].percentage', 0)}
-              %{isFavourite ? "ki" : "ara"}</p>
+              %</p>
           </div>
 
           <div onClick={(e) => {
