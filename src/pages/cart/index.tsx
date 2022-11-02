@@ -41,7 +41,7 @@ export default function Cart({serverData, productCount}: any) {
 
 
   const pay = () => {
-    axios.post(`https://bog-banking.pirveli.ge/api/bog/orders`, {
+    axios.post(`https://vouchers.pirveli.ge/api/bog/orders`, {
       "user_id": 1,
       "contract_id": 572,
       "party_id": -1234567,
