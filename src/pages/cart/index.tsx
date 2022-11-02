@@ -36,19 +36,6 @@ export default function Cart({serverData, productCount}: any) {
     dispatch(getTotals({}));
   }, [cart, dispatch]);
 
-  const handleAddToCart = (product: any) => {
-    dispatch(addToCart(product));
-  };
-  const handleDecreaseCart = (product: any) => {
-    dispatch(decreaseCart(product));
-  };
-  const handleRemoveFromCart = (product: any) => {
-    dispatch(removeFromCart(product));
-  };
-  const getProductCount = () => {
-    return cart.cartItems.length;
-  };
-
 
   return (
       <>
