@@ -1,7 +1,6 @@
 import Layout from "../../../../../components/layouts/user-layout"
 import Head from 'next/head'
 import {Badge, notification} from 'antd';
-
 // @ts-ignore
 import {IMAGES, ICONS} from "public/images";
 import Image from "next/image";
@@ -20,29 +19,31 @@ import router, {useRouter} from "next/router";
 import OfferSlider from "../../../../../components/UI/slider/offer-slider";
 import dynamic from "next/dynamic";
 import {useDispatch, useSelector} from "react-redux";
+import _ from "lodash";
 
 import {
-  addToCartWithQuantity,
-  clearCart,
-  decreaseCart,
-  getTotals,
-  removeFromCart,
+  addToCartWithQuantity, getTotals,
 } from "../../../../../components/slices/cartSlice";
-import _ from "lodash";
-import moment from "moment";
 
-const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+import {addToFavourites, clearFavourites, getTotalsFavourite} from "../../../../../components/slices/favouritesSlice";
+import {heartPurple} from "../../../../../../public/images/icons";
 
 const CountDown = dynamic(
     () => import("../../../../../components/UI/count-down"),
     {ssr: false}
 )
+const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 export default function Details({serverOffer, serverVoucher}: any) {
   const baseApi = process.env.baseApi;
 
   const [vouchers, setVouchers] = useState<[]>([]);
   const [voucher, setVoucher] = useState<any>([]);
+  const [isFavourite, setIsFavourite] = useState<boolean>(false);
+
+  const cart = useSelector((state: any) => state.cart);
+  const favourites = useSelector((state: any) => state.favourites);
+
 
   const dispatch = useDispatch();
   const Router = useRouter();
@@ -51,8 +52,6 @@ export default function Details({serverOffer, serverVoucher}: any) {
   let slugVoucher = Router?.query.slugVoucher?.replaceAll('-', ' ');
   // @ts-ignore
   let slug = Router?.query.slug?.replaceAll('-', ' ');
-
-  console.log("slugVoucher", slugVoucher)
 
   const [isWithMoney, setIsWithMoney] = useState(true);
   const [quantity, setQuantity] = useState<number>(1)
@@ -66,6 +65,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
         if (res.data.length === 0) {
           Router.push("/");
         }
+
       })
 
       axios.get(`${baseApi}/vouchers?contractId=662`).then((res) => {
@@ -76,31 +76,44 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
   }, [slugVoucher, slug])
 
+  useEffect(() => {
+    dispatch(getTotalsFavourite({}));
+    dispatch(getTotals({}));
+
+  }, [cart, voucher, favourites, dispatch]);
+
+
   const handleAddToCart = (product: any) => {
     product.quantity = quantity;
     product.isPoint = !isWithMoney;
-
     dispatch(addToCartWithQuantity(product));
-
     // Router.push('/cart')
 
     notification['success']({
       message: 'item successfully add',
-
     });
-
   };
-
+  const addFav = (product: any) => {
+    dispatch(addToFavourites(product));
+  }
 
   const getWeekByNumber = (index: number) => {
     return weekDays[index - 1]
   }
 
+  useEffect(() => {
+    console.log("favurites", favourites.favouritesList)
+    setIsFavourite(false);
+    favourites.favouritesList.map((e: any) => {
+      if (_.get(e, 'additionalInfo[0].genericTransactionTypeId', 0) === _.get(voucher, '[0].additionalInfo[0].genericTransactionTypeId', 0)) {
+        setIsFavourite(true);
+        alert("true")
+      }
+    })
+  }, [dispatch, favourites, voucher])
 
   const RightSide = () => {
-
     return <div className={"h-full"}>
-
       <div className={"bg-[#d9d9d933] rounded-xl p-8"}>
 
         <div className={"grid grid-cols-2 grid-rows-1 bg-[white] w-full h-[48px] rounded-xl p-1"}>
@@ -256,15 +269,21 @@ export default function Details({serverOffer, serverVoucher}: any) {
           <div
               className={"w-full rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
               onClick={() => {
-              }}>
+                addFav(voucher[0])
+              }}
+
+          >
             <div className={"min-w-[15px] flex"}>
-              <Image src={ICONS.heart} className={"cursor-pointer"} alt={"cart icon"}/>
+              {
+                isFavourite ? <Image src={ICONS.heartPurple} className={"cursor-pointer"} alt={"cart icon"}/> :
+                    <Image src={ICONS.heart} className={"cursor-pointer"} alt={"cart icon"}/>
+              }
             </div>
             <p className={"ml-3 text-base text-[#383838] whitespace-nowrap"}
             >save</p>
           </div>
 
-          <div className={" col-span-2"}>
+          <div className={" col-span-2"} onClick={() => dispatch(clearFavourites({}))}>
             <Button text={"Buy now"} bgColor={"#8338EC"} classes={"!w-full"}/>
           </div>
 

@@ -1,25 +1,19 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 // @ts-ignore
 import {ICONS} from "public/images";
 import Image from "next/image"
-
 import img from "/public/images/images/offerItem.png"
 import Link from "next/link";
 import Lari from "../../../../public/images/icons/lari";
-
 import "antd/dist/antd.css";
-
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Carousel} from 'react-responsive-carousel';
-
 import InStock from "../../UI/in-stock";
-import OfferItemSlider from "../../UI/slider/offer-slider/OfferItemSlider";
 import slider from "../../../../public/images/images/mainSlider.png";
-import Test from "../../UI/slider/offer-slider/Test";
-// import CountDown from "../../UI/count-down";
 import _ from 'lodash';
-
 import dynamic from 'next/dynamic'
+import {useDispatch, useSelector} from "react-redux";
+import {addToFavourites, getTotalsFavourite} from "../../slices/favouritesSlice";
 
 const CountDown = dynamic(
     () => import('../../UI/count-down'),
@@ -30,11 +24,38 @@ interface IOfferItem {
   data: any,
 }
 
+
 const OfferItem = ({data}: IOfferItem) => {
   const [isVisibleDrawer, setIsVisibleDrawer] = useState<boolean>(false);
+  const [isFavourite, setIsFavourite] = useState<boolean>(false);
 
   let companySlug = _.get(data, 'additionalInfo[0].provider.name', "").replaceAll(' ', '-');
   let voucherSlug = data?.title?.replaceAll(' ', '-');
+
+  const favourites = useSelector((state: any) => state.favourites);
+
+  const dispatch = useDispatch();
+
+
+  const addFav = (product: any) => {
+    console.log("proddddd", product)
+
+    dispatch(addToFavourites(product));
+  }
+
+  useEffect(() => {
+
+    setIsFavourite(false);
+    favourites?.favouritesList?.map((e: any) => {
+
+      if (_.get(e, 'additionalInfo[0].genericTransactionTypeId', 0) === _.get(data, 'additionalInfo[0].genericTransactionTypeId', 0)) {
+        setIsFavourite(true);
+        console.log("falseeeeeeeeeeeeee")
+      }
+
+    })
+
+  }, [favourites, data, dispatch]);
 
 
   // if (!data?.additionalInfo[0]) {
@@ -80,14 +101,16 @@ const OfferItem = ({data}: IOfferItem) => {
 
           <div className={"h-[40px] z-10 bg-orange absolute top-5 left-4 px-[21px] rounded-[100px] flex items-center"}>
             <p className={"text-[white] text-base"}>- {_.get(data, 'additionalInfo[0].percentage', 0)}
-              %</p>
+              %{isFavourite ? "ki" : "ara"}</p>
           </div>
 
           <div onClick={(e) => {
             e.stopPropagation()
+            addFav(data)
           }}
                className={"w-12 h-12 z-10 rounded-[50%] bg-[white] opacity-[0.5] absolute top-4 right-4 flex justify-center items-center"}>
-            <Image src={ICONS.heartBlue} alt={"heart icon"}/>
+            {isFavourite ? <Image src={ICONS.heartPurple} alt={"heart icon"}/> :
+                <Image src={ICONS.heartBlue} alt={"heart icon"}/>}
           </div>
 
           {/*h-[220px] w-full max-w-[360px] flex*/}

@@ -17,6 +17,7 @@ import OfferItem from "../blocks/offer-item";
 import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
 import {getTotals} from "../slices/cartSlice";
+import {getTotalsFavourite} from "../slices/favouritesSlice";
 
 interface category {
   name: string,
@@ -31,21 +32,18 @@ const Header: React.FC = () => {
   const [categories, setCategories] = useState<[any]>([{}]);
   const [categoryVouchers, setCategoryVouchers] = useState<[any]>([null]);
   const [chosenCategory, setChosenCategory] = useState<any>({});
-  const wrapperRef = useRef(null);
   const [term, setTerm] = useState<string>("");
+  const wrapperRef = useRef(null);
   const listRef = useRef<HTMLDivElement>(null);
+
   const [searchForm] = Form.useForm();
   const Router = useRouter();
   const dispatch = useDispatch();
 
-  useOutsideAlerter(wrapperRef);
-
   const cart = useSelector((state: any) => state.cart);
+  const favourites = useSelector((state: any) => state.favourites);
 
-  useEffect(() => {
-    dispatch(getTotals({}));
-  }, [JSON.stringify(cart?.cartItems), dispatch]);
-
+  useOutsideAlerter(wrapperRef);
 
   function useOutsideAlerter(ref: any) {
     useEffect(() => {
@@ -64,8 +62,13 @@ const Header: React.FC = () => {
     }, [ref]);
   }
 
+  useEffect(() => {
+    dispatch(getTotals({}));
+    dispatch(getTotalsFavourite({}))
+  }, [cart, favourites, dispatch]);
 
   useEffect(() => {
+
     if (!!categories) {
       axios
           .get(`${baseApi}/providers/categories`)
@@ -88,7 +91,6 @@ const Header: React.FC = () => {
 
   }, [chosenCategory?.categoryId])
 
-
   useEffect(() => {
     let getData: any;
     if (term) {
@@ -106,7 +108,6 @@ const Header: React.FC = () => {
 
     return () => clearTimeout(getData)
   }, [term])
-
 
   const resetFields = () => {
     searchForm.resetFields();
@@ -341,23 +342,29 @@ const Header: React.FC = () => {
                 {/*buttons*/}
                 <div className={"flex space-x-[30px] justify-end"}>
                   <Link href={"/cart"}>
-                    <Badge count={cart?.productCount}>
-                      <div className={"flex flex-col items-center cursor-pointer"}>
-                        {/*<img src={cart?.src} alt={"shock offer icon"} className={"w-[18px]"}/>*/}
-                        <Image src={ICONS.cart} alt={"shock offer icon"} width={18} height={18}/>
+                    <div>
+                      <Badge count={cart?.productCount}>
+                        <div className={"flex flex-col items-center cursor-pointer"}>
+                          {/*<img src={cart?.src} alt={"shock offer icon"} className={"w-[18px]"}/>*/}
+                          <Image src={ICONS.cart} alt={"shock offer icon"} width={18} height={18}/>
 
-                        <p className={"capitalize mt-[11px] text-base leading-4"}>Basket </p>
-                      </div>
-                    </Badge>
-
+                          <p className={"capitalize mt-[11px] text-base leading-4"}>Basket </p>
+                        </div>
+                      </Badge>
+                    </div>
                   </Link>
 
-                  <div className={"flex flex-col items-center "}>
-                    {/*<img src={heart?.src} alt={"heart icon"} className={"w-[18px]"}/>*/}
-                    <Image src={ICONS.heart} alt={"heart icon"} width={18} height={18}/>
-                    <p className={"capitalize mt-[11px] text-base leading-4"}>Favorites</p>
-                  </div>
-
+                  <Link href={"/"}>
+                    <div>
+                      <Badge count={favourites?.favouritesTotalCount}>
+                        <div className={"flex flex-col items-center "}>
+                          {/*<img src={heart?.src} alt={"heart icon"} className={"w-[18px]"}/>*/}
+                          <Image src={ICONS.heart} alt={"heart icon"} width={18} height={18}/>
+                          <p className={"capitalize mt-[11px] text-base leading-4"}>Favorites</p>
+                        </div>
+                      </Badge>
+                    </div>
+                  </Link>
                   {/*<div className={"w-[130px] rounded-[12px] flex justify-center items-center h-12 bg-[#383838]"}>*/}
                   {/*  <p className={"capitalize text-base text-[#FFFFFF]"}></p>*/}
                   {/*</div>*/}

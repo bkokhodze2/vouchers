@@ -5,6 +5,7 @@ export {default as cart} from './cart.svg';
 export {default as search} from './search.svg';
 export {default as lari} from './lari.svg';
 export {default as heartBlue} from './heartBlue.svg';
+export {default as heartPurple} from './heartPurple.svg';
 export {default as apple} from './apple.svg';
 export {default as fb} from './fb.svg';
 export {default as insta} from './insta.svg';
