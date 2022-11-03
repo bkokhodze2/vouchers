@@ -30,7 +30,6 @@ export default function Cart({serverData, productCount}: any) {
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
 
-  console.log("--------------------------------------", cart)
 
   const getCount = (count: number) => {
   }
@@ -74,7 +73,6 @@ export default function Cart({serverData, productCount}: any) {
 
       typeof window !== 'undefined' && window.open(link, '_blank');
 
-      console.log("resss", res.data)
     })
   }
 

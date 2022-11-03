@@ -115,7 +115,7 @@ export default function Category({serverData}: any) {
               <Image
                   src={IMAGES.banner}
                   quality={70}
-                  blurDataURL={IMAGES.banner.src}
+                  blurDataURL={IMAGES.placeholder.src}
                   placeholder="blur"
                   loading={"lazy"}
                   alt={"banner"}

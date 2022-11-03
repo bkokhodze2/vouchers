@@ -30,7 +30,7 @@ export default function Success() {
                 <Image
                     src={IMAGES.thank}
                     quality={70}
-                    blurDataURL={IMAGES.thank.src}
+                    blurDataURL={IMAGES.placeholder.src}
                     placeholder="blur"
                     priority={true}
                     alt={"not found image"}

@@ -49,7 +49,7 @@ export default function Company() {
                 <div className={"h-[160px] w-full relative bg-[#d9d9d933] rounded-t-xl "}>
                   <Image src={IMAGES.company}
                          quality={80}
-                         blurDataURL={IMAGES.company.src}
+                         blurDataURL={IMAGES.placeholder.src}
                          placeholder="blur"
                          loading={"lazy"}
                          style={{objectFit: "cover"}}
@@ -61,7 +61,7 @@ export default function Company() {
                   <div className={"flex justify-center items-center w-full z-10 absolute -bottom-[40px]"}>
                     <Image src={IMAGES.detailsImg}
                            quality={80}
-                           blurDataURL={IMAGES.detailsImg.src}
+                           blurDataURL={IMAGES.placeholder.src}
                            placeholder="blur"
                            loading={"lazy"}
                            width={104}
@@ -83,7 +83,7 @@ export default function Company() {
 													<Image
 															src={ICONS.fb}
 															quality={60}
-															blurDataURL={ICONS.fb}
+															blurDataURL={IMAGES.placeholder.src}
 															placeholder="blur"
 															loading={"lazy"}
 															alt={"fb icon"}
@@ -99,7 +99,7 @@ export default function Company() {
 															<Image
 																	src={ICONS.insta}
 																	quality={60}
-																	blurDataURL={ICONS.insta}
+																	blurDataURL={IMAGES.placeholder.src}
 																	placeholder="blur"
 																	loading={"lazy"}
 																	alt={"insta icon"}

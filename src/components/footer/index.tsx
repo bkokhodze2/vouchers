@@ -40,14 +40,14 @@ const Footer: React.FC = () => {
               <div className={"flex items-center space-x-[34px]"}>
                 <div>
                   <Image src={ICONS.fb} quality={70}
-                         blurDataURL={ICONS.fb}
+                         blurDataURL={IMAGES.placeholder.src}
                          placeholder="blur"
                          loading={"lazy"} alt={"facebook icon"}/>
                 </div>
                 <div>
                   <Image src={ICONS.insta}
                          quality={70}
-                         blurDataURL={ICONS.insta}
+                         blurDataURL={IMAGES.placeholder.src}
                          placeholder="blur"
                          loading={"lazy"}
                          alt={"instagram icon"}/>
@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
           {/*width={750} height={650}*/}
           <Image src={IMAGES.footer}
                  quality={80}
-                 blurDataURL={IMAGES.footer.src}
+                 blurDataURL={IMAGES.placeholder.src}
                  placeholder="blur"
                  loading={"lazy"}
                  alt={"footer.image"} width={850} height={620}/>
