@@ -133,14 +133,14 @@ const Home: NextPage = ({serverData}: any) => {
 
           </div>
           {/*Special offers*/}
-          <div className={"flex flex-col w-full mt-[84px]"}>
-            <div className={"container m-auto "}>
-              <h1 className={"text-[28px] text-[#383838] font-bold"}>Special offers</h1>
-              <div className={"mt-4"}>
-                <OfferSlider data={vouchers}/>
-              </div>
-            </div>
-          </div>
+          {vouchers.length > 0 && <div className={"flex flex-col w-full mt-[84px]"}>
+						<div className={"container m-auto "}>
+							<h1 className={"text-[28px] text-[#383838] font-bold"}>Special offers</h1>
+							<div className={"mt-4"}>
+								<OfferSlider data={vouchers}/>
+							</div>
+						</div>
+					</div>}
           {/*Special offers*/}
 
           {/*Popular offers*/}
@@ -156,14 +156,15 @@ const Home: NextPage = ({serverData}: any) => {
             </div>
 
             {/*Popular offers */}
-            <div className={"flex flex-col"}>
-              <div className={"container m-auto"}>
-                <h1 className={"text-[28px] text-[#383838] font-bold"}>Popular offers</h1>
-                <div className={"mt-4"}>
-                  <OfferSlider data={vouchers}/>
-                </div>
-              </div>
-            </div>
+            {vouchers.length > 0 && <div className={"flex flex-col"}>
+							<div className={"container m-auto"}>
+								<h1 className={"text-[28px] text-[#383838] font-bold"}>Popular offers</h1>
+								<div className={"mt-4"}>
+									<OfferSlider data={vouchers}/>
+								</div>
+							</div>
+						</div>}
+
           </div>
           {/*Popular offers*/}
 
@@ -292,9 +293,10 @@ const Home: NextPage = ({serverData}: any) => {
 
           {/*New offers  */}
           <div className={"flex flex-col w-full pb-[98px]"}>
-            <div className={"container m-auto"}>
-              <h1 className={"text-[28px] text-[#383838] font-bold"}>New offers</h1>
-              <div className={"mt-4 grid grid-flow-row-dense grid-cols-4 gap-[30px]"}>
+
+            {vouchers.length > 0 && <div className={"container m-auto"}>
+							<h1 className={"text-[28px] text-[#383838] font-bold"}>New offers</h1>
+							<div className={"mt-4 grid grid-flow-row-dense grid-cols-4 gap-[30px]"}>
 
                 {
                     !!vouchersAll?.length && vouchersAll?.map((item: any, index: any) => {
@@ -302,26 +304,26 @@ const Home: NextPage = ({serverData}: any) => {
                     })
                 }
 
-              </div>
+							</div>
 
-              <div className={"flex justify-center mt-[48px] "}>
-                <div
-                    className={"bg-purple rounded-xl h-[48px] w-min px-10 flex justify-center items-center cursor-pointer"}
-                    style={{
+							<div className={"flex justify-center mt-[48px] "}>
+								<div
+										className={"bg-purple rounded-xl h-[48px] w-min px-10 flex justify-center items-center cursor-pointer"}
+										style={{
                       transition: "1s"
                     }}
-                    onClick={() => !isLoading && nextPage(page + 1)}>
+										onClick={() => !isLoading && nextPage(page + 1)}>
 
-                  <p className={"text-[16px] text-[white] font-normal whitespace-nowrap"}>{isLoading ? "loading" : "Show all"}</p>
+									<p className={"text-[16px] text-[white] font-normal whitespace-nowrap"}>{isLoading ? "loading" : "Show all"}</p>
                   {isLoading &&
 											<PulseLoader size={5} color="#FFFFFF" speedMultiplier={0.7} className={"mt-1.5 ml-1.5 "}/>}
 
 
-                </div>
-              </div>
+								</div>
+							</div>
 
 
-            </div>
+						</div>}
           </div>
           {/*New offers  */}
 
