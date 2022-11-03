@@ -80,7 +80,7 @@ export default function History({serverData}: any) {
         <div className={"w-full max-w-[240px] max-h-[150px] mr-[30px]"}>
           <Image src={IMAGES.offerItem}
                  quality={70}
-                 blurDataURL={IMAGES.offerItem.src}
+                 blurDataURL={IMAGES.placeholder.src}
                  placeholder="blur"
                  priority={true}
                  alt={"product image"}
@@ -138,7 +138,7 @@ export default function History({serverData}: any) {
             <div className={"w-full max-w-[125px] max-h-[84px] mr-4 relative"}>
               <Image src={IMAGES.offerItem}
                      quality={70}
-                     blurDataURL={IMAGES.offerItem.src}
+                     blurDataURL={IMAGES.placeholder.src}
                      placeholder="blur"
                      priority={true}
                      alt={"product image"}
@@ -195,7 +195,7 @@ export default function History({serverData}: any) {
                 <div className={"h-[160px] w-full relative bg-[#d9d9d933] rounded-t-xl "}>
                   <Image src={IMAGES.company}
                          quality={70}
-                         blurDataURL={IMAGES.company.src}
+                         blurDataURL={IMAGES.placeholder.src}
                          placeholder="blur"
                          priority={true}
 
@@ -207,7 +207,7 @@ export default function History({serverData}: any) {
                   <div className={"flex justify-center items-center w-full z-10 absolute -bottom-[40px]"}>
                     <Image src={IMAGES.detailsImg}
                            quality={70}
-                           blurDataURL={IMAGES.detailsImg.src}
+                           blurDataURL={IMAGES.placeholder.src}
                            placeholder="blur"
                            priority={true}
                            alt={"company logo"}

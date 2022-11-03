@@ -164,7 +164,7 @@ const Header: React.FC = () => {
                 height={76}
                 width={125}
                 quality={60}
-                blurDataURL={_.get(data, 'additionalInfo[0].attachments[0].path', offerItem.src)}
+                blurDataURL={IMAGES.placeholder.src}
                 placeholder="blur"
                 loading={'lazy'}
                 alt={"product image"} className={"rounded-xl w-full max-h-[76px]"}
@@ -219,7 +219,7 @@ const Header: React.FC = () => {
               <Image
                   src={IMAGES.coin}
                   quality={30}
-                  blurDataURL={IMAGES.coin.src}
+                  blurDataURL={IMAGES.placeholder.src}
                   placeholder="blur"
                   loading={"lazy"}
 
@@ -245,7 +245,7 @@ const Header: React.FC = () => {
                   <Image
                       src={ICONS.logo}
                       quality={30}
-                      blurDataURL={ICONS.logo}
+                      blurDataURL={IMAGES.placeholder.src}
                       placeholder="blur"
                       loading={"lazy"}
                       width={40}
@@ -255,7 +255,7 @@ const Header: React.FC = () => {
                   />
                   <div className={"ml-3 cursor-pointer"}>
                     <p className={"text-[#383838] text-[26px] font-bold leading-[26px]"}>pirveli <sup
-                        className={"text-[#E35A43] text-base"}>.com</sup></p>
+                        className={"text-purple text-base font-[500]"}>.com</sup></p>
                     <p className={"text-gray text-sm -translate-y-[5px]"}>ყველაფერი ერთად</p>
                   </div>
                 </div>
@@ -296,7 +296,7 @@ const Header: React.FC = () => {
                         <Image
                             src={ICONS.search}
                             quality={30}
-                            blurDataURL={ICONS.search}
+                            blurDataURL={IMAGES.placeholder.src}
                             placeholder="blur"
                             loading={"lazy"}
                             width={18}
@@ -316,7 +316,7 @@ const Header: React.FC = () => {
 														<Image
 																src={ICONS.x}
 																quality={30}
-																blurDataURL={ICONS.x}
+																blurDataURL={IMAGES.placeholder.src}
 																placeholder="blur"
 																loading={"lazy"}
 																alt={"x"}
@@ -376,7 +376,7 @@ const Header: React.FC = () => {
 														<Image
 																src={IMAGES.notFound}
 																quality={60}
-																blurDataURL={IMAGES.notFound.src}
+																blurDataURL={IMAGES.placeholder.src}
 																placeholder="blur"
 																loading={"lazy"}
 																width={240}
@@ -396,16 +396,16 @@ const Header: React.FC = () => {
                 <div className={"flex space-x-[30px] justify-end"}>
                   <Link href={"/cart"}>
                     <div>
-                      <Badge count={cart?.productCount}>
+                      <Badge count={cart?.productCount} className={"badge-cart"}>
                         <div className={"flex flex-col items-center cursor-pointer"}>
                           {/*<img src={cart?.src} alt={"shock offer icon"} className={"w-[18px]"}/>*/}
                           <Image
                               src={ICONS.cart}
                               quality={60}
-                              blurDataURL={ICONS.cart}
+                              blurDataURL={IMAGES.placeholder.src}
                               placeholder="blur"
                               loading={"lazy"}
-                              alt={"shock offer icon"}
+                              alt={"cart icon"}
                               width={18}
                               height={18}
                           />
@@ -418,13 +418,13 @@ const Header: React.FC = () => {
 
                   <Link href={"/"}>
                     <div>
-                      <Badge count={favourites?.favouritesTotalCount}>
+                      <Badge count={favourites?.favouritesTotalCount} className={"badge-favourites"}>
                         <div className={"flex flex-col items-center "}>
                           {/*<img src={heart?.src} alt={"heart icon"} className={"w-[18px]"}/>*/}
                           <Image
                               src={ICONS.heart}
                               quality={60}
-                              blurDataURL={ICONS.heart}
+                              blurDataURL={IMAGES.placeholder.src}
                               placeholder="blur"
                               loading={"lazy"}
                               width={18}
@@ -458,7 +458,7 @@ const Header: React.FC = () => {
                   <Image
                       src={ICONS.shock}
                       quality={60}
-                      blurDataURL={ICONS.shock}
+                      blurDataURL={IMAGES.placeholder.src}
                       placeholder="blur"
                       loading={"lazy"}
                       width={18}
@@ -466,7 +466,7 @@ const Header: React.FC = () => {
                       alt={"shock offer icon"}
 
                   />
-                  <p className={"ml-[9px] text-[#E35A43] text-base whitespace-nowrap"}>Shock offers</p>
+                  <p className={"ml-[9px] text-purple text-base whitespace-nowrap"}>Shock offers</p>
                 </div>
 
                 {/*sub categories*/}

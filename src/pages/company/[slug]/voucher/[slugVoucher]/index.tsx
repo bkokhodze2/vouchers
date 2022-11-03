@@ -113,7 +113,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
   const RightSide = () => {
     return <div className={"h-full"}>
-      <div className={"bg-[#d9d9d933] rounded-xl p-8"}>
+      <div className={"bg-[#d9d9d933] rounded-xl p-8 top-[150px] sticky overflow-y-scroll "}>
 
         <div className={"grid grid-cols-2 grid-rows-1 bg-[white] w-full h-[48px] rounded-xl p-1"}>
 
@@ -276,14 +276,14 @@ export default function Details({serverOffer, serverVoucher}: any) {
               {
                 isFavourite ? <Image src={ICONS.heartPurple}
                                      quality={70}
-                                     blurDataURL={ICONS.heartPurple}
+                                     blurDataURL={IMAGES.placeholder.src}
                                      placeholder="blur"
                                      priority={true}
                                      className={"cursor-pointer"}
                                      alt={"cart icon"}/> :
                     <Image src={ICONS.heart}
                            quality={70}
-                           blurDataURL={ICONS.heart}
+                           blurDataURL={IMAGES.placeholder.src}
                            placeholder="blur"
                            priority={true}
                            className={"cursor-pointer"}
@@ -322,8 +322,6 @@ export default function Details({serverOffer, serverVoucher}: any) {
       />
     },
   ];
-
-
   return (
       <>
         <Head>
@@ -337,7 +335,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
           <div className={"flex flex-col"}>
 
-            <GalleryScroll data={voucher}/>
+            {_.get(voucher, '[0].additionalInfo[0].attachments', []).length > 0 && <GalleryScroll data={voucher}/>}
 
             <div className={"container grid grid-cols-3 gap-[30px] m-auto pt-8"}>
 
@@ -350,7 +348,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
                       <Image
                           src={IMAGES.detailsImg}
                           quality={40}
-                          blurDataURL={IMAGES.detailsImg}
+                          blurDataURL={IMAGES.placeholder.src}
                           placeholder="blur"
                           loading={"lazy"}
                           height={60}
@@ -520,13 +518,13 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
             {/*recommended*/}
             {vouchers.length > 0 && <div className={"flex flex-col w-full mt-[100px] mb-[112px] details"}>
-              <div className={"container m-auto"}>
-                <h1 className={"text-[28px] text-[#383838] font-bold"}>Recommended</h1>
-                <div className={"mt-4"}>
-                  <OfferSlider data={vouchers}/>
-                </div>
-              </div>
-            </div>}
+							<div className={"container m-auto"}>
+								<h1 className={"text-[28px] text-[#383838] font-bold"}>Recommended</h1>
+								<div className={"mt-4"}>
+									<OfferSlider data={vouchers}/>
+								</div>
+							</div>
+						</div>}
             {/*recommended*/}
 
           </div>

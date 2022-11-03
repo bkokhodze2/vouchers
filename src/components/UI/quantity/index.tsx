@@ -24,7 +24,6 @@ function Quantity({getCount, currentQuantity, data, isPoint}: IQuantity) {
 
   const handleAddToCart = (product: any) => {
 
-    console.log(product)
 
     // let obj = {
     //   ...product,isPoint
@@ -40,7 +39,6 @@ function Quantity({getCount, currentQuantity, data, isPoint}: IQuantity) {
   };
 
   const handleDecreaseCart = (product: any) => {
-    console.log("ispoint", isPoint)
 
     dispatch(decreaseCart(product));
 

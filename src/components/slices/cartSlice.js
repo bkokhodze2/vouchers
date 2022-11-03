@@ -96,10 +96,7 @@ const cartSlice = createSlice({
 
 		removeFromCart(state, action) {
 
-			console.log("action", action.payload.isPoint)
-
 			state.cartItems.map((cartItem) => {
-				// console.log("cartItem", action.payload.isPoint)
 
 				if ((_.get(cartItem, '[0]additionalInfo[0].genericTransactionTypeId', 1) === _.get(action, 'payload[0].additionalInfo[0].genericTransactionTypeId', 1)) && action.payload.isPoint === cartItem.isPoint) {
 					// && action.payload.isPoint !== item.isPoint)

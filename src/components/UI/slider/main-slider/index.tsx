@@ -15,6 +15,7 @@ import slider from "../../../../../public/images/images/mainSlider.png"
 import {Pagination, Navigation} from "swiper";
 import img from "*.png";
 import _ from "lodash";
+import { IMAGES } from "../../../../../public/images";
 
 export default function Slider() {
 
@@ -38,7 +39,7 @@ export default function Slider() {
               <Image src={slider.src}
                      layout='fill'
                      quality={50}
-                     blurDataURL={slider?.src}
+                     blurDataURL={IMAGES.placeholder.src}
                      placeholder="blur"
                      priority={true}
                      className={"rounded-xl rounded-xl"}

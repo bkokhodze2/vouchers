@@ -66,7 +66,7 @@ export default function Search({serverData}: any) {
               <div className={"max-w-[250px]"}>
                 <Image src={IMAGES.notFound}
                        quality={60}
-                       blurDataURL={IMAGES.notFound.src}
+                       blurDataURL={IMAGES.placeholder.src}
                        placeholder="blur"
                        loading={"lazy"}
                        alt={"not found image"}

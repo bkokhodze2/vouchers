@@ -23,7 +23,7 @@ const GalleryScroll = ({data}: any) => {
                 style={{marginLeft: `${idx === 0 ? '50px' : '0px'}`}}>
       <Image
           src={_.get(data, 'path', [])}
-          blurDataURL={_.get(data, 'path', [])}
+          blurDataURL={IMAGES.placeholder.src}
           placeholder="blur"
           priority={true}
           quality={80}
@@ -38,13 +38,13 @@ const GalleryScroll = ({data}: any) => {
 
       {[1, 2, 3, 4].map((e, index) => {
         return images[idx + index + 1] &&
-						<div className={"h-[258px] w-[490px] relative"}>
-							<Image key={idx + index + 1}
+						<div key={idx + index + 1} className={"h-[258px] w-[490px] relative"}>
+							<Image
 										 src={_.get(images, `[${idx + index + 1}].path`, [])}
-										 blurDataURL={_.get(images, `[${idx + index + 1}].path`, [])}
+										 blurDataURL={IMAGES.placeholder.src}
 										 placeholder="blur"
 										 priority={true}
-										 quality={60}
+										 quality={40}
 										 layout={"fill"}
 										 className={"object-cover h-full w-full rounded-xl w-[490px] h-[258px]"}
 										 alt={(idx + index + 1).toString()}/>

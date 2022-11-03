@@ -25,9 +25,6 @@ const CartItem = ({data, getCount}: any) => {
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
 
-  console.log("data11", _.get(data, '[0].additionalInfo[0].attachments[0].path', []))
-
-
   useEffect(() => {
     let count = 0;
     cart.cartItems.map((elem: any, index: number) => {
@@ -66,7 +63,7 @@ const CartItem = ({data, getCount}: any) => {
                  alt={"product image"}
               // layout={"fill"}
                  quality={60}
-                 blurDataURL={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
+                 blurDataURL={IMAGES.placeholder.src}
                  placeholder="blur"
                  loading={"lazy"}
                  width={240}
@@ -126,7 +123,7 @@ const CartItem = ({data, getCount}: any) => {
               <Image
                   src={ICONS.trash}
                   quality={70}
-                  blurDataURL={ICONS.trash}
+                  blurDataURL={IMAGES.placeholder.src}
                   placeholder="blur"
                   loading={"lazy"}
                   alt={"trash icon"}

@@ -61,8 +61,6 @@ const Home: NextPage = ({serverData}: any) => {
 
   }
 
-  console.log("vouccall", vouchersAll)
-
   return (
       <div className={"bg-[#F5F6F8]"}>
         <Head>
@@ -89,7 +87,7 @@ const Home: NextPage = ({serverData}: any) => {
                   <Image
                       src={IMAGES.partner}
                       alt={"partner"}
-                      blurDataURL={IMAGES.partner}
+                      blurDataURL={IMAGES.placeholder.src}
                       placeholder="blur"
                       width={312}
                       height={312}
@@ -149,7 +147,7 @@ const Home: NextPage = ({serverData}: any) => {
               <Image
                   src={IMAGES.banner}
                   quality={70}
-                  blurDataURL={IMAGES.banner.src}
+                  blurDataURL={IMAGES.placeholder.src}
                   placeholder="blur"
                   loading={"lazy"}
                   alt={"banner"}/>
@@ -193,7 +191,7 @@ const Home: NextPage = ({serverData}: any) => {
                   <div className={"bg-purple w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
                   <div className={"mt-1"}>
                     <Image src={IMAGES.bag} quality={70}
-                           blurDataURL={IMAGES.bag}
+                           blurDataURL={IMAGES.placeholder.src}
                            placeholder="blur"
                            loading={"lazy"} alt={"bag image"} width={174} height={174}/>
                   </div>
@@ -208,7 +206,7 @@ const Home: NextPage = ({serverData}: any) => {
                   <div className={"bg-[#7B92DC] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
                   <div className={"mt-1"}>
                     <Image src={IMAGES.beauty} quality={70}
-                           blurDataURL={IMAGES.beauty}
+                           blurDataURL={IMAGES.placeholder.src}
                            placeholder="blur"
                            loading={"lazy"} alt={"beauty image"} width={174} height={174}/>
                   </div>
@@ -226,7 +224,7 @@ const Home: NextPage = ({serverData}: any) => {
                     <Image
                         src={IMAGES.food}
                         quality={70}
-                        blurDataURL={IMAGES.food}
+                        blurDataURL={IMAGES.placeholder.src}
                         placeholder="blur"
                         loading={"lazy"}
                         alt={"food image"}
@@ -244,7 +242,7 @@ const Home: NextPage = ({serverData}: any) => {
                   <div className={"bg-purple w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
                   <div className={"mt-1"}>
                     <Image src={IMAGES.entertainment} quality={70}
-                           blurDataURL={IMAGES.entertainment}
+                           blurDataURL={IMAGES.placeholder.src}
                            placeholder="blur"
                            loading={"lazy"} alt={"entertainment image"} width={174} height={174}/>
                   </div>
@@ -260,7 +258,7 @@ const Home: NextPage = ({serverData}: any) => {
                   <div className={"bg-[#56971F] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
                   <div className={"mt-1"}>
                     <Image src={IMAGES.pool} quality={70}
-                           blurDataURL={IMAGES.pool}
+                           blurDataURL={IMAGES.placeholder.src}
                            placeholder="blur"
                            loading={"lazy"} alt={"pool image"} width={174} height={174}/>
                   </div>
@@ -275,7 +273,7 @@ const Home: NextPage = ({serverData}: any) => {
                   <div className={"bg-[#7B92DC] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
                   <div className={"mt-1"}>
                     <Image src={IMAGES.electronic} quality={70}
-                           blurDataURL={IMAGES.electronic}
+                           blurDataURL={IMAGES.placeholder.src}
                            placeholder="blur"
                            loading={"lazy"} alt={"electronic image"} width={174} height={174}/>
                   </div>

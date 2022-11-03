@@ -12,7 +12,6 @@ const CountDown = ({data}: IOfferItem) => {
 
 // Renderer callback with condition
   const renderer = ({days, hours, minutes, seconds, completed}: any) => {
-    // console.log("daa", days, hours, minutes, seconds, completed)
 
     if (completed) {
       // Render a completed state

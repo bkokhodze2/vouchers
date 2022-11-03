@@ -21,7 +21,7 @@ const BecomeOurUser = () => {
           make a type specimen book.
         </p>
         <div className={"flex space-x-6 mt-6"}>
-          <Button text={"Join with us"} bgColor={"#E35A43"}/>
+          <Button text={"Join with us"} bgColor={"#8338EC"}/>
           {Router.route !== "/" && <Button text={"Partnership"} bgColor={"#383838"}/>}
         </div>
       </div>
