@@ -21,13 +21,13 @@ const GalleryScroll = ({data}: any) => {
   const Slide1 = ({idx, data}: any) => {
     return <div className={"min-w-[880px] max-w-[880px] relative ml-[50px] mr-[30px] h-[546px]"}
                 style={{marginLeft: `${idx === 0 ? '50px' : '0px'}`}}>
-      <Image
+      <img
           src={_.get(data, 'path', [])}
-          blurDataURL={IMAGES.placeholder.src}
+          // blurDataURL={IMAGES.placeholder.src}
           placeholder="blur"
-          priority={true}
-          quality={80}
-          layout={"fill"}
+          // priority={true}
+          // quality={80}
+          // layout={"fill"}
           className={"object-cover h-full w-full rounded-xl"}
           alt={idx.toString()}/>
     </div>
@@ -39,13 +39,13 @@ const GalleryScroll = ({data}: any) => {
       {[1, 2, 3, 4].map((e, index) => {
         return images[idx + index + 1] &&
 						<div key={idx + index + 1} className={"h-[258px] w-[490px] relative"}>
-							<Image
+							<img
 										 src={_.get(images, `[${idx + index + 1}].path`, [])}
-										 blurDataURL={IMAGES.placeholder.src}
+										 // blurDataURL={IMAGES.placeholder.src}
 										 placeholder="blur"
-										 priority={true}
-										 quality={40}
-										 layout={"fill"}
+										 // priority={true}
+										 // quality={40}
+										 // layout={"fill"}
 										 className={"object-cover h-full w-full rounded-xl w-[490px] h-[258px]"}
 										 alt={(idx + index + 1).toString()}/>
 						</div>
