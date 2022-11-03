@@ -158,13 +158,13 @@ const Header: React.FC = () => {
       <div className={"flex py-4 w-full"}>
         <div className={"w-full max-w-[125px] max-h-[76px] h-[75px] mr-4 relative"}>
           {
-            <Image
+            <img
                 src={_.get(data, 'additionalInfo[0].attachments[0].path', offerItem.src)}
-                layout={"fill"}
+                // layout={"fill"}
                 height={76}
                 width={125}
-                quality={60}
-                blurDataURL={IMAGES.placeholder.src}
+                // quality={60}
+                // blurDataURL={IMAGES.placeholder.src}
                 placeholder="blur"
                 loading={'lazy'}
                 alt={"product image"} className={"rounded-xl w-full max-h-[76px]"}
@@ -222,7 +222,6 @@ const Header: React.FC = () => {
                   blurDataURL={IMAGES.placeholder.src}
                   placeholder="blur"
                   loading={"lazy"}
-
                   width={20}
                   height={20}
                   alt={"coin icon"}
