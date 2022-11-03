@@ -26,7 +26,15 @@ export default function Success() {
             <div
                 className={"mt-9 container m-auto w-full max-w-[490px] flex justify-center items-center flex flex-col "}>
               <div className={"max-w-[250px]"}>
-                <Image src={IMAGES.thank} alt={"not found image"} style={{objectFit: "cover"}}/>
+
+                <Image
+                    src={IMAGES.thank}
+                    quality={70}
+                    blurDataURL={IMAGES.thank.src}
+                    placeholder="blur"
+                    priority={true}
+                    alt={"not found image"}
+                    style={{objectFit: "cover"}}/>
               </div>
 
               <div onClick={() => Router.push('/')}>

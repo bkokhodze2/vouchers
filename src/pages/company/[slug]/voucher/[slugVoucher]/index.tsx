@@ -27,6 +27,7 @@ import {
 
 import {addToFavourites, clearFavourites, getTotalsFavourite} from "../../../../../components/slices/favouritesSlice";
 import {heartPurple} from "../../../../../../public/images/icons";
+import slider from "../../../../../../public/images/images/mainSlider.png";
 
 const CountDown = dynamic(
     () => import("../../../../../components/UI/count-down"),
@@ -273,8 +274,21 @@ export default function Details({serverOffer, serverVoucher}: any) {
           >
             <div className={"min-w-[15px] flex"}>
               {
-                isFavourite ? <Image src={ICONS.heartPurple} className={"cursor-pointer"} alt={"cart icon"}/> :
-                    <Image src={ICONS.heart} className={"cursor-pointer"} alt={"cart icon"}/>
+                isFavourite ? <Image src={ICONS.heartPurple}
+                                     quality={70}
+                                     blurDataURL={ICONS.heartPurple}
+                                     placeholder="blur"
+                                     priority={true}
+                                     className={"cursor-pointer"}
+                                     alt={"cart icon"}/> :
+                    <Image src={ICONS.heart}
+                           quality={70}
+                           blurDataURL={ICONS.heart}
+                           placeholder="blur"
+                           priority={true}
+                           className={"cursor-pointer"}
+                           alt={"cart icon"}
+                    />
               }
             </div>
             <p className={"ml-3 text-base text-[#383838] whitespace-nowrap"}
@@ -333,7 +347,15 @@ export default function Details({serverOffer, serverVoucher}: any) {
                   <div
                       className={"flex justify-between w-full p-6 rounded-xl items-center bg-[white] cursor-pointer"}>
                     <div className={"mr-4 flex justify-center items-center"}>
-                      <Image src={IMAGES.detailsImg} height={60} width={60} alt={"image"}/>
+                      <Image
+                          src={IMAGES.detailsImg}
+                          quality={40}
+                          blurDataURL={IMAGES.detailsImg}
+                          placeholder="blur"
+                          loading={"lazy"}
+                          height={60}
+                          width={60}
+                          alt={"image"}/>
                     </div>
                     <div className={"flex-1 flex-col"}>
                       <h2 className={"text-[22px] font-bold text-[#383838]"}>{_.get(voucher, '[0].additionalInfo[0].provider.name', '')}

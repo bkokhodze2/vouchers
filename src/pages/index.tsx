@@ -14,6 +14,7 @@ import Footer from "../components/footer";
 import axios from "axios";
 import PulseLoader from "react-spinners/PulseLoader";
 import {HashLoader} from "react-spinners";
+import slider from "../../public/images/images/mainSlider.png";
 
 // import Background from "../../public/images/images/test.png.png"
 
@@ -85,7 +86,16 @@ const Home: NextPage = ({serverData}: any) => {
                 <div className={"relative"}>
                   <div
                       className={"absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[92%] rounded-[50%] h-[554px] w-[554px] bg-[#F5CE5A] "}></div>
-                  <Image src={IMAGES.partner} alt={"partner"} width={312} height={312}/>
+                  <Image
+                      src={IMAGES.partner}
+                      alt={"partner"}
+                      blurDataURL={IMAGES.partner}
+                      placeholder="blur"
+                      width={312}
+                      height={312}
+                      quality={50}
+                      priority={true}
+                  />
                 </div>
                 <p className={"w-full px-6 text-center leading-[23px] text-[#38383899] text-sm -mt-[14px] z-10"}>Increase
                   sales,
@@ -136,7 +146,13 @@ const Home: NextPage = ({serverData}: any) => {
           {/*Popular offers*/}
           <div className={"w-full"}>
             <div className={"mt-10 container m-auto mt-[76px] mb-[84px]"}>
-              <Image src={IMAGES.banner} alt={"banner"}/>
+              <Image
+                  src={IMAGES.banner}
+                  quality={70}
+                  blurDataURL={IMAGES.banner.src}
+                  placeholder="blur"
+                  loading={"lazy"}
+                  alt={"banner"}/>
             </div>
 
             {/*Popular offers */}
@@ -175,7 +191,10 @@ const Home: NextPage = ({serverData}: any) => {
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-purple w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
                   <div className={"mt-1"}>
-                    <Image src={IMAGES.bag} alt={"bag image"} width={174} height={174}/>
+                    <Image src={IMAGES.bag} quality={70}
+                           blurDataURL={IMAGES.bag}
+                           placeholder="blur"
+                           loading={"lazy"} alt={"bag image"} width={174} height={174}/>
                   </div>
                   <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>Tourism</h4>
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
@@ -187,7 +206,10 @@ const Home: NextPage = ({serverData}: any) => {
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-[#7B92DC] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
                   <div className={"mt-1"}>
-                    <Image src={IMAGES.beauty} alt={"beauty image"} width={174} height={174}/>
+                    <Image src={IMAGES.beauty} quality={70}
+                           blurDataURL={IMAGES.beauty}
+                           placeholder="blur"
+                           loading={"lazy"} alt={"beauty image"} width={174} height={174}/>
                   </div>
                   <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>beauty</h4>
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
@@ -200,7 +222,16 @@ const Home: NextPage = ({serverData}: any) => {
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-[#F5CE5A] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
                   <div className={"mt-1"}>
-                    <Image src={IMAGES.food} alt={"food image"} width={174} height={174}/>
+                    <Image
+                        src={IMAGES.food}
+                        quality={70}
+                        blurDataURL={IMAGES.food}
+                        placeholder="blur"
+                        loading={"lazy"}
+                        alt={"food image"}
+                        width={174}
+                        height={174}
+                    />
                   </div>
                   <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>Food</h4>
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
@@ -211,7 +242,10 @@ const Home: NextPage = ({serverData}: any) => {
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-purple w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
                   <div className={"mt-1"}>
-                    <Image src={IMAGES.entertainment} alt={"entertainment image"} width={174} height={174}/>
+                    <Image src={IMAGES.entertainment} quality={70}
+                           blurDataURL={IMAGES.entertainment}
+                           placeholder="blur"
+                           loading={"lazy"} alt={"entertainment image"} width={174} height={174}/>
                   </div>
                   <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>Entertainment</h4>
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
@@ -224,7 +258,10 @@ const Home: NextPage = ({serverData}: any) => {
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-[#56971F] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
                   <div className={"mt-1"}>
-                    <Image src={IMAGES.pool} alt={"pool image"} width={174} height={174}/>
+                    <Image src={IMAGES.pool} quality={70}
+                           blurDataURL={IMAGES.pool}
+                           placeholder="blur"
+                           loading={"lazy"} alt={"pool image"} width={174} height={174}/>
                   </div>
                   <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>Pool</h4>
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
@@ -236,7 +273,10 @@ const Home: NextPage = ({serverData}: any) => {
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-[#7B92DC] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
                   <div className={"mt-1"}>
-                    <Image src={IMAGES.electronic} alt={"electronic image"} width={174} height={174}/>
+                    <Image src={IMAGES.electronic} quality={70}
+                           blurDataURL={IMAGES.electronic}
+                           placeholder="blur"
+                           loading={"lazy"} alt={"electronic image"} width={174} height={174}/>
                   </div>
                   <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>Electronic</h4>
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>

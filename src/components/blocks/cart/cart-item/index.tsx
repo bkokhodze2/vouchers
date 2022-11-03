@@ -10,6 +10,7 @@ import {removeFromCart, changeIsPoint} from "../../../slices/cartSlice";
 
 
 import {useDispatch, useSelector} from "react-redux";
+import slider from "../../../../../public/images/images/mainSlider.png";
 
 interface ICartItem {
   id?: number,
@@ -64,6 +65,10 @@ const CartItem = ({data, getCount}: any) => {
           <Image src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
                  alt={"product image"}
               // layout={"fill"}
+                 quality={60}
+                 blurDataURL={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
+                 placeholder="blur"
+                 loading={"lazy"}
                  width={240}
                  height={146}
                  className={"rounded-xl w-full max-w-[240px] max-h-[150px]"}
@@ -118,7 +123,15 @@ const CartItem = ({data, getCount}: any) => {
                 onClick={() => {
                 }}
                 className={"flex items-center cursor-pointer"}>
-              <Image src={ICONS.trash} alt={"trash icon"} width={24} height={24}/>
+              <Image
+                  src={ICONS.trash}
+                  quality={70}
+                  blurDataURL={ICONS.trash}
+                  placeholder="blur"
+                  loading={"lazy"}
+                  alt={"trash icon"}
+                  width={24}
+                  height={24}/>
               <p className={"text-[#383838] ml-[10px] font-[500]"} onClick={() => handleRemoveFromCart(data)}>Delete</p>
             </div>
           </div>

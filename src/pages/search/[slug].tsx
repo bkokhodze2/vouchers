@@ -41,7 +41,7 @@ export default function Search({serverData}: any) {
 
           <div className={"container m-auto mt-8 mb-[100px]"}>
 
-            {!!vouchers ? <>
+            {vouchers.length > 0 ? <>
               <p className={"text-[#383838] text-[28px] font-bold mb-4"}>
                 Search result “<span className={"text-purple"}>{Router.query.slug}</span>”
               </p>
@@ -64,7 +64,13 @@ export default function Search({serverData}: any) {
             </> : <div
                 className={"mt-9 container m-auto w-full max-w-[490px] flex justify-center items-center flex flex-col "}>
               <div className={"max-w-[250px]"}>
-                <Image src={IMAGES.notFound} alt={"not found image"} style={{objectFit: "cover"}}/>
+                <Image src={IMAGES.notFound}
+                       quality={60}
+                       blurDataURL={IMAGES.notFound.src}
+                       placeholder="blur"
+                       loading={"lazy"}
+                       alt={"not found image"}
+                       style={{objectFit: "cover"}}/>
               </div>
               <p className={"uppercase mt-10 text-[#383838] text-[28px] font-bold"}>no result found</p>
               <p className={"mt-6 text-base text-[#38383899] text-center"}>We’ve searched more than 350 hotels we did

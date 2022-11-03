@@ -47,11 +47,29 @@ export default function Company() {
 
               <div className={"sticky top-[130px] max-h-[calc(100vh_-_2rem)] overflow-scroll rounded-xl"}>
                 <div className={"h-[160px] w-full relative bg-[#d9d9d933] rounded-t-xl "}>
-                  <Image src={IMAGES.company} alt={"company image"} style={{objectFit: "cover"}} layout={"fill"}
-                         className={"rounded-t-xl"}/>
+                  <Image src={IMAGES.company}
+                         quality={80}
+                         blurDataURL={IMAGES.company.src}
+                         placeholder="blur"
+                         loading={"lazy"}
+                         style={{objectFit: "cover"}}
+                         layout={"fill"}
+                         className={"rounded-t-xl"}
+                         alt={"company image"}
+                  />
 
                   <div className={"flex justify-center items-center w-full z-10 absolute -bottom-[40px]"}>
-                    <Image src={IMAGES.detailsImg} alt={"company logo"} width={104} height={104} className={"z-10"}/>
+                    <Image src={IMAGES.detailsImg}
+                           quality={80}
+                           blurDataURL={IMAGES.detailsImg.src}
+                           placeholder="blur"
+                           loading={"lazy"}
+                           width={104}
+                           height={104}
+                           className={"z-10"}
+                           alt={"company logo"}
+
+                    />
                   </div>
                 </div>
                 <div className={"pt-[60px] px-6 pb-4 bg-[#d9d9d933] rounded-b-xl"}>
@@ -62,7 +80,15 @@ export default function Company() {
                       {voucher[0]?.additionalInfo[0]?.provider.facebookUrl && <div className={"cursor-pointer"}>
 												<Link href={voucher[0]?.additionalInfo[0]?.provider.facebookUrl}
 															target={"_blank"}>
-													<Image src={ICONS.fb} alt={"fb icon"}/>
+													<Image
+															src={ICONS.fb}
+															quality={60}
+															blurDataURL={ICONS.fb}
+															placeholder="blur"
+															loading={"lazy"}
+															alt={"fb icon"}
+
+													/>
 												</Link>
 											</div>
                       }
@@ -70,7 +96,14 @@ export default function Company() {
                           voucher[0]?.additionalInfo[0]?.provider.instagramUrl &&
 													<div className={"cursor-pointer"}>
 														<Link href={voucher[0]?.additionalInfo[0]?.provider.instagramUrl} target={"_blank"}>
-															<Image src={ICONS.insta} alt={"insta icon"}/>
+															<Image
+																	src={ICONS.insta}
+																	quality={60}
+																	blurDataURL={ICONS.insta}
+																	placeholder="blur"
+																	loading={"lazy"}
+																	alt={"insta icon"}
+															/>
 														</Link>
 													</div>
                       }

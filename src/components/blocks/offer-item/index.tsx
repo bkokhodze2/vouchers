@@ -62,6 +62,10 @@ const OfferItem = ({data}: IOfferItem) => {
   //   return
   // }
 
+  const onLoadCallBack = (e: any) => {
+    console.log("loadeeeeed")
+  }
+
   const InnerSlider = () => {
     return <div className="carousel-wrapper h-[220px]" onClick={(e) => {
       e.stopPropagation()
@@ -70,22 +74,33 @@ const OfferItem = ({data}: IOfferItem) => {
 
         {
           _.get(data, 'additionalInfo[0].attachments', []).length === 0 ? <div>
-                <Image src={slider?.src} alt={"slider img"}
+                <Image src={slider?.src}
+                       alt={"slider img"}
                        height={220}
                        width={360}
+                       quality={20}
+                       blurDataURL={slider?.src}
+                       placeholder="blur"
                        style={{objectFit: "cover"}}
                        layout={"fill"}
                        loading="lazy"
+                    // priority={true}
                        className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
               </div> :
               _.get(data, 'additionalInfo[0].attachments', []).map((item: any, index: number) => {
                 return <div key={index}>
-                  <Image src={item?.path} alt={"slider img"}
+                  <Image src={item?.path}
+                         alt={"slider img"}
                          height={220}
                          width={360}
+                         quality={70}
+                         blurDataURL={item?.path}
+                         placeholder="blur"
+                         onLoad={onLoadCallBack}
                          style={{objectFit: "cover"}}
                          layout={"fill"}
                          loading="lazy"
+                      // priority={true}
                          className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
                 </div>
               })
@@ -109,8 +124,22 @@ const OfferItem = ({data}: IOfferItem) => {
             addFav(data)
           }}
                className={"w-12 h-12 z-10 rounded-[50%] bg-[white] opacity-[0.5] absolute top-4 right-4 flex justify-center items-center"}>
-            {isFavourite ? <Image src={ICONS.heartPurple} alt={"heart icon"}/> :
-                <Image src={ICONS.heartBlue} alt={"heart icon"}/>}
+            {isFavourite ? <Image
+                    src={ICONS.heartPurple}
+                    quality={60}
+                    blurDataURL={ICONS?.heartPurple}
+                    placeholder="blur"
+                    loading={"lazy"}
+                    alt={"heart icon"}/> :
+                <Image
+                    src={ICONS.heartBlue}
+                    quality={60}
+                    blurDataURL={ICONS?.heartBlue}
+                    placeholder="blur"
+                    loading={"lazy"}
+                    alt={"heart icon"}
+
+                />}
           </div>
 
           {/*h-[220px] w-full max-w-[360px] flex*/}
