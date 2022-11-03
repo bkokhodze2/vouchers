@@ -519,14 +519,14 @@ export default function Details({serverOffer, serverVoucher}: any) {
             </div>
 
             {/*recommended*/}
-            <div className={"flex flex-col w-full mt-[100px] mb-[112px] details"}>
+            {vouchers.length > 0 && <div className={"flex flex-col w-full mt-[100px] mb-[112px] details"}>
               <div className={"container m-auto"}>
                 <h1 className={"text-[28px] text-[#383838] font-bold"}>Recommended</h1>
                 <div className={"mt-4"}>
                   <OfferSlider data={vouchers}/>
                 </div>
               </div>
-            </div>
+            </div>}
             {/*recommended*/}
 
           </div>
