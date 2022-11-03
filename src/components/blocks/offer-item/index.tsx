@@ -69,15 +69,15 @@ const OfferItem = ({data}: IOfferItem) => {
 
         {
           _.get(data, 'additionalInfo[0].attachments', []).length === 0 ? <div>
-                <Image src={slider?.src}
+                <img src={slider?.src}
                        alt={"slider img"}
                        height={220}
                        width={360}
-                       quality={10}
-                       blurDataURL={IMAGES.placeholder.src}
+                       // quality={10}
+                       // blurDataURL={IMAGES.placeholder.src}
                        placeholder="blur"
                        style={{objectFit: "cover"}}
-                       layout={"fill"}
+                       // layout={"fill"}
                        loading="lazy"
                     // priority={true}
                        className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
@@ -85,15 +85,15 @@ const OfferItem = ({data}: IOfferItem) => {
               _.get(data, 'additionalInfo[0].attachments', []).map((item: any, index: number) => {
 
                 return <div key={index}>
-                  <Image src={item?.path}
+                  <img src={item?.path}
                          alt={"slider img"}
                          height={220}
                          width={360}
-                         quality={50}
-                         blurDataURL={IMAGES.placeholder.src}
+                         // quality={50}
+                         // blurDataURL={IMAGES.placeholder.src}
                          placeholder="blur"
                          style={{objectFit: "cover"}}
-                         layout={"fill"}
+                         // layout={"fill"}
                          loading="lazy"
                       // priority={true}
                          className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
