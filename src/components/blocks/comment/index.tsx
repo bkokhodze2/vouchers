@@ -34,7 +34,15 @@ const Comment = ({
         <div className={"flex justify-between items-center"}>
           <div className={"flex items-center"}>
             <div className={"mr-3 flex justify-center items-center"}>
-              <Image src={IMAGES.detailsImg} alt={"user avatar icon"} width={40} height={40}/>
+              <Image src={IMAGES.detailsImg}
+                     quality={70}
+                     blurDataURL={IMAGES.detailsImg.src}
+                     placeholder="blur"
+                     loading={"lazy"}
+                     alt={"user avatar icon"}
+                     width={40}
+                     height={40}
+              />
             </div>
             <div>
               <p className={"text-base font-bold"}>{userName}</p>

@@ -10,13 +10,16 @@ import Button from "../../components/UI/button";
 import OfferSlider from "../../components/UI/slider/offer-slider";
 import axios from "axios";
 import {Form, Select} from "antd";
+import RingLoader from "react-spinners/RingLoader";
+import PulseLoader from "react-spinners/PulseLoader";
 
 export default function Category({serverData}: any) {
   const baseApi = process.env.baseApi;
   const [vouchers, setVouchers] = useState<[]>([])
+  const [isLoading, setIsLoading] = useState(true);
+
 
   const Router = useRouter();
-  const [isResult, setIsResult] = useState(true);
 
   const [filterForm] = Form.useForm();
 
@@ -24,10 +27,12 @@ export default function Category({serverData}: any) {
 
 
   useEffect(() => {
+    setIsLoading(true)
 
     if (Router?.query?.id) {
       axios.get(`${baseApi}/vouchers?contractId=662&categoryId=${Router?.query?.id}`).then((res) => {
         setVouchers(res.data)
+        setIsLoading(false)
       })
     }
   }, [Router?.query?.id])
@@ -45,16 +50,34 @@ export default function Category({serverData}: any) {
 
         <div className={""}>
 
+          {isLoading && <div className={"container m-auto flex justify-center mt-16 mb-10"}>
+            <div >
+							<RingLoader
+									color="#8338EC"
+									size={80}
+									speedMultiplier={1}
+							/>
+							<div className={"flex items-end mt-10"}>
+								<p className={"text-[#383838] text-[24px]"}>Loading</p>
+								<PulseLoader size={5} color="#383838" speedMultiplier={0.7} className={"mb-1.5 ml-1.5 "}/>
+							</div>
+            </div>
+
+					</div>
+          }
+
           <div className={"container m-auto mt-8 pb-[100px]"}>
 
-            <div className={"flex flex-col w-full category"}>
-              <div className={"container m-auto"}>
-                <h1 className={"text-[28px] text-[#383838] font-bold"}>Popular</h1>
-                <div className={"mt-4"}>
-                  <OfferSlider nav={true} data={vouchers}/>
-                </div>
-              </div>
-            </div>
+            {vouchers.length > 0 && !isLoading && <div className={"flex flex-col w-full category"}>
+							<div className={"container m-auto"}>
+								<h1 className={"text-[28px] text-[#383838] font-bold"}>Popular</h1>
+								<div className={"mt-4"}>
+									<OfferSlider nav={true} data={vouchers}/>
+								</div>
+							</div>
+						</div>
+
+            }
 
             {/*<div className={"h-[60px] bg-[black] mt-[54px] flex justify-between"}>*/}
             {/*  <div className={"flex"}>*/}
@@ -89,7 +112,14 @@ export default function Category({serverData}: any) {
             {/*</div>*/}
 
             <div className={"container m-auto mt-[20px]"}>
-              <Image src={IMAGES.banner} alt={"banner"}/>
+              <Image
+                  src={IMAGES.banner}
+                  quality={70}
+                  blurDataURL={IMAGES.banner.src}
+                  placeholder="blur"
+                  loading={"lazy"}
+                  alt={"banner"}
+              />
             </div>
 
             <div className={"container mt-[40px] m-auto grid grid-flow-row-dense grid-cols-4 gap-[30px] gap-y-[40px]"}>

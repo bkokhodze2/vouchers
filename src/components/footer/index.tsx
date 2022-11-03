@@ -39,10 +39,18 @@ const Footer: React.FC = () => {
               <p className={"text-[#383838]"}>Copyright © 2022 our website. All rights reserved.</p>
               <div className={"flex items-center space-x-[34px]"}>
                 <div>
-                  <Image src={ICONS.fb} alt={"facebook icon"}/>
+                  <Image src={ICONS.fb} quality={70}
+                         blurDataURL={ICONS.fb}
+                         placeholder="blur"
+                         loading={"lazy"} alt={"facebook icon"}/>
                 </div>
                 <div>
-                  <Image src={ICONS.insta} alt={"instagram icon"}/>
+                  <Image src={ICONS.insta}
+                         quality={70}
+                         blurDataURL={ICONS.insta}
+                         placeholder="blur"
+                         loading={"lazy"}
+                         alt={"instagram icon"}/>
                 </div>
               </div>
             </div>
@@ -52,7 +60,12 @@ const Footer: React.FC = () => {
         </div>
         <div className={"absolute right-0 bottom-0 max-w-[850px] w-[50%] flex items-end"}>
           {/*width={750} height={650}*/}
-          <Image src={IMAGES.footer} alt={"footer.image"} width={850} height={620}/>
+          <Image src={IMAGES.footer}
+                 quality={80}
+                 blurDataURL={IMAGES.footer.src}
+                 placeholder="blur"
+                 loading={"lazy"}
+                 alt={"footer.image"} width={850} height={620}/>
         </div>
       </footer>
   )

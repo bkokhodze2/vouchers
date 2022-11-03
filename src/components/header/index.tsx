@@ -18,6 +18,7 @@ import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
 import {getTotals} from "../slices/cartSlice";
 import {getTotalsFavourite} from "../slices/favouritesSlice";
+import slider from "../../../public/images/images/mainSlider.png";
 
 interface category {
   name: string,
@@ -28,7 +29,7 @@ const Header: React.FC = () => {
   const baseApi = process.env.baseApi;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [findData, setFindData] = useState<[any]>([{}]);
+  const [findData, setFindData] = useState<[]>([]);
   const [categories, setCategories] = useState<[any]>([{}]);
   const [categoryVouchers, setCategoryVouchers] = useState<[any]>([null]);
   const [chosenCategory, setChosenCategory] = useState<any>({});
@@ -155,10 +156,17 @@ const Header: React.FC = () => {
 
     return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
       <div className={"flex py-4 w-full"}>
-        <div className={"w-full max-w-[125px] max-h-[76px] mr-4 relative"}>
+        <div className={"w-full max-w-[125px] max-h-[76px] h-[75px] mr-4 relative"}>
           {
-            <img
+            <Image
                 src={_.get(data, 'additionalInfo[0].attachments[0].path', offerItem.src)}
+                layout={"fill"}
+                height={76}
+                width={125}
+                quality={60}
+                blurDataURL={_.get(data, 'additionalInfo[0].attachments[0].path', offerItem.src)}
+                placeholder="blur"
+                loading={'lazy'}
                 alt={"product image"} className={"rounded-xl w-full max-h-[76px]"}
                 style={{objectFit: "cover"}}/>
           }
@@ -208,7 +216,18 @@ const Header: React.FC = () => {
             </div>
 
             <div className={"flex"}>
-              <Image src={IMAGES.coin} alt={"coin icon"} width={20} height={20}/>
+              <Image
+                  src={IMAGES.coin}
+                  quality={30}
+                  blurDataURL={IMAGES.coin.src}
+                  placeholder="blur"
+                  loading={"lazy"}
+
+                  width={20}
+                  height={20}
+                  alt={"coin icon"}
+
+              />
               <p className={"text-sm text-[white] mr-8 ml-[5px] capitalize after:content-[''] after:h-[20px] after:bg-[#ffffffb3] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500"}>
                 40,076</p>
               <p className={"text-sm text-[#ffffffb3] mr-8 capitalize"}>English</p>
@@ -223,7 +242,17 @@ const Header: React.FC = () => {
               {/*logo*/}
               <Link href={"/"}>
                 <div className={"flex items-center min-w-[380px] max-h-[48px]"}>
-                  <Image src={ICONS.logo} alt={"search"} className={"cursor-pointer"} width={40} height={40}/>
+                  <Image
+                      src={ICONS.logo}
+                      quality={30}
+                      blurDataURL={ICONS.logo}
+                      placeholder="blur"
+                      loading={"lazy"}
+                      width={40}
+                      height={40}
+                      alt={"search"}
+                      className={"cursor-pointer"}
+                  />
                   <div className={"ml-3 cursor-pointer"}>
                     <p className={"text-[#383838] text-[26px] font-bold leading-[26px]"}>pirveli <sup
                         className={"text-[#E35A43] text-base"}>.com</sup></p>
@@ -264,7 +293,16 @@ const Header: React.FC = () => {
                       <AntButton type="primary"
                                  className={"search flex rounded-tr-[12px] px-[23px] h-[48px] rounded-br-[12px] bg-purple items-center relative"}
                                  htmlType="submit">
-                        <Image src={ICONS.search} alt={"search"} width={18} height={18}/>
+                        <Image
+                            src={ICONS.search}
+                            quality={30}
+                            blurDataURL={ICONS.search}
+                            placeholder="blur"
+                            loading={"lazy"}
+                            width={18}
+                            height={18}
+                            alt={"search"}
+                        />
                         {/*<img src={search?.src} alt={"search icon"} className={"w-[18px] h-[18px]"}/>*/}
                         <p className={"ml-[11px]"}>Search</p>
 
@@ -275,7 +313,14 @@ const Header: React.FC = () => {
                           term && <div className={"absolute -left-8 top-4 cursor-pointer"} onClick={(e) => {
                             resetFields()
                           }}>
-														<Image src={ICONS.x} alt={"x"}/>
+														<Image
+																src={ICONS.x}
+																quality={30}
+																blurDataURL={ICONS.x}
+																placeholder="blur"
+																loading={"lazy"}
+																alt={"x"}
+														/>
 													</div>
                       }
                     </div>
@@ -328,7 +373,15 @@ const Header: React.FC = () => {
                       {
                           (!findData?.length && !isLoading) &&
 													<div className={"w-full flex flex-col justify-center items-center h-[300px]"}>
-														<Image src={IMAGES.notFound} width={240} height={200}/>
+														<Image
+																src={IMAGES.notFound}
+																quality={60}
+																blurDataURL={IMAGES.notFound.src}
+																placeholder="blur"
+																loading={"lazy"}
+																width={240}
+																height={200}
+														/>
 														<p className={"text-[22px] mt-[20px] font-bold"}>No result found</p>
 													</div>
                       }
@@ -346,7 +399,16 @@ const Header: React.FC = () => {
                       <Badge count={cart?.productCount}>
                         <div className={"flex flex-col items-center cursor-pointer"}>
                           {/*<img src={cart?.src} alt={"shock offer icon"} className={"w-[18px]"}/>*/}
-                          <Image src={ICONS.cart} alt={"shock offer icon"} width={18} height={18}/>
+                          <Image
+                              src={ICONS.cart}
+                              quality={60}
+                              blurDataURL={ICONS.cart}
+                              placeholder="blur"
+                              loading={"lazy"}
+                              alt={"shock offer icon"}
+                              width={18}
+                              height={18}
+                          />
 
                           <p className={"capitalize mt-[11px] text-base leading-4"}>Basket </p>
                         </div>
@@ -359,7 +421,17 @@ const Header: React.FC = () => {
                       <Badge count={favourites?.favouritesTotalCount}>
                         <div className={"flex flex-col items-center "}>
                           {/*<img src={heart?.src} alt={"heart icon"} className={"w-[18px]"}/>*/}
-                          <Image src={ICONS.heart} alt={"heart icon"} width={18} height={18}/>
+                          <Image
+                              src={ICONS.heart}
+                              quality={60}
+                              blurDataURL={ICONS.heart}
+                              placeholder="blur"
+                              loading={"lazy"}
+                              width={18}
+                              height={18}
+                              alt={"heart icon"}
+
+                          />
                           <p className={"capitalize mt-[11px] text-base leading-4"}>Favorites</p>
                         </div>
                       </Badge>
@@ -383,7 +455,17 @@ const Header: React.FC = () => {
             }}>
               <div className={"flex container m-auto w-full h-[48px] overflow-x-auto"}>
                 <div className={"flex items-center"}>
-                  <Image src={ICONS.shock} alt={"shock offer icon"} width={18} height={18}/>
+                  <Image
+                      src={ICONS.shock}
+                      quality={60}
+                      blurDataURL={ICONS.shock}
+                      placeholder="blur"
+                      loading={"lazy"}
+                      width={18}
+                      height={18}
+                      alt={"shock offer icon"}
+
+                  />
                   <p className={"ml-[9px] text-[#E35A43] text-base whitespace-nowrap"}>Shock offers</p>
                 </div>
 

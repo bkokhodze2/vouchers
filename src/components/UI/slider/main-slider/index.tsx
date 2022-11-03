@@ -13,6 +13,8 @@ import slider from "../../../../../public/images/images/mainSlider.png"
 
 // import required modules
 import {Pagination, Navigation} from "swiper";
+import img from "*.png";
+import _ from "lodash";
 
 export default function Slider() {
 
@@ -30,22 +32,21 @@ export default function Slider() {
             modules={[Pagination, Navigation]}
             className="mySwiper"
         >
-          <SwiperSlide>
-            <Image src={slider.src} layout='fill' priority={true} className={"rounded-xl rounded-xl"}
-                   alt={"slider image"}/>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image src={slider.src} layout='fill' priority={true} className={"rounded-xl rounded-xl"}
-                   alt={"slider image"}/>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image src={slider.src} layout='fill' priority={true} className={"rounded-xl rounded-xl"}
-                   alt={"slider image"}/>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Image src={slider.src} layout='fill' priority={true} className={"rounded-xl rounded-xl"}
-                   alt={"slider image"}/>
-          </SwiperSlide>
+
+          {[1, 2, 3, 4, 5].map((e, index) => {
+            return <SwiperSlide>
+              <Image src={slider.src}
+                     layout='fill'
+                     quality={50}
+                     blurDataURL={slider?.src}
+                     placeholder="blur"
+                     priority={true}
+                     className={"rounded-xl rounded-xl"}
+                     alt={"slider image"}/>
+            </SwiperSlide>
+          })}
+
+
         </Swiper>
       </>
   );

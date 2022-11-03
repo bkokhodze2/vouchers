@@ -21,9 +21,9 @@ export default function History({serverData}: any) {
 
 
   useEffect(() => {
-      axios.get(`${baseApi}/vouchers?contractId=662&providerId=${63}`).then((res) => {
-        setVouchers(res.data)
-      })
+    axios.get(`${baseApi}/vouchers?contractId=662&providerId=${63}`).then((res) => {
+      setVouchers(res.data)
+    })
 
 
   }, [])
@@ -78,8 +78,15 @@ export default function History({serverData}: any) {
       <div className={"flex"}>
 
         <div className={"w-full max-w-[240px] max-h-[150px] mr-[30px]"}>
-          <Image src={IMAGES.offerItem} alt={"product image"} className={"rounded-xl"}
-                 style={{objectFit: "cover"}}/>
+          <Image src={IMAGES.offerItem}
+                 quality={70}
+                 blurDataURL={IMAGES.offerItem.src}
+                 placeholder="blur"
+                 priority={true}
+                 alt={"product image"}
+                 className={"rounded-xl"}
+                 style={{objectFit: "cover"}}
+          />
         </div>
 
         <div className={"flex justify-between items-center w-full"}>
@@ -129,8 +136,15 @@ export default function History({serverData}: any) {
 
           <div className={"flex p-6 bg-[#d9d9d933] rounded-[16px]"}>
             <div className={"w-full max-w-[125px] max-h-[84px] mr-4 relative"}>
-              <Image src={IMAGES.offerItem} alt={"product image"} className={"rounded-xl"}
-                     style={{objectFit: "cover"}}/>
+              <Image src={IMAGES.offerItem}
+                     quality={70}
+                     blurDataURL={IMAGES.offerItem.src}
+                     placeholder="blur"
+                     priority={true}
+                     alt={"product image"}
+                     className={"rounded-xl"}
+                     style={{objectFit: "cover"}}
+              />
               {/*<div*/}
               {/*    className={"absolute top-[8px] left-[8px] z-20 flex justify-center items-center bg-[#E35A43] rounded-[100px] h-[25px]"}>*/}
               {/*  <p className={"text-[white] text-[12px] px-[12px]"}>- 50 USD</p>*/}
@@ -179,11 +193,26 @@ export default function History({serverData}: any) {
             <div className={"rounded-xl"}>
               <div className={"sticky top-[150px] max-h-[calc(100vh_-_2rem)] overflow-scroll rounded-xl"}>
                 <div className={"h-[160px] w-full relative bg-[#d9d9d933] rounded-t-xl "}>
-                  <Image src={IMAGES.company} alt={"company image"} style={{objectFit: "cover"}} layout={"fill"}
+                  <Image src={IMAGES.company}
+                         quality={70}
+                         blurDataURL={IMAGES.company.src}
+                         placeholder="blur"
+                         priority={true}
+
+                         alt={"company image"}
+                         style={{objectFit: "cover"}}
+                         layout={"fill"}
                          className={"rounded-t-xl"}/>
 
                   <div className={"flex justify-center items-center w-full z-10 absolute -bottom-[40px]"}>
-                    <Image src={IMAGES.detailsImg} alt={"company logo"} width={104} height={104}
+                    <Image src={IMAGES.detailsImg}
+                           quality={70}
+                           blurDataURL={IMAGES.detailsImg.src}
+                           placeholder="blur"
+                           priority={true}
+                           alt={"company logo"}
+                           width={104}
+                           height={104}
                            className={"z-10"}/>
                   </div>
                 </div>
