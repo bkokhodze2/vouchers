@@ -72,7 +72,7 @@ const CartItem = ({data, getCount}: any) => {
                  style={{objectFit: "cover"}}/>
         </div>
         <div className={"flex flex-col w-full"}>
-          <h2 className={"text-[#383838] font-bold text-[22px]"}>{_.get(data, '[0].title', "")}</h2>
+          <h2 className={"text-[#383838] font-bold text-[22px]"}>{_.get(data, '[0]additionalInfo[0].provider.name', "")}</h2>
           <p className={"text-base mt-[18px] text-[#38383899]"}>
             {_.get(data, '[0]additionalInfo[0].subTitles[0].description', "")}
           </p>
