@@ -52,7 +52,7 @@ const Home: NextPage = ({serverData}: any) => {
     setPage((prevState) => prevState + 1);
 
     axios
-        .get(`${baseApi}/vouchers?contractId=662&page=${page}&limit=25`)
+        .get(`${baseApi}/vouchers?contractId=662&page=${page}&limit=16`)
         .then((res) => {
           setVouchersAll((prevState: []) => [...prevState, ...res.data])
           setIsLoading(false)
