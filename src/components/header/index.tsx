@@ -148,7 +148,7 @@ const Header: React.FC = () => {
   const SearchItem = ({data}: any) => {
 
     let companySlug = _.get(data, 'additionalInfo[0].provider.name', "").replaceAll(' ', '-');
-    let voucherSlug = data?.title?.replaceAll(' ', '-');
+    let voucherSlug = _.get(data, 'additionalInfo[0].genericTransactionTypeId', "");
 
     if (!data) {
       return <p>erroor</p>
@@ -178,7 +178,7 @@ const Header: React.FC = () => {
         </div>
         <div className={"w-full"}>
           <h3 className={"text-[#383838] font-bold text-base font-bold"}>
-            {getHighlightedText(_.get(data, 'title', ""), term)}
+            {getHighlightedText(_.get(data, 'additionalInfo[0].provider.name', ""), term)}
           </h3>
           <div className={"flex w-full justify-between mt-1"}>
             <p className={"mr-[20px] text-[#38383899] text-sm"}>
