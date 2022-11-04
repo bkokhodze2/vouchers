@@ -34,25 +34,27 @@ export default function Cart({serverData, productCount}: any) {
   const pay = () => {
     console.log("eee", cart)
 
+    let arr = cart.cartItems.filter((e: any) => e.isPoint === false);
+
     let obj = {
       "user_id": 1,
       "contract_id": 572,
       "party_id": -1234567,
       "bog_order_request_dto": {
         "intent": "AUTHORIZE",
-        "items": [
-          cart.cartItems.filter((e: any) => e.isPoint === false).map((e: any) => {
+        "items":
+            arr.map((e: any) => {
 
-            console.log("_.get(e, 'cartQuantity', 1)", _.get(e, 'cartQuantity', 1))
+              console.log("_.get(e, 'cartQuantity', 1)", _.get(e, 'cartQuantity', 1))
 
-            return {
-              "amount": _.get(e, '[0].entries[0].entryAmount', 1),
-              "description": _.get(e, '[0].title', ""),
-              "quantity": _.get(e, 'cartQuantity', 1),
-              "product_id": _.get(e, '[0].additionalInfo[0].genericTransactionTypeId', 1)
-            }
-          })
-        ],
+              return {
+                "amount": _.get(e, '[0].entries[0].entryAmount', 1),
+                "description": _.get(e, '[0].title', ""),
+                "quantity": _.get(e, 'cartQuantity', 1),
+                "product_id": _.get(e, '[0].additionalInfo[0].genericTransactionTypeId', 1)
+              }
+            })
+        ,
         "locale": "ka",
         "shop_order_id": "123456",
         "redirect_url": "https://bog-banking.pirveli.ge/callback/statusChange",
