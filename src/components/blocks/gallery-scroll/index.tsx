@@ -25,6 +25,7 @@ const GalleryScroll = ({data}: any) => {
           src={_.get(data, 'path', [])}
           // blurDataURL={IMAGES.placeholder.src}
           placeholder="blur"
+          loading={'lazy'}
           // priority={true}
           // quality={80}
           // layout={"fill"}
@@ -43,7 +44,8 @@ const GalleryScroll = ({data}: any) => {
 										 src={_.get(images, `[${idx + index + 1}].path`, [])}
 										 // blurDataURL={IMAGES.placeholder.src}
 										 placeholder="blur"
-										 // priority={true}
+										 loading={'lazy'}
+                  // priority={true}
 										 // quality={40}
 										 // layout={"fill"}
 										 className={"object-cover h-full w-full rounded-xl w-[490px] h-[258px]"}

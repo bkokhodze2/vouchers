@@ -169,17 +169,26 @@ export default function Details({serverOffer, serverVoucher}: any) {
               <div className={"rounded-[10px] bg-[white] h-full w-full py-1 px-[10px] flex items-center"}>
                 <div onClick={() => quantity != 1 && setQuantity((prevState: number) => prevState - 1)}
                      className={"cursor-pointer rounded-[50%] h-6 w-6 flex items-center justify-center"}>
-                  <div className={"min-w-[12.5px] h-[1.5px] rounded bg-[#EEEEEE]"}/>
+                  <div className={"min-w-[12.5px] h-[1.5px] rounded bg-[#EEEEEE]"}
+                       style={{
+                         backgroundColor: quantity != 1 ? "#383838" : "#EEEEEE"
+                       }}
+                  />
                 </div>
                 <div className={"flex flex-col w-full justify-center items-center text-center"}>
                   <p className={"text-[#383838] text-base"}>Quantity</p>
                   <p className={"text-[#383838] text-base font-bold"}>{quantity}</p>
                 </div>
                 <div
+
                     onClick={() => quantity < (_.get(voucher, '[0].additionalInfo[0].limitQuantity', 0) - _.get(voucher, '[0].additionalInfo[0].soldQuantity', 0)) && setQuantity((prevState: number) => prevState + 1)}
-                    className={"cursor-pointer rounded-[50%] h-6 w-6 flex items-center justify-center"}>
+                    className={`plus ${quantity < (_.get(voucher, '[0].additionalInfo[0].limitQuantity', 0) - _.get(voucher, '[0].additionalInfo[0].soldQuantity', 0)) && 'active'} cursor-pointer rounded-[50%] h-6 w-6 flex items-center justify-center`}>
                   <div
-                      className={"min-w-[12.5px] h-[1.5px] rounded bg-[#383838] after:content-[''] after:min-w-[12.5px] after:h-[1.5px] after:bg-[#383838] after:rounded after:rotate-90 after:absolute"}/>
+                      className={" after min-w-[12.5px] h-[1.5px] rounded bg-[#383838] "}
+                      style={{
+                        backgroundColor: quantity < (_.get(voucher, '[0].additionalInfo[0].limitQuantity', 0) - _.get(voucher, '[0].additionalInfo[0].soldQuantity', 0)) ? "#383838" : "#EEEEEE",
+                      }}
+                  />
                 </div>
               </div>
             </div>

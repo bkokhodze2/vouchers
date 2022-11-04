@@ -351,13 +351,33 @@
     right: 17px;
     border: 2px solid white;
 }
+
 .badge-cart .ant-badge-count {
     right: 9px;
     border: 2px solid white;
 }
 
-.badge-favourites .ant-scroll-number-only {
+.badge-favourites .ant-scroll-number-only ,.badge-cart .ant-scroll-number-only{
     top: -2px
 }
 
 /*badge*/
+
+
+.plus .after:after {
+    content: '';
+    min-width: 12.5px;
+    height: 1.5px;
+    background-color: #EEEEEE;
+    border-radius: 6px;
+    transform: rotate(90deg);
+    position: absolute;
+}
+
+.active .after:after {
+    background-color: #383838;
+}
+
+.swiper-slide > div {
+    width: 100%;
+}
