@@ -13,9 +13,8 @@ import slider from "../../../../../public/images/images/mainSlider.png"
 
 // import required modules
 import {Pagination, Navigation} from "swiper";
-import img from "*.png";
 import _ from "lodash";
-import { IMAGES } from "../../../../../public/images";
+import {IMAGES} from "../../../../../public/images";
 
 export default function Slider() {
 
@@ -35,15 +34,16 @@ export default function Slider() {
         >
 
           {[1, 2, 3, 4, 5].map((e, index) => {
-            return <SwiperSlide>
-              <Image src={slider.src}
-                     layout='fill'
-                     quality={50}
-                     blurDataURL={IMAGES.placeholder.src}
-                     placeholder="blur"
-                     priority={true}
-                     className={"rounded-xl rounded-xl"}
-                     alt={"slider image"}/>
+            return <SwiperSlide key={index}>
+              <img src={slider.src}
+                  // layout='fill'
+                  // quality={50}
+                  // blurDataURL={IMAGES.placeholder.src}
+                   placeholder="blur"
+                   loading={"lazy"}
+                  // priority={true}
+                   className={"rounded-xl rounded-xl"}
+                   alt={"slider image"}/>
             </SwiperSlide>
           })}
 

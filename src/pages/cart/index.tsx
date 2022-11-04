@@ -4,32 +4,24 @@ import Head from 'next/head'
 import {IMAGES, ICONS} from "public/images";
 import React, {useEffect, useState} from "react";
 import Lari from "../../../public/images/icons/lari";
-import Quantity from "../../components/UI/quantity";
-
-// import CartItem from "../../components/blocks/cart/cart-item";
+import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {
+  getTotals,
+} from "../../components/slices/cartSlice";
+import dynamic from "next/dynamic";
+import _ from "lodash";
 
 const CartItem = dynamic(
     () => import('../../components/blocks/cart/cart-item'),
     {ssr: false}
 )
 
-import {useDispatch, useSelector} from "react-redux";
-import {
-  addToCart,
-  clearCart,
-  decreaseCart,
-  getTotals,
-  removeFromCart,
-} from "../../components/slices/cartSlice";
-import dynamic from "next/dynamic";
-import axios from "axios";
-
 export default function Cart({serverData, productCount}: any) {
   const baseApi = process.env.baseApi;
 
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
-
 
   const getCount = (count: number) => {
   }
@@ -40,19 +32,26 @@ export default function Cart({serverData, productCount}: any) {
 
 
   const pay = () => {
-    axios.post(`https://vouchers.pirveli.ge/api/bog/orders`, {
+    console.log("eee", cart)
+
+    let obj = {
       "user_id": 1,
       "contract_id": 572,
       "party_id": -1234567,
       "bog_order_request_dto": {
         "intent": "AUTHORIZE",
         "items": [
-          {
-            "amount": "0.01",
-            "description": "BuyingTest",
-            "quantity": "1",
-            "product_id": "270"
-          }
+          cart.cartItems.filter((e: any) => e.isPoint === false).map((e: any) => {
+
+            console.log("_.get(e, 'cartQuantity', 1)", _.get(e, 'cartQuantity', 1))
+
+            return {
+              "amount": _.get(e, '[0].entries[0].entryAmount', 1),
+              "description": _.get(e, '[0].title', ""),
+              "quantity": _.get(e, 'cartQuantity', 1),
+              "product_id": _.get(e, '[0].additionalInfo[0].genericTransactionTypeId', 1)
+            }
+          })
         ],
         "locale": "ka",
         "shop_order_id": "123456",
@@ -63,12 +62,16 @@ export default function Cart({serverData, productCount}: any) {
           {
             "amount": {
               "currency_code": "GEL",
-              "value": "0.01"
+              "value": cart.cartTotalPrice
             }
           }
         ]
       }
-    }).then((res) => {
+    }
+
+    console.log("obj", obj)
+
+    axios.post(`https://vouchers.pirveli.ge/api/bog/orders`, obj).then((res) => {
       let link = res.data.links[1].href;
 
       typeof window !== 'undefined' && window.open(link, '_blank');
