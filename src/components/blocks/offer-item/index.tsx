@@ -87,7 +87,7 @@ const OfferItem = ({data}: IOfferItem) => {
                      className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
 
               </div> :
-              _.get(data, 'additionalInfo[0].attachments', []).slice(0,4).map((item: any, index: number) => {
+              _.get(data, 'additionalInfo[0].attachments', []).slice(0, 4).map((item: any, index: number) => {
 
                 return <div key={index}>
                   <img src={item?.path}
@@ -129,7 +129,7 @@ const OfferItem = ({data}: IOfferItem) => {
 
             <div
                 className={"h-[40px] z-10 bg-orange absolute top-5 left-4 px-[21px] rounded-[100px] flex items-center"}>
-              <p className={"text-[white] text-base"}>- {_.get(data, 'additionalInfo[0].percentage', 0)}
+              <p className={"text-[white] text-base"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))}
                 %</p>
             </div>
 
