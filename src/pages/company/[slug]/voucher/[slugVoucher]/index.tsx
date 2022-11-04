@@ -50,7 +50,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
   const Router = useRouter();
 
   // @ts-ignore
-  let slugVoucher = Router?.query.slugVoucher?.replaceAll('-', ' ');
+  let slugVoucher = Router?.query.slugVoucher;
   // @ts-ignore
   let slug = Router?.query.slug?.replaceAll('-', ' ');
 
@@ -60,7 +60,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
   useEffect(() => {
 
     if (slugVoucher && slug) {
-      axios.get(`${baseApi}/vouchers?contractId=662&providerName=${slug}&voucherName=${slugVoucher}`).then((res) => {
+      axios.get(`${baseApi}/vouchers?contractId=662&providerName=${slug}&id=${slugVoucher}`).then((res) => {
         setVoucher(res.data)
 
         if (res.data.length === 0) {

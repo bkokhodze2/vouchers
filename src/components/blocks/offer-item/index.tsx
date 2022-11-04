@@ -37,7 +37,7 @@ const OfferItem = ({data}: IOfferItem) => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   let companySlug = _.get(data, 'additionalInfo[0].provider.name', "").replaceAll(' ', '-');
-  let voucherSlug = data?.title?.replaceAll(' ', '-');
+  let voucherSlug = _.get(data, 'additionalInfo[0].genericTransactionTypeId', "");
 
   const favourites = useSelector((state: any) => state.favourites);
 
@@ -168,7 +168,9 @@ const OfferItem = ({data}: IOfferItem) => {
             </div>
 
             <div className={"flex flex-col w-full bg-[white] px-[20px] pb-[24px] rounded-b-xl max-w-[360px]"}>
-              <p className={"text-clip overflow-hidden text-start mt-3 font-bold leading-[27px] text-[#383838] text-[22px] min-h-[54px] textDots2"}>{data?.title}</p>
+              <p className={"text-clip overflow-hidden text-start mt-3 font-bold leading-[27px] text-[#383838] text-[22px] min-h-[54px] textDots2"}>
+                {_.get(data, 'additionalInfo[0].provider.name', "")}
+              </p>
               <div className={"flex flex-row space-x-3 items-center mt-3"}>
                 <p className={"font-bold text-[#E35A43] text-[21px] flex items-center"}>
                   <Lari color={"#E35A43"}
