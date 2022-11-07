@@ -220,7 +220,7 @@ const Header: React.FC = () => {
                   src={IMAGES.coin}
                   quality={30}
                   blurDataURL={IMAGES.placeholder.src}
-                  placeholder="blur"
+                  // placeholder="blur"
                   loading={"lazy"}
                   width={20}
                   height={20}
@@ -245,7 +245,6 @@ const Header: React.FC = () => {
                       src={ICONS.logo}
                       quality={30}
                       blurDataURL={IMAGES.placeholder.src}
-                      placeholder="blur"
                       loading={"lazy"}
                       width={40}
                       height={40}
@@ -296,7 +295,7 @@ const Header: React.FC = () => {
                             src={ICONS.search}
                             quality={30}
                             blurDataURL={IMAGES.placeholder.src}
-                            placeholder="blur"
+
                             loading={"lazy"}
                             width={18}
                             height={18}
@@ -400,13 +399,14 @@ const Header: React.FC = () => {
                               src={ICONS.cart}
                               quality={60}
                               blurDataURL={IMAGES.placeholder.src}
-                              placeholder="blur"
                               loading={"lazy"}
                               alt={"cart icon"}
                               width={18}
                               height={18}
                           />
-                          <p className={"capitalize mt-[11px] text-base leading-4"}>Basket </p>
+
+
+                        <p className={"capitalize mt-[11px] text-base leading-4"}>Basket </p>
                         </div>
                       </Badge>
                     </div>
@@ -420,7 +420,6 @@ const Header: React.FC = () => {
                               src={ICONS.heart}
                               quality={60}
                               blurDataURL={IMAGES.placeholder.src}
-                              placeholder="blur"
                               loading={"lazy"}
                               width={18}
                               height={18}
@@ -448,7 +447,6 @@ const Header: React.FC = () => {
                       src={ICONS.shock}
                       quality={60}
                       blurDataURL={IMAGES.placeholder.src}
-                      placeholder="blur"
                       loading={"lazy"}
                       width={18}
                       height={18}
@@ -509,8 +507,12 @@ const Header: React.FC = () => {
                   </div>
                   <div className={"col-span-3"}>
                     <div className={"grid grid-flow-row-dense grid-cols-3 gap-[30px] gap-y-[40px]"}>
-                      {categoryVouchers?.length && categoryVouchers?.slice(0, 3).map((item: any, index: number) => {
-                        return <OfferItem data={item} key={index}/>
+                      {categoryVouchers?.length > 0 && categoryVouchers?.slice(0, 3).map((item: any, index: number) => {
+
+                        if (item) {
+                          return <OfferItem data={item} key={index}/>
+                        }
+                        // return
                       })}
                     </div>
                   </div>

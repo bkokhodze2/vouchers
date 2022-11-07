@@ -40,14 +40,12 @@ const Footer: React.FC = () => {
                 <div>
                   <Image src={ICONS.fb} quality={70}
                          blurDataURL={IMAGES.placeholder.src}
-                         placeholder="blur"
                          loading={"lazy"} alt={"facebook icon"}/>
                 </div>
                 <div>
                   <Image src={ICONS.insta}
                          quality={70}
                          blurDataURL={IMAGES.placeholder.src}
-                         placeholder="blur"
                          loading={"lazy"}
                          alt={"instagram icon"}/>
                 </div>
