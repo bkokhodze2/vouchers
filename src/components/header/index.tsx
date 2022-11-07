@@ -477,7 +477,7 @@ const Header: React.FC = () => {
 
               {/*category hover*/}
               {<div
-                  className={"absolute border-t-[1px] border-[#d9d9d94d] top-[48] bg-[white] w-[100vw] left-0  z-30"}
+                  className={"absolute border-t-[1px] border-[#d9d9d94d] top-[48px] bg-[white] w-[100%] left-0 right-0 z-30"}
                   style={{
                     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.05)",
                     transition: "all 0.3s cubic-bezier(0, 0.88, 0.83, 0.99) 0s",
