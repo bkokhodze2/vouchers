@@ -488,7 +488,7 @@ const Header: React.FC = () => {
                 <div className={"container m-auto grid grid-rows-1 grid-cols-4 gap-x-[30px] w-full mt-4"}>
                   <div>
                     <div className={"flex justify-between items-center"}>
-                      <p className={"font-bold text-[#383838] text-[22px] leading-[22px]"}>{chosenCategory?.categoryName} ({getSumOffer()})</p>
+                      <p className={"font-bold text-[#383838] text-[22px] leading-[22px]"}>{chosenCategory?.categoryName} ({getSumOffer() + chosenCategory?.offersQuantity})</p>
                       <Link href={`/category/${chosenCategory?.categoryId}`}>
                         <span
                             className={"text-[#8338EC] text-[14px] cursor-pointer"}>see all </span>
