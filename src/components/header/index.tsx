@@ -198,7 +198,7 @@ const Header: React.FC = () => {
   // @ts-ignore
   return (
       <>
-        <div className={"w-full bg-amber-700 h-[44px] bg-[#383838] flex items-center "}>
+        <div className={"w-full bg-amber-700 h-[44px] min-h-[44px] bg-[#383838] flex items-center "}>
           <div className={"w-full container m-auto flex justify-between"}>
             <div className={"flex space-x-8"}>
               <Link href={"/"}>
