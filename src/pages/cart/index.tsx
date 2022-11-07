@@ -22,6 +22,8 @@ export default function Cart({serverData, productCount}: any) {
 
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
+  const [payType, setPayType] = useState<string>("bog");
+
 
   const getCount = (count: number) => {
   }
@@ -36,7 +38,7 @@ export default function Cart({serverData, productCount}: any) {
 
     let arr = cart.cartItems.filter((e: any) => e.isPoint === false);
 
-    let obj = {
+    let bogObj = {
       "user_id": 1,
       "contract_id": 572,
       "party_id": -1234567,
@@ -44,9 +46,6 @@ export default function Cart({serverData, productCount}: any) {
         "intent": "AUTHORIZE",
         "items":
             arr.map((e: any) => {
-
-              console.log("_.get(e, 'cartQuantity', 1)", _.get(e, 'cartQuantity', 1))
-
               return {
                 "amount": _.get(e, '[0].entries[0].entryAmount', 1),
                 "description": _.get(e, 'additionalInfo[0].provider.name', ""),
@@ -71,14 +70,55 @@ export default function Cart({serverData, productCount}: any) {
       }
     }
 
-    console.log("obj", obj)
+    let tbcObj = {
+      "user_id": 1,
+      "contract_id": 572,
+      "party_id": -1234567,
+      "items": arr.map((e: any) => {
+        return {
+          "amount": _.get(e, '[0].entries[0].entryAmount', 1),
+          "description": _.get(e, '[0].title', ""),
+          "quantity": _.get(e, 'cartQuantity', 1),
+          "product_id": _.get(e, '[0].additionalInfo[0].genericTransactionTypeId', 1)
+        }
+      }),
+      "tbc_payment_request_dto": {
+        "amount": {
+          "currency":"GEL",
+          "total": cart.cartTotalPrice,
+          "subTotal": 0,
+          "tax": 0,
+          "shipping": 0
+        },
+        "returnurl":"https://banking-tbc.pirveli.ge/v1/tpay/payments/callback",
+        "userIpAddress" : "127.0.0.1",
+        "methods": [5],
+        "expirationMinutes" : "5",
+        "callbackUrl":"https://banking-tbc.pirveli.ge/v1/tpay/payments/callback",
+        "preAuth":false,
+        "language":"EN",
+        "merchantPaymentId": "1",
+        "saveCard": false
+      }
+    }
 
-    axios.post(`https://vouchers.pirveli.ge/api/bog/orders`, obj).then((res) => {
-      let link = res.data.links[1].href;
+    console.log("bogObj", bogObj)
+    console.log("tbcObj", tbcObj)
 
-      typeof window !== 'undefined' && window.open(link, '_blank');
+    if (payType === "bog") {
+      axios.post(`https://vouchers.pirveli.ge/api/bog/orders`, bogObj).then((res) => {
+        let link = res.data.links[1].href;
+        typeof window !== 'undefined' && window.open(link, '_blank');
 
-    })
+      })
+    } else {
+      axios.post(`https://vouchers.pirveli.ge/api/tbc/payments`, tbcObj).then((res) => {
+        let link = res.data.links[1].href;
+        typeof window !== 'undefined' && window.open(link, '_blank');
+
+      })
+    }
+
   }
 
 
@@ -117,7 +157,7 @@ export default function Cart({serverData, productCount}: any) {
             <div className={"h-full"}>
               <h5 className={"text-[#383838] text-[28px] font-bold "}>Order</h5>
 
-              <div className={"sticky top-[130px] max-h-[500px] overflow-scroll rounded-xl"}>
+              <div className={"sticky top-[130px] max-h-[600px] overflow-scroll rounded-xl"}>
                 <div className={"rounded-xl bg-[#F7F7F7] px-6 mt-4 pt-[30px] pb-[54px]"}>
 
                   <div className={"flex items-center w-full justify-between"}>
@@ -150,10 +190,31 @@ export default function Cart({serverData, productCount}: any) {
 
 
                 </div>
+                <div className={"grid grid-rows-1 grid-cols-2 h-[48px] gap-x-2 mt-6"}>
+                  <div onClick={() => setPayType("bog")}
+                       style={{
+                         border: payType === "bog" ? "2px solid #8338EC" : "2px solid transparent"
+                       }}
+                       className={"w-full bg-[#F7F7F7] flex justify-center items-center rounded-xl"}>
+                    <p>bog</p>
+                  </div>
+                  <div onClick={() => setPayType("tbc")}
+                       style={{
+                         border: payType === "tbc" ? "2px solid #8338EC" : "2px solid transparent"
+                       }}
+                       className={"w-full bg-[#F7F7F7] flex justify-center items-center rounded-xl"}>
+                    <p>tbc</p>
+                  </div>
+                </div>
                 <div
                     onClick={() => pay()}
-                    className={"cursor-pointer w-full h-12 mt-6 rounded-xl bg-purple flex justify-center items-center"}>
-                  <p className={"text-base font-[500] text-base text-[white]"}>Buy</p></div>
+                    style={{
+                      backgroundColor: payType ? "#8338EC" : "gray"
+                    }}
+                    className={"cursor-pointer w-full h-12 mt-6 rounded-xl flex justify-center items-center"}>
+                  <p className={"text-base font-[500] text-base text-[white]"}>Buy</p>
+                </div>
+
               </div>
 
             </div>
