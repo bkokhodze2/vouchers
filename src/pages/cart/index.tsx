@@ -84,19 +84,19 @@ export default function Cart({serverData, productCount}: any) {
       }),
       "tbc_payment_request_dto": {
         "amount": {
-          "currency":"GEL",
+          "currency": "GEL",
           "total": cart.cartTotalPrice,
           "subTotal": 0,
           "tax": 0,
           "shipping": 0
         },
-        "returnurl":"https://banking-tbc.pirveli.ge/v1/tpay/payments/callback",
-        "userIpAddress" : "127.0.0.1",
+        "returnurl": "https://banking-tbc.pirveli.ge/v1/tpay/payments/callback",
+        "userIpAddress": "127.0.0.1",
         "methods": [5],
-        "expirationMinutes" : "5",
-        "callbackUrl":"https://banking-tbc.pirveli.ge/v1/tpay/payments/callback",
-        "preAuth":false,
-        "language":"EN",
+        "expirationMinutes": "5",
+        "callbackUrl": "https://banking-tbc.pirveli.ge/v1/tpay/payments/callback",
+        "preAuth": false,
+        "language": "EN",
         "merchantPaymentId": "1",
         "saveCard": false
       }
@@ -129,7 +129,7 @@ export default function Cart({serverData, productCount}: any) {
           <meta name="description" content="cart"/>
         </Head>
 
-        <div className={"bg-[white] flex flex-col flex-1"}>
+        <div className={" flex flex-col flex-1"}>
           <div
               className={"min-h-[60vh] grid grid-rows-1 mt-6 mb-[100px] grid-cols-4 container m-auto grid-flow-col gap-[30px]"}>
 
@@ -195,15 +195,15 @@ export default function Cart({serverData, productCount}: any) {
                        style={{
                          border: payType === "bog" ? "2px solid #8338EC" : "2px solid transparent"
                        }}
-                       className={"w-full bg-[#F7F7F7] flex justify-center items-center rounded-xl"}>
-                    <p>bog</p>
+                       className={"w-full bg-[#F7F7F7] flex justify-center items-center rounded-xl cursor-pointer"}>
+                    <p>BOG</p>
                   </div>
                   <div onClick={() => setPayType("tbc")}
                        style={{
                          border: payType === "tbc" ? "2px solid #8338EC" : "2px solid transparent"
                        }}
-                       className={"w-full bg-[#F7F7F7] flex justify-center items-center rounded-xl"}>
-                    <p>tbc</p>
+                       className={"w-full bg-[#F7F7F7] flex justify-center items-center rounded-xl cursor-pointer"}>
+                    <p>TBC</p>
                   </div>
                 </div>
                 <div

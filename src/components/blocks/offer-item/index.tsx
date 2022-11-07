@@ -69,35 +69,17 @@ const OfferItem = ({data}: IOfferItem) => {
       <Carousel infiniteLoop showThumbs={false} swipeable={true} className={"h-[220px]"}>
 
         {
-          _.get(data, 'additionalInfo[0].attachments', []).length === 0 ? <div className={"relative"}>
-                <img src={slider?.src}
-                     alt={"slider img"}
-                     height={220}
-                     width={360}
-                     onLoad={() => {
-                       setIsLoaded(true)
-                     }}
-                    // quality={10}
-                    // blurDataURL={IMAGES.placeholder.src}
-                     placeholder="blur"
-                     style={{objectFit: "cover"}}
-                    // layout={"fill"}
-                     loading="lazy"
-                    // priority={true}
-                     className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
-
-              </div> :
-              _.get(data, 'additionalInfo[0].attachments', []).slice(0, 4).map((item: any, index: number) => {
-
-                return <div key={index}>
-                  <img src={item?.path}
+          _.get(data, 'additionalInfo[0].attachments', []).length === 0 ?
+              <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
+                <div className={"relative"}>
+                  <img src={slider?.src}
                        alt={"slider img"}
                        height={220}
                        width={360}
                        onLoad={() => {
                          setIsLoaded(true)
                        }}
-                      // quality={50}
+                      // quality={10}
                       // blurDataURL={IMAGES.placeholder.src}
                        placeholder="blur"
                        style={{objectFit: "cover"}}
@@ -105,9 +87,34 @@ const OfferItem = ({data}: IOfferItem) => {
                        loading="lazy"
                       // priority={true}
                        className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
-
-
                 </div>
+              </Link>
+              :
+              _.get(data, 'additionalInfo[0].attachments', []).slice(0, 4).map((item: any, index: number) => {
+
+                return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
+                  <div key={index}>
+
+                    <img src={item?.path}
+                         alt={"slider img"}
+                         height={220}
+                         width={360}
+                         onLoad={() => {
+                           setIsLoaded(true)
+                         }}
+                        // quality={50}
+                        // blurDataURL={IMAGES.placeholder.src}
+                         placeholder="blur"
+                         style={{objectFit: "cover"}}
+                        // layout={"fill"}
+                         loading="lazy"
+                        // priority={true}
+                         className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
+
+
+                  </div>
+                </Link>
+
               })
         }
 
