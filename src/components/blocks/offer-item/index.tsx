@@ -92,8 +92,8 @@ const OfferItem = ({data}: IOfferItem) => {
               :
               _.get(data, 'additionalInfo[0].attachments', []).slice(0, 4).map((item: any, index: number) => {
 
-                return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
-                  <div key={index}>
+                return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`} key={index}>
+                  <div>
 
                     <img src={item?.path}
                          alt={"slider img"}
