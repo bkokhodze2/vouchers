@@ -41,24 +41,37 @@ export default function Details({serverOffer, serverVoucher}: any) {
   const [vouchers, setVouchers] = useState<[]>([]);
   const [voucher, setVoucher] = useState<any>([]);
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
+  const [isWithMoney, setIsWithMoney] = useState(true);
+  const [quantity, setQuantity] = useState<number>(1);
 
   const cart = useSelector((state: any) => state.cart);
   const favourites = useSelector((state: any) => state.favourites);
-
-
   const dispatch = useDispatch();
   const Router = useRouter();
+
 
   // @ts-ignore
   let slugVoucher = Router?.query.slugVoucher;
   // @ts-ignore
   let slug = Router?.query.slug?.replaceAll('-', ' ');
 
-  const [isWithMoney, setIsWithMoney] = useState(true);
-  const [quantity, setQuantity] = useState<number>(1)
+  const items = [
+    {
+      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold"}>offer details</h3>,
+      key: 'item-1',
+      children: <div
+          dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0]?.descriptions[0]?.description}}/>
+    },
+    {
+      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold"}>conditions</h3>,
+      key: 'item-2',
+      children: <div
+          dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0].subDescriptions[0].description}}
+      />
+    },
+  ];
 
   useEffect(() => {
-
     if (slugVoucher && slug) {
       axios.get(`${baseApi}/vouchers?contractId=662&providerName=${slug}&id=${slugVoucher}`).then((res) => {
         setVoucher(res.data)
@@ -66,29 +79,22 @@ export default function Details({serverOffer, serverVoucher}: any) {
         if (res.data.length === 0) {
           Router.push("/");
         }
-
       })
-
       axios.get(`${baseApi}/vouchers?contractId=662`).then((res) => {
         setVouchers(res.data)
       })
-
     }
-
   }, [slugVoucher, slug])
 
   useEffect(() => {
     dispatch(getTotalsFavourite({}));
     dispatch(getTotals({}));
-
   }, [cart, voucher, favourites, dispatch]);
-
 
   const handleAddToCart = (product: any) => {
     product.quantity = quantity;
     product.isPoint = !isWithMoney;
     dispatch(addToCartWithQuantity(product));
-    // Router.push('/cart')
 
     notification['success']({
       message: 'item successfully add',
@@ -114,9 +120,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
   const RightSide = () => {
     return <div className={"h-full"}>
       <div className={"bg-[#d9d9d933] rounded-xl p-8 top-[150px] sticky overflow-y-scroll "}>
-
         <div className={"grid grid-cols-2 grid-rows-1 bg-[white] w-full h-[48px] rounded-xl p-1"}>
-
           <div onClick={() => {
             setIsWithMoney(true)
           }}
@@ -126,7 +130,6 @@ export default function Details({serverOffer, serverVoucher}: any) {
                   style={{color: isWithMoney ? "#FFFFFF" : "#383838"}}>$</span>
             <p className={"text-[white] text-base"} style={{color: isWithMoney ? "#FFFFFF" : "#383838"}}>with money</p>
           </div>
-
           <div onClick={() => {
             setIsWithMoney(false)
           }}
@@ -136,10 +139,8 @@ export default function Details({serverOffer, serverVoucher}: any) {
                   style={{color: !isWithMoney ? "#FFFFFF" : "#383838"}}>P</span>
             <p className={" text-base"} style={{color: !isWithMoney ? "#FFFFFF" : "#383838"}}>with point</p>
           </div>
-
         </div>
         <div className={"grid grid-cols-2 grid-rows-1 gap-1 gap-x-[30px] gap-y-6 mt-8"}>
-
           <div className={"bg-[white] py-2 pl-[28px] rounded-xl flex h-min"}>
             <div className={"min-w-[10px] flex items-center"}>
               <Image src={ICONS.dollar} className={"cursor-pointer "} alt={"share icon"}/>
@@ -156,15 +157,11 @@ export default function Details({serverOffer, serverVoucher}: any) {
                         {_.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0) * quantity}
                       </p>
                 }
-
-                {/*<p className={"ml-3 text-base text-[#38383899] whitespace-nowrap line-through"}>200 $</p>*/}
               </div>
             </div>
           </div>
 
           <div className={"flex justify-center items-center w-full h-[68px] bg-[white] rounded-xl px-5"}>
-            {/*<Quantity getCount={getCount} data={serverVoucher} currentQuantity={1}/>*/}
-
             <div className={"rounded-xl bg-[#EEEEEE] h-[48px] w-full flex items-center"}>
               <div className={"rounded-[10px] bg-[white] h-full w-full py-1 px-[10px] flex items-center"}>
                 <div onClick={() => quantity != 1 && setQuantity((prevState: number) => prevState - 1)}
@@ -180,7 +177,6 @@ export default function Details({serverOffer, serverVoucher}: any) {
                   <p className={"text-[#383838] text-base font-bold"}>{quantity}</p>
                 </div>
                 <div
-
                     onClick={() => quantity < (_.get(voucher, '[0].additionalInfo[0].limitQuantity', 0) - _.get(voucher, '[0].additionalInfo[0].soldQuantity', 0)) && setQuantity((prevState: number) => prevState + 1)}
                     className={`plus ${quantity < (_.get(voucher, '[0].additionalInfo[0].limitQuantity', 0) - _.get(voucher, '[0].additionalInfo[0].soldQuantity', 0)) && 'active'} cursor-pointer rounded-[50%] h-6 w-6 flex items-center justify-center`}>
                   <div
@@ -193,31 +189,14 @@ export default function Details({serverOffer, serverVoucher}: any) {
               </div>
             </div>
           </div>
-
         </div>
-        {/*/!*save & share*!/*/}
-        {/*<div className={"flex justify-between"}>*/}
-        {/*  <div className={"flex items-center"}>*/}
-        {/*    <Image src={ICONS.heart} className={"cursor-pointer"} alt={"heart icon"}/>*/}
-        {/*    <span className={"ml-[11px]"}>save</span>*/}
-        {/*  </div>*/}
-        {/*  <div>*/}
-        {/*    <Image src={ICONS.share} className={"cursor-pointer"} alt={"share icon"}/>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
-        {/*/!*save & share*!/*/}
-
 
         <div>
           <p className={"text-[#383838] text-[22px] font-bold mt-8"}>Room Type </p>
-          <div className={"rounded-xl bg-[white] mt-4 py-4 px-2"}>
-            Room for 2 persons (Monday to Friday)
-          </div>
-
+          <div className={"rounded-xl bg-[white] mt-4 py-4 px-2"}>Room for 2 persons (Monday to Friday)</div>
 
           {/*options*/}
           <div className={"grid grid-cols-2 grid-rows-1 gap-1 gap-x-[30px] gap-y-6 mt-8"}>
-
             <div className={"bg-[white] py-2 pl-[28px] rounded-xl flex h-min"}>
               <div className={"min-w-[10px] flex items-center"}>
                 <Image src={ICONS.percent} className={"cursor-pointer "} alt={"share icon"}/>
@@ -242,26 +221,20 @@ export default function Details({serverOffer, serverVoucher}: any) {
                 </div>
               </div>
             </div>
-
           </div>
-
 
           {/*options*/}
 
           <div className={""}>
             <div className={"flex mt-[34px] bg-[white] p-6 rounded-xl col-span-2"}>
               <p className={"text-purple text-base font-[500] mr-5"}>
-                <CountDown data={voucher[0]?.additionalInfo[0]?.useEndDate}/>
+                <CountDown data={_.get(voucher, '[0].additionalInfo[0].useEndDate', 0)}/>
               </p>
-
-              <InStock max={voucher[0]?.additionalInfo[0]?.limitQuantity}
-                       current={voucher[0]?.additionalInfo[0]?.soldQuantity}/>
+              <InStock max={_.get(voucher, '[0].additionalInfo[0].limitQuantity', 0)}
+                       current={_.get(voucher, '[0].additionalInfo[0].soldQuantity', 0)}/>
             </div>
-
           </div>
-
         </div>
-
 
         {/* buy & cart buttons*/}
         <div className={"grid grid-cols-2 grid-rows-2 gap-1 gap-x-[30px] gap-y-8 mt-8"}>
@@ -279,58 +252,37 @@ export default function Details({serverOffer, serverVoucher}: any) {
               onClick={() => {
                 addFav(voucher[0])
               }}
-
           >
             <div className={"min-w-[15px] flex"}>
-              {
-                isFavourite ? <Image src={ICONS.heartPurple}
-                                     quality={70}
-                                     blurDataURL={IMAGES.placeholder.src}
-                                     placeholder="blur"
-                                     priority={true}
-                                     className={"cursor-pointer"}
-                                     alt={"cart icon"}/> :
-                    <Image src={ICONS.heart}
-                           quality={70}
-                           blurDataURL={IMAGES.placeholder.src}
-                           placeholder="blur"
-                           priority={true}
-                           className={"cursor-pointer"}
-                           alt={"cart icon"}
-                    />
-              }
+              {isFavourite ? <Image src={ICONS.heartPurple}
+                                    quality={70}
+                                    blurDataURL={IMAGES.placeholder.src}
+                                    placeholder="blur"
+                                    priority={true}
+                                    className={"cursor-pointer"}
+                                    alt={"cart icon"}/> :
+                  <Image src={ICONS.heart}
+                         quality={70}
+                         blurDataURL={IMAGES.placeholder.src}
+                         placeholder="blur"
+                         priority={true}
+                         className={"cursor-pointer"}
+                         alt={"cart icon"}
+                  />}
             </div>
             <p className={"ml-3 text-base text-[#383838] whitespace-nowrap"}
             >save</p>
           </div>
-
           <div className={" col-span-2"} onClick={() => dispatch(clearFavourites({}))}>
             <Button text={"Buy now"} bgColor={"#8338EC"} classes={"!w-full"}/>
           </div>
-
         </div>
         {/* buy & cart buttons*/}
-
       </div>
     </div>
 
   }
 
-  const items = [
-    {
-      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold"}>offer details</h3>,
-      key: 'item-1',
-      children: <div
-          dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0]?.descriptions[0]?.description}}/>
-    },
-    {
-      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold"}>conditions</h3>,
-      key: 'item-2',
-      children: <div
-          dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0].subDescriptions[0].description}}
-      />
-    },
-  ];
   return (
       <>
         <Head>
@@ -340,14 +292,9 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
         <div className={"bg-[#F5F6F8]"}>
 
-          {/*""*/}
-
           <div className={"flex flex-col"}>
-
             {_.get(voucher, '[0].additionalInfo[0].attachments', []).length > 0 && <GalleryScroll data={voucher}/>}
-
             <div className={"container grid grid-cols-3 gap-[30px] m-auto pt-8"}>
-
               {/*left side*/}
               <div className={"h-full col-span-2 "}>
                 <Link href={`/company/${_.get(voucher, '[0].additionalInfo[0].provider.name', '')}`}>
@@ -373,12 +320,10 @@ export default function Details({serverOffer, serverVoucher}: any) {
                       <Image src={ICONS.rightArrowDetails} alt={"arrow icon"}/>
                     </div>
                   </div>
-
                 </Link>
 
                 {/*info*/}
                 <div className={"flex justify-between mt-5"}>
-
                   {/*phone number*/}
                   {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', '') &&
 											<div className={"group flex items-center relative"}>
@@ -389,22 +334,18 @@ export default function Details({serverOffer, serverVoucher}: any) {
 														className={"group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
 													<Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>
 												</div>}
-
                         {
                             _.get(voucher, '[0].additionalInfo[0].provider.providerContacts', 0).length > 1 &&
 														<div
 																style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
 																className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
-
                               {
                                 _.get(voucher, '[0].additionalInfo[0].provider.providerContacts', []).slice(1, _.get(voucher, '[0].additionalInfo[0].provider.providerContacts', 0).length).map((item: any, index: number) => {
                                   return <p className={"text-[#383838b3] text-base"} key={index}>
                                     {item.value}
                                   </p>
                                 })
-
                               }
-
 														</div>
                         }
 											</div>
@@ -413,21 +354,16 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
                   {/*working hours*/}
                   <div className={"group flex items-center relative"}>
-                    {/*<Image src={ICONS.watch} alt={"phone icon"}/>*/}
-
                     <Watch classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
-
                     <p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>Working
                       Hours</p>
                     <div
                         className={"group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
                       <Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>
                     </div>
-
                     {_.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).length > 0 && <div
 												style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
 												className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
-
                       {
                         _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).map((item: any, index: number) => {
                           return <div className={"flex justify-between"} key={index}>
@@ -437,7 +373,6 @@ export default function Details({serverOffer, serverVoucher}: any) {
                         })
                       }
 										</div>
-
                     }
                   </div>
                   {/*working hours*/}
@@ -446,7 +381,6 @@ export default function Details({serverOffer, serverVoucher}: any) {
                   {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses[0].value', '') &&
 											<div className={"group flex items-center relative"}>
 												<Location classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
-
 												<p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>
                           {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses[0].value', '')}
 												</p>
@@ -458,24 +392,18 @@ export default function Details({serverOffer, serverVoucher}: any) {
                         {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', []).length > 1 && <div
 														style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
 														className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
-
                           {
                             _.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', []).slice(1, _.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', 0).length).map((item: any, index: number) => {
                               return <p className={"text-[#383838b3] text-base"} key={index}>
                                 {item.value}
                               </p>
                             })
-
                           }
-
 												</div>}
 											</div>
                   }
                   {/*location dropdown*/}
-
-
                   <div className={"flex space-x-[33px] items-center"}>
-
                     {_.get(voucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null) &&
 												<div className={"cursor-pointer"}>
 													<Link href={_.get(voucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null)}
@@ -484,7 +412,6 @@ export default function Details({serverOffer, serverVoucher}: any) {
 													</Link>
 												</div>
                     }
-
                     {
                         _.get(voucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null) &&
 												<div className={"cursor-pointer"}>
@@ -494,18 +421,10 @@ export default function Details({serverOffer, serverVoucher}: any) {
 													</Link>
 												</div>
                     }
-
                   </div>
-
                 </div>
                 {/*info*/}
-                {/*<div className={"w-full h-[1px] bg-[#d9d9d94d] my-8 "}/>*/}
                 <Tabs defaultActiveKey="1" className={"tabDescription mt-[46px]"} items={items}/>
-
-                {/*Offer Details*/}
-
-                {/*Offer Details*/}
-
 
                 {/*reviews*/}
                 <div className={"mt-[100px]"}>
@@ -537,12 +456,10 @@ export default function Details({serverOffer, serverVoucher}: any) {
             {/*recommended*/}
 
           </div>
-
         </div>
       </>
   )
 }
-
 
 Details.getLayout = function getLayout(page: any) {
   return (
@@ -551,7 +468,6 @@ Details.getLayout = function getLayout(page: any) {
       </Layout>
   )
 }
-
 
 // export async function getServerSideProps({query}: any) {
 //   const baseApi = process.env.baseApi;

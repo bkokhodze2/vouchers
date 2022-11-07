@@ -16,10 +16,11 @@ import OfferItem from "../../../blocks/offer-item";
 
 interface IOfferSlider {
   nav?: boolean
+  loop?: boolean
   data: any;
 }
 
-export default function OfferSlider({nav = true, data}: IOfferSlider) {
+export default function OfferSlider({nav = true, loop = true, data}: IOfferSlider) {
 
   const prevRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
@@ -52,7 +53,7 @@ export default function OfferSlider({nav = true, data}: IOfferSlider) {
             }}
             freeMode={true}
             loopFillGroupWithBlank={true}
-            loop={true}
+            loop={loop}
             modules={[Pagination, Navigation]}
             className="offerSlider"
         >

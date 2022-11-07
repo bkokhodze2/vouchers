@@ -47,6 +47,10 @@ const Home: NextPage = ({serverData}: any) => {
 
   }, [])
 
+  useEffect(() => {
+    console.log("vouchers.filter((e: any) => e.additionalInfo[0].isPromo)", vouchersAll.filter((e: any) => e.additionalInfo[0].isPromo))
+  }, [vouchersAll])
+
   const nextPage = (page: number) => {
     setIsLoading(true)
     setPage((prevState) => prevState + 1);
@@ -135,7 +139,7 @@ const Home: NextPage = ({serverData}: any) => {
 						<div className={"container m-auto "}>
 							<h1 className={"text-[28px] text-[#383838] font-bold"}>Special offers</h1>
 							<div className={"mt-4"}>
-								<OfferSlider data={vouchers}/>
+								<OfferSlider data={vouchersAll.filter((e: any) => e.additionalInfo[0].isPromo)} loop={false}/>
 							</div>
 						</div>
 					</div>}
@@ -185,7 +189,7 @@ const Home: NextPage = ({serverData}: any) => {
               {/*})*/}
               {/*}*/}
 
-              <Link href={"/category/4"}>
+              <Link href={"/category/2"}>
                 <div
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-purple w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
@@ -200,7 +204,7 @@ const Home: NextPage = ({serverData}: any) => {
                 </div>
               </Link>
 
-              <Link href={"/category/4"}>
+              <Link href={"/category/3"}>
                 <div
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-[#7B92DC] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
@@ -236,7 +240,7 @@ const Home: NextPage = ({serverData}: any) => {
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
                 </div>
               </Link>
-              <Link href={"/category/4"}>
+              <Link href={"/category/5"}>
                 <div
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-purple w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
@@ -252,7 +256,7 @@ const Home: NextPage = ({serverData}: any) => {
               </Link>
 
 
-              <Link href={"/category/4"}>
+              <Link href={"/category/12"}>
                 <div
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-[#56971F] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
@@ -266,7 +270,7 @@ const Home: NextPage = ({serverData}: any) => {
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
                 </div>
               </Link>
-              <Link href={"/category/4"}>
+              <Link href={"/category/7"}>
 
                 <div
                     className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
@@ -312,7 +316,7 @@ const Home: NextPage = ({serverData}: any) => {
                     }}
 										onClick={() => !isLoading && nextPage(page + 1)}>
 
-									<p className={"text-[16px] text-[white] font-normal whitespace-nowrap"}>{isLoading ? "loading" : "Show all"}</p>
+									<p className={"text-[16px] text-[white] font-normal whitespace-nowrap"}>{isLoading ? "loading" : "Show more"}</p>
                   {isLoading &&
 											<PulseLoader size={5} color="#FFFFFF" speedMultiplier={0.7} className={"mt-1.5 ml-1.5 "}/>}
 

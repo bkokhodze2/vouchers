@@ -49,7 +49,7 @@ export default function Cart({serverData, productCount}: any) {
 
               return {
                 "amount": _.get(e, '[0].entries[0].entryAmount', 1),
-                "description": _.get(e, '[0].title', ""),
+                "description": _.get(e, 'additionalInfo[0].provider.name', ""),
                 "quantity": _.get(e, 'cartQuantity', 1),
                 "product_id": _.get(e, '[0].additionalInfo[0].genericTransactionTypeId', 1)
               }
