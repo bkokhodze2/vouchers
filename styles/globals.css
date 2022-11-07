@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 #__next {
-    background-color: #F5F6F8;
+    background-color: #EDEEEF;
 }
 
 .textDots1 {
@@ -399,3 +399,4 @@
 .swiper-slide > div {
     width: 100%;
 }
+

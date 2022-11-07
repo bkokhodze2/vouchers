@@ -26,6 +26,8 @@ const Home: NextPage = ({serverData}: any) => {
   const [categories, setCategories] = useState<[any]>([{}]);
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [promo, setPromo] = useState<any>([]);
+
 
   useEffect(() => {
 
@@ -35,6 +37,14 @@ const Home: NextPage = ({serverData}: any) => {
           setVouchers(res.data)
           setVouchersAll(res.data)
         });
+
+    if (!!promo) {
+      axios
+          .get(`${baseApi}/vouchers?contractId=662&isPromo=1`)
+          .then((res) => {
+            setPromo(res.data)
+          });
+    }
 
     if (!!categories) {
       axios
@@ -47,9 +57,6 @@ const Home: NextPage = ({serverData}: any) => {
 
   }, [])
 
-  useEffect(() => {
-    console.log("vouchers.filter((e: any) => e.additionalInfo[0].isPromo)", vouchersAll.filter((e: any) => e.additionalInfo[0].isPromo))
-  }, [vouchersAll])
 
   const nextPage = (page: number) => {
     setIsLoading(true)
@@ -135,14 +142,15 @@ const Home: NextPage = ({serverData}: any) => {
 
           </div>
           {/*Special offers*/}
-          {vouchers.length > 0 && <div className={"flex flex-col w-full mt-[84px]"}>
-						<div className={"container m-auto "}>
-							<h1 className={"text-[28px] text-[#383838] font-bold"}>Special offers</h1>
-							<div className={"mt-4"}>
-								<OfferSlider data={vouchersAll.filter((e: any) => e.additionalInfo[0].isPromo)} loop={false}/>
-							</div>
-						</div>
-					</div>}
+          {promo.length > 0 &&
+							<div className={"flex flex-col w-full mt-[84px]"}>
+								<div className={"container m-auto "}>
+									<h1 className={"text-[28px] text-[#383838] font-bold"}>Special offers</h1>
+									<div className={"mt-4"}>
+										<OfferSlider data={promo} loop={false}/>
+									</div>
+								</div>
+							</div>}
           {/*Special offers*/}
 
           {/*Popular offers*/}
