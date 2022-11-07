@@ -156,7 +156,7 @@ const Header: React.FC = () => {
 
     return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
       <div className={"flex py-4 w-full"}>
-        <div className={"w-full max-w-[125px] max-h-[76px] h-[75px] mr-4 relative"}>
+        <div className={"w-full max-w-[125px] min-w-[125px] max-h-[76px] h-[75px] mr-4 relative"}>
           {
             <img
                 src={_.get(data, 'additionalInfo[0].attachments[0].path', offerItem.src)}
@@ -176,7 +176,7 @@ const Header: React.FC = () => {
             <p className={"text-[white] text-[12px] px-[12px]"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))} %</p>
           </div>
         </div>
-        <div className={"w-full"}>
+        <div className={"w-full overflow-auto"}>
           <h3 className={"text-[#383838] font-bold text-base font-bold"}>
             {getHighlightedText(_.get(data, 'additionalInfo[0].provider.name', ""), term)}
           </h3>
@@ -406,7 +406,7 @@ const Header: React.FC = () => {
                           />
 
 
-                        <p className={"capitalize mt-[11px] text-base leading-4"}>Basket </p>
+                          <p className={"capitalize mt-[11px] text-base leading-4"}>Basket </p>
                         </div>
                       </Badge>
                     </div>
