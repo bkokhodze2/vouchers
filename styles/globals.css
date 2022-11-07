@@ -4,6 +4,13 @@
 
 #__next {
     background-color: #EDEEEF;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+body {
+    background-color: #EDEEEF;
+
 }
 
 .textDots1 {
@@ -398,5 +405,9 @@
 
 .swiper-slide > div {
     width: 100%;
+}
+
+.ant-tabs-top > .ant-tabs-nav, .ant-tabs-bottom > .ant-tabs-nav, .ant-tabs-top > div > .ant-tabs-nav, .ant-tabs-bottom > div > .ant-tabs-nav {
+    margin: 0 0 24px 0;
 }
 

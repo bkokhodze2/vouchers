@@ -66,7 +66,7 @@ const GalleryScroll = ({data}: any) => {
       ;
 
       return (
-        <div className={"w-full bg-[#F5F6F8] overflow-x-auto"}>
+        <div className={"w-full overflow-x-auto"}>
           <div className={"flex py-8 h-[610px]"}>
             {
               runCallback(() => {

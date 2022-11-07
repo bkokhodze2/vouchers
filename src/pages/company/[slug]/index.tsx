@@ -45,7 +45,7 @@ export default function Company() {
           <meta name="description" content="Company"/>
         </Head>
 
-        <div className={"bg-[#F5F6F8]"}>
+        <div className={""}>
           <div className={"grid grid-rows-1 pt-6 pb-[100px] grid-cols-4 container m-auto grid-flow-col gap-[30px]"}>
 
             {/*company info*/}

@@ -126,7 +126,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
   const RightSide = () => {
     return <div className={"h-full"}>
-      <div className={"bg-[#d9d9d933] rounded-xl p-8 top-[150px] sticky overflow-y-scroll "}>
+      <div className={"bg-[#ffffff66] rounded-xl p-8 top-[150px] sticky overflow-y-scroll "}>
         <div className={"grid grid-cols-2 grid-rows-1 bg-[white] w-full h-[48px] rounded-xl p-1"}>
           <div onClick={() => {
             setIsWithMoney(true)
@@ -199,8 +199,8 @@ export default function Details({serverOffer, serverVoucher}: any) {
         </div>
 
         <div>
-          <p className={"text-[#383838] text-[22px] font-bold mt-8"}>Room Type </p>
-          <div className={"rounded-xl bg-[white] mt-4 py-4 px-2"}>Room for 2 persons (Monday to Friday)</div>
+          {/*<p className={"text-[#383838] text-[22px] font-bold mt-8"}>Room Type </p>*/}
+          {/*<div className={"rounded-xl bg-[white] mt-4 py-4 px-2"}>Room for 2 persons (Monday to Friday)</div>*/}
 
           {/*options*/}
           <div className={"grid grid-cols-2 grid-rows-1 gap-1 gap-x-[30px] gap-y-6 mt-8"}>
@@ -298,7 +298,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
           <meta name="description" content="details"/>
         </Head>
 
-        <div className={"bg-[#F5F6F8]"}>
+        <div className={""}>
 
           <div className={"flex flex-col"}>
             {_.get(voucher, '[0].additionalInfo[0].attachments', []).length > 0 && <GalleryScroll data={voucher}/>}
@@ -322,7 +322,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
                     <div className={"flex-1 flex-col"}>
                       <h2 className={"text-[22px] font-bold text-[#383838]"}>{_.get(voucher, '[0].additionalInfo[0].provider.name', '')}
                       </h2>
-                      <p className={"text-[#38383899] mt-[11px]"}>{_.get(voucher, '[0].additionalInfo[0].subTitles[0].description', '')}</p>
+                      <p className={"text-[#38383899] mt-1.5"}>{_.get(voucher, '[0].additionalInfo[0].subTitles[0].description', '')}</p>
                     </div>
                     <div className={"mr-[9px]"}>
                       <Image src={ICONS.rightArrowDetails} alt={"arrow icon"}/>
@@ -331,7 +331,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
                 </Link>
 
                 {/*info*/}
-                <div className={"flex justify-between mt-5"}>
+                <div className={"flex justify-between mt-[18px]"}>
                   {/*phone number*/}
                   {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', '') &&
 											<div className={"group flex items-center relative"}>
@@ -411,28 +411,30 @@ export default function Details({serverOffer, serverVoucher}: any) {
 											</div>
                   }
                   {/*location dropdown*/}
-                  <div className={"flex space-x-[33px] items-center"}>
-                    {_.get(voucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null) &&
-												<div className={"cursor-pointer"}>
-													<Link href={_.get(voucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null)}
-																target={"_blank"}>
-														<Image src={ICONS.fb} alt={"fb icon"}/>
-													</Link>
-												</div>
-                    }
-                    {
-                        _.get(voucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null) &&
-												<div className={"cursor-pointer"}>
-													<Link href={_.get(voucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null)}
-																target={"_blank"}>
-														<Image src={ICONS.insta} alt={"insta icon"}/>
-													</Link>
-												</div>
-                    }
-                  </div>
+                  {_.get(voucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null) && _.get(voucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null) &&
+											<div className={"flex space-x-[33px] items-center"}>
+                        {_.get(voucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null) &&
+														<div className={"cursor-pointer"}>
+															<Link href={_.get(voucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null)}
+																		target={"_blank"}>
+																<Image src={ICONS.fb} alt={"fb icon"}/>
+															</Link>
+														</div>
+                        }
+                        {
+                            _.get(voucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null) &&
+														<div className={"cursor-pointer"}>
+															<Link href={_.get(voucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null)}
+																		target={"_blank"}>
+																<Image src={ICONS.insta} alt={"insta icon"}/>
+															</Link>
+														</div>
+                        }
+											</div>
+                  }
                 </div>
                 {/*info*/}
-                <Tabs defaultActiveKey="1" className={"tabDescription mt-[46px]"} items={items}/>
+                <Tabs defaultActiveKey="1" className={"tabDescription mt-[34px] "} items={items}/>
 
                 {/*reviews*/}
                 <div className={"mt-[100px]"}>

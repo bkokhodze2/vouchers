@@ -15,7 +15,9 @@ export default function Layout({children}) {
 					<title>Layouts Example</title>
 				</Head>
 				<Header/>
-				<main>
+				<main style={{
+					flex:1
+				}}>
 					{children}
 				</main>
 				<Footer/>
