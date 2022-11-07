@@ -113,7 +113,7 @@ export default function Cart({serverData, productCount}: any) {
       })
     } else {
       axios.post(`https://vouchers.pirveli.ge/api/tbc/payments`, tbcObj).then((res) => {
-        let link = res.data.links[1].href;
+        let link = res.data.links[1].uri;
         typeof window !== 'undefined' && window.open(link, '_blank');
 
       })
