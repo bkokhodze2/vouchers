@@ -142,14 +142,12 @@ const OfferItem = ({data}: IOfferItem) => {
                       src={ICONS.heartPurple}
                       quality={60}
                       blurDataURL={IMAGES.placeholder.src}
-                      placeholder="blur"
                       loading={"lazy"}
                       alt={"heart icon"}/> :
                   <Image
                       src={ICONS.heartBlue}
                       quality={60}
                       blurDataURL={IMAGES.placeholder.src}
-                      placeholder="blur"
                       loading={"lazy"}
                       alt={"heart icon"}
 

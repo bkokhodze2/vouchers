@@ -265,14 +265,12 @@ export default function Details({serverOffer, serverVoucher}: any) {
               {isFavourite ? <Image src={ICONS.heartPurple}
                                     quality={70}
                                     blurDataURL={IMAGES.placeholder.src}
-                                    placeholder="blur"
                                     priority={true}
                                     className={"cursor-pointer"}
                                     alt={"cart icon"}/> :
                   <Image src={ICONS.heart}
                          quality={70}
                          blurDataURL={IMAGES.placeholder.src}
-                         placeholder="blur"
                          priority={true}
                          className={"cursor-pointer"}
                          alt={"cart icon"}

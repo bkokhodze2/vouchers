@@ -196,9 +196,7 @@ export default function History({serverData}: any) {
                   <Image src={IMAGES.company}
                          quality={70}
                          blurDataURL={IMAGES.placeholder.src}
-                         placeholder="blur"
                          priority={true}
-
                          alt={"company image"}
                          style={{objectFit: "cover"}}
                          layout={"fill"}

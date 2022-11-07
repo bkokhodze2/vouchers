@@ -56,7 +56,6 @@ export default function Company() {
                   <Image src={IMAGES.company}
                          quality={80}
                          blurDataURL={IMAGES.placeholder.src}
-                         placeholder="blur"
                          loading={"lazy"}
                          style={{objectFit: "cover"}}
                          layout={"fill"}
@@ -87,15 +86,15 @@ export default function Company() {
 													<div className={"cursor-pointer"}>
 														<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
 																	target={"_blank"}>
-															<Image
-																	src={ICONS.fb}
-																	quality={60}
-																	blurDataURL={IMAGES.placeholder.src}
-																	placeholder="blur"
-																	loading={"lazy"}
-																	alt={"fb icon"}
-
-															/>
+															<div>
+																<Image
+																		src={ICONS.fb}
+																		quality={60}
+																		blurDataURL={IMAGES.placeholder.src}
+																		loading={"lazy"}
+																		alt={"fb icon"}
+																/>
+															</div>
 														</Link>
 													</div>
                       }
@@ -103,14 +102,15 @@ export default function Company() {
 													<div className={"cursor-pointer"}>
 														<Link href={_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "")}
 																	target={"_blank"}>
-															<Image
-																	src={ICONS.insta}
-																	quality={60}
-																	blurDataURL={IMAGES.placeholder.src}
-																	placeholder="blur"
-																	loading={"lazy"}
-																	alt={"insta icon"}
-															/>
+															<div>
+																<Image
+																		src={ICONS.insta}
+																		quality={60}
+																		blurDataURL={IMAGES.placeholder.src}
+																		loading={"lazy"}
+																		alt={"insta icon"}
+																/>
+															</div>
 														</Link>
 													</div>
                       }
