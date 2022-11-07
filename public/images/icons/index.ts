@@ -22,3 +22,5 @@ export {default as percent} from './percent.svg';
 export {default as warning} from './warning.svg';
 export {default as trash} from './trash.svg';
 export {default as x} from './x.svg';
+export {default as tbc} from './tbc.svg';
+export {default as bog} from './bog.svg';

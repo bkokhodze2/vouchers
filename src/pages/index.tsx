@@ -15,6 +15,7 @@ import axios from "axios";
 import PulseLoader from "react-spinners/PulseLoader";
 import {HashLoader} from "react-spinners";
 import slider from "../../public/images/images/mainSlider.png";
+import FreeScroll from "../components/UI/slider/free-scroll";
 
 // import Background from "../../public/images/images/test.png.png"
 
@@ -143,19 +144,20 @@ const Home: NextPage = ({serverData}: any) => {
           </div>
           {/*Special offers*/}
           {promo.length > 0 &&
-							<div className={"flex flex-col w-full mt-[84px]"}>
+							<div className={"order-1 sm:order-1 flex flex-col w-full mt-[84px]"}>
 								<div className={"container m-auto "}>
 									<h1 className={"text-[28px] text-[#383838] font-bold"}>Special offers</h1>
 									<div className={"mt-4"}>
 										<OfferSlider data={promo} loop={false}/>
+										<FreeScroll data={vouchers} miniHeight={true}/>
 									</div>
 								</div>
 							</div>}
           {/*Special offers*/}
 
           {/*Popular offers*/}
-          <div className={"w-full"}>
-            <div className={"mt-10 container m-auto mt-[76px] mb-[84px]"}>
+          <div className={"w-full sm:order-2 order-4"}>
+            <div className={"mt-10 container m-auto mt-[76px] mb-[84px] hidden sm:flex"}>
               <Image
                   src={IMAGES.banner}
                   quality={70}
@@ -167,10 +169,11 @@ const Home: NextPage = ({serverData}: any) => {
 
             {/*Popular offers */}
             {vouchers.length > 0 && <div className={"flex flex-col"}>
-							<div className={"container m-auto"}>
+							<div className={"container m-auto mt-8 sm:mt-1"}>
 								<h1 className={"text-[28px] text-[#383838] font-bold"}>Popular offers</h1>
 								<div className={"mt-4"}>
 									<OfferSlider data={vouchers}/>
+									<FreeScroll data={vouchers} miniHeight={true}/>
 								</div>
 							</div>
 						</div>}
@@ -179,7 +182,7 @@ const Home: NextPage = ({serverData}: any) => {
           {/*Popular offers*/}
 
           {/*categories*/}
-          <div className={"w-full "}>
+          <div className={"w-full order-3 sm:order-3"}>
             <div className={"space-x-[30px] flex flex-row overflow-scroll container m-auto py-[84px]"}>
 
               {/*{categories?.filter(item => item.parentCategoryId === null).map((item, index) => {*/}
@@ -300,13 +303,14 @@ const Home: NextPage = ({serverData}: any) => {
 
           {/*categories*/}
 
-
           {/*New offers  */}
-          <div className={"flex flex-col w-full pb-[98px]"}>
+          <div
+              className={"sm:order-4 order-2 flex flex-col w-full pb-[98px]  pt-[44px] sm:pt-[0px]"}>
 
             {vouchers.length > 0 && <div className={"container m-auto"}>
-							<h1 className={"text-[28px] text-[#383838] font-bold"}>New offers</h1>
-							<div className={"mt-4 grid grid-flow-row-dense grid-cols-4 gap-[30px]"}>
+							<h1 className={"text-[18px] sm:text-[28px] text-[#383838] font-bold"}>New offers</h1>
+							<div
+									className={"mt-4 grid grid-flow-row-dense  grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-x-6 gap-y-6 md:gap-y-[42px] md:gap-x-[30px]"}>
 
                 {
                     !!vouchersAll?.length && vouchersAll?.map((item: any, index: any) => {
@@ -318,7 +322,7 @@ const Home: NextPage = ({serverData}: any) => {
 
 							<div className={"flex justify-center mt-[48px] "}>
 								<div
-										className={"bg-purple rounded-xl h-[48px] w-min px-10 flex justify-center items-center cursor-pointer"}
+										className={"bg-purple rounded-xl h-[48px] sm:w-min w-full px-10 flex justify-center items-center cursor-pointer"}
 										style={{
                       transition: "1s"
                     }}
@@ -327,7 +331,6 @@ const Home: NextPage = ({serverData}: any) => {
 									<p className={"text-[16px] text-[white] font-normal whitespace-nowrap"}>{isLoading ? "loading" : "Show more"}</p>
                   {isLoading &&
 											<PulseLoader size={5} color="#FFFFFF" speedMultiplier={0.7} className={"mt-1.5 ml-1.5 "}/>}
-
 
 								</div>
 							</div>

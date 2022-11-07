@@ -10,8 +10,22 @@ module.exports = {
 			orange: "#E35A43",
 			purple: "#8338EC"
 		},
+		container: {
+			padding: {
+				DEFAULT: '1rem',
+				ph: '0rem',
+				sm: '0rem',
+				md: '1rem',
+				lg: '2rem',
+				xl: '3rem',
+				'2xl': '0rem',
+			},
+		},
 		screens: {
-			'sm': '640px',
+			'ph': '400px',
+			// => @media (min-width: 400px) { ... }
+
+			'sm': '600px',
 			// => @media (min-width: 640px) { ... }
 
 			'md': '768px',

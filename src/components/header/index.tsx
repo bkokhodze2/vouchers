@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 // @ts-ignore
 import {ICONS} from "public/images";
 import Image from "next/image"
@@ -6,23 +6,29 @@ import RingLoader from "react-spinners/RingLoader";
 import PulseLoader from "react-spinners/PulseLoader";
 import {Button as AntButton, Form, Input, Badge} from 'antd';
 import Button from "../UI/button";
-import {coin} from "../../../public/images/images";
 import offerItem from "../../../public/images/images/offerItem.png";
 import {IMAGES} from "../../../public/images";
 import Link from "next/link";
-import router, {useRouter} from "next/router";
-import CartItem from "../blocks/cart/cart-item";
+import {useRouter} from "next/router";
 import axios from "axios";
 import OfferItem from "../blocks/offer-item";
 import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
 import {getTotals} from "../slices/cartSlice";
 import {getTotalsFavourite} from "../slices/favouritesSlice";
-import slider from "../../../public/images/images/mainSlider.png";
 
-interface category {
-  name: string,
-  id: number
+import Home from "../../../public/images/icons/home";
+import Search from "../../../public/images/icons/search";
+import BarHeart from "../../../public/images/icons/barHeart";
+import Orders from "../../../public/images/icons/orders";
+import Menu from "../../../public/images/icons/menu";
+
+
+interface Icategory {
+  categoryId: number,
+  categoryName: string,
+  offersQuantity: number
+  parentCategoryId: number
 }
 
 const Header: React.FC = () => {
@@ -30,7 +36,7 @@ const Header: React.FC = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [findData, setFindData] = useState<[]>([]);
-  const [categories, setCategories] = useState<[any]>([{}]);
+  const [categories, setCategories] = useState<Icategory[]>([]);
   const [categoryVouchers, setCategoryVouchers] = useState<[any]>([null]);
   const [chosenCategory, setChosenCategory] = useState<any>({});
   const [term, setTerm] = useState<string>("");
@@ -106,7 +112,6 @@ const Header: React.FC = () => {
       }, 500)
     }
 
-
     return () => clearTimeout(getData)
   }, [term])
 
@@ -140,7 +145,7 @@ const Header: React.FC = () => {
 
   const getSumOffer = () => {
     let arr = categories?.filter(item => item.parentCategoryId === chosenCategory?.categoryId);
-    let sum = arr.reduce((prevValue, currValue) => prevValue + currValue?.offersQuantity, 0)
+    let sum = arr?.reduce((prevValue, currValue) => prevValue + currValue?.offersQuantity, 0)
 
     return sum
   }
@@ -156,7 +161,7 @@ const Header: React.FC = () => {
 
     return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
       <div className={"flex py-4 w-full"}>
-        <div className={"w-full max-w-[125px] max-h-[76px] h-[75px] mr-4 relative"}>
+        <div className={"w-full max-w-[125px] min-w-[125px] max-h-[76px] h-[75px] mr-4 relative"}>
           {
             <img
                 src={_.get(data, 'additionalInfo[0].attachments[0].path', offerItem.src)}
@@ -176,7 +181,7 @@ const Header: React.FC = () => {
             <p className={"text-[white] text-[12px] px-[12px]"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))} %</p>
           </div>
         </div>
-        <div className={"w-full"}>
+        <div className={"w-full overflow-auto"}>
           <h3 className={"text-[#383838] font-bold text-base font-bold"}>
             {getHighlightedText(_.get(data, 'additionalInfo[0].provider.name', ""), term)}
           </h3>
@@ -198,7 +203,7 @@ const Header: React.FC = () => {
   // @ts-ignore
   return (
       <>
-        <div className={"w-full bg-amber-700 h-[44px] min-h-[44px] bg-[#383838] flex items-center "}>
+        <div className={"hidden md:flex w-full bg-amber-700 h-[44px] min-h-[44px] bg-[#383838] items-center "}>
           <div className={"w-full container m-auto flex justify-between"}>
             <div className={"flex space-x-8"}>
               <Link href={"/"}>
@@ -262,8 +267,8 @@ const Header: React.FC = () => {
               {/*logo*/}
 
               {/*search*/}
-              <div className={"flex col-span-3"} ref={wrapperRef}>
-                <div className={"flex flex-grow justify-center pr-[30px]"} onClick={(e) => {
+              <div className={"flex sm:col-span-3 col-span-3 justify-end md:justify-center"} ref={wrapperRef}>
+                <div className={"hidden md:flex flex flex-grow justify-center pr-[30px]"} onClick={(e) => {
                   e.stopPropagation()
                 }}>
                   <Form
@@ -315,7 +320,6 @@ const Header: React.FC = () => {
 																src={ICONS.x}
 																quality={30}
 																blurDataURL={IMAGES.placeholder.src}
-																placeholder="blur"
 																loading={"lazy"}
 																alt={"x"}
 														/>
@@ -392,7 +396,7 @@ const Header: React.FC = () => {
                 {/*buttons*/}
                 <div className={"flex space-x-[30px] justify-end"}>
                   <Link href={"/cart"}>
-                    <div>
+                    <div className={"hidden md:block"}>
                       <Badge count={cart?.productCount} className={"badge-cart"}>
                         <div className={"flex flex-col items-center cursor-pointer"}>
                           <Image
@@ -406,14 +410,14 @@ const Header: React.FC = () => {
                           />
 
 
-                        <p className={"capitalize mt-[11px] text-base leading-4"}>Basket </p>
+                          <p className={"capitalize mt-[11px] text-base leading-4"}>Basket </p>
                         </div>
                       </Badge>
                     </div>
                   </Link>
 
                   <Link href={"/wishlist"}>
-                    <div>
+                    <div className={"hidden md:block"}>
                       <Badge count={favourites?.favouritesTotalCount} className={"badge-favourites"}>
                         <div className={"flex flex-col items-center cursor-pointer"}>
                           <Image
@@ -457,7 +461,7 @@ const Header: React.FC = () => {
 
                 {/*sub categories*/}
                 <div className={"flex items-center space-x-[40px] ml-[40px]"}>
-                  {categories?.filter(item => item.parentCategoryId === null).map((item, index) => {
+                  {categories?.filter(item => item?.parentCategoryId === null).map((item: Icategory, index: number) => {
                     return <div className={"relative"} key={index} onMouseOver={() => setChosenCategory(item)}>
                       <Link href={`/category/${item.categoryId}`}>
                         <p className={"hover:text-[black] transition text-base whitespace-nowrap capitalize cursor-pointer"}
@@ -524,6 +528,31 @@ const Header: React.FC = () => {
           </div>
 
         </header>
+
+        <div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0 z-50"}>
+          <div className={"grid grid-cols-5 pt-3"}>
+            <div className={"flex flex-col items-center justify-between"}>
+              <Home/>
+              <p className={"mt-[7px] text-[10px] text-[#383838]"}>Home</p>
+            </div>
+            <div className={"flex flex-col items-center justify-between pt-0.5"}>
+              <Search/>
+              <p className={"mt-[7px] text-[10px] text-[#383838]"}>Search</p>
+            </div>
+            <div className={"flex flex-col items-center justify-between"}>
+              <BarHeart/>
+              <p className={"mt-[7px] text-[10px] text-[#383838]"}>Wishlist</p>
+            </div>
+            <div className={"flex flex-col items-center justify-between"}>
+              <Orders/>
+              <p className={"mt-[7px] text-[10px] text-[#383838]"}>My orders</p>
+            </div>
+            <div className={"flex flex-col items-center justify-between"}>
+              <Menu/>
+              <p className={"mt-[7px] text-[10px] text-[#383838]"}>Menu</p>
+            </div>
+          </div>
+        </div>
       </>
   )
 }

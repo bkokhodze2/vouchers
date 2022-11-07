@@ -14,16 +14,13 @@ import slider from "../../../../../public/images/images/mainSlider.png";
 
 interface ICartItem {
   id?: number,
-  name?: string,
-  imgPath?: string,
-  price?: number
+  data?: any,
   getCount?: any,
 }
 
-const CartItem = ({data, getCount}: any) => {
+const CartItem = ({data, getCount}: ICartItem) => {
   const cart = useSelector((state: any) => state.cart);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
-
 
   useEffect(() => {
     let count = 0;
@@ -57,7 +54,7 @@ const CartItem = ({data, getCount}: any) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   return (
-      <div className={"p-[30px] pr-[68px] flex bg-[#d9d9d933] rounded-2xl"}>
+      <div className={"p-[30px] pr-[68px] flex bg-[white] rounded-2xl"}>
         <div className={"w-full max-w-[240px] min-w-[240px] mr-[30px]"}>
           <Image src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
                  alt={"product image"}
