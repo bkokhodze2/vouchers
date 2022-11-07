@@ -107,6 +107,13 @@ export default function Details({serverOffer, serverVoucher}: any) {
   const getWeekByNumber = (index: number) => {
     return weekDays[index - 1]
   }
+  const getOldPrice = () => {
+    return (_.get(voucher, '[0].additionalInfo[0].servicePrice', 0) * 100) / (100 - (_.get(voucher, '[0].additionalInfo[0].percentage', 0)))
+  }
+
+  const getSave = () => {
+    return getOldPrice() - _.get(voucher, '[0].additionalInfo[0].servicePrice', 0)
+  }
 
   useEffect(() => {
     setIsFavourite(false);
@@ -204,8 +211,8 @@ export default function Details({serverOffer, serverVoucher}: any) {
               <div className={"flex flex-col ml-[28px]"}>
                 <p className={"text-[#383838] text-base"}>Saving</p>
                 <div className={"flex flex-nowrap items-center"}>
-                  <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>25%</p>
-                  <p className={"ml-3 text-base text-[#38383899] whitespace-nowrap"}>( $50 )</p>
+                  <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>-{Math.round(_.get(voucher, '[0].additionalInfo[0].percentage', 0))}%</p>
+                  <p className={"ml-3 text-base text-[#38383899] whitespace-nowrap"}>( $ {Math.round(getSave())} )</p>
                 </div>
               </div>
             </div>
@@ -216,12 +223,13 @@ export default function Details({serverOffer, serverVoucher}: any) {
               <div className={"flex flex-col ml-[28px]"}>
                 <p className={"text-[#383838] text-base"}>Price</p>
                 <div className={"flex flex-nowrap items-center"}>
-                  <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>150 $</p>
-                  <p className={"ml-3 text-base text-[#38383899] whitespace-nowrap line-through"}>200 $</p>
+                  <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>{_.get(voucher, '[0].additionalInfo[0].servicePrice', 0)} $</p>
+                  <p className={"ml-3 text-base text-[#38383899] whitespace-nowrap line-through"}>{Math.round(getOldPrice())} $</p>
                 </div>
               </div>
             </div>
           </div>
+
 
           {/*options*/}
 
