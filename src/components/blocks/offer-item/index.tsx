@@ -180,7 +180,7 @@ const OfferItem = ({data}: IOfferItem) => {
                 <p className={"text-[#7B92DC] text-sm "}>
                 <span
                     className={"text-[#383838] text-[12px] mr-[8px]"}>OR</span>
-                  {_.get(data, 'entries[0].entryAmount', 0) * _.get(data, 'entries[0].multiplier', 0)} P
+                  {Math.round(_.get(data, 'entries[0].entryAmount', 0) * _.get(data, 'entries[0].multiplier', 0))} P
                 </p>
 
               </div>

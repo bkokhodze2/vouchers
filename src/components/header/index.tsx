@@ -498,7 +498,7 @@ const Header: React.FC = () => {
                     <div className={"flex flex-col space-y-[20px] mt-[20px]"}>
                       {categories?.filter(item => item.parentCategoryId === chosenCategory?.categoryId).map((item, index) => {
                         return <div className={"flex justify-between items-center"} key={index}>
-                          <Link href={"/"}>
+                          <Link href={`/category/${item.categoryId}`}>
                             <p
                                 className={"text-[#383838b3] text-base mr-2 cursor-pointer hover:text-[#8338ecb3] hover:underline decoration-1"}>{item?.categoryName}</p>
                           </Link>
