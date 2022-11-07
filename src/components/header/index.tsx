@@ -173,7 +173,7 @@ const Header: React.FC = () => {
 
           <div
               className={"absolute top-[8px] left-[8px] z-20 flex justify-center items-center bg-[#E35A43] rounded-[100px] h-[25px]"}>
-            <p className={"text-[white] text-[12px] px-[12px]"}>- {_.get(data, 'additionalInfo[0].percentage', 0)} %</p>
+            <p className={"text-[white] text-[12px] px-[12px]"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))} %</p>
           </div>
         </div>
         <div className={"w-full"}>
@@ -460,17 +460,17 @@ const Header: React.FC = () => {
                 {/*sub categories*/}
                 <div className={"flex items-center space-x-[40px] ml-[40px]"}>
                   {categories?.filter(item => item.parentCategoryId === null).map((item, index) => {
-                      return <div className={"relative"} key={index} onMouseOver={() => setChosenCategory(item)}>
-                        <Link href={`/category/${item.categoryId}`}>
-                          <p className={"hover:text-[black] transition text-base whitespace-nowrap capitalize cursor-pointer"}
-                             style={{color: item.categoryId === chosenCategory?.categoryId ? "#8338EC" : "#383838b3"}}
-                          >{item.categoryName}
-                          </p>
-                        </Link>
-                        {item.categoryId == (chosenCategory?.categoryId || Router.query.id) &&
-														<div className={"absolute bg-purple w-full h-[2px] rounded-t-[5px] -bottom-[12px]"}/>}
-                      </div>
-                    })}
+                    return <div className={"relative"} key={index} onMouseOver={() => setChosenCategory(item)}>
+                      <Link href={`/category/${item.categoryId}`}>
+                        <p className={"hover:text-[black] transition text-base whitespace-nowrap capitalize cursor-pointer"}
+                           style={{color: item.categoryId === chosenCategory?.categoryId ? "#8338EC" : "#383838b3"}}
+                        >{item.categoryName}
+                        </p>
+                      </Link>
+                      {item.categoryId == (chosenCategory?.categoryId || Router.query.id) &&
+													<div className={"absolute bg-purple w-full h-[2px] rounded-t-[5px] -bottom-[12px]"}/>}
+                    </div>
+                  })}
                 </div>
                 {/*sub categories*/}
               </div>

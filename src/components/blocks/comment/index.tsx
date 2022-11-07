@@ -56,7 +56,7 @@ const Comment = ({
         </div>
         {/*user*/}
         {/*comment*/}
-        <div className={"bg-[white] rounded-xl p-6 mt-4"}>
+        <div className={"bg-[white] rounded-xl p-6 mt-3"}>
           <p>
             {comment}
           </p>

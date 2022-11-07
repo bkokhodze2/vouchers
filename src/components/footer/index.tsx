@@ -35,8 +35,7 @@ const Footer: React.FC = () => {
                 <p className={"text-[#383838] text-base"}>Become a partner</p>
               </div>
             </div>
-            <div className={"flex justify-between items-center mt-10 mb-5"}>
-              <p className={"text-[#383838]"}>Copyright © 2022 our website. All rights reserved.</p>
+            <div className={"flex flex-col mb-5"}>
               <div className={"flex items-center space-x-[34px]"}>
                 <div>
                   <Image src={ICONS.fb} quality={70}
@@ -53,6 +52,7 @@ const Footer: React.FC = () => {
                          alt={"instagram icon"}/>
                 </div>
               </div>
+              <p className={"text-[#38383880] mt-8"}>Copyright © 2022 our website. All rights reserved.</p>
             </div>
             {/*navigation*/}
           </div>

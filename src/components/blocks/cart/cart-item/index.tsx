@@ -117,8 +117,7 @@ const CartItem = ({data, getCount}: any) => {
 
             </div>
             <div
-                onClick={() => {
-                }}
+                onClick={() => handleRemoveFromCart(data)}
                 className={"flex items-center cursor-pointer"}>
               <Image
                   src={ICONS.trash}
@@ -129,7 +128,7 @@ const CartItem = ({data, getCount}: any) => {
                   alt={"trash icon"}
                   width={24}
                   height={24}/>
-              <p className={"text-[#383838] ml-[10px] font-[500]"} onClick={() => handleRemoveFromCart(data)}>Delete</p>
+              <p className={"text-[#383838] ml-[10px] font-[500]"}>Delete</p>
             </div>
           </div>
         </div>

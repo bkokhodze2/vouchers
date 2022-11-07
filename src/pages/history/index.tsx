@@ -185,7 +185,7 @@ export default function History({serverData}: any) {
 
         </Modal>
 
-        <div className={"bg-[#F5F6F8]"}>
+        <div className={""}>
           <div
               className={"grid grid-rows-1 pt-8 pb-[100px] grid-cols-4 container m-auto grid-flow-col gap-[30px]"}>
 
