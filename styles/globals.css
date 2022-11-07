@@ -341,7 +341,7 @@
     }
 }
 
-/*badge*/
+/*antd badge*/
 
 .ant-badge-count {
     background: #8338EC;
@@ -357,12 +357,30 @@
     border: 2px solid white;
 }
 
-.badge-favourites .ant-scroll-number-only ,.badge-cart .ant-scroll-number-only{
+.badge-favourites .ant-scroll-number-only, .badge-cart .ant-scroll-number-only {
     top: -2px
 }
 
-/*badge*/
+/*antd badge*/
 
+/*antd image preview*/
+.ant-image-preview-img-wrapper {
+    display: flex;
+    padding: 100px;
+    justify-content: center;
+    align-items: center;
+}
+
+.ant-image-mask {
+    border-radius: 12px;
+}
+
+.ant-image-mask-info {
+    display: flex;
+    align-items: center;
+}
+
+/*antd image preview*/
 
 .plus .after:after {
     content: '';

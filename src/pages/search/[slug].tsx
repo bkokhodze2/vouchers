@@ -46,15 +46,6 @@ export default function Search({serverData}: any) {
                 Search result “<span className={"text-purple"}>{Router.query.slug}</span>”
               </p>
               <div className={"container m-auto grid grid-flow-row-dense grid-cols-4 gap-[30px] gap-y-[40px]"}>
-                {/*<OfferItem/>*/}
-                {/*<OfferItem/>*/}
-                {/*<OfferItem/>*/}
-                {/*<OfferItem/>*/}
-                {/*<OfferItem/>*/}
-                {/*<OfferItem/>*/}
-                {/*<OfferItem/>*/}
-                {/*<OfferItem/>*/}
-                {/*<OfferItem/>*/}
 
                 {vouchers?.map((item: any, index: number) => {
                   return <OfferItem data={item} key={index}/>

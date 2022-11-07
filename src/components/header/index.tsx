@@ -142,7 +142,7 @@ const Header: React.FC = () => {
     let arr = categories?.filter(item => item.parentCategoryId === chosenCategory?.categoryId);
     let sum = arr.reduce((prevValue, currValue) => prevValue + currValue?.offersQuantity, 0)
 
-    return <>see all ({sum})</>
+    return sum
   }
 
   const SearchItem = ({data}: any) => {
@@ -384,7 +384,6 @@ const Header: React.FC = () => {
 														<p className={"text-[22px] mt-[20px] font-bold"}>No result found</p>
 													</div>
                       }
-
                     </div>
                   </Form>
 
@@ -397,7 +396,6 @@ const Header: React.FC = () => {
                     <div>
                       <Badge count={cart?.productCount} className={"badge-cart"}>
                         <div className={"flex flex-col items-center cursor-pointer"}>
-                          {/*<img src={cart?.src} alt={"shock offer icon"} className={"w-[18px]"}/>*/}
                           <Image
                               src={ICONS.cart}
                               quality={60}
@@ -408,18 +406,16 @@ const Header: React.FC = () => {
                               width={18}
                               height={18}
                           />
-
                           <p className={"capitalize mt-[11px] text-base leading-4"}>Basket </p>
                         </div>
                       </Badge>
                     </div>
                   </Link>
 
-                  <Link href={"/"}>
+                  <Link href={"/wishlist"}>
                     <div>
                       <Badge count={favourites?.favouritesTotalCount} className={"badge-favourites"}>
-                        <div className={"flex flex-col items-center "}>
-                          {/*<img src={heart?.src} alt={"heart icon"} className={"w-[18px]"}/>*/}
+                        <div className={"flex flex-col items-center cursor-pointer"}>
                           <Image
                               src={ICONS.heart}
                               quality={60}
@@ -429,19 +425,13 @@ const Header: React.FC = () => {
                               width={18}
                               height={18}
                               alt={"heart icon"}
-
                           />
                           <p className={"capitalize mt-[11px] text-base leading-4"}>Favorites</p>
                         </div>
                       </Badge>
                     </div>
                   </Link>
-                  {/*<div className={"w-[130px] rounded-[12px] flex justify-center items-center h-12 bg-[#383838]"}>*/}
-                  {/*  <p className={"capitalize text-base text-[#FFFFFF]"}></p>*/}
-                  {/*</div>*/}
-
                   <Button text={"sign in"} bgColor={"#383838"} classes={""}/>
-
                 </div>
                 {/*buttons*/}
               </div>
@@ -463,33 +453,26 @@ const Header: React.FC = () => {
                       width={18}
                       height={18}
                       alt={"shock offer icon"}
-
                   />
                   <p className={"ml-[9px] text-purple text-base whitespace-nowrap"}>Shock offers</p>
                 </div>
 
                 {/*sub categories*/}
                 <div className={"flex items-center space-x-[40px] ml-[40px]"}>
-                  {
-                    categories?.filter(item => item.parentCategoryId === null).map((item, index) => {
+                  {categories?.filter(item => item.parentCategoryId === null).map((item, index) => {
                       return <div className={"relative"} key={index} onMouseOver={() => setChosenCategory(item)}>
                         <Link href={`/category/${item.categoryId}`}>
                           <p className={"hover:text-[black] transition text-base whitespace-nowrap capitalize cursor-pointer"}
                              style={{color: item.categoryId === chosenCategory?.categoryId ? "#8338EC" : "#383838b3"}}
-                          >
-                            {item.categoryName}
+                          >{item.categoryName}
                           </p>
                         </Link>
-                        {
-                            item.categoryId == (chosenCategory?.categoryId || Router.query.id) &&
-														<div className={"absolute bg-purple w-full h-[2px] rounded-t-[5px] -bottom-[12px]"}/>
-                        }
+                        {item.categoryId == (chosenCategory?.categoryId || Router.query.id) &&
+														<div className={"absolute bg-purple w-full h-[2px] rounded-t-[5px] -bottom-[12px]"}/>}
                       </div>
-                    })
-                  }
+                    })}
                 </div>
                 {/*sub categories*/}
-
               </div>
 
               {/*category hover*/}
@@ -505,34 +488,30 @@ const Header: React.FC = () => {
                 <div className={"container m-auto grid grid-rows-1 grid-cols-4 gap-x-[30px] w-full mt-4"}>
                   <div>
                     <div className={"flex justify-between items-center"}>
-                      <p className={"font-bold text-[#383838] text-[22px] leading-[22px]"}>{chosenCategory?.categoryName}</p>
-                      <span className={"text-[#8338EC] text-[14px] cursor-pointer"}>{getSumOffer()}</span>
+                      <p className={"font-bold text-[#383838] text-[22px] leading-[22px]"}>{chosenCategory?.categoryName} ({getSumOffer()})</p>
+                      <Link href={`/category/${chosenCategory?.categoryId}`}>
+                        <span
+                            className={"text-[#8338EC] text-[14px] cursor-pointer"}>see all </span>
+                      </Link>
                     </div>
 
                     <div className={"flex flex-col space-y-[20px] mt-[20px]"}>
-
-                      {
-                        categories?.filter(item => item.parentCategoryId === chosenCategory?.categoryId).map((item, index) => {
-                          return <div className={"flex justify-between items-center"} key={index}>
-                            <Link href={"/"}>
-                              <p
-                                  className={"text-[#383838b3] text-base mr-2 cursor-pointer hover:text-[#8338ecb3] hover:underline decoration-1"}>{item?.categoryName}</p>
-                            </Link>
-                            <span className={"text-[#383838] text-[14px]"}>{item?.offersQuantity} offer</span>
-                          </div>
-                        })
-                      }
-
+                      {categories?.filter(item => item.parentCategoryId === chosenCategory?.categoryId).map((item, index) => {
+                        return <div className={"flex justify-between items-center"} key={index}>
+                          <Link href={"/"}>
+                            <p
+                                className={"text-[#383838b3] text-base mr-2 cursor-pointer hover:text-[#8338ecb3] hover:underline decoration-1"}>{item?.categoryName}</p>
+                          </Link>
+                          <span className={"text-[#383838] text-[14px]"}>{item?.offersQuantity} offer</span>
+                        </div>
+                      })}
                     </div>
-
                   </div>
                   <div className={"col-span-3"}>
                     <div className={"grid grid-flow-row-dense grid-cols-3 gap-[30px] gap-y-[40px]"}>
-                      {
-                          categoryVouchers?.length && categoryVouchers?.slice(0, 3).map((item: any, index: number) => {
-                            return <OfferItem data={item} key={index}/>
-                          })
-                      }
+                      {categoryVouchers?.length && categoryVouchers?.slice(0, 3).map((item: any, index: number) => {
+                        return <OfferItem data={item} key={index}/>
+                      })}
                     </div>
                   </div>
                 </div>
