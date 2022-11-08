@@ -4,7 +4,7 @@ import {ICONS} from "public/images";
 import Image from "next/image"
 import RingLoader from "react-spinners/RingLoader";
 import PulseLoader from "react-spinners/PulseLoader";
-import {Button as AntButton, Form, Input, Badge} from 'antd';
+import {Button as AntButton, Drawer, Form, Input, Badge} from 'antd';
 import Button from "../UI/button";
 import offerItem from "../../../public/images/images/offerItem.png";
 import {IMAGES} from "../../../public/images";
@@ -22,6 +22,7 @@ import Search from "../../../public/images/icons/search";
 import BarHeart from "../../../public/images/icons/barHeart";
 import Orders from "../../../public/images/icons/orders";
 import Menu from "../../../public/images/icons/menu";
+import MenuDrawer from "../blocks/menu-drawer";
 
 
 interface Icategory {
@@ -35,6 +36,7 @@ const Header: React.FC = () => {
   const baseApi = process.env.baseApi;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [findData, setFindData] = useState<[]>([]);
   const [categories, setCategories] = useState<Icategory[]>([]);
   const [categoryVouchers, setCategoryVouchers] = useState<[any]>([null]);
@@ -547,12 +549,17 @@ const Header: React.FC = () => {
               <Orders/>
               <p className={"mt-[7px] text-[10px] text-[#383838]"}>My orders</p>
             </div>
-            <div className={"flex flex-col items-center justify-between"}>
+            <div
+                onClick={() => setIsOpenMenu(true)}
+                className={"flex flex-col items-center justify-between"}>
               <Menu/>
               <p className={"mt-[7px] text-[10px] text-[#383838]"}>Menu</p>
             </div>
           </div>
         </div>
+
+        <MenuDrawer isOpenMenu={isOpenMenu}/>
+
       </>
   )
 }
