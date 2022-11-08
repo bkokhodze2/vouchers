@@ -145,7 +145,7 @@ const Home: NextPage = ({serverData}: any) => {
           {/*Special offers*/}
           {promo.length > 0 &&
 							<div className={"order-1 sm:order-1 flex flex-col w-full mt-[84px]"}>
-								<div className={"container m-auto "}>
+								<div className={"sm:container pl-4 sm:px-0 sm:m-auto w-full"}>
 									<h1 className={"text-[28px] text-[#383838] font-bold"}>Special offers</h1>
 									<div className={"mt-4"}>
 										<OfferSlider data={promo} loop={false}/>
@@ -169,7 +169,7 @@ const Home: NextPage = ({serverData}: any) => {
 
             {/*Popular offers */}
             {vouchers.length > 0 && <div className={"flex flex-col"}>
-							<div className={"container m-auto mt-8 sm:mt-1"}>
+							<div className={"sm:container pl-4 sm:px-0 sm:m-auto w-full"}>
 								<h1 className={"text-[28px] text-[#383838] font-bold"}>Popular offers</h1>
 								<div className={"mt-4"}>
 									<OfferSlider data={vouchers}/>

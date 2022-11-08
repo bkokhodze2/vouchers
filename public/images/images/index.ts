@@ -17,3 +17,4 @@ export {default as entertainment} from './entertainmentCategory.png';
 export {default as pool} from './poolCategory.png';
 export {default as reg} from './reg.png';
 export {default as placeholder} from './placeholder.png';
+export {default as avatar} from './avatar.png';
