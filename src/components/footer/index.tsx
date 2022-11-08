@@ -9,7 +9,7 @@ import {IMAGES} from "../../../public/images";
 const Footer: React.FC = () => {
 
   return (
-      <footer className={"w-full flex w-full relative pt-[55px]"}>
+      <footer className={"w-full hidden md:flex w-full relative pt-[55px]"}>
         <div className={"container m-auto relative"}>
           <div className={"pr-[50%]"}>
             <BecomeOurUser/>

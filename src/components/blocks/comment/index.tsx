@@ -52,7 +52,9 @@ const Comment = ({
               </div>
             </div>
           </div>
-          <div><p className={"text-[#38383899]"}>{date}</p></div>
+          <div>
+            <p className={"text-[#38383899]"}>{date}</p>
+          </div>
         </div>
         {/*user*/}
         {/*comment*/}

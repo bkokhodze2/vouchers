@@ -28,10 +28,11 @@ const Skeleton = dynamic(
 
 interface IOfferItem {
   data: any,
+  miniHeight?: boolean
 }
 
 
-const OfferItem = ({data}: IOfferItem) => {
+const OfferItem = ({data, miniHeight}: IOfferItem) => {
   const [isVisibleDrawer, setIsVisibleDrawer] = useState<boolean>(false);
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
@@ -43,9 +44,7 @@ const OfferItem = ({data}: IOfferItem) => {
 
   const dispatch = useDispatch();
 
-
   const addFav = (product: any) => {
-
     dispatch(addToFavourites(product));
   }
 
@@ -63,10 +62,10 @@ const OfferItem = ({data}: IOfferItem) => {
 
 
   const InnerSlider = () => {
-    return <div className="carousel-wrapper h-[220px]" onClick={(e) => {
+    return <div className="carousel-wrapper " onClick={(e) => {
       e.stopPropagation()
     }}>
-      <Carousel infiniteLoop showThumbs={false} swipeable={true} className={"h-[220px]"}>
+      <Carousel infiniteLoop showThumbs={false} swipeable={true} className={""}>
 
         {
           _.get(data, 'additionalInfo[0].attachments', []).length === 0 ?
@@ -74,7 +73,6 @@ const OfferItem = ({data}: IOfferItem) => {
                 <div className={"relative"}>
                   <img src={slider?.src}
                        alt={"slider img"}
-                       height={220}
                        width={360}
                        onLoad={() => {
                          setIsLoaded(true)
@@ -86,7 +84,7 @@ const OfferItem = ({data}: IOfferItem) => {
                       // layout={"fill"}
                        loading="lazy"
                       // priority={true}
-                       className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
+                       className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
                 </div>
               </Link>
               :
@@ -97,7 +95,6 @@ const OfferItem = ({data}: IOfferItem) => {
 
                     <img src={item?.path}
                          alt={"slider img"}
-                         height={220}
                          width={360}
                          onLoad={() => {
                            setIsLoaded(true)
@@ -109,7 +106,7 @@ const OfferItem = ({data}: IOfferItem) => {
                         // layout={"fill"}
                          loading="lazy"
                         // priority={true}
-                         className="carousel-wrapper !h-[220px] object-cover rounded-t-xl"/>
+                         className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
 
 
                   </div>
@@ -123,7 +120,7 @@ const OfferItem = ({data}: IOfferItem) => {
   }
 
   return (
-      <div>
+      <div className={`${miniHeight ? 'miniHeight' : ''}`}>
         <Link href={`/company/${companySlug}/voucher/${voucherSlug}`} style={{}}>
           <div style={{
             // display: isLoaded === false ? "flex" : "unset",
@@ -135,8 +132,8 @@ const OfferItem = ({data}: IOfferItem) => {
           }} className={" flex-col items-start bg-[transparent] relative select-none w-full"}>
 
             <div
-                className={"h-[40px] z-10 bg-orange absolute top-5 left-4 px-[21px] rounded-[100px] flex items-center"}>
-              <p className={"text-[white] text-base"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))}
+                className={"sm:h-[40px] h-[34px] z-10 bg-orange absolute top-5 left-4 sm:px-[21px] px-4 rounded-[100px] flex items-center"}>
+              <p className={"text-[white] text-xs sm:text-base"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))}
                 %</p>
             </div>
 
@@ -144,7 +141,7 @@ const OfferItem = ({data}: IOfferItem) => {
               e.stopPropagation()
               addFav(data)
             }}
-                 className={"w-12 h-12 z-10 rounded-[50%] bg-[white] opacity-[0.5] absolute top-4 right-4 flex justify-center items-center cursor-pointer"}>
+                 className={"sm:w-12 sm:h-12 h-10 w-10 z-10 rounded-[50%] bg-[white] opacity-[0.5] absolute top-4 right-4 flex justify-center items-center cursor-pointer"}>
               {isFavourite ? <Image
                       src={ICONS.heartPurple}
                       quality={60}
@@ -162,7 +159,7 @@ const OfferItem = ({data}: IOfferItem) => {
             </div>
 
             {/*h-[220px] w-full max-w-[360px] flex*/}
-            <div className={"h-full h-[220px] w-full max-w-[360px] relative relative "}>
+            <div className={"img h-full h-[211px] sm:h-[220px] w-full sm:max-w-[360px] max-w-7xl relative relative "}>
               {/*<OfferItemSlider/>*/}
               {/*<img src={slider.src} alt={"slider img"} className={"object-cover rounded-xl bg-no-repeat"}/>*/}
 
@@ -172,11 +169,12 @@ const OfferItem = ({data}: IOfferItem) => {
 
             </div>
 
-            <div className={"flex flex-col w-full bg-[white] px-[20px] pb-[24px] rounded-b-xl max-w-[360px]"}>
-              <p className={"text-clip overflow-hidden text-start mt-3 font-bold leading-[27px] text-[#383838] text-[22px] min-h-[54px] textDots2"}>
+            <div
+                className={"flex flex-col w-full sm:bg-[white] bg-[white] sm:px-[20px] sm:pb-6 px-4 rounded-b-xl sm:max-w-[360px] max-w-7xl"}>
+              <p className={"text-clip overflow-hidden text-start sm:mt-3 mt-2 sm:font-bold font-[500] leading-[27px] text-[#383838] sm:text-[22px] text-base min-h-[54px] textDots2"}>
                 {_.get(data, 'additionalInfo[0].provider.name', "")}
               </p>
-              <div className={"flex flex-row space-x-3 items-center mt-3"}>
+              <div className={"flex flex-row space-x-3 items-center sm:mt-3 mt-1"}>
                 <p className={"font-bold text-[#E35A43] text-[21px] flex items-center"}>
                   <Lari color={"#E35A43"}
                         classes={"mr-[5px]"}/>
@@ -189,11 +187,11 @@ const OfferItem = ({data}: IOfferItem) => {
                 </p>
 
               </div>
-              <p className={"text-[#38383899] text-start text-base leading-[23px] font-[400] mt-3 textDots2 min-h-[47px]"}>
+              <p className={"text-[#38383899] text-start text-base leading-[23px] font-[400] sm:mt-[14px] mt-1 textDots2 min-h-[47px]"}>
                 {_.get(data, 'additionalInfo[0].subTitles[0].description', "")}
               </p>
-              <div className={"flex justify-between w-full mt-3"}>
-                <p className={"text-purple text-base font-[500] mr-5"}>
+              <div className={"flex justify-between w-full sm:mt-3 mt-1"}>
+                <p className={"sm:text-purple text-[#383838] text-base font-[500] mr-5"}>
                   <CountDown data={data?.useEndDate}/>
                 </p>
                 <InStock max={_.get(data, 'additionalInfo[0].limitQuantity', 0)}

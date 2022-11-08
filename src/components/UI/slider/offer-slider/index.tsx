@@ -32,7 +32,7 @@ export default function OfferSlider({nav = true, loop = true, data}: IOfferSlide
   }
 
   return (
-      <div className={"relative"}>
+      <div className={"relative hidden sm:block"}>
         {
             nav && <>
 							<div className={"offerSliderPrev"} ref={prevRef} onClick={() => swiper.current.swiper.slidePrev()}><Image
@@ -42,8 +42,28 @@ export default function OfferSlider({nav = true, loop = true, data}: IOfferSlide
 						</>
         }
         <Swiper
-            slidesPerView={4}
+            slidesPerView={"auto"}
             spaceBetween={30}
+            breakpoints={{
+              // when window width is >= 640px
+              320: {
+                spaceBetween: 12,
+              },
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+              },
+              // when window width is >= 768px
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 30,
+
+              },
+            }}
             onInit={(core) => {
               swiper.current = core.el
             }}

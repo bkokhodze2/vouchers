@@ -11,6 +11,7 @@ import {
 } from "../../components/slices/cartSlice";
 import dynamic from "next/dynamic";
 import _ from "lodash";
+import Image from "next/image";
 
 const CartItem = dynamic(
     () => import('../../components/blocks/cart/cart-item'),
@@ -158,19 +159,14 @@ export default function Cart({serverData, productCount}: any) {
               <h5 className={"text-[#383838] text-[28px] font-bold "}>Order</h5>
 
               <div className={"sticky top-[130px] max-h-[600px] overflow-scroll rounded-xl"}>
-                <div className={"rounded-xl bg-[#F7F7F7] px-6 mt-4 pt-[30px] pb-[54px]"}>
+                <div className={"rounded-xl bg-[white] px-6 mt-4 pt-[30px] pb-[54px]"}>
 
-                  <div className={"flex items-center w-full justify-between"}>
-                    <p className={"text-[22px] text-[#38383899]"}>Voucher prices</p>
-                    <p className={"text-[22px] text-[#38383899] font-[500] "}>199.98</p>
-                  </div>
-
-                  <div className={"flex items-center w-full justify-between mt-6"}>
+                  <div className={"flex items-center w-full justify-between "}>
                     <p className={"text-[22px] text-[#38383899]"}>Number of vouchers</p>
                     <p className={"text-[22px] text-[#38383899] font-[500]"}>{cart?.cartTotalQuantity}</p>
                   </div>
 
-                  <div className={"h-[1px] w-full bg-[#38383833] rounded-xl mt-12 mb-[30px]"}/>
+                  <div className={"h-[1px] w-full bg-[#38383833] rounded-xl mt-6 mb-[30px]"}/>
 
                   <div className={"flex justify-between"}>
                     <p className={"text-[#383838] text-[28px] font-bold "}>Total Price</p>
@@ -181,29 +177,40 @@ export default function Cart({serverData, productCount}: any) {
                   </div>
 
                   <div className={"flex justify-between"}>
-                    <p className={"text-[#383838] text-[28px] font-bold "}>Total Points</p>
+                    <p className={"text-[#383838] text-[28px] font-bold"}>Total Points</p>
                     <div className={"flex items-center"}>
                       <p className={"z-10 text-[20px] text-[#E35A43] font-bold transition ml-[10px] pb-[2px] mr-1.5"}>p</p>
                       <p className={"text-[22px] text-[#E35A43]"}>{cart?.totalPoint}</p>
                     </div>
                   </div>
 
-
                 </div>
-                <div className={"grid grid-rows-1 grid-cols-2 h-[48px] gap-x-2 mt-6"}>
+                <div className={"grid grid-rows-1 grid-cols-2 h-[48px] gap-x-3 mt-6"}>
                   <div onClick={() => setPayType("bog")}
                        style={{
-                         border: payType === "bog" ? "2px solid #8338EC" : "2px solid transparent"
+                         border: payType === "bog" ? "1px solid #8338EC" : "1px solid transparent"
                        }}
-                       className={"w-full bg-[#F7F7F7] flex justify-center items-center rounded-xl cursor-pointer"}>
-                    <p>BOG</p>
+                       className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
+                    <Image
+                        src={ICONS.bog}
+                        quality={70}
+                        loading={"lazy"}
+                        alt={"coin icon"}
+
+                    />
                   </div>
                   <div onClick={() => setPayType("tbc")}
                        style={{
-                         border: payType === "tbc" ? "2px solid #8338EC" : "2px solid transparent"
+                         border: payType === "tbc" ? "1px solid #8338EC" : "1px solid transparent"
                        }}
-                       className={"w-full bg-[#F7F7F7] flex justify-center items-center rounded-xl cursor-pointer"}>
-                    <p>TBC</p>
+                       className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
+                    <Image
+                        src={ICONS.tbc}
+                        quality={70}
+                        loading={"lazy"}
+                        alt={"coin icon"}
+
+                    />
                   </div>
                 </div>
                 <div
