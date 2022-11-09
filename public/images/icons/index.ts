@@ -35,3 +35,7 @@ export {default as faq} from './faq.svg';
 export {default as flash} from './flash.svg';
 export {default as gift} from './gift.svg';
 export {default as tc} from './tc.svg';
+export {default as logOut} from './logOut.svg';
+export {default as orders} from './orders.svg';
+export {default as leaderboard} from './leaderboard.svg';
+export {default as tickets} from './tickets.svg';

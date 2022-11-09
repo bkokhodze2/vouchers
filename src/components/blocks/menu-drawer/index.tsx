@@ -5,7 +5,7 @@ import {ICONS, IMAGES} from "public/images";
 import Image from "next/image"
 
 import Link from "next/link";
-import {ecomerce, menuPercent, settings, whoWeAre} from "../../../../public/images/icons";
+import {ecomerce, logOut, menuPercent, orders, settings, whoWeAre} from "../../../../public/images/icons";
 
 interface IMenu {
   isOpenMenu: boolean
@@ -39,7 +39,7 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
   return (
       <div className={"fixed top-[80px] bottom-[83px] z-50 bg-[white]  w-full"}
            style={{
-             transition: "0.3s linear all",
+             transition: "all 0.2s ease-in-out 0s",
              left: isOpenMenu ? "0%" : "100%"
            }}
       >
@@ -61,11 +61,18 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
                 </div>
               </div>
             </div>
-
-
-              <Image src={ICONS.settings} width={18} height={18}/>
+            <Image className={"cursor-pointer"} src={ICONS.logOut} width={18} height={18}/>
           </div>
           {/*// profile*/}
+
+          <div className={"mt-3"}>
+            <div className={" grid grid-cols-2 gap-3 mt-3"}>
+              <NavItem icon={ICONS.orders} text={"Orders"} iconSize={17} color={"#383838"}/>
+              <NavItem icon={ICONS.settings} text={"Settings"} color={"#383838"}/>
+              <NavItem icon={ICONS.leaderboard} iconSize={20} text={"Leaderboard"} color={"#383838"}/>
+              <NavItem icon={ICONS.tickets} text={"tickets"} color={"#383838"}/>
+            </div>
+          </div>
 
           <div className={"mt-8"}>
             <h5 className={"text-[#38383880]"}>Navigatioon</h5>

@@ -201,8 +201,6 @@ const Header: React.FC = () => {
     </Link>
   }
 
-  // @ts-ignore
-  // @ts-ignore
   return (
       <>
         <div className={"hidden md:flex w-full bg-amber-700 h-[44px] min-h-[44px] bg-[#383838] items-center "}>
@@ -247,7 +245,7 @@ const Header: React.FC = () => {
             <div className={"max-h-[80px] py-4 container m-auto grid grid-row-1 grid-cols-4"}>
               {/*logo*/}
               <Link href={"/"}>
-                <div className={"flex items-center min-w-[380px] max-h-[48px]"}>
+                <div className={"flex items-center min-w-[200px] sm:min-w-[380px] max-h-[48px]"}>
                   <Image
                       src={ICONS.logo}
                       quality={30}
@@ -259,9 +257,9 @@ const Header: React.FC = () => {
                       className={"cursor-pointer"}
                   />
                   <div className={"ml-3 cursor-pointer"}>
-                    <p className={"text-[#383838] text-[26px] font-bold leading-[26px]"}>pirveli <sup
-                        className={"text-purple text-base font-[500]"}>.com</sup></p>
-                    <p className={"text-gray text-sm -translate-y-[5px]"}>ყველაფერი ერთად</p>
+                    <p className={"text-[#383838] text-[18px] lg:text-[26px] font-bold leading-[26px]"}>pirveli <sup
+                        className={"text-purple text-sm lg:text-base font-[500]"}>.com</sup></p>
+                    <p className={"text-gray text-sm -translate-y-[5px]"}>ფასდაკლება</p>
                   </div>
                 </div>
               </Link>
@@ -270,7 +268,7 @@ const Header: React.FC = () => {
 
               {/*search*/}
               <div className={"flex sm:col-span-3 col-span-3 justify-end md:justify-center"} ref={wrapperRef}>
-                <div className={"hidden md:flex flex flex-grow justify-center pr-[30px]"} onClick={(e) => {
+                <div className={"hidden md:flex flex flex-grow justify-center pr-3 lg:pr-[30px]"} onClick={(e) => {
                   e.stopPropagation()
                 }}>
                   <Form
@@ -296,20 +294,20 @@ const Header: React.FC = () => {
 
                     <div className={"relative"}>
                       <AntButton type="primary"
-                                 className={"search flex rounded-tr-[12px] px-[23px] h-[48px] rounded-br-[12px] bg-purple items-center relative"}
+                                 className={"search flex rounded-tr-[12px] px-4 lg:px-[23px] h-[48px] rounded-br-[12px] bg-purple items-center relative"}
                                  htmlType="submit">
                         <Image
                             src={ICONS.search}
                             quality={30}
                             blurDataURL={IMAGES.placeholder.src}
-
                             loading={"lazy"}
                             width={18}
                             height={18}
                             alt={"search"}
+                            layout={"fixed"}
                         />
                         {/*<img src={search?.src} alt={"search icon"} className={"w-[18px] h-[18px]"}/>*/}
-                        <p className={"ml-[11px]"}>Search</p>
+                        <p className={"ml-[5px] lg:ml-[11px] lg:text-sm text-xs"}>Search</p>
 
 
                       </AntButton>
@@ -396,7 +394,7 @@ const Header: React.FC = () => {
                 {/*search*/}
 
                 {/*buttons*/}
-                <div className={"flex space-x-[30px] justify-end"}>
+                <div className={"flex space-x-[10px] lg:space-x-[30px]  justify-end"}>
                   <Link href={"/cart"}>
                     <div className={"hidden md:block"}>
                       <Badge count={cart?.productCount} className={"badge-cart"}>
@@ -412,7 +410,7 @@ const Header: React.FC = () => {
                           />
 
 
-                          <p className={"capitalize mt-[11px] text-base leading-4"}>Basket </p>
+                          <p className={"capitalize mt-[11px] text-sm lg:text-base leading-4"}>Basket </p>
                         </div>
                       </Badge>
                     </div>
@@ -431,12 +429,17 @@ const Header: React.FC = () => {
                               height={18}
                               alt={"heart icon"}
                           />
-                          <p className={"capitalize mt-[11px] text-base leading-4"}>Favorites</p>
+                          <p className={"capitalize mt-[11px] text-sm lg:text-base leading-4"}>Favorites</p>
                         </div>
                       </Badge>
                     </div>
                   </Link>
-                  <Button text={"sign in"} bgColor={"#383838"} classes={""}/>
+                  <div
+                      className={`h-[40px] lg:h-[44px] bg-[#383838] rounded-[8px] lg:rounded-xl px-[23px] lg:px-10 flex justify-center items-center cursor-pointer `}>
+                    <p style={{}}
+                       className={`text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap`}
+                    >sign in</p>
+                  </div>
                 </div>
                 {/*buttons*/}
               </div>
@@ -531,11 +534,21 @@ const Header: React.FC = () => {
 
         </header>
 
-        <div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0 z-50"}>
+        <div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0"}
+             style={{
+               zIndex: 999
+             }}
+        >
           <div className={"grid grid-cols-5 pt-3"}>
-            <div className={"flex flex-col items-center justify-between"}>
+            <div className={"flex flex-col items-center justify-between"}
+                 onClick={() => setIsOpenMenu(false)}
+            >
               <Home/>
-              <p className={"mt-[7px] text-[10px] text-[#383838]"}>Home</p>
+              <p className={"mt-[7px] text-[10px] "}
+                 style={{
+                   color: !isOpenMenu && Router.pathname === "/" ? "#8338EC" : "#383838"
+                 }}
+              >Home</p>
             </div>
             <div className={"flex flex-col items-center justify-between pt-0.5"}>
               <Search/>
@@ -553,7 +566,11 @@ const Header: React.FC = () => {
                 onClick={() => setIsOpenMenu(true)}
                 className={"flex flex-col items-center justify-between"}>
               <Menu/>
-              <p className={"mt-[7px] text-[10px] text-[#383838]"}>Menu</p>
+              <p className={"mt-[7px] text-[10px] "}
+                 style={{
+                   color: isOpenMenu ? "#8338EC" : "#383838"
+                 }}
+              >Menu</p>
             </div>
           </div>
         </div>

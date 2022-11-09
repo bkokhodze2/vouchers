@@ -51,14 +51,14 @@ export default function OfferSlider({nav = true, loop = true, data}: IOfferSlide
               },
               640: {
                 slidesPerView: 2,
-                spaceBetween: 30,
+                spaceBetween: 15,
               },
               // when window width is >= 768px
               768: {
                 slidesPerView: 3,
-                spaceBetween: 30,
+                spaceBetween: 15,
               },
-              1024: {
+              1280: {
                 slidesPerView: 4,
                 spaceBetween: 30,
 

@@ -84,47 +84,73 @@ const Home: NextPage = ({serverData}: any) => {
         <Header/>
 
         <main className={"flex flex-col "}>
-          <div className={"w-full"}>
-            <div className="grid grid-rows-1 max-h-[552px] mt-6 grid-cols-4 container m-auto grid-flow-col gap-[30px]">
+          <div className={"w-full flex-col"}>
+            <div
+                className="flex flex-col md:grid grid-rows-2 md:grid-rows-1 md:max-h-[552px] mt-0 md:mt-2 lg:mt-6 grid-cols-4 md:container m-auto grid-flow-col gap-[44px] md:gap-[10px] lg:gap-[30px]">
 
               {/*Become Partner*/}
-              <div
-                  // order-last
-                  className=" relative bg-[white] py-8 rounded-xl flex flex-col items-center overflow-hidden bg-no-repeat bg-top"
-              >
-                <h2 className={"text-[#383838] font-bold text-[22px] z-10"}>Become Partner</h2>
-                <div className={"relative"}>
-                  <div
-                      className={"absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[92%] rounded-[50%] h-[554px] w-[554px] bg-[#F5CE5A] "}></div>
-                  <Image
-                      src={IMAGES.partner}
-                      alt={"partner"}
-                      blurDataURL={IMAGES.placeholder.src}
-                      placeholder="blur"
-                      width={312}
-                      height={312}
-                      quality={50}
-                      priority={true}
-                  />
+              <div className={"order-2 md:order-1 container p-4 md:p-0 m-auto col-span-4 md:col-span-1"}>
+                <div
+                    // order-last
+                    className="relative min-h-[138px] md:min-h-unset bg-[white] py-0 md:py-4 lg:py-8 rounded-xl flex flex-row md:flex-col md:items-center overflow-hidden bg-no-repeat bg-top"
+                >
+                  <h2 className={"text-[#383838] font-bold text-[22px] text-center z-10 hidden md:flex"}>Become
+                    Partner</h2>
+                  <div className={"relative"}>
+                    <div
+                        className={"absolute hidden md:flex left-[50%] top-[50%] -translate-x-[50%] -translate-y-[92%] rounded-[50%] h-[554px] w-[554px] bg-[#F5CE5A] "}></div>
+                    <div className={"hidden md:flex"}>
+                      <Image
+                          src={IMAGES.partner}
+                          alt={"partner"}
+                          blurDataURL={IMAGES.placeholder.src}
+                          placeholder="blur"
+                          width={312}
+                          height={312}
+                          quality={50}
+                          priority={true}
+                      />
+                    </div>
+
+                  </div>
+                  <div className={"flex md:hidden max-w-[150px] w-full relative"}>
+                    <Image
+                        src={IMAGES.mobileBecome2}
+                        alt={"partner"}
+                        blurDataURL={IMAGES.placeholder.src}
+                        placeholder="blur"
+                        width={136}
+                        height={136}
+                        quality={90}
+                        layout={"fill"}
+                        priority={true}
+                    />
+                  </div>
+                  <div className={"p-5 md:p-0"}>
+                    <h2 className={"text-[#383838] font-bold text-[18px] md:text-[22px] z-10 flex md:hidden mb-4"}>Become
+                      Partner</h2>
+                    <p className={"w-full px-0 xl:px-6 text-start md:text-center leading-[23px] text-[#38383899] text-sm -mt-[14px] z-10"}>Increase
+                      sales,
+                      attract new
+                      customers and double your income with us.</p>
+                  </div>
+
+                  <Button text={"Learn More"} bgColor={"#383838"} classes={"mt-[58px] z-10 hidden md:flex"}/>
                 </div>
-                <p className={"w-full px-6 text-center leading-[23px] text-[#38383899] text-sm -mt-[14px] z-10"}>Increase
-                  sales,
-                  attract new
-                  customers and double your income with us.</p>
-                <Button text={"Learn More"} classes={"mt-[58px] z-10"}/>
               </div>
               {/*Become Partner*/}
 
-              <div className="col-span-4 flex flex-col max-w-[1140px]">
+              <div className="order-1 md:order-2 col-span-4 flex flex-col max-w-[1140px] h-[300px] md:h-full">
 
                 {/*slider*/}
-                <div className={"flex flex-1"}>
+                <div className={"flex flex-1 "}>
                   <Slider/>
                 </div>
                 {/*slider*/}
 
                 {/*Advertisement*/}
-                <div className={"grid grid-rows-1 gap-[30px] grid-cols-3 mt-[32px]"}>
+                <div
+                    className={"grid hidden md:grid grid-rows-1 gap-[44px] md:gap-[10px] lg:gap-[30px] grid-cols-3 mt-2 md:mt-2 lg:mt-[30px] "}>
                   <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white]"}>
                     <p className={"text-sm text-black"}>Advertsment</p>
                   </div>
@@ -144,20 +170,36 @@ const Home: NextPage = ({serverData}: any) => {
           </div>
           {/*Special offers*/}
           {promo.length > 0 &&
-							<div className={"order-1 sm:order-1 flex flex-col w-full mt-[84px]"}>
-								<div className={"sm:container pl-4 sm:px-0 sm:m-auto w-full"}>
-									<h1 className={"text-[28px] text-[#383838] font-bold"}>Special offers</h1>
+							<div className={"flex flex-col mt-[44px] md:mt-[40px]"}>
+								<div className={"ph:container pl-0px ph:p-auto ph:m-auto w-full"}>
+									<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold"}>Special
+										offers</h1>
 									<div className={"mt-4"}>
 										<OfferSlider data={promo} loop={false}/>
 										<FreeScroll data={vouchers} miniHeight={true}/>
 									</div>
 								</div>
 							</div>}
+
+          <div className={"mt-10 container m-auto mt-[44px] w-full flex sm:hidden relative"}>
+            <img
+                src={IMAGES.mobileBanner.src}
+                placeholder="blur"
+                loading={"lazy"}
+                alt={"banner"}
+                style={{
+                  objectFit: "cover",
+                  width: "100%",
+                }}
+            />
+
+          </div>
           {/*Special offers*/}
 
+
           {/*Popular offers*/}
-          <div className={"w-full sm:order-2 order-4"}>
-            <div className={"mt-10 container m-auto mt-[76px] mb-[84px] hidden sm:flex"}>
+          <div className={"w-full "}>
+            <div className={"mt-10 sm:container m-auto mt-[76px] mb-[84px] hidden sm:flex"}>
               <Image
                   src={IMAGES.banner}
                   quality={70}
@@ -168,9 +210,10 @@ const Home: NextPage = ({serverData}: any) => {
             </div>
 
             {/*Popular offers */}
-            {vouchers.length > 0 && <div className={"flex flex-col"}>
-							<div className={"sm:container pl-4 sm:px-0 sm:m-auto w-full"}>
-								<h1 className={"text-[28px] text-[#383838] font-bold"}>Popular offers</h1>
+            {vouchers.length > 0 && <div className={"flex flex-col mt-[44px] md:mt-0"}>
+							<div className={"ph:container pl-0px ph:p-auto ph:m-auto w-full"}>
+								<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold"}>Popular
+									offers</h1>
 								<div className={"mt-4"}>
 									<OfferSlider data={vouchers}/>
 									<FreeScroll data={vouchers} miniHeight={true}/>
@@ -182,8 +225,8 @@ const Home: NextPage = ({serverData}: any) => {
           {/*Popular offers*/}
 
           {/*categories*/}
-          <div className={"w-full order-3 sm:order-3"}>
-            <div className={"space-x-[30px] flex flex-row overflow-scroll container m-auto py-[84px]"}>
+          <div className={"w-full "}>
+            <div className={"space-x-[8px] md:space-x-[30px] !w-full py-[40px] flex flex-row overflow-scroll container m-auto grid-row-1"}>
 
               {/*{categories?.filter(item => item.parentCategoryId === null).map((item, index) => {*/}
               {/*  return <Link href={"/category/4"}>*/}
@@ -202,7 +245,7 @@ const Home: NextPage = ({serverData}: any) => {
 
               <Link href={"/category/2"}>
                 <div
-                    className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
+                    className={"col-span-2 flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div className={"bg-purple w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
                   <div className={"mt-1"}>
                     <Image src={IMAGES.bag} quality={70}
@@ -296,21 +339,19 @@ const Home: NextPage = ({serverData}: any) => {
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
                 </div>
               </Link>
-
-
             </div>
+
           </div>
 
           {/*categories*/}
 
           {/*New offers  */}
           <div
-              className={"sm:order-4 order-2 flex flex-col w-full pb-[98px]  pt-[44px] sm:pt-[0px]"}>
-
+              className={"flex flex-col w-full pb-[98px] mt-[44px] sm:mt-[0px]"}>
             {vouchers.length > 0 && <div className={"container m-auto"}>
 							<h1 className={"text-[18px] sm:text-[28px] text-[#383838] font-bold"}>New offers</h1>
 							<div
-									className={"mt-4 grid grid-flow-row-dense  grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-x-6 gap-y-6 md:gap-y-[42px] md:gap-x-[30px]"}>
+									className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-5 md:gap-y-[42px] md:gap-x-[30px]"}>
 
                 {
                     !!vouchersAll?.length && vouchersAll?.map((item: any, index: any) => {
@@ -334,7 +375,6 @@ const Home: NextPage = ({serverData}: any) => {
 
 								</div>
 							</div>
-
 
 						</div>}
           </div>

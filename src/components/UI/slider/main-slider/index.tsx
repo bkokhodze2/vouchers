@@ -42,7 +42,7 @@ export default function Slider() {
                    placeholder="blur"
                    loading={"lazy"}
                   // priority={true}
-                   className={"rounded-xl rounded-xl"}
+                   className={"rounded-[0px] md:rounded-xl"}
                    alt={"slider image"}/>
             </SwiperSlide>
           })}
