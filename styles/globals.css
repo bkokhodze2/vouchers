@@ -423,3 +423,19 @@ body {
         height: 155px !important;
     }
 }
+
+@media (max-width: 768px) {
+
+    .swiper-button-next, .swiper-button-prev {
+        display: none !important;
+    }
+    .mySwiper:hover img {
+        transform: scale(1);
+        transition: ease all 0s;
+    }
+
+    .mySwiper .swiper-slide {
+        border-radius: 0;
+    }
+}
+

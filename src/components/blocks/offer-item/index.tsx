@@ -170,7 +170,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
             </div>
 
             <div
-                className={"flex flex-col w-full sm:bg-[white] bg-[white] sm:px-[20px] sm:pb-6 px-4 rounded-b-xl sm:max-w-[360px] max-w-7xl"}>
+                className={"flex flex-col w-full sm:bg-[white] bg-[white] sm:px-[20px] sm:pb-6 pb-[18px] px-[14px] rounded-b-xl sm:max-w-[360px] max-w-7xl"}>
               <p className={"text-clip overflow-hidden text-start sm:mt-3 mt-2 sm:font-bold font-[500] leading-[27px] text-[#383838] sm:text-[22px] text-base min-h-[54px] textDots2"}>
                 {_.get(data, 'additionalInfo[0].provider.name', "")}
               </p>

@@ -17,9 +17,9 @@ export default function FreeScroll({data, miniHeight}: any) {
   }
 
   return (
-      <div className={"relative overflow-x-scroll w-full flex space-x-[12px] visible sm:hidden"}>
+      <div className={"relative overflow-x-scroll w-full flex visible sm:hidden space-x-3 pl-3 "}>
         {data?.map((item: object, index: number) => {
-          return <div key={index} className={"w-full max-w-[254px] min-w-[254px]"}>
+          return <div key={index} className={"w-full max-w-[254px] min-w-[254px] "}>
             <OfferItem data={item} key={index} miniHeight={miniHeight}/>
           </div>
         })}

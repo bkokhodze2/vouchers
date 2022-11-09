@@ -14,11 +14,11 @@ module.exports = {
 			padding: {
 				DEFAULT: '1rem',
 				ph: '0rem',
-				sm: '0rem',
-				md: '1rem',
+				sm: '0.5rem',
+				md: '0.5rem',
 				lg: '2rem',
 				xl: '3rem',
-				'2xl': '0rem',
+				'2xl': '4rem',
 			},
 		},
 		screens: {

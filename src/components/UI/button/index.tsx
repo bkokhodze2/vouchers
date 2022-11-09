@@ -14,7 +14,9 @@ function Button({text, classes, textColor = "#FFFFFF", textSize = 16, height = 4
           style={{backgroundColor: bgColor, height: height}}
           className={`h-[${height}px] rounded-xl w-min px-10 flex justify-center items-center cursor-pointer ${classes}`}>
         <p style={{color: textColor, fontSize: textSize}}
-           className={`text-[${textColor}] text-[${textSize}px] font-normal whitespace-nowrap`}>{text}</p>
+           className={`text-[${textColor}] !text-[14px] md:!text-[${textSize}px] font-normal whitespace-nowrap`}
+
+        >{text}</p>
       </div>
   );
 }

@@ -18,3 +18,6 @@ export {default as pool} from './poolCategory.png';
 export {default as reg} from './reg.png';
 export {default as placeholder} from './placeholder.png';
 export {default as avatar} from './avatar.png';
+export {default as mobileBanner} from './mobileBanner.png';
+export {default as mobileBecome} from './mobileBecome.png';
+export {default as mobileBecome2} from './mobileBecome2.png';
