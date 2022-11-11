@@ -68,7 +68,7 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
           <div className={"mt-3"}>
             <div className={" grid grid-cols-2 gap-3 mt-3"}>
               <NavItem icon={ICONS.orders} text={"Orders"} iconSize={17} color={"#383838"}/>
-              <NavItem icon={ICONS.settings} text={"Settings"} color={"#383838"}/>
+              {/*<NavItem icon={ICONS.settings} text={"Settings"} color={"#383838"}/>*/}
               <NavItem icon={ICONS.leaderboard} iconSize={20} text={"Leaderboard"} color={"#383838"}/>
               <NavItem icon={ICONS.tickets} text={"tickets"} color={"#383838"}/>
             </div>
