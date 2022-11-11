@@ -23,6 +23,7 @@ import BarHeart from "../../../public/images/icons/barHeart";
 import Orders from "../../../public/images/icons/orders";
 import Menu from "../../../public/images/icons/menu";
 import MenuDrawer from "../blocks/menu-drawer";
+import SearchDrawer from "../blocks/search-drawer";
 
 
 interface Icategory {
@@ -37,6 +38,8 @@ const Header: React.FC = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
+
   const [findData, setFindData] = useState<[]>([]);
   const [categories, setCategories] = useState<Icategory[]>([]);
   const [categoryVouchers, setCategoryVouchers] = useState<[any]>([null]);
@@ -338,15 +341,15 @@ const Header: React.FC = () => {
                         }}
                     >
                       {
-                          (!!findData?.length && !isLoading) && <div className={"flex items-center my-[20px]"}>
-														<p className={"text-[#383838] text-[22px] font-bold capitalize"}>search result</p>
-														<div onClick={() => {
-                              setTerm("")
-                              Router.push(`/search/${term}`)
-                            }}>
-															<p className={"text-purple text-sm ml-2 cursor-pointer"}>See all</p>
-														</div>
-													</div>
+                        (!!findData?.length && !isLoading) ? <div className={"flex items-center my-[20px]"}>
+                          <p className={"text-[#383838] text-[22px] font-bold capitalize"}>search result</p>
+                          <div onClick={() => {
+                            setTerm("")
+                            Router.push(`/search/${term}`)
+                          }}>
+                            <p className={"text-purple text-sm ml-2 cursor-pointer"}>See all</p>
+                          </div>
+                        </div> : ""
 
                       }
 
@@ -533,50 +536,65 @@ const Header: React.FC = () => {
 
         </header>
 
-        <div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0"}
-             style={{
-               zIndex: 999
-             }}
-        >
-          <div className={"grid grid-cols-5 pt-3"}>
-            <div className={"flex flex-col items-center justify-between"}
-                 onClick={() => setIsOpenMenu(false)}
-            >
-              <Home/>
-              <p className={"mt-[7px] text-[10px] "}
-                 style={{
-                   color: !isOpenMenu && Router.pathname === "/" ? "#8338EC" : "#383838"
+        {!isOpenSearch && <div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0"}
+															 style={{
+                                 zIndex: 999
+                               }}
+				>
+					<div className={"grid grid-cols-5 pt-3"}>
+						<div className={"flex flex-col items-center justify-between"}
+								 onClick={() => {
+                   setIsOpenMenu(false)
+                   setIsOpenSearch(false)
                  }}
-              >Home</p>
-            </div>
-            <div className={"flex flex-col items-center justify-between pt-0.5"}>
-              <Search/>
-              <p className={"mt-[7px] text-[10px] text-[#383838]"}>Search</p>
-            </div>
-            <div className={"flex flex-col items-center justify-between"}>
-              <BarHeart/>
-              <p className={"mt-[7px] text-[10px] text-[#383838]"}>Wishlist</p>
-            </div>
-            <div className={"flex flex-col items-center justify-between"}>
-              <Orders/>
-              <p className={"mt-[7px] text-[10px] text-[#383838]"}>My orders</p>
-            </div>
-            <div
-                onClick={() => setIsOpenMenu(true)}
-                className={"flex flex-col items-center justify-between"}>
-              <Menu/>
-              <p className={"mt-[7px] text-[10px] "}
-                 style={{
+						>
+							<Home/>
+							<p className={"mt-[7px] text-[10px] "}
+								 style={{
+                   color: !isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"
+                 }}
+							>Home</p>
+						</div>
+						<div className={"flex flex-col items-center justify-between pt-0.5"}
+								 onClick={() => {
+                   setIsOpenMenu(false)
+                   setIsOpenSearch(true)
+                 }}
+						>
+							<Search/>
+							<p className={"mt-[7px] text-[10px] text-[#383838]"}
+								 style={{
+                   color: isOpenSearch ? "#8338EC" : "#383838"
+                 }}
+							>Search</p>
+						</div>
+						<div className={"flex flex-col items-center justify-between"}>
+							<BarHeart/>
+							<p className={"mt-[7px] text-[10px] text-[#383838]"}>Wishlist</p>
+						</div>
+						<div className={"flex flex-col items-center justify-between"}>
+							<Orders/>
+							<p className={"mt-[7px] text-[10px] text-[#383838]"}>My orders</p>
+						</div>
+						<div
+								onClick={() => {
+                  setIsOpenSearch(false)
+                  setIsOpenMenu(true)
+                }}
+								className={"flex flex-col items-center justify-between"}>
+							<Menu/>
+							<p className={"mt-[7px] text-[10px] "}
+								 style={{
                    color: isOpenMenu ? "#8338EC" : "#383838"
                  }}
-              >Menu</p>
-            </div>
-          </div>
-        </div>
+							>Menu</p>
+						</div>
+					</div>
+				</div>}
 
         <MenuDrawer isOpenMenu={isOpenMenu}/>
 
-        {/*<MenuDrawer isOpenSearch={isOpenSearch}/>*/}
+        <SearchDrawer isOpenSearch={isOpenSearch} setIsOpenSearch={setIsOpenSearch}/>
 
       </>
   )
