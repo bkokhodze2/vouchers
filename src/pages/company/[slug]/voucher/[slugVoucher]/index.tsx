@@ -29,6 +29,7 @@ import {addToFavourites, clearFavourites, getTotalsFavourite} from "../../../../
 import {heartPurple} from "../../../../../../public/images/icons";
 import slider from "../../../../../../public/images/images/mainSlider.png";
 import FreeScroll from "../../../../../components/UI/slider/free-scroll";
+import Lari from "../../../../../../public/images/icons/lari";
 
 const CountDown = dynamic(
     () => import("../../../../../components/UI/count-down"),
@@ -134,7 +135,8 @@ export default function Details({serverOffer, serverVoucher}: any) {
                className={"flex w-full rounded-[10px] justify-center items-center cursor-pointer"}
                style={{backgroundColor: isWithMoney ? "#8338EC" : "transparent"}}>
             <span className={" text-[20px] font-[500] mr-2"}
-                  style={{color: isWithMoney ? "#FFFFFF" : "#383838"}}>$</span>
+                  style={{color: isWithMoney ? "#FFFFFF" : "#383838"}}><Lari
+                color={isWithMoney ? "#FFFFFF" : "#383838"}/></span>
             <p className={"text-[white] text-base"} style={{color: isWithMoney ? "#FFFFFF" : "#383838"}}>with money</p>
           </div>
           <div onClick={() => {
@@ -142,25 +144,46 @@ export default function Details({serverOffer, serverVoucher}: any) {
           }}
                className={"flex w-full rounded-[10px] justify-center items-center cursor-pointer"}
                style={{backgroundColor: !isWithMoney ? "#8338EC" : "transparent"}}>
-            <span className={" text-[20px] font-[500] mr-2"}
-                  style={{color: !isWithMoney ? "#FFFFFF" : "#383838"}}>P</span>
+            <span className={"text-[20px] font-[500] mr-2 flex items-center"}>
+              <Image
+                  src={IMAGES.coin}
+                  quality={100}
+                  blurDataURL={IMAGES.placeholder.src}
+                  loading={"lazy"}
+                  width={20}
+                  height={20}
+                  alt={"coin icon"}
+              />
+            </span>
             <p className={" text-base"} style={{color: !isWithMoney ? "#FFFFFF" : "#383838"}}>with point</p>
           </div>
         </div>
         <div className={"grid grid-cols-2 grid-rows-1 gap-1 gap-x-[30px] gap-y-6 mt-8"}>
-          <div className={"bg-[white] py-2 pl-[28px] rounded-xl flex h-[64px] h-min"}>
-            <div className={"min-w-[10px] flex items-center"}>
-              <Image src={ICONS.dollar} className={"cursor-pointer "} alt={"share icon"}/>
+          <div className={"bg-[white] py-2 pl-[10px] rounded-xl flex h-[64px] h-min"}>
+            <div className={"min-w-[32px] flex items-center justify-center"}>
+              {/*<Image src={ICONS.dollar} className={"cursor-pointer "} alt={"share icon"}/>*/}
+
+              {isWithMoney ? <Lari color={"#3838384d"} classes={"scale-150"}/> : <Image
+                  src={IMAGES.coin}
+                  quality={100}
+                  blurDataURL={IMAGES.placeholder.src}
+                  loading={"lazy"}
+                  width={30}
+                  height={30}
+                  alt={"coin icon"}
+              />}
             </div>
-            <div className={"flex flex-col ml-[28px]"}>
+            <div className={"flex flex-col ml-[10px]"}>
               <p className={"text-[#383838] lg:text-base text-sm"}>Voucher price</p>
               <div className={"flex flex-nowrap items-center"}>
                 {
                   isWithMoney ?
-                      <p className={"lg:text-[18px] text-sm text-purple flex-nowrap whitespace-nowrap"}>
-                        ${_.get(voucher, '[0].entries[0].entryAmount', 0) * quantity}
+                      <p className={"flex items-center lg:text-[18px] text-sm text-purple flex-nowrap whitespace-nowrap"}>
+                         {_.get(voucher, '[0].entries[0].entryAmount', 0) * quantity}
                       </p> :
-                      <p className={"lg:text-[18px] text-sm text-purple flex-nowrap whitespace-nowrap"}>
+                      <p className={"lg:text-[18px] text-sm text-purple flex items-center flex-nowrap whitespace-nowrap"}>
+                        <div className={"mr-2"}>
+                        </div>
                         {_.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0) * quantity}
                       </p>
                 }
@@ -206,27 +229,29 @@ export default function Details({serverOffer, serverVoucher}: any) {
           <div className={"grid grid-cols-2 grid-rows-1 gap-1 gap-x-[30px] gap-y-6 mt-8"}>
             <div className={"col-span-2 ph:col-span-1 bg-[white] py-2 pl-5 rounded-xl flex h-min"}>
               <div className={"min-w-[14px] flex items-center"}>
-                <Image src={ICONS.percent} className={"cursor-pointer"} layout={"fixed"} width={14} height={14}
+                <Image src={ICONS.percent} className={"cursor-pointer"} layout={"fixed"} width={17} height={17}
                        alt={"percent icon"}/>
               </div>
               <div className={"flex flex-col ml-[16px]"}>
                 <p className={"text-[#383838] lg:text-base text-sm"}>Saving</p>
                 <div className={"flex flex-nowrap items-center"}>
                   <p className={"lg:text-[18px] text-base text-purple flex-nowrap whitespace-nowrap"}>-{Math.round(_.get(voucher, '[0].additionalInfo[0].percentage', 0))}%</p>
-                  <p className={"ml-1 lg:text-base text-sm text-[#38383899] whitespace-nowrap"}>(${Math.round(getSave())} )</p>
+                  <p className={"ml-1 lg:text-base text-sm text-[#38383899] whitespace-nowrap flex items-center"}>
+                    (<Lari color={"#3838384d"} classes={"mr-1"}/>{Math.round(getSave())} )</p>
                 </div>
               </div>
             </div>
             <div className={"col-span-2 ph:col-span-1 bg-[white] py-2 pl-5 rounded-xl flex h-min"}>
               <div className={"min-w-[10px] flex items-center"}>
-                <Image src={ICONS.dollar} className={"cursor-pointer"} layout={"fixed"} width={16} height={16}
-                       alt={"dollar icon"}/>
+                <Lari color={"#3838384d"} classes={"scale-150"}/>
               </div>
               <div className={"flex flex-col ml-[16px]"}>
                 <p className={"text-[#383838] lg:text-base text-sm"}>Price</p>
                 <div className={"flex flex-nowrap items-center"}>
-                  <p className={"lg:text-[18px] text-base text-purple flex-nowrap whitespace-nowrap"}>$ {_.get(voucher, '[0].additionalInfo[0].servicePrice', 0)}</p>
-                  <p className={"ml-1 lg:text-base text-sm  text-[#38383899] whitespace-nowrap line-through"}>$ {Math.round(getOldPrice())}</p>
+                  <p className={"lg:text-[18px] text-base text-purple flex-nowrap whitespace-nowrap flex items-center mr-1.5"}>
+                    <Lari color={"#3838384d"} classes={"mr-1"}/> {_.get(voucher, '[0].additionalInfo[0].servicePrice', 0)}</p>
+                  <p className={"ml-1 lg:text-base text-sm  text-[#38383899] whitespace-nowrap line-through flex items-center"}>
+                    <Lari color={"#3838384d"} classes={"mr-1"}/> {Math.round(getOldPrice())}</p>
                 </div>
               </div>
             </div>
