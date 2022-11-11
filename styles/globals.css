@@ -85,6 +85,9 @@ body {
 .mySwiper > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
     bottom: 3px !important;
 }
+.detailsSwiper .swiper-pagination{
+    margin-bottom: 14px !important;
+}
 
 .mySwiper .swiper-pagination-bullet-active {
     background: #8338EC !important;
@@ -372,6 +375,11 @@ body {
 /*antd badge*/
 
 /*antd image preview*/
+.ant-image {
+    height: 100%;
+    width: 100%;
+}
+
 .ant-image-preview-img-wrapper {
     display: flex;
     padding: 100px;
@@ -412,6 +420,7 @@ body {
     margin: 0 0 24px 0;
 }
 
+
 @media (max-width: 600px) {
 
     .miniHeight .img {
@@ -429,6 +438,7 @@ body {
     .swiper-button-next, .swiper-button-prev {
         display: none !important;
     }
+
     .mySwiper:hover img {
         transform: scale(1);
         transition: ease all 0s;

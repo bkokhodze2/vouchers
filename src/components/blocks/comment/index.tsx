@@ -47,18 +47,18 @@ const Comment = ({
             <div>
               <p className={"text-base font-bold"}>{userName}</p>
               <div className={"flex items-center"}>
-                {rate && <Rate disabled defaultValue={rate} className={"text-[16px] h-[20px] mb-1.5"}/>}
+                {rate && <Rate disabled defaultValue={rate} className={"text-[16px] h-[20px] lg:mb-1.5 mb-0"}/>}
                 <span className={"ml-2 text-sm font-bold"}>{rate}.0</span>
               </div>
             </div>
           </div>
           <div>
-            <p className={"text-[#38383899]"}>{date}</p>
+            <p className={"text-[#38383899] lg:text-sm text-[12px]"}>{date}</p>
           </div>
         </div>
         {/*user*/}
         {/*comment*/}
-        <div className={"bg-[white] rounded-xl p-6 mt-3"}>
+        <div className={"bg-[white] rounded-xl p-4 lg:p-6 mt-3"}>
           <p>
             {comment}
           </p>

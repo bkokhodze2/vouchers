@@ -226,7 +226,8 @@ const Home: NextPage = ({serverData}: any) => {
 
           {/*categories*/}
           <div className={"w-full "}>
-            <div className={"space-x-[8px] md:space-x-[30px] !w-full py-[40px] flex flex-row overflow-scroll container m-auto grid-row-1"}>
+            <div
+                className={"space-x-[8px] md:space-x-[30px] !w-full py-[40px] flex flex-row overflow-scroll container m-auto grid-row-1"}>
 
               {/*{categories?.filter(item => item.parentCategoryId === null).map((item, index) => {*/}
               {/*  return <Link href={"/category/4"}>*/}
@@ -245,66 +246,79 @@ const Home: NextPage = ({serverData}: any) => {
 
               <Link href={"/category/2"}>
                 <div
-                    className={"col-span-2 flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
-                  <div className={"bg-purple w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
-                  <div className={"mt-1"}>
-                    <Image src={IMAGES.bag} quality={70}
-                           blurDataURL={IMAGES.placeholder.src}
-                           placeholder="blur"
-                           loading={"lazy"} alt={"bag image"} width={174} height={174}/>
+                    className={"cursor-pointer flex justify-center flex-col bg-[white] w-full max-w-[166px] min-w-[166px] max-h-[198px] md:max-w-[230px] md:min-w-[230px] md:max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
+                  <div className={"bg-purple w-[400px] h-[400px] rounded-[50%] absolute -top-[170%] md:-top-[110%]"}/>
+                  <div className={"mt-1 w-full h-auto z-10 flex justify-center"}>
+                    <img src={IMAGES.bag.src}
+                         placeholder="blur"
+                         style={{
+                           objectFit: "cover"
+                         }}
+                         className={"w-[106px] md:w-[174px] h-full z-50"}
+                         loading={"lazy"}
+                         alt={"bag image"}/>
                   </div>
                   <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>Tourism</h4>
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
                 </div>
               </Link>
 
+
               <Link href={"/category/3"}>
                 <div
-                    className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
-                  <div className={"bg-[#7B92DC] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
-                  <div className={"mt-1"}>
-                    <Image src={IMAGES.beauty} quality={70}
-                           blurDataURL={IMAGES.placeholder.src}
-                           placeholder="blur"
-                           loading={"lazy"} alt={"beauty image"} width={174} height={174}/>
+                    className={"cursor-pointer flex justify-center flex-col bg-[white] w-full max-w-[166px] min-w-[166px] max-h-[198px] md:max-w-[230px] md:min-w-[230px] md:max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
+                  <div className={"bg-[#7B92DC] w-[400px] h-[400px] rounded-[50%] absolute -top-[170%] md:-top-[110%]"}/>
+                  <div className={"mt-1 w-full h-auto z-10 flex justify-center"}>
+                    <img src={IMAGES.beauty.src}
+                         placeholder="blur"
+                         style={{
+                           objectFit: "cover"
+                         }}
+                         className={"w-[106px] md:w-[174px] h-full z-50"}
+                         loading={"lazy"}
+                         alt={"bag image"}/>
                   </div>
                   <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>beauty</h4>
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
                 </div>
               </Link>
 
-              <Link href={"/category/4"}>
 
+              <Link href={"/category/4"}>
                 <div
-                    className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
-                  <div className={"bg-[#F5CE5A] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
-                  <div className={"mt-1"}>
-                    <Image
-                        src={IMAGES.food}
-                        quality={70}
-                        blurDataURL={IMAGES.placeholder.src}
-                        placeholder="blur"
-                        loading={"lazy"}
-                        alt={"food image"}
-                        width={174}
-                        height={174}
-                    />
+                    className={"cursor-pointer flex justify-center flex-col bg-[white] w-full max-w-[166px] min-w-[166px] max-h-[198px] md:max-w-[230px] md:min-w-[230px] md:max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
+                  <div className={"bg-[#F5CE5A] w-[400px] h-[400px] rounded-[50%] absolute -top-[170%] md:-top-[110%]"}/>
+                  <div className={"mt-1 w-full h-auto z-10 flex justify-center"}>
+                    <img src={IMAGES.food.src}
+                         placeholder="blur"
+                         style={{
+                           objectFit: "cover"
+                         }}
+                         className={"w-[106px] md:w-[174px] h-full z-50"}
+                         loading={"lazy"}
+                         alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>Food</h4>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>food</h4>
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
                 </div>
               </Link>
+
+
               <Link href={"/category/5"}>
                 <div
-                    className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
-                  <div className={"bg-purple w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
-                  <div className={"mt-1"}>
-                    <Image src={IMAGES.entertainment} quality={70}
-                           blurDataURL={IMAGES.placeholder.src}
-                           placeholder="blur"
-                           loading={"lazy"} alt={"entertainment image"} width={174} height={174}/>
+                    className={"cursor-pointer flex justify-center flex-col bg-[white] w-full max-w-[166px] min-w-[166px] max-h-[198px] md:max-w-[230px] md:min-w-[230px] md:max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
+                  <div className={"bg-[#F5CE5A] w-[400px] h-[400px] rounded-[50%] absolute -top-[170%] md:-top-[110%]"}/>
+                  <div className={"mt-1 w-full h-auto z-10 flex justify-center"}>
+                    <img src={IMAGES.entertainment.src}
+                         placeholder="blur"
+                         style={{
+                           objectFit: "cover"
+                         }}
+                         className={"w-[106px] md:w-[174px] h-full z-50"}
+                         loading={"lazy"}
+                         alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>Entertainment</h4>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>entertainment</h4>
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
                 </div>
               </Link>
@@ -312,30 +326,38 @@ const Home: NextPage = ({serverData}: any) => {
 
               <Link href={"/category/12"}>
                 <div
-                    className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
-                  <div className={"bg-[#56971F] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
-                  <div className={"mt-1"}>
-                    <Image src={IMAGES.pool} quality={70}
-                           blurDataURL={IMAGES.placeholder.src}
-                           placeholder="blur"
-                           loading={"lazy"} alt={"pool image"} width={174} height={174}/>
+                    className={"cursor-pointer flex justify-center flex-col bg-[white] w-full max-w-[166px] min-w-[166px] max-h-[198px] md:max-w-[230px] md:min-w-[230px] md:max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
+                  <div className={"bg-[#56971F] w-[400px] h-[400px] rounded-[50%] absolute -top-[170%] md:-top-[110%]"}/>
+                  <div className={"mt-1 w-full h-auto z-10 flex justify-center"}>
+                    <img src={IMAGES.pool.src}
+                         placeholder="blur"
+                         style={{
+                           objectFit: "cover"
+                         }}
+                         className={"w-[106px] md:w-[174px] h-full z-50"}
+                         loading={"lazy"}
+                         alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>Pool</h4>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>pool</h4>
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
                 </div>
               </Link>
-              <Link href={"/category/7"}>
 
+              <Link href={"/category/7"}>
                 <div
-                    className={"flex justify-center flex-col bg-[white] w-full max-w-[230px] min-w-[230px] max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
-                  <div className={"bg-[#7B92DC] w-[400px] h-[400px] rounded-[50%] absolute -top-[110%] "}/>
-                  <div className={"mt-1"}>
-                    <Image src={IMAGES.electronic} quality={70}
-                           blurDataURL={IMAGES.placeholder.src}
-                           placeholder="blur"
-                           loading={"lazy"} alt={"electronic image"} width={174} height={174}/>
+                    className={"cursor-pointer flex justify-center flex-col bg-[white] w-full max-w-[166px] min-w-[166px] max-h-[198px] md:max-w-[230px] md:min-w-[230px] md:max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
+                  <div className={"bg-[#7B92DC] w-[400px] h-[400px] rounded-[50%] absolute -top-[170%] md:-top-[110%]"}/>
+                  <div className={"mt-1 w-full h-auto z-10 flex justify-center"}>
+                    <img src={IMAGES.electronic.src}
+                         placeholder="blur"
+                         style={{
+                           objectFit: "cover"
+                         }}
+                         className={"w-[106px] md:w-[174px] h-full z-50"}
+                         loading={"lazy"}
+                         alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>Electronic</h4>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>electronic</h4>
                   <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
                 </div>
               </Link>
