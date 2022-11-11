@@ -120,7 +120,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
   }
 
   return (
-      <div className={`${miniHeight ? 'miniHeight' : ''}`}>
+      <div className={`${miniHeight ? 'miniHeight' : ''} cursor-pointer`}>
         <Link href={`/company/${companySlug}/voucher/${voucherSlug}`} style={{}}>
           <div style={{
             // display: isLoaded === false ? "flex" : "unset",

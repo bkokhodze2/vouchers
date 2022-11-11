@@ -28,6 +28,7 @@ import {
 import {addToFavourites, clearFavourites, getTotalsFavourite} from "../../../../../components/slices/favouritesSlice";
 import {heartPurple} from "../../../../../../public/images/icons";
 import slider from "../../../../../../public/images/images/mainSlider.png";
+import FreeScroll from "../../../../../components/UI/slider/free-scroll";
 
 const CountDown = dynamic(
     () => import("../../../../../components/UI/count-down"),
@@ -48,7 +49,6 @@ export default function Details({serverOffer, serverVoucher}: any) {
   const favourites = useSelector((state: any) => state.favourites);
   const dispatch = useDispatch();
   const Router = useRouter();
-
 
   // @ts-ignore
   let slugVoucher = Router?.query.slugVoucher;
@@ -125,8 +125,8 @@ export default function Details({serverOffer, serverVoucher}: any) {
   }, [dispatch, favourites, voucher])
 
   const RightSide = () => {
-    return <div className={"h-full"}>
-      <div className={"bg-[#ffffff66] rounded-xl p-8 top-[150px] sticky overflow-y-scroll "}>
+    return <div className={"h-full container m-auto  md:p-0 "}>
+      <div className={"bg-[transparent] lg:bg-[#ffffff66] rounded-xl p-0 lg:p-8 top-[150px] sticky overflow-y-scroll "}>
         <div className={"grid grid-cols-2 grid-rows-1 bg-[white] w-full h-[48px] rounded-xl p-1"}>
           <div onClick={() => {
             setIsWithMoney(true)
@@ -148,19 +148,19 @@ export default function Details({serverOffer, serverVoucher}: any) {
           </div>
         </div>
         <div className={"grid grid-cols-2 grid-rows-1 gap-1 gap-x-[30px] gap-y-6 mt-8"}>
-          <div className={"bg-[white] py-2 pl-[28px] rounded-xl flex h-min"}>
+          <div className={"bg-[white] py-2 pl-[28px] rounded-xl flex h-[64px] h-min"}>
             <div className={"min-w-[10px] flex items-center"}>
               <Image src={ICONS.dollar} className={"cursor-pointer "} alt={"share icon"}/>
             </div>
             <div className={"flex flex-col ml-[28px]"}>
-              <p className={"text-[#383838] text-base"}>Voucher price</p>
+              <p className={"text-[#383838] lg:text-base text-sm"}>Voucher price</p>
               <div className={"flex flex-nowrap items-center"}>
                 {
                   isWithMoney ?
-                      <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>
+                      <p className={"lg:text-[18px] text-sm text-purple flex-nowrap whitespace-nowrap"}>
                         ${_.get(voucher, '[0].entries[0].entryAmount', 0) * quantity}
                       </p> :
-                      <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>
+                      <p className={"lg:text-[18px] text-sm text-purple flex-nowrap whitespace-nowrap"}>
                         {_.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0) * quantity}
                       </p>
                 }
@@ -168,7 +168,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
             </div>
           </div>
 
-          <div className={"flex justify-center items-center w-full h-[68px] bg-[white] rounded-xl px-5"}>
+          <div className={"flex justify-center items-center w-full h-[64px] bg-[white] rounded-xl px-5"}>
             <div className={"rounded-xl bg-[#EEEEEE] h-[48px] w-full flex items-center"}>
               <div className={"rounded-[10px] bg-[white] h-full w-full py-1 px-[10px] flex items-center"}>
                 <div onClick={() => quantity != 1 && setQuantity((prevState: number) => prevState - 1)}
@@ -180,7 +180,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
                   />
                 </div>
                 <div className={"flex flex-col w-full justify-center items-center text-center"}>
-                  <p className={"text-[#383838] text-base"}>Quantity</p>
+                  <p className={"text-[#383838] lg:text-base text-sm"}>Quantity</p>
                   <p className={"text-[#383838] text-base font-bold"}>{quantity}</p>
                 </div>
                 <div
@@ -204,27 +204,29 @@ export default function Details({serverOffer, serverVoucher}: any) {
 
           {/*options*/}
           <div className={"grid grid-cols-2 grid-rows-1 gap-1 gap-x-[30px] gap-y-6 mt-8"}>
-            <div className={"bg-[white] py-2 pl-[28px] rounded-xl flex h-min"}>
-              <div className={"min-w-[10px] flex items-center"}>
-                <Image src={ICONS.percent} className={"cursor-pointer "} alt={"share icon"}/>
+            <div className={"col-span-2 ph:col-span-1 bg-[white] py-2 pl-5 rounded-xl flex h-min"}>
+              <div className={"min-w-[14px] flex items-center"}>
+                <Image src={ICONS.percent} className={"cursor-pointer"} layout={"fixed"} width={14} height={14}
+                       alt={"percent icon"}/>
               </div>
-              <div className={"flex flex-col ml-[28px]"}>
-                <p className={"text-[#383838] text-base"}>Saving</p>
+              <div className={"flex flex-col ml-[16px]"}>
+                <p className={"text-[#383838] lg:text-base text-sm"}>Saving</p>
                 <div className={"flex flex-nowrap items-center"}>
-                  <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>-{Math.round(_.get(voucher, '[0].additionalInfo[0].percentage', 0))}%</p>
-                  <p className={"ml-3 text-base text-[#38383899] whitespace-nowrap"}>( $ {Math.round(getSave())} )</p>
+                  <p className={"lg:text-[18px] text-base text-purple flex-nowrap whitespace-nowrap"}>-{Math.round(_.get(voucher, '[0].additionalInfo[0].percentage', 0))}%</p>
+                  <p className={"ml-1 lg:text-base text-sm text-[#38383899] whitespace-nowrap"}>(${Math.round(getSave())} )</p>
                 </div>
               </div>
             </div>
-            <div className={"bg-[white] py-2 pl-[28px] rounded-xl flex h-min"}>
+            <div className={"col-span-2 ph:col-span-1 bg-[white] py-2 pl-5 rounded-xl flex h-min"}>
               <div className={"min-w-[10px] flex items-center"}>
-                <Image src={ICONS.dollar} className={"cursor-pointer "} alt={"share icon"}/>
+                <Image src={ICONS.dollar} className={"cursor-pointer"} layout={"fixed"} width={16} height={16}
+                       alt={"dollar icon"}/>
               </div>
-              <div className={"flex flex-col ml-[28px]"}>
-                <p className={"text-[#383838] text-base"}>Price</p>
+              <div className={"flex flex-col ml-[16px]"}>
+                <p className={"text-[#383838] lg:text-base text-sm"}>Price</p>
                 <div className={"flex flex-nowrap items-center"}>
-                  <p className={"text-[18px] text-purple flex-nowrap whitespace-nowrap"}>{_.get(voucher, '[0].additionalInfo[0].servicePrice', 0)} $</p>
-                  <p className={"ml-3 text-base text-[#38383899] whitespace-nowrap line-through"}>{Math.round(getOldPrice())} $</p>
+                  <p className={"lg:text-[18px] text-base text-purple flex-nowrap whitespace-nowrap"}>$ {_.get(voucher, '[0].additionalInfo[0].servicePrice', 0)}</p>
+                  <p className={"ml-1 lg:text-base text-sm  text-[#38383899] whitespace-nowrap line-through"}>$ {Math.round(getOldPrice())}</p>
                 </div>
               </div>
             </div>
@@ -276,8 +278,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
                          alt={"cart icon"}
                   />}
             </div>
-            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap"}
-            >save</p>
+            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap"}>save</p>
           </div>
           <div className={" col-span-2"} onClick={() => dispatch(clearFavourites({}))}>
             <Button text={"Buy now"} bgColor={"#8338EC"} classes={"!w-full"}/>
@@ -296,16 +297,57 @@ export default function Details({serverOffer, serverVoucher}: any) {
           <meta name="description" content="details"/>
         </Head>
 
-        <div className={""}>
+        <div className={"md:pb-0 pb-32"}>
 
           <div className={"flex flex-col"}>
+            <div className={"flex md:hidden w-full h-[44px]"}>
+              <div className={"container m-auto flex justify-between"}>
+                <Link href={"/"}>
+                  <div className={"flex cursor-pointer"}>
+                    <Image
+                        src={ICONS.arrowBack}
+                        layout={"fixed"}
+                        width={24}
+                        height={24}
+                    />
+                    <p className={"ml-2 text-[#383838] text-base"}>Back</p>
+                  </div>
+                </Link>
+
+                <div className={"flex items-center h-full "}>
+                  {
+                    <div className={"cursor-pointer w-11 flex justify-center items-center cursor-pointer"}>
+                      <Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
+                            target={"_blank"}>
+                        <div className={"flex justify-center items-center"}>
+                          <Image src={ICONS.fb} alt={"fb icon"}/>
+                        </div>
+                      </Link>
+                    </div>
+                  }
+                  {
+                    <div className={"cursor-pointer w-11 flex justify-end pr-1 cursor-pointer"}>
+                      <Link href={_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "")}
+                            target={"_blank"}>
+                        <div className={"flex justify-center items-center"}>
+                          <Image src={ICONS.insta} alt={"insta icon"}/>
+                        </div>
+                      </Link>
+                    </div>
+                  }
+                </div>
+
+              </div>
+            </div>
             {_.get(voucher, '[0].additionalInfo[0].attachments', []).length > 0 && <GalleryScroll data={voucher}/>}
-            <div className={"container grid grid-cols-3 gap-[30px] m-auto pt-8"}>
+            <div className={"block lg:hidden py-6 col-span-3 bg-[#F7F7F7]"}><RightSide/></div>
+            <div className={"container flex w-full  gap-[30px] m-auto pt-8"}>
               {/*left side*/}
-              <div className={"h-full col-span-2 "}>
+
+              <div className={"h-full "}>
                 <Link href={`/company/${_.get(voucher, '[0].additionalInfo[0].provider.name', '')}`}>
                   <div
-                      className={"flex justify-between w-full p-6 rounded-xl items-center bg-[white] cursor-pointer"}>
+                      className={"flex justify-between w-full lg:p-6 p-4 rounded-xl items-center bg-[white] cursor-pointer"}>
                     <div className={"mr-4 flex justify-center items-center"}>
                       <Image
                           src={IMAGES.detailsImg}
@@ -318,7 +360,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
                           alt={"image"}/>
                     </div>
                     <div className={"flex-1 flex-col"}>
-                      <h2 className={"text-[22px] font-bold text-[#383838]"}>{_.get(voucher, '[0].additionalInfo[0].provider.name', '')}
+                      <h2 className={"lg:text-[22px] text-base font-bold text-[#383838]"}>{_.get(voucher, '[0].additionalInfo[0].provider.name', '')}
                       </h2>
                       <p className={"text-[#38383899] mt-1.5"}>{_.get(voucher, '[0].additionalInfo[0].subTitles[0].description', '')}</p>
                     </div>
@@ -329,15 +371,15 @@ export default function Details({serverOffer, serverVoucher}: any) {
                 </Link>
 
                 {/*info*/}
-                <div className={"flex justify-between mt-[18px]"}>
+                <div className={"flex md:flex-row flex-col justify-between mt-[18px] divide-[#D9D9D933] divide-y-2 "}>
                   {/*phone number*/}
                   {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', '') &&
-											<div className={"group flex items-center relative"}>
+											<div className={"group pb-4  md:pb-0  flex items-center relative"}>
 												<Phone classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
 												<p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>
                           {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', '')}</p>
                         {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts', 0).length > 1 && <div
-														className={"group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
+														className={"md:flex hidden group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
 													<Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>
 												</div>}
                         {
@@ -359,17 +401,20 @@ export default function Details({serverOffer, serverVoucher}: any) {
                   {/*phone number*/}
 
                   {/*working hours*/}
-                  <div className={"group flex items-center relative"}>
-                    <Watch classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
-                    <p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>Working
-                      Hours</p>
-                    <div
-                        className={"group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
-                      <Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>
+                  <div className={"group md:py-0 py-4 flex md:flex-row flex-col items-start md:items-center relative"}>
+                    <div className={"flex"}>
+                      <Watch classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
+                      <p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>Working
+                        Hours</p>
+                      <div
+                          className={"md:flex hidden group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
+                        {_.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', 0).length > 0 &&
+														<Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>}
+                      </div>
                     </div>
                     {_.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).length > 0 && <div
 												style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
-												className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
+												className={"hidden md:block group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
                       {
                         _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).map((item: any, index: number) => {
                           return <div className={"flex justify-between"} key={index}>
@@ -378,20 +423,36 @@ export default function Details({serverOffer, serverVoucher}: any) {
                           </div>
                         })
                       }
+
 										</div>
                     }
+                    {/*mobile*/}
+                    <div className={"pl-8 block md:hidden w-full mt-[18px] space-y-[15px]"}>
+                      {
+                        _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).map((item: any, index: number) => {
+                          return <div className={"flex justify-between"} key={index}>
+                            <p className={"mr-6 text-[#383838b3]"}>{getWeekByNumber(item.dayId)}</p>
+                            <p className={"text-[#383838]"}>{item.startHour} - {item.endHour}</p>
+                          </div>
+                        })
+                      }
+                    </div>
+                    {/*mobile*/}
+
                   </div>
+
+
                   {/*working hours*/}
 
                   {/*location dropdown*/}
                   {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses[0].value', '') &&
-											<div className={"group flex items-center relative"}>
+											<div className={"group pt-4 md:pt-0 flex items-center relative"}>
 												<Location classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
 												<p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>
                           {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses[0].value', '')}
 												</p>
                         {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', []).length > 1 && <div
-														className={"group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
+														className={"md:flex hidden group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
 													<Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>
 												</div>}
 
@@ -409,35 +470,42 @@ export default function Details({serverOffer, serverVoucher}: any) {
 											</div>
                   }
                   {/*location dropdown*/}
-                  {_.get(voucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null) && _.get(voucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null) &&
-											<div className={"flex space-x-[33px] items-center"}>
-                        {_.get(voucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null) &&
+
+                  {/*fb  insta*/}
+                  {_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) &&
+											<div className={"hidden space-x-[33px] md:flex items-center"}>
+                        {_.get(voucher, '[0]?.additionalInfo[0].provider.facebookUrl', null) &&
 														<div className={"cursor-pointer"}>
-															<Link href={_.get(voucher, '[0]?.additionalInfo[0]?.provider.facebookUrl', null)}
+															<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
 																		target={"_blank"}>
-																<Image src={ICONS.fb} alt={"fb icon"}/>
+																<div>
+																	<Image src={ICONS.fb} alt={"fb icon"}/>
+																</div>
 															</Link>
 														</div>
                         }
                         {
-                            _.get(voucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null) &&
+                            _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) &&
 														<div className={"cursor-pointer"}>
-															<Link href={_.get(voucher, '[0]?.additionalInfo[0]?.provider.instagramUrl', null)}
+															<Link href={_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "")}
 																		target={"_blank"}>
-																<Image src={ICONS.insta} alt={"insta icon"}/>
+																<div>
+																	<Image src={ICONS.insta} alt={"insta icon"}/>
+																</div>
 															</Link>
 														</div>
                         }
 											</div>
                   }
+                  {/*fb  insta*/}
                 </div>
                 {/*info*/}
-                <Tabs defaultActiveKey="1" className={"tabDescription mt-[34px] "} items={items}/>
+                <Tabs defaultActiveKey="1" className={"tabDescription mt-[34px]"} items={items}/>
 
                 {/*reviews*/}
-                <div className={"mt-[100px]"}>
+                <div className={"mt-[34px] lg-mt-[100px]"}>
                   <h4 className={"text-[22px] font-bold text-[#383838] mb-4"}>Reviews</h4>
-                  <div className={"flex flex-col space-y-6"}>
+                  <div className={"flex flex-col lg:space-y-6 space-y-5"}>
                     <Comment rate={3}/>
                     <Comment rate={5}/>
                     <Comment rate={3}/>
@@ -449,21 +517,25 @@ export default function Details({serverOffer, serverVoucher}: any) {
               </div>
               {/*left side*/}
 
-              <RightSide/>
+              <div className={"hidden lg:block w-[450px] shrink-0"}><RightSide/></div>
             </div>
 
             {/*recommended*/}
-            {vouchers.length > 0 && <div className={"flex flex-col w-full mt-[100px] mb-[112px] details"}>
-							<div className={"container m-auto"}>
-								<h1 className={"text-[28px] text-[#383838] font-bold"}>Recommended</h1>
-								<div className={"mt-4"}>
-									<OfferSlider data={vouchers}/>
-								</div>
-							</div>
-						</div>}
+
             {/*recommended*/}
 
           </div>
+          {vouchers.length > 0 && <div className={"flex w-full flex-col mt-[44px] md:mt-0 details"}>
+						<div className={"ph:container pl-0px ph:p-auto ph:m-auto w-full"}>
+							<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold"}>Recommended</h1>
+							<div className={"mt-4"}>
+								<OfferSlider data={vouchers}/>
+								<FreeScroll data={vouchers} miniHeight={true}/>
+
+							</div>
+						</div>
+					</div>}
+
         </div>
       </>
   )

@@ -459,6 +459,7 @@ const Header: React.FC = () => {
                       loading={"lazy"}
                       width={18}
                       height={18}
+                      layout={"fixed"}
                       alt={"shock offer icon"}
                   />
                   <p className={"ml-[9px] text-purple text-base whitespace-nowrap"}>Shock offers</p>
