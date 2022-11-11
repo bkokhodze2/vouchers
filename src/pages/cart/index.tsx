@@ -179,7 +179,17 @@ export default function Cart({serverData, productCount}: any) {
                   <div className={"flex justify-between"}>
                     <p className={"text-[#383838] text-[28px] font-bold"}>Total Points</p>
                     <div className={"flex items-center"}>
-                      <p className={"z-10 text-[20px] text-[#E35A43] font-bold transition ml-[10px] pb-[2px] mr-1.5"}>p</p>
+                      <p className={"z-10 text-[20px] text-[#E35A43] font-bold transition ml-[10px] mr-1.5"}>
+                        <Image
+                            src={IMAGES.coin}
+                            quality={100}
+                            blurDataURL={IMAGES.placeholder.src}
+                            loading={"lazy"}
+                            width={16}
+                            height={16}
+                            alt={"coin icon"}
+                        />
+                      </p>
                       <p className={"text-[22px] text-[#E35A43]"}>{cart?.totalPoint}</p>
                     </div>
                   </div>

@@ -84,12 +84,23 @@ const CartItem = ({data, getCount}: ICartItem) => {
                   {
                     data.isPoint ? <p
                         className={"text-[#E35A43] text-[18px] ml-[5px]"}>
-                      <span className={"mr-1"}>P</span>
+                      <span className={"mr-1"}>
+                        <Image
+                            src={IMAGES.coin}
+                            quality={100}
+                            blurDataURL={IMAGES.placeholder.src}
+                            loading={"lazy"}
+                            width={16}
+                            height={16}
+                            alt={"coin icon"}
+                        />
+                      </span>
                       {_.get(data, '[0].entries[0].entryAmount', 0) * _.get(data, '[0].entries[0].multiplier', 0) * data.cartQuantity}
                     </p> : <>
-                      <Lari color={"#E35A43"}/><p
-                        className={"text-[#E35A43] text-[18px] ml-[5px]"}>{_.get(data, '[0].entries[0].entryAmount', 0) * data.cartQuantity}
-                    </p>
+                      <Lari color={"#E35A43"}/>
+                      <p
+                          className={"text-[#E35A43] text-[18px] ml-[5px]"}>{_.get(data, '[0].entries[0].entryAmount', 0) * data.cartQuantity}
+                      </p>
                     </>
                   }
 
@@ -101,14 +112,24 @@ const CartItem = ({data, getCount}: ICartItem) => {
                      cursor: isDisabled ? "not-allowed" : "pointer"
                    }}
                    className={"w-[58px] min-w-[58px] h-[28px] rounded-[100px] ml-[40px] relative flex items-center p-[2px] cursor-pointer justify-between"}>
-                <p style={{color: data.isPoint ? '#FFFFFF' : '#383838'}}
-                   className={"z-10 text-[14px] font-bold transition ml-[10px] pb-[2px]"}>p</p>
+                <p
+                   className={"z-10 text-[14px] font-bold transition ml-[5px] pt-1 pb-[2px] flex justify-center items-center"}>
+                  <Image
+                      src={IMAGES.coin}
+                      quality={100}
+                      blurDataURL={IMAGES.placeholder.src}
+                      loading={"lazy"}
+                      width={16}
+                      height={16}
+                      alt={"coin icon"}
+                  />
+                </p>
                 <div style={{
-                  left: data.isPoint ? "2px" : "25px",
+                  left: data.isPoint ? "2px" : "30px",
                   transition: "0.2s",
                   backgroundColor: isDisabled ? "#7a7575" : "#E35A43"
                 }}
-                     className={"absolute left-[2px] transition duration-200 w-[30px] h-[24px] bg-[#E35A43] rounded-[40px]"}/>
+                     className={"absolute left-[2px] transition duration-200 w-[25px] h-[24px] bg-[#E35A43] rounded-[40px]"}/>
                 <Lari color={`${data.isPoint ? '#383838' : '#FFFFFF'}`} classes={"z-10 mr-[8px]"}/>
               </div>
 

@@ -223,14 +223,12 @@ const Header: React.FC = () => {
             <div className={"flex"}>
               <Image
                   src={IMAGES.coin}
-                  quality={30}
+                  quality={100}
                   blurDataURL={IMAGES.placeholder.src}
-                  // placeholder="blur"
                   loading={"lazy"}
                   width={20}
                   height={20}
                   alt={"coin icon"}
-
               />
               <p className={"text-sm text-[white] mr-8 ml-[5px] capitalize after:content-[''] after:h-[20px] after:bg-[#ffffffb3] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500"}>
                 40,076</p>
@@ -577,6 +575,8 @@ const Header: React.FC = () => {
         </div>
 
         <MenuDrawer isOpenMenu={isOpenMenu}/>
+
+        {/*<MenuDrawer isOpenSearch={isOpenSearch}/>*/}
 
       </>
   )
