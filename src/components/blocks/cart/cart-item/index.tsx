@@ -61,7 +61,7 @@ const CartItem = ({data, getCount}: ICartItem) => {
                alt={"product image"}
                placeholder="blur"
                loading={"lazy"}
-               className={"rounded-xl w-full max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px]"}
+               className={"rounded-xl w-full h-full max-h-[157px] max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px]"}
                style={{objectFit: "cover"}}/>
         </div>
         <div className={"flex flex-col w-full"}>
@@ -145,7 +145,7 @@ const CartItem = ({data, getCount}: ICartItem) => {
                     backgroundColor: isDisabled ? "#7a7575" : "#E35A43"
                   }}
                        className={"absolute left-[2px] transition duration-200 w-[25px] h-[24px] bg-[#E35A43] rounded-[40px]"}/>
-                  <Lari color={`${data.isPoint ? '#383838' : '#FFFFFF'}`} classes={"z-10 mr-[8px]"}/>
+                  <Lari color={`${data.isPoint ? '#383838' : '#FFFFFF'}`} classes={"z-10 mr-[7px]"}/>
                 </div>
               </div>
 

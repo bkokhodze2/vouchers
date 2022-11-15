@@ -421,10 +421,25 @@ body {
     margin: 0 0 24px 0;
 }
 
+/*ant result*/
+
+.ant-result {
+    padding: 48px 32px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.ant-result-image{
+    margin: 0;
+}
+
+/*ant result*/
+
 .gallery .swiper-scrollbar, .category .swiper-scrollbar {
     display: none;
 }
-
 
 .category .swiper-slide {
     width: min-content;
