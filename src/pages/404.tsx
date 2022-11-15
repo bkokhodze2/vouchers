@@ -9,7 +9,7 @@ export default function FourOhFour() {
       status="404"
       title="404 not found"
       subTitle="გვერდი ,რომელსაც თქვენ ეწვიეთ არ არსებობს !"
-      extra={<Button type="primary" onClick={() => router.back()}>უკან დაბრუნება</Button>}
+      extra={<Button className={"text-[gray]"} type="primary" onClick={() => router.back()}>უკან დაბრუნება</Button>}
     />
   </>
 }
