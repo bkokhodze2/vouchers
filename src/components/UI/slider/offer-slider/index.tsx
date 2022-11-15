@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 // Import Swiper React components
 import {Swiper, SwiperSlide} from "swiper/react";
 import Image from "next/image";
@@ -31,6 +31,10 @@ export default function OfferSlider({nav = true, loop = true, data}: IOfferSlide
     return <p className={"text-[red]"}>error</p>
   }
 
+  useEffect(() => {
+
+  }, [swiper])
+
   return (
       <div className={"relative hidden sm:block"}>
         {
@@ -47,6 +51,7 @@ export default function OfferSlider({nav = true, loop = true, data}: IOfferSlide
             breakpoints={{
               // when window width is >= 640px
               320: {
+                slidesPerView: 2,
                 spaceBetween: 12,
               },
               640: {
