@@ -31,7 +31,7 @@ export default function Category({serverData}: any) {
     setIsLoading(true)
 
     if (Router?.query?.id) {
-      axios.get(`${baseApi}/vouchers?contractId=662&categoryId=${Router?.query?.id}`).then((res) => {
+      axios.get(`${baseApi}/vouchers?contractId=662&categoryId=${Router?.query?.id}&limit=100`).then((res) => {
         setVouchers(res.data)
         setIsLoading(false)
       })

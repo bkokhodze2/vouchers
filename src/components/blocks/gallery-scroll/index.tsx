@@ -23,7 +23,7 @@ const GalleryScroll = ({data}: any) => {
 
   const Slide1 = ({idx, data}: any) => {
     return <div
-        // key={idx}
+        key={idx}
         className={"min-w-[880px] max-w-[880px] relative  h-[546px] relative !ml-0"}
         style={{marginLeft: `${idx === 0 ? '50px' : '0px'}`}}>
       <Image
@@ -34,11 +34,10 @@ const GalleryScroll = ({data}: any) => {
   }
 
   const Slide4 = ({idx, data}: any) => {
-    return <div className={"min-w-[1008px] grid grid-rows-2 grid-cols-2 gap-[28px] "}>
+    return <div key={idx + "slide4"} className={"min-w-[1008px] grid grid-rows-2 grid-cols-2 gap-[28px] "}>
 
       {[1, 2, 3, 4].map((e, index) => {
         return images[idx + index + 1] &&
-            // <SwiperSlide key={idx + index + 1}>
 						<div key={idx + index + "four"} className={"h-[258px] max-h-[258px] w-[490px] max-w-[490px] relative"}>
 							<Image
 									src={_.get(images, `[${idx + index + 1}].path`, [])}
@@ -48,8 +47,6 @@ const GalleryScroll = ({data}: any) => {
 									alt={"voucher photo"}/>
 
 						</div>
-        {/*</SwiperSlide>*/
-        }
       })}
 
     </div>
@@ -58,9 +55,8 @@ const GalleryScroll = ({data}: any) => {
   // @ts-ignore
 
   const runCallback = (cb) => {
-        return cb();
-      }
-  ;
+    return cb();
+  }
 
   return (
       <div className={"w-full overflow-x-auto"}>
@@ -81,14 +77,14 @@ const GalleryScroll = ({data}: any) => {
                 const galleryItem = [];
                 for (let i = 0; i < images.length; i = i + 5) {
                   galleryItem.push(
-                      <div key={i + "key"} className={"flex "}>
-                        <SwiperSlide className={"min-w-[880px] max-w-[880px] mr-[30px]"}
+                      <div key={i + "l"} className={"flex"}>
+                        <SwiperSlide key={i + "f"} className={"min-w-[880px] max-w-[880px] mr-[30px]"}
                                      style={{marginLeft: `${i === 0 ? '50px' : '0px'}`}}
                         >
                           <Slide1 idx={i} data={images[i]}/>
                         </SwiperSlide>
                         {i + 1 < images.length &&
-														<SwiperSlide className={"min-w-[1008px] max-w-[1008px] mr-[30px]"}>
+														<SwiperSlide key={i + "d"} className={"min-w-[1008px] max-w-[1008px] mr-[30px]"}>
 															<Slide4 idx={i} data={images[i]}/>
 														</SwiperSlide>}
                       </div>
@@ -104,25 +100,23 @@ const GalleryScroll = ({data}: any) => {
 
         <div className={"flex h-[226px] ph:h-[400px] flex md:hidden"}>
 
-          <Swiper
-              direction={"horizontal"}
-              pagination={true}
-              spaceBetween={12}
-              modules={[Pagination]}
-              className="mySwiper detailsSwiper"
-          >
-            {images.map((e, index) => {
-              return <SwiperSlide key={index}>
-                <img
-                    src={_.get(images, `[${index}].path`, [])}
-                    placeholder="loading"
-                    className={"object-cover h-full w-full w-full h-[226px] ph:h-[400px] max-h-[226px] ph:max-h-[400px]"}
-                    alt={"voucher photo"}/>
-              </SwiperSlide>
-            })}
-
-
-          </Swiper>
+          {/*<Swiper*/}
+          {/*    direction={"horizontal"}*/}
+          {/*    pagination={true}*/}
+          {/*    spaceBetween={12}*/}
+          {/*    modules={[Pagination]}*/}
+          {/*    className="mySwiper detailsSwiper"*/}
+          {/*>*/}
+          {/*  {images.map((e, index) => {*/}
+          {/*    return <SwiperSlide key={"swiper" + index}>*/}
+          {/*      <img*/}
+          {/*          src={_.get(images, `[${index}].path`, [])}*/}
+          {/*          placeholder="loading"*/}
+          {/*          className={"object-cover h-full w-full w-full h-[226px] ph:h-[400px] max-h-[226px] ph:max-h-[400px]"}*/}
+          {/*          alt={"voucher photo"}/>*/}
+          {/*    </SwiperSlide>*/}
+          {/*  })}*/}
+          {/*</Swiper>*/}
 
         </div>
 
