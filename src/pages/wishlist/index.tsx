@@ -14,10 +14,7 @@ export default function Wishlist({}: any) {
   const [vouchers, setVouchers] = useState<[]>([]);
   const favourites = useSelector((state: any) => state.favourites);
 
-  console.log("favourites", favourites)
-
   const Router = useRouter();
-
 
   return (
       <>
@@ -32,12 +29,17 @@ export default function Wishlist({}: any) {
           <p className={"text-[#383838] text-[28px] font-bold mb-4"}>
             Wishlist
           </p>
-          {favourites?.favouritesList.length > 0 ?
-              <div className={"container m-auto grid grid-flow-row-dense grid-cols-4 gap-[30px] gap-y-[40px]"}>
 
-                {favourites?.favouritesList.map((item: any, index: number) => {
-                  return <OfferItem data={item} key={index}/>
-                })}
+
+          {favourites?.favouritesList.length > 0 ?
+              <div
+                  className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-5 md:gap-y-[42px] md:gap-x-[30px]"}>
+
+                {
+                  favourites?.favouritesList.map((item: any, index: number) => {
+                    return <OfferItem data={item} key={index}/>
+                  })
+                }
 
               </div> : <div
                   className={"mt-9 container m-auto w-full max-w-[490px] flex justify-center items-center flex flex-col "}>

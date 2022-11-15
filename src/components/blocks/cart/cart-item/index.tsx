@@ -54,36 +54,51 @@ const CartItem = ({data, getCount}: ICartItem) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   return (
-      <div className={"p-[30px] pr-[68px] flex bg-[white] rounded-2xl"}>
-        <div className={"w-full max-w-[240px] min-w-[240px] mr-[30px]"}>
-          <Image src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
-                 alt={"product image"}
-              // layout={"fill"}
-                 quality={60}
-                 blurDataURL={IMAGES.placeholder.src}
-                 placeholder="blur"
-                 loading={"lazy"}
-                 width={240}
-                 height={146}
-                 className={"rounded-xl w-full max-w-[240px] max-h-[150px]"}
-                 style={{objectFit: "cover"}}/>
+      <div className={"p-[8px] md:p-[16px] xl:p-[30px] pr-4 xl:pr-[68px] flex bg-[white] rounded-0 ph:rounded-2xl"}>
+        <div
+            className={"w-full max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px] lg:mr-[30px] md:mr-[16px] mr-[8px] relative"}>
+          <img src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
+               alt={"product image"}
+               placeholder="blur"
+               loading={"lazy"}
+               className={"rounded-xl w-full max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px]"}
+               style={{objectFit: "cover"}}/>
         </div>
         <div className={"flex flex-col w-full"}>
-          <h2 className={"text-[#383838] font-bold text-[22px]"}>{_.get(data, '[0]additionalInfo[0].provider.name', "")}</h2>
-          <p className={"text-base mt-[18px] text-[#38383899]"}>
+          <div className={"flex justify-between"}>
+            <h2 className={"text-[#383838] font-bold text-[14px] lg:text-[22px] md:text-base"}>{_.get(data, '[0]additionalInfo[0].provider.name', "")}</h2>
+            <div
+                onClick={() => handleRemoveFromCart(data)}
+                className={"items-center min-w-[24px] cursor-pointer"}>
+              <Image
+                  src={ICONS.trash}
+                  quality={70}
+                  blurDataURL={IMAGES.placeholder.src}
+                  loading={"lazy"}
+                  alt={"trash icon"}
+                  width={24}
+                  height={24}/>
+            </div>
+          </div>
+
+          <p className={"text-base mt-[18px] text-[#38383899] hidden md:flex"}>
             {_.get(data, '[0]additionalInfo[0].subTitles[0].description', "")}
           </p>
 
-          <div className={"mt-[28px] flex justify-between items-end"}>
-            <div className={"flex items-center"}>
-              <Quantity getCount={getCount} data={data} currentQuantity={data.cartQuantity} isPoint={isChecked}/>
-              <div className={"flex flex-col items-center justify-center ml-8"}>
-                <p className={"text-[14px] text-[#383838b3] text-center whitespace-nowrap"}>Total price</p>
-                <div className={"flex items-center"}>
+          <div className={"mt-[12[px] md:mt-[28px] flex justify-between items-center 2xl:items-end"}>
+            <div
+                className={"flex-col flex md:flex-row items-start md:items-center w-full md:justify-items-start justify-between"}>
+              <div className={""}>
+                <Quantity getCount={getCount} data={data} currentQuantity={data.cartQuantity} isPoint={isChecked}/>
+              </div>
+              <div className={"flex w-full items-center md:justify-start justify-between"}>
+                <div className={"flex flex-col items-center justify-center lg:ml-8 ph:ml-4 ml-1.5"}>
+                  <p className={"text-[14px] text-[#383838b3] text-center whitespace-nowrap"}>Total price</p>
+                  <div className={"flex items-center"}>
 
-                  {
-                    data.isPoint ? <p
-                        className={"text-[#E35A43] text-[18px] ml-[5px]"}>
+                    {
+                      data.isPoint ? <p
+                          className={"text-[#E35A43] text-[18px] ml-[5px]"}>
                       <span className={"mr-1"}>
                         <Image
                             src={IMAGES.coin}
@@ -95,48 +110,50 @@ const CartItem = ({data, getCount}: ICartItem) => {
                             alt={"coin icon"}
                         />
                       </span>
-                      {_.get(data, '[0].entries[0].entryAmount', 0) * _.get(data, '[0].entries[0].multiplier', 0) * data.cartQuantity}
-                    </p> : <>
-                      <Lari color={"#E35A43"}/>
-                      <p
-                          className={"text-[#E35A43] text-[18px] ml-[5px]"}>{_.get(data, '[0].entries[0].entryAmount', 0) * data.cartQuantity}
-                      </p>
-                    </>
-                  }
+                        {_.get(data, '[0].entries[0].entryAmount', 0) * _.get(data, '[0].entries[0].multiplier', 0) * data.cartQuantity}
+                      </p> : <>
+                        <Lari color={"#E35A43"}/>
+                        <p
+                            className={"text-[#E35A43] text-[18px] ml-[5px]"}>{_.get(data, '[0].entries[0].entryAmount', 0) * data.cartQuantity}
+                        </p>
+                      </>
+                    }
 
+                  </div>
+                </div>
+                <div onClick={() => changePoint(data)}
+                     style={{
+                       backgroundColor: isDisabled ? "#ababab1a" : "#3838381a",
+                       cursor: isDisabled ? "not-allowed" : "pointer"
+                     }}
+                     className={"w-[58px] min-w-[58px] h-[28px] rounded-[100px] lg:ml-[40px] ph:ml-4 ml-1.5 relative flex items-center p-[2px] cursor-pointer justify-between"}>
+                  <p
+                      className={"z-10 text-[14px] font-bold transition ml-[5px] pt-1 pb-[2px] flex justify-center items-center"}>
+                    <Image
+                        src={IMAGES.coin}
+                        quality={100}
+                        blurDataURL={IMAGES.placeholder.src}
+                        loading={"lazy"}
+                        width={16}
+                        height={16}
+                        alt={"coin icon"}
+                    />
+                  </p>
+                  <div style={{
+                    left: data.isPoint ? "2px" : "30px",
+                    transition: "0.2s",
+                    backgroundColor: isDisabled ? "#7a7575" : "#E35A43"
+                  }}
+                       className={"absolute left-[2px] transition duration-200 w-[25px] h-[24px] bg-[#E35A43] rounded-[40px]"}/>
+                  <Lari color={`${data.isPoint ? '#383838' : '#FFFFFF'}`} classes={"z-10 mr-[8px]"}/>
                 </div>
               </div>
-              <div onClick={() => changePoint(data)}
-                   style={{
-                     backgroundColor: isDisabled ? "#ababab1a" : "#3838381a",
-                     cursor: isDisabled ? "not-allowed" : "pointer"
-                   }}
-                   className={"w-[58px] min-w-[58px] h-[28px] rounded-[100px] ml-[40px] relative flex items-center p-[2px] cursor-pointer justify-between"}>
-                <p
-                   className={"z-10 text-[14px] font-bold transition ml-[5px] pt-1 pb-[2px] flex justify-center items-center"}>
-                  <Image
-                      src={IMAGES.coin}
-                      quality={100}
-                      blurDataURL={IMAGES.placeholder.src}
-                      loading={"lazy"}
-                      width={16}
-                      height={16}
-                      alt={"coin icon"}
-                  />
-                </p>
-                <div style={{
-                  left: data.isPoint ? "2px" : "30px",
-                  transition: "0.2s",
-                  backgroundColor: isDisabled ? "#7a7575" : "#E35A43"
-                }}
-                     className={"absolute left-[2px] transition duration-200 w-[25px] h-[24px] bg-[#E35A43] rounded-[40px]"}/>
-                <Lari color={`${data.isPoint ? '#383838' : '#FFFFFF'}`} classes={"z-10 mr-[8px]"}/>
-              </div>
+
 
             </div>
             <div
                 onClick={() => handleRemoveFromCart(data)}
-                className={"flex items-center cursor-pointer"}>
+                className={"items-center min-w-[24px] cursor-pointer hidden md:flex"}>
               <Image
                   src={ICONS.trash}
                   quality={70}

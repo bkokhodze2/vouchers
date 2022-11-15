@@ -12,6 +12,7 @@ import axios from "axios";
 import {Form, Select} from "antd";
 import RingLoader from "react-spinners/RingLoader";
 import PulseLoader from "react-spinners/PulseLoader";
+import FreeScroll from "../../components/UI/slider/free-scroll";
 
 export default function Category({serverData}: any) {
   const baseApi = process.env.baseApi;
@@ -51,7 +52,7 @@ export default function Category({serverData}: any) {
         <div className={""}>
 
           {isLoading && <div className={"container m-auto flex justify-center mt-16 mb-10"}>
-            <div >
+						<div>
 							<RingLoader
 									color="#8338EC"
 									size={80}
@@ -61,23 +62,24 @@ export default function Category({serverData}: any) {
 								<p className={"text-[#383838] text-[24px]"}>Loading</p>
 								<PulseLoader size={5} color="#383838" speedMultiplier={0.7} className={"mb-1.5 ml-1.5 "}/>
 							</div>
-            </div>
+						</div>
 
 					</div>
           }
 
-          <div className={"container m-auto mt-8 pb-[100px]"}>
+          <div className={"ph:container m-auto mt-4 ph:mt-8 pb-[100px]"}>
 
-            {vouchers.length > 0 && !isLoading && <div className={"flex flex-col w-full category"}>
-							<div className={"container m-auto"}>
-								<h1 className={"text-[28px] text-[#383838] font-bold"}>Popular</h1>
+            {vouchers.length > 0 && <div className={"flex flex-col mt-[0px] md:mt-[44px]"}>
+							<div className={"ph:container pl-0px ph:p-auto ph:m-auto w-full"}>
+								<h1 className={"text-[18px] pl-3 ph:pl-0 m-auto sm:text-[28px] text-[#383838] font-bold"}>Popular
+									offers</h1>
 								<div className={"mt-4"}>
-									<OfferSlider nav={true} data={vouchers}/>
+									<OfferSlider data={vouchers}/>
+									<FreeScroll data={vouchers} miniHeight={true}/>
 								</div>
 							</div>
-						</div>
+						</div>}
 
-            }
 
             {/*<div className={"h-[60px] bg-[black] mt-[54px] flex justify-between"}>*/}
             {/*  <div className={"flex"}>*/}
@@ -111,7 +113,7 @@ export default function Category({serverData}: any) {
             {/*  <div></div>*/}
             {/*</div>*/}
 
-            <div className={"container m-auto mt-[20px]"}>
+            <div className={"container m-auto mt-[20px] hidden sm:flex"}>
               <Image
                   src={IMAGES.banner}
                   quality={70}
@@ -122,7 +124,22 @@ export default function Category({serverData}: any) {
               />
             </div>
 
-            <div className={"container mt-[40px] m-auto grid grid-flow-row-dense grid-cols-4 gap-[30px] gap-y-[40px]"}>
+            <div className={"mb-[114px]  container m-auto mt-[44px] w-full flex sm:hidden relative"}>
+              <img
+                  src={IMAGES.mobileBanner.src}
+                  placeholder="blur"
+                  loading={"lazy"}
+                  alt={"banner"}
+                  style={{
+                    objectFit: "cover",
+                    width: "100%",
+                  }}
+              />
+
+            </div>
+
+            <div
+                className={"mt-4 container grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-5 md:gap-y-[42px] md:gap-x-[30px]"}>
               {
                 vouchers?.map((item: any, index: any) => {
                   return <OfferItem data={item} key={index}/>

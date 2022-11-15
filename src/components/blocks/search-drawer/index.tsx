@@ -34,7 +34,6 @@ const SearchDrawer = ({isOpenSearch, setIsOpenSearch}: Isearch) => {
   const use = useDocumentHeight();
   // useOnScreenKeyboardScrollFix();
 
-  console.log("use", use)
 
   useEffect(() => {
     let getData: any;
@@ -55,7 +54,6 @@ const SearchDrawer = ({isOpenSearch, setIsOpenSearch}: Isearch) => {
 
 
   useEffect(() => {
-    console.log("isOpenSearch", isOpenSearch)
     const handleScroll = () => {
       if (isOpenSearch) {
         hasWindow && window.scrollTo(0, 0)
@@ -88,7 +86,6 @@ const SearchDrawer = ({isOpenSearch, setIsOpenSearch}: Isearch) => {
     setTerm(data.search);
   }
 
-  console.log("dd", term)
 
   const onFinish = (values: any) => {
     // resetFields();

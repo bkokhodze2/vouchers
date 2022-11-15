@@ -5,7 +5,15 @@ import {ICONS, IMAGES} from "public/images";
 import Image from "next/image"
 
 import Link from "next/link";
-import {ecomerce, logOut, menuPercent, orders, settings, whoWeAre} from "../../../../public/images/icons";
+import {
+  advertisement,
+  ecomerce,
+  logOut,
+  menuPercent,
+  orders,
+  settings,
+  whoWeAre
+} from "../../../../public/images/icons";
 
 interface IMenu {
   isOpenMenu: boolean
@@ -77,7 +85,7 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
           <div className={"mt-8"}>
             <h5 className={"text-[#38383880]"}>Navigatioon</h5>
             <div className={" grid grid-cols-2 gap-3 mt-3"}>
-              <NavItem icon={ICONS.ecomerce} text={"E-comerce"} bg={"#F5CE5A"}/>
+              <NavItem icon={ICONS.ecomerce} text={"E-commerce"} bg={"#F5CE5A"}/>
               <NavItem icon={ICONS.medical} text={"Medical Card"} bg={"#7B92DC"}/>
               <NavItem icon={ICONS.lotto} iconSize={20} text={"Lotto"} bg={"#56971F"}/>
               <NavItem icon={ICONS.menuPercent} text={"Discounts"} bg={"#E35A43"}/>
@@ -99,7 +107,15 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
               <NavItem icon={ICONS.flash} iconSize={18} text={"How it works"} color={"#383838"}/>
               <NavItem icon={ICONS.tc} iconSize={24} text={"T&C"} color={"#383838"}/>
               <NavItem icon={ICONS.gift} iconSize={18} text={"Bonus points"} color={"#383838"}/>
-              <NavItem icon={ICONS.tc} iconSize={24} text={"Privacy Policy"} color={"#383838"}/>
+              <NavItem icon={ICONS.privacy} iconSize={24} text={"Privacy Policy"} color={"#383838"}/>
+            </div>
+          </div>
+
+          <div className={"mt-8"}>
+            <h5 className={"text-[#38383880]"}>For business</h5>
+            <div className={" grid grid-cols-2 gap-3 mt-3"}>
+              <NavItem icon={ICONS.advertisement} iconSize={18} text={"Advertisement"} color={"#383838"}/>
+              <NavItem icon={ICONS.partnership} iconSize={18} text={"Partnership"} color={"#383838"}/>
             </div>
           </div>
 

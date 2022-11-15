@@ -40,3 +40,6 @@ export {default as orders} from './orders.svg';
 export {default as leaderboard} from './leaderboard.svg';
 export {default as tickets} from './tickets.svg';
 export {default as arrowBack} from './arrowBack.svg';
+export {default as advertisement} from './advertisement.svg';
+export {default as partnership} from './partnership.svg';
+export {default as privacy} from './privacy.svg';

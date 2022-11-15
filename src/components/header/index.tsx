@@ -24,6 +24,7 @@ import Orders from "../../../public/images/icons/orders";
 import Menu from "../../../public/images/icons/menu";
 import MenuDrawer from "../blocks/menu-drawer";
 import SearchDrawer from "../blocks/search-drawer";
+import Basket from "../../../public/images/icons/orders";
 
 
 interface Icategory {
@@ -120,6 +121,11 @@ const Header: React.FC = () => {
     return () => clearTimeout(getData)
   }, [term])
 
+  useEffect(() => {
+    setIsOpenMenu(false)
+    setIsOpenSearch(false)
+  }, [Router.pathname])
+
   const resetFields = () => {
     searchForm.resetFields();
     setTerm('');
@@ -204,6 +210,12 @@ const Header: React.FC = () => {
     </Link>
   }
 
+  const navTo = (path: string) => {
+    setIsOpenMenu(false)
+    setIsOpenSearch(false)
+    Router.push(path);
+  }
+
   return (
       <>
         <div className={"hidden md:flex w-full bg-amber-700 h-[44px] min-h-[44px] bg-[#383838] items-center "}>
@@ -245,7 +257,7 @@ const Header: React.FC = () => {
             {/*flex container max-h-[80px]*/}
             <div className={"max-h-[80px] py-4 container m-auto grid grid-row-1 grid-cols-4"}>
               {/*logo*/}
-              <Link href={"/"}>
+              <div onClick={() => navTo("/")}>
                 <div className={"flex items-center min-w-[200px] sm:min-w-[380px] max-h-[48px]"}>
                   <Image
                       src={ICONS.logo}
@@ -263,7 +275,7 @@ const Header: React.FC = () => {
                     <p className={"text-gray text-sm -translate-y-[5px]"}>ფასდაკლება</p>
                   </div>
                 </div>
-              </Link>
+              </div>
 
               {/*logo*/}
 
@@ -486,7 +498,7 @@ const Header: React.FC = () => {
 
               {/*category hover*/}
               {<div
-                  className={"absolute border-t-[1px] border-[#d9d9d94d] top-[48px] bg-[white] w-[100%] left-0 right-0 z-30"}
+                  className={"absolute md:flex hidden border-t-[1px] border-[#d9d9d94d] top-[48px] bg-[white] w-[100%] left-0 right-0 z-30"}
                   style={{
                     boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.05)",
                     transition: "all 0.3s cubic-bezier(0, 0.88, 0.83, 0.99) 0s",
@@ -536,45 +548,63 @@ const Header: React.FC = () => {
 
         </header>
 
-        {!isOpenSearch && <div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0"}
+        {!isOpenSearch && !Router.pathname.includes("/company") && <div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0"}
 															 style={{
                                  zIndex: 999
                                }}
 				>
 					<div className={"grid grid-cols-5 pt-3"}>
-						<div className={"flex flex-col items-center justify-between"}
-								 onClick={() => {
-                   setIsOpenMenu(false)
-                   setIsOpenSearch(false)
-                 }}
-						>
-							<Home/>
-							<p className={"mt-[7px] text-[10px] "}
-								 style={{
-                   color: !isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"
-                 }}
-							>Home</p>
+						<div onClick={() => navTo("/")}>
+							<div className={"flex flex-col items-center justify-between"}
+									 onClick={() => {
+                     setIsOpenMenu(false)
+                     setIsOpenSearch(false)
+                   }}
+							>
+								<Home color={!isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"}/>
+								<p className={"mt-[7px] text-[10px] "}
+									 style={{
+                     color: !isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"
+                   }}
+								>Home</p>
+							</div>
 						</div>
+
 						<div className={"flex flex-col items-center justify-between pt-0.5"}
 								 onClick={() => {
                    setIsOpenMenu(false)
                    setIsOpenSearch(true)
                  }}
 						>
-							<Search/>
+							<Search color={isOpenSearch ? "#8338EC" : "#383838"}/>
 							<p className={"mt-[7px] text-[10px] text-[#383838]"}
 								 style={{
                    color: isOpenSearch ? "#8338EC" : "#383838"
                  }}
 							>Search</p>
 						</div>
-						<div className={"flex flex-col items-center justify-between"}>
-							<BarHeart/>
-							<p className={"mt-[7px] text-[10px] text-[#383838]"}>Wishlist</p>
+						<div onClick={() => navTo("/wishlist")}>
+							<div className={"flex flex-col items-center justify-between"}>
+								<BarHeart
+										color={!isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"}/>
+								<p
+										style={{
+                      color: !isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"
+                    }}
+										className={"mt-[7px] text-[10px] text-[#383838]"}
+								>Wishlist</p>
+							</div>
 						</div>
-						<div className={"flex flex-col items-center justify-between"}>
-							<Orders/>
-							<p className={"mt-[7px] text-[10px] text-[#383838]"}>My orders</p>
+						<div onClick={() => navTo("/cart")}>
+							<div className={"flex flex-col items-center justify-between"}>
+								<Basket color={!isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"}/>
+								<p
+										style={{
+                      color: !isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"
+                    }}
+										className={"mt-[7px] text-[10px] text-[#383838]"}
+								>Basket</p>
+							</div>
 						</div>
 						<div
 								onClick={() => {
@@ -582,7 +612,7 @@ const Header: React.FC = () => {
                   setIsOpenMenu(true)
                 }}
 								className={"flex flex-col items-center justify-between"}>
-							<Menu/>
+							<Menu color={isOpenMenu ? "#8338EC" : "#383838"}/>
 							<p className={"mt-[7px] text-[10px] "}
 								 style={{
                    color: isOpenMenu ? "#8338EC" : "#383838"
