@@ -16,6 +16,7 @@ import PulseLoader from "react-spinners/PulseLoader";
 import {HashLoader} from "react-spinners";
 import slider from "../../public/images/images/mainSlider.png";
 import FreeScroll from "../components/UI/slider/free-scroll";
+import CategorySlider from "../components/UI/slider/category-slider";
 
 // import Background from "../../public/images/images/test.png.png"
 
@@ -227,9 +228,12 @@ const Home: NextPage = ({serverData}: any) => {
           {/*Popular offers*/}
 
           {/*categories*/}
-          <div className={"w-full "}>
+          <div className={"w-full"}>
+            <div className={"w-full container m-auto py-[40px] ph:flex hidden"}>
+              <CategorySlider/>
+            </div>
             <div
-                className={"space-x-[8px] md:space-x-[30px] !w-full py-[40px] flex flex-row overflow-scroll container m-auto grid-row-1"}>
+                className={"space-x-[8px] md:space-x-[30px] !w-full py-[40px] flex ph:hidden flex-row overflow-scroll container m-auto grid-row-1"}>
 
               {/*{categories?.filter(item => item.parentCategoryId === null).map((item, index) => {*/}
               {/*  return <Link href={"/category/4"}>*/}
@@ -415,16 +419,3 @@ const Home: NextPage = ({serverData}: any) => {
 
 export default Home
 
-// export async function getServerSideProps({query}: any) {
-//   const baseApi = process.env.baseApi;
-//   const response = await fetch(`${baseApi}/vouchers?contractId=662`);
-//   // const response = await fetch(`https://vouchers.pirveli.ge/api/racoon-transactions/vouchers?contractId=662`);
-//   const serverData = await response.json();
-//
-//
-//   return {
-//     props: {
-//       serverData,
-//     },
-//   };
-// }

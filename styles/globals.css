@@ -421,8 +421,13 @@ body {
     margin: 0 0 24px 0;
 }
 
-.gallery .swiper-scrollbar {
+.gallery .swiper-scrollbar, .category .swiper-scrollbar {
     display: none;
+}
+
+
+.category .swiper-slide {
+    width: min-content;
 }
 
 
