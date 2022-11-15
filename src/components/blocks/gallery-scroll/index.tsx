@@ -71,7 +71,6 @@ const GalleryScroll = ({data}: any) => {
               modules={[FreeMode]}
               className="gallery"
           >
-
             {
               runCallback(() => {
                 const galleryItem = [];
@@ -100,26 +99,25 @@ const GalleryScroll = ({data}: any) => {
 
         <div className={"flex h-[226px] ph:h-[400px] flex md:hidden"}>
 
-          {/*<Swiper*/}
-          {/*    direction={"horizontal"}*/}
-          {/*    pagination={true}*/}
-          {/*    spaceBetween={12}*/}
-          {/*    modules={[Pagination]}*/}
-          {/*    className="mySwiper detailsSwiper"*/}
-          {/*>*/}
-          {/*  {images.map((e, index) => {*/}
-          {/*    return <SwiperSlide key={"swiper" + index}>*/}
-          {/*      <img*/}
-          {/*          src={_.get(images, `[${index}].path`, [])}*/}
-          {/*          placeholder="loading"*/}
-          {/*          className={"object-cover h-full w-full w-full h-[226px] ph:h-[400px] max-h-[226px] ph:max-h-[400px]"}*/}
-          {/*          alt={"voucher photo"}/>*/}
-          {/*    </SwiperSlide>*/}
-          {/*  })}*/}
-          {/*</Swiper>*/}
+          <Swiper
+              direction={"horizontal"}
+              pagination={true}
+              spaceBetween={12}
+              modules={[Pagination]}
+              className="mySwiper detailsSwiper"
+          >
+            {images.map((e, index) => {
+              return <SwiperSlide key={"swiper" + index}>
+                <img
+                    src={_.get(images, `[${index}].path`, [])}
+                    placeholder="loading"
+                    className={"object-cover h-full w-full w-full h-[226px] ph:h-[400px] max-h-[226px] ph:max-h-[400px]"}
+                    alt={"voucher photo"}/>
+              </SwiperSlide>
+            })}
+          </Swiper>
 
         </div>
-
 
       </div>
   )
