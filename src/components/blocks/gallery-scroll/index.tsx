@@ -23,7 +23,7 @@ const GalleryScroll = ({data}: any) => {
 
   const Slide1 = ({idx, data}: any) => {
     return <div
-        key={idx}
+        // key={idx}
         className={"min-w-[880px] max-w-[880px] relative  h-[546px] relative !ml-0"}
         style={{marginLeft: `${idx === 0 ? '50px' : '0px'}`}}>
       <Image
@@ -39,7 +39,7 @@ const GalleryScroll = ({data}: any) => {
       {[1, 2, 3, 4].map((e, index) => {
         return images[idx + index + 1] &&
             // <SwiperSlide key={idx + index + 1}>
-						<div key={idx + index + 1} className={"h-[258px] max-h-[258px] w-[490px] max-w-[490px] relative"}>
+						<div key={idx + index + "four"} className={"h-[258px] max-h-[258px] w-[490px] max-w-[490px] relative"}>
 							<Image
 									src={_.get(images, `[${idx + index + 1}].path`, [])}
 									placeholder="loading"
@@ -73,7 +73,7 @@ const GalleryScroll = ({data}: any) => {
               scrollbar={true}
               mousewheel={true}
               modules={[FreeMode]}
-              className=""
+              className="gallery"
           >
 
             {

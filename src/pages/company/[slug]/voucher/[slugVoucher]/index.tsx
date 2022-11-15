@@ -1,6 +1,6 @@
 import Layout from "../../../../../components/layouts/user-layout"
 import Head from 'next/head'
-import {Badge, notification} from 'antd';
+import {notification} from 'antd';
 // @ts-ignore
 import {IMAGES, ICONS} from "public/images";
 import Image from "next/image";
@@ -15,7 +15,7 @@ import Button from "../../../../../components/UI/button";
 import Tabs from "antd/lib/tabs";
 import Link from "next/link";
 import axios from "axios";
-import router, {useRouter} from "next/router";
+import {useRouter} from "next/router";
 import OfferSlider from "../../../../../components/UI/slider/offer-slider";
 import dynamic from "next/dynamic";
 import {useDispatch, useSelector} from "react-redux";
@@ -26,8 +26,6 @@ import {
 } from "../../../../../components/slices/cartSlice";
 
 import {addToFavourites, clearFavourites, getTotalsFavourite} from "../../../../../components/slices/favouritesSlice";
-import {heartPurple} from "../../../../../../public/images/icons";
-import slider from "../../../../../../public/images/images/mainSlider.png";
 import FreeScroll from "../../../../../components/UI/slider/free-scroll";
 import Lari from "../../../../../../public/images/icons/lari";
 
@@ -37,7 +35,7 @@ const CountDown = dynamic(
 )
 const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-export default function Details({serverOffer, serverVoucher}: any) {
+export default function Details() {
   const baseApi = process.env.baseApi;
 
   const [vouchers, setVouchers] = useState<[]>([]);
@@ -159,10 +157,9 @@ export default function Details({serverOffer, serverVoucher}: any) {
           </div>
         </div>
         <div className={"grid grid-cols-2 grid-rows-1 gap-1 gap-x-[30px] gap-y-6 mt-8"}>
-          <div className={"bg-[white] py-2 pl-[10px] rounded-xl flex h-[64px] h-min"}>
+          <div className={"bg-[white] py-2 pl-[10px] rounded-xl flex min-h-[64px] h-min"}>
             <div className={"min-w-[32px] flex items-center justify-center"}>
               {/*<Image src={ICONS.dollar} className={"cursor-pointer "} alt={"share icon"}/>*/}
-
               {isWithMoney ? <Lari color={"#3838384d"} classes={"scale-150"}/> : <Image
                   src={IMAGES.coin}
                   quality={100}
@@ -179,7 +176,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
                 {
                   isWithMoney ?
                       <p className={"flex items-center lg:text-[18px] text-sm text-purple flex-nowrap whitespace-nowrap"}>
-                         {_.get(voucher, '[0].entries[0].entryAmount', 0) * quantity}
+                        {_.get(voucher, '[0].entries[0].entryAmount', 0) * quantity}
                       </p> :
                       <p className={"lg:text-[18px] text-sm text-purple flex items-center flex-nowrap whitespace-nowrap"}>
                         <div className={"mr-2"}>
@@ -249,7 +246,8 @@ export default function Details({serverOffer, serverVoucher}: any) {
                 <p className={"text-[#383838] lg:text-base text-sm"}>Price</p>
                 <div className={"flex flex-nowrap items-center"}>
                   <p className={"lg:text-[18px] text-base text-purple flex-nowrap whitespace-nowrap flex items-center mr-1.5"}>
-                    <Lari color={"#3838384d"} classes={"mr-1"}/> {_.get(voucher, '[0].additionalInfo[0].servicePrice', 0)}</p>
+                    <Lari color={"#3838384d"}
+                          classes={"mr-1"}/> {_.get(voucher, '[0].additionalInfo[0].servicePrice', 0)}</p>
                   <p className={"ml-1 lg:text-base text-sm  text-[#38383899] whitespace-nowrap line-through flex items-center"}>
                     <Lari color={"#3838384d"} classes={"mr-1"}/> {Math.round(getOldPrice())}</p>
                 </div>
@@ -340,25 +338,26 @@ export default function Details({serverOffer, serverVoucher}: any) {
                 </Link>
 
                 <div className={"flex items-center h-full "}>
-                  {
-                    <div className={"cursor-pointer w-11 flex justify-center items-center cursor-pointer"}>
-                      <Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
-                            target={"_blank"}>
-                        <div className={"flex justify-center items-center"}>
-                          <Image src={ICONS.fb} alt={"fb icon"}/>
-                        </div>
-                      </Link>
-                    </div>
+                  {_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "").includes("https://") &&
+
+											<div className={"cursor-pointer w-11 flex justify-center items-center cursor-pointer"}>
+												<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
+															target={"_blank"}>
+													<div className={"flex justify-center items-center"}>
+														<Image src={ICONS.fb} alt={"fb icon"}/>
+													</div>
+												</Link>
+											</div>
                   }
-                  {
-                    <div className={"cursor-pointer w-11 flex justify-end pr-1 cursor-pointer"}>
-                      <Link href={_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "")}
-                            target={"_blank"}>
-                        <div className={"flex justify-center items-center"}>
-                          <Image src={ICONS.insta} alt={"insta icon"}/>
-                        </div>
-                      </Link>
-                    </div>
+                  {_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "").includes("https://") &&
+											<div className={"cursor-pointer w-11 flex justify-end pr-1 cursor-pointer"}>
+												<Link href={_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "")}
+															target={"_blank"}>
+													<div className={"flex justify-center items-center"}>
+														<Image src={ICONS.insta} alt={"insta icon"}/>
+													</div>
+												</Link>
+											</div>
                   }
                 </div>
 
@@ -499,8 +498,8 @@ export default function Details({serverOffer, serverVoucher}: any) {
                   {/*fb  insta*/}
                   {_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) &&
 											<div className={"hidden space-x-[33px] md:flex items-center"}>
-                        {_.get(voucher, '[0]?.additionalInfo[0].provider.facebookUrl', null) &&
-														<div className={"cursor-pointer"}>
+                        {_.get(voucher, '[0]?.additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "").includes("https://") &&
+														< div className={"cursor-pointer"}>
 															<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
 																		target={"_blank"}>
 																<div>
@@ -510,7 +509,7 @@ export default function Details({serverOffer, serverVoucher}: any) {
 														</div>
                         }
                         {
-                            _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) &&
+                            _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "").includes("https://") &&
 														<div className={"cursor-pointer"}>
 															<Link href={_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "")}
 																		target={"_blank"}>

@@ -13,6 +13,8 @@ import dynamic from "next/dynamic";
 import _ from "lodash";
 import Image from "next/image";
 
+// import CartItem from "../../components/blocks/cart/cart-item";
+
 const CartItem = dynamic(
     () => import('../../components/blocks/cart/cart-item'),
     {ssr: false}
@@ -35,7 +37,6 @@ export default function Cart({serverData, productCount}: any) {
 
 
   const pay = () => {
-    console.log("eee", cart)
 
     let arr = cart.cartItems.filter((e: any) => e.isPoint === false);
 
@@ -103,8 +104,6 @@ export default function Cart({serverData, productCount}: any) {
       }
     }
 
-    console.log("bogObj", bogObj)
-    console.log("tbcObj", tbcObj)
 
     if (payType === "bog") {
       axios.post(`https://vouchers.pirveli.ge/api/bog/orders`, bogObj).then((res) => {
@@ -130,21 +129,21 @@ export default function Cart({serverData, productCount}: any) {
           <meta name="description" content="cart"/>
         </Head>
 
-        <div className={" flex flex-col flex-1"}>
+        <div className={""}>
           <div
-              className={"min-h-[60vh] grid grid-rows-1 mt-6 mb-[100px] grid-cols-4 container m-auto grid-flow-col gap-[30px]"}>
+              className={"min-h-[60vh] mt-6 ph:container ph:m-auto mb-[100px] flex flex-col xl:flex-row w-full gap-[30px]"}>
 
             {/*cart list*/}
-            <div className={"col-span-3"}>
+            <div className={"flex flex-col w-full"}>
               {/*head*/}
-              <div className={"flex items-center"}>
+              <div className={"flex items-center "}>
                 <p className={"text-[#383838] text-[28px] font-bold relative after:content-[''] after:h-[20px] after:top-[12px] after:bg-[#38383833] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500"}>
                   My cart</p>
                 <p className={"text-[#38383899] text-base ml-[25px]"}>{cart?.productCount} products</p>
               </div>
               {/*head*/}
 
-              <div className={"flex flex-col space-y-[25px] mt-4"}>
+              <div className={"flex flex-col space-y-[16px] ph:space-y-[25px] mt-4 "}>
                 {cart?.cartItems?.map((item: any, index: number) => {
                   return <CartItem data={item} getCount={getCount} key={index}/>
                 })}
@@ -155,29 +154,30 @@ export default function Cart({serverData, productCount}: any) {
             {/*cart list*/}
 
             {/*cart info*/}
-            <div className={"h-full"}>
-              <h5 className={"text-[#383838] text-[28px] font-bold "}>Order</h5>
+            <div className={"h-full ph:min-w-[340px] xl:min-w-[360px] shrink-0 px-[16px] ph:px-0"}>
+              <h5 className={"text-[#383838] text-[28px] font-bold hidden ph:block"}>Order</h5>
 
               <div className={"sticky top-[130px] max-h-[600px] overflow-scroll rounded-xl"}>
-                <div className={"rounded-xl bg-[white] px-6 mt-4 pt-[30px] pb-[54px]"}>
 
+                <div className={"rounded-xl bg-[white] ph:px-6 mt-4 ph:pt-[30px] ph:pb-[54px] p-4"}>
+                  <h5 className={"text-[#383838] text-[18px] font-bold block ph:hidden mb-[16px]"}>Order</h5>
                   <div className={"flex items-center w-full justify-between "}>
-                    <p className={"text-[22px] text-[#38383899]"}>Number of vouchers</p>
-                    <p className={"text-[22px] text-[#38383899] font-[500]"}>{cart?.cartTotalQuantity}</p>
+                    <p className={"ph:text-[22px] text-base text-[#38383899]"}>Number of vouchers</p>
+                    <p className={"ph:text-[22px] text-base text-[#38383899] font-[500]"}>{cart?.cartTotalQuantity}</p>
                   </div>
 
                   <div className={"h-[1px] w-full bg-[#38383833] rounded-xl mt-6 mb-[30px]"}/>
 
                   <div className={"flex justify-between"}>
-                    <p className={"text-[#383838] text-[28px] font-bold "}>Total Price</p>
+                    <p className={"text-[#383838] ph:text-[28px] text-[18px] font-bold "}>Total Price</p>
                     <div className={"flex items-center"}>
                       <Lari color={"#E35A43"} height={18} width={18}/>
-                      <p className={"text-[22px] text-[#E35A43]"}>{cart?.cartTotalPrice}</p>
+                      <p className={"ph:text-[22px] text-[18px] text-[#E35A43]"}>{cart?.cartTotalPrice}</p>
                     </div>
                   </div>
 
                   <div className={"flex justify-between"}>
-                    <p className={"text-[#383838] text-[28px] font-bold"}>Total Points</p>
+                    <p className={"text-[#383838] ph:text-[28px] text-[18px] font-bold"}>Total Points</p>
                     <div className={"flex items-center"}>
                       <p className={"z-10 text-[20px] text-[#E35A43] font-bold transition ml-[10px] mr-1.5"}>
                         <Image
@@ -190,7 +190,7 @@ export default function Cart({serverData, productCount}: any) {
                             alt={"coin icon"}
                         />
                       </p>
-                      <p className={"text-[22px] text-[#E35A43]"}>{cart?.totalPoint}</p>
+                      <p className={"ph:text-[28px] text-[18px] text-[#E35A43]"}>{cart?.totalPoint}</p>
                     </div>
                   </div>
 
