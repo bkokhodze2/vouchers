@@ -22,7 +22,21 @@ const CategorySlider = ({data}: any) => {
           freeMode={true}
           scrollbar={true}
           mousewheel={true}
-          spaceBetween={30}
+          breakpoints={{
+            320: {
+              spaceBetween: 16,
+            },
+            640: {
+              spaceBetween: 16,
+            },
+            // when window width is >= 768px
+            768: {
+              spaceBetween: 30,
+            },
+            1280: {
+              spaceBetween: 30,
+            },
+          }}
           modules={[FreeMode]}
           className="category"
       >

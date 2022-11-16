@@ -431,7 +431,8 @@ body {
     align-items: center;
     justify-content: center;
 }
-.ant-result-image{
+
+.ant-result-image {
     margin: 0;
 }
 
@@ -472,5 +473,10 @@ body {
     .mySwiper .swiper-slide {
         border-radius: 0;
     }
+}
+
+
+.container, .con {
+    max-width: 1530px !important;
 }
 

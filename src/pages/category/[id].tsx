@@ -67,11 +67,11 @@ export default function Category({serverData}: any) {
 					</div>
           }
 
-          <div className={"ph:container m-auto mt-4 ph:mt-8 pb-[100px]"}>
+          <div className={"ph:container con m-auto mt-4 ph:mt-8 pb-[100px]"}>
 
-            {vouchers.length > 0 && <div className={"flex flex-col mt-[0px] md:mt-[44px]"}>
-							<div className={"ph:container pl-0px ph:p-auto ph:m-auto w-full"}>
-								<h1 className={"text-[18px] pl-3 ph:pl-0 m-auto sm:text-[28px] text-[#383838] font-bold"}>Popular
+            {vouchers.length > 0 && <div className={"lex flex-col mt-[44px] md:mt-0"}>
+							<div className={"ph:container con pl-0px ph:p-auto ph:m-auto w-full"}>
+								<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold"}>Popular
 									offers</h1>
 								<div className={"mt-4"}>
 									<OfferSlider data={vouchers}/>
@@ -79,6 +79,7 @@ export default function Category({serverData}: any) {
 								</div>
 							</div>
 						</div>}
+
 
 
             {/*<div className={"h-[60px] bg-[black] mt-[54px] flex justify-between"}>*/}
@@ -139,7 +140,7 @@ export default function Category({serverData}: any) {
             </div>
 
             <div
-                className={"mt-4 container grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-5 md:gap-y-[42px] md:gap-x-[30px]"}>
+                className={"mt-[40px] container grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-5 md:gap-y-[42px] md:gap-x-[30px]"}>
               {
                 vouchers?.map((item: any, index: any) => {
                   return <OfferItem data={item} key={index}/>
