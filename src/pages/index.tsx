@@ -92,7 +92,7 @@ const Home: NextPage = ({serverData}: any) => {
                 className="flex flex-col md:grid grid-rows-2 md:grid-rows-1 md:max-h-[552px] mt-0 md:mt-2 lg:mt-6 grid-cols-4 md:container m-auto grid-flow-col gap-[44px] md:gap-[10px] lg:gap-[30px]">
 
               {/*Become Partner*/}
-              <div className={"order-2 md:order-1 container p-4 md:p-0 m-auto col-span-4 md:col-span-1"}>
+              <div className={"order-2 md:order-1 container p-4 py-0 ph:p-4 md:p-0 m-auto col-span-4 md:col-span-1"}>
                 <div
                     // order-last
                     className="relative min-h-[138px] md:min-h-unset bg-[white] py-0 md:py-4 lg:py-8 rounded-xl flex flex-row md:flex-col md:items-center overflow-hidden bg-no-repeat bg-top"
@@ -184,7 +184,7 @@ const Home: NextPage = ({serverData}: any) => {
 								</div>
 							</div>}
 
-          <div className={"mt-10 container m-auto mt-[44px] w-full flex sm:hidden relative"}>
+          <div className={"mt-10 container m-auto mt-[55px] w-full flex sm:hidden relative"}>
             <img
                 src={IMAGES.mobileBanner.src}
                 placeholder="blur"
@@ -233,7 +233,7 @@ const Home: NextPage = ({serverData}: any) => {
               <CategorySlider/>
             </div>
             <div
-                className={"space-x-[8px] md:space-x-[30px] !w-full py-[40px] flex ph:hidden flex-row overflow-scroll container m-auto grid-row-1"}>
+                className={"space-x-[8px] md:space-x-[30px] !w-full py-[44px] flex ph:hidden flex-row overflow-scroll container m-auto grid-row-1"}>
 
               {/*{categories?.filter(item => item.parentCategoryId === null).map((item, index) => {*/}
               {/*  return <Link href={"/category/4"}>*/}
@@ -380,7 +380,7 @@ const Home: NextPage = ({serverData}: any) => {
 
           {/*New offers  */}
           <div
-              className={"flex flex-col w-full pb-[98px] mt-[44px] sm:mt-[0px]"}>
+              className={"flex flex-col w-full pb-[98px] mt-[0px] sm:mt-[0px]"}>
             {vouchers.length > 0 && <div className={"container m-auto"}>
 							<h1 className={"text-[18px] sm:text-[28px] text-[#383838] font-bold"}>New offers</h1>
 							<div
