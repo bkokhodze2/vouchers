@@ -124,7 +124,7 @@ export default function Details() {
   }, [dispatch, favourites, voucher])
 
   const RightSide = () => {
-    return <div className={"h-full container m-auto  md:p-0 "}>
+    return <div className={"h-full container m-auto lg:p-0 "}>
       <div className={"bg-[transparent] lg:bg-[#ffffff66] rounded-xl p-0 lg:p-8 top-[150px] sticky overflow-y-scroll "}>
         <div className={"grid grid-cols-2 grid-rows-1 bg-[white] w-full h-[48px] rounded-xl p-1"}>
           <div onClick={() => {
@@ -364,8 +364,8 @@ export default function Details() {
               </div>
             </div>
             {_.get(voucher, '[0].additionalInfo[0].attachments', []).length > 0 && <GalleryScroll data={voucher}/>}
-            <div className={"block lg:hidden py-6 col-span-3 bg-[#F7F7F7]"}><RightSide/></div>
-            <div className={"container flex w-full  gap-[30px] m-auto pt-8"}>
+            <div className={"block lg:hidden py-6  col-span-3 bg-[#F7F7F7]"}><RightSide/></div>
+            <div className={"container flex w-full gap-[30px] m-auto pt-8"}>
               {/*left side*/}
 
               <div className={"h-full "}>
@@ -410,7 +410,7 @@ export default function Details() {
                             _.get(voucher, '[0].additionalInfo[0].provider.providerContacts', 0).length > 1 &&
 														<div
 																style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
-																className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
+																className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] right-0 space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
                               {
                                 _.get(voucher, '[0].additionalInfo[0].provider.providerContacts', []).slice(1, _.get(voucher, '[0].additionalInfo[0].provider.providerContacts', 0).length).map((item: any, index: number) => {
                                   return <p className={"text-[#383838b3] text-base"} key={index}>
@@ -438,7 +438,7 @@ export default function Details() {
                     </div>
                     {_.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).length > 0 && <div
 												style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
-												className={"hidden md:block group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
+												className={"hidden md:block group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 right-0 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
                       {
                         _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).map((item: any, index: number) => {
                           return <div className={"flex justify-between"} key={index}>
@@ -482,7 +482,7 @@ export default function Details() {
 
                         {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', []).length > 1 && <div
 														style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
-														className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
+														className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 right-0 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
                           {
                             _.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', []).slice(1, _.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', 0).length).map((item: any, index: number) => {
                               return <p className={"text-[#383838b3] text-base"} key={index}>
@@ -549,8 +549,8 @@ export default function Details() {
             {/*recommended*/}
 
           </div>
-          {vouchers.length > 0 && <div className={"flex w-full flex-col mt-[44px] md:mt-0 details"}>
-						<div className={"ph:container pl-0px ph:p-auto ph:m-auto w-full"}>
+          {vouchers.length > 0 && <div className={"flex w-full flex-col mt-[44px] md:mt-[44px] details"}>
+						<div className={"ph:container con pl-0px ph:p-auto ph:m-auto w-full"}>
 							<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold"}>Recommended</h1>
 							<div className={"mt-4"}>
 								<OfferSlider data={vouchers}/>

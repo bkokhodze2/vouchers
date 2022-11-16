@@ -89,7 +89,7 @@ const Home: NextPage = ({serverData}: any) => {
         <main className={"flex flex-col "}>
           <div className={"w-full flex-col"}>
             <div
-                className="flex flex-col md:grid grid-rows-2 md:grid-rows-1 md:max-h-[552px] mt-0 md:mt-2 lg:mt-6 grid-cols-4 md:container m-auto grid-flow-col gap-[44px] md:gap-[10px] lg:gap-[30px]">
+                className="flex flex-col md:grid grid-rows-2 md:grid-rows-1 md:max-h-[552px] mt-0 md:mt-2 lg:mt-6 grid-cols-4 md:container con m-auto grid-flow-col gap-[44px] md:gap-[10px] lg:gap-[30px]">
 
               {/*Become Partner*/}
               <div className={"order-2 md:order-1 container p-4 py-0 ph:p-4 md:p-0 m-auto col-span-4 md:col-span-1"}>
@@ -174,7 +174,7 @@ const Home: NextPage = ({serverData}: any) => {
           {/*Special offers*/}
           {promo.length > 0 &&
 							<div className={"flex flex-col mt-[44px] md:mt-[40px]"}>
-								<div className={"ph:container pl-0px ph:p-auto ph:m-auto w-full"}>
+								<div className={"ph:container con pl-0px ph:p-auto ph:m-auto w-full"}>
 									<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold"}>Special
 										offers</h1>
 									<div className={"mt-4"}>
@@ -202,7 +202,7 @@ const Home: NextPage = ({serverData}: any) => {
 
           {/*Popular offers*/}
           <div className={"w-full "}>
-            <div className={"mt-10 sm:container m-auto mt-[76px] mb-[84px] hidden sm:flex"}>
+            <div className={"mt-10 sm:container con m-auto mt-[76px] mb-[84px] hidden sm:flex"}>
               <Image
                   src={IMAGES.banner}
                   quality={70}
@@ -214,7 +214,7 @@ const Home: NextPage = ({serverData}: any) => {
 
             {/*Popular offers */}
             {vouchers.length > 0 && <div className={"flex flex-col mt-[44px] md:mt-0"}>
-							<div className={"ph:container pl-0px ph:p-auto ph:m-auto w-full"}>
+							<div className={"ph:container con pl-0px ph:p-auto ph:m-auto w-full"}>
 								<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold"}>Popular
 									offers</h1>
 								<div className={"mt-4"}>
@@ -392,7 +392,7 @@ const Home: NextPage = ({serverData}: any) => {
                 }
 							</div>
 
-							<div className={"flex justify-center mt-[48px] "}>
+							<div className={"flex justify-center mt-[48px]"}>
 								<div
 										className={"bg-purple rounded-xl h-[48px] sm:w-min w-full px-10 flex justify-center items-center cursor-pointer"}
 										style={{

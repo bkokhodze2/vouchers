@@ -45,7 +45,7 @@ export default function Search({serverData}: any) {
               <p className={"text-[#383838] text-[28px] font-bold mb-4"}>
                 Search result “<span className={"text-purple"}>{Router.query.slug}</span>”
               </p>
-              <div className={"container m-auto grid grid-flow-row-dense grid-cols-4 gap-[30px] gap-y-[40px]"}>
+              <div className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-5 md:gap-y-[42px] md:gap-x-[30px]"}>
 
                 {vouchers?.map((item: any, index: number) => {
                   return <OfferItem data={item} key={index}/>

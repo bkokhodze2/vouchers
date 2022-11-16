@@ -131,7 +131,7 @@ export default function Cart({serverData, productCount}: any) {
 
         <div className={""}>
           <div
-              className={"min-h-[60vh] mt-6 ph:container ph:m-auto mb-[100px] flex flex-col xl:flex-row w-full gap-[30px]"}>
+              className={"min-h-[60vh] mt-6 ph:container con ph:m-auto mb-[100px] flex flex-col xl:flex-row w-full gap-[30px]"}>
 
             {/*cart list*/}
             <div className={"flex flex-col w-full"}>
