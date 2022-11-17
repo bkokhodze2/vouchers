@@ -4,6 +4,7 @@ import {ICONS} from "public/images";
 import 'react-indiana-drag-scroll/dist/style.css'
 import {Image} from 'antd';
 import _ from "lodash";
+import {LazyLoadImage} from 'react-lazy-load-image-component';
 
 // Import Swiper styles
 import "swiper/css";
@@ -12,7 +13,7 @@ import "swiper/css/scrollbar";
 
 // import required modules
 import {Swiper, SwiperSlide} from "swiper/react";
-import {FreeMode, Scrollbar, Mousewheel, Pagination} from "swiper";
+import {FreeMode, Scrollbar, Mousewheel, Pagination, Lazy} from "swiper";
 
 const GalleryScroll = ({data}: any) => {
   const [isVisibleDrawer, setIsVisibleDrawer] = useState<boolean>(false);
@@ -68,7 +69,8 @@ const GalleryScroll = ({data}: any) => {
               freeMode={true}
               scrollbar={true}
               mousewheel={true}
-              modules={[FreeMode]}
+              lazy={true}
+              modules={[FreeMode, Mousewheel, Lazy]}
               className="gallery"
           >
             {
@@ -103,14 +105,14 @@ const GalleryScroll = ({data}: any) => {
               direction={"horizontal"}
               pagination={true}
               spaceBetween={12}
-              modules={[Pagination]}
+              lazy={true}
+              modules={[Pagination, Lazy]}
               className="mySwiper detailsSwiper"
           >
             {images.map((e, index) => {
               return <SwiperSlide key={"swiper" + index}>
-                <img
+                <LazyLoadImage
                     src={_.get(images, `[${index}].path`, [])}
-                    placeholder="loading"
                     className={"object-cover h-full w-full w-full h-[226px] ph:h-[400px] max-h-[226px] ph:max-h-[400px]"}
                     alt={"voucher photo"}/>
               </SwiperSlide>
