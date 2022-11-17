@@ -41,71 +41,72 @@ export default function History({serverData}: any) {
   const HistoryItem = ({evaluated}: any) => {
     const [isEvaluated, setIsEvaluated] = useState<boolean>(evaluated)
 
-    return <div className={"p-6 pr-[30px] flex flex-col bg-[white] rounded-2xl"}>
-
-      <div className={"flex mb-[30px] justify-between"}>
-        <div className={"flex flex-col w-[200px]"}>
+    return <div
+        className={"md:p-6 p-4 md:pr-[30px] flex flex-col ph:flex-row md:flex-col md:gap-0 gap-[18px] bg-[#F7F7F7] rounded-0 md:rounded-2xl"}>
+      <div
+          className={"md:order-1 order-2 w-full ph:w-[50%] md:w-full flex mb-0 md:mb-[30px] gap-[15px] md:gap-[0px] flex-col md:flex-row md:justify-between"}>
+        <div className={"flex flex-row md:flex-col items-center md:items-start md:w-[200px]"}>
           <p className={"text-[#38383899] "}>Order Id</p>
-          <span className={"text-[#383838] text-base"}>sdsd</span>
+          <span className={"text-[#383838] md:text-base text-sm ml-[6px]"}>sdsd</span>
         </div>
-        <div className={"flex flex-col"}>
+        <div className={"flex flex-row md:flex-col items-center md:items-start "}>
           <p className={"text-[#38383899] "}>Date</p>
-          <span className={"text-[#383838] text-base"}>20.10.2022</span>
+          <span className={"text-[#383838] md:text-base text-sm ml-[6px]"}>20.10.2022</span>
         </div>
-        <div className={"flex flex-col"}>
+        <div className={"flex flex-row md:flex-col items-center md:items-start "}>
           <p className={"text-[#38383899] "}>Quantity</p>
-          <span className={"text-[#383838] text-base"}>1</span>
+          <span className={"text-[#383838] md:text-base text-sm ml-[6px]"}>1</span>
         </div>
-        <div className={"flex flex-col"}>
+        <div className={"flex flex-row md:flex-col items-center md:items-start "}>
           <p className={"text-[#38383899] "}>Price</p>
-          <span className={"text-[#383838] text-base"}>$ 150</span>
+          <span className={"text-[#383838] md:text-base text-sm ml-[6px]"}>$ 150</span>
         </div>
-        <div className={"flex flex-col"}>
+        <div className={"flex flex-row md:flex-col items-center md:items-start "}>
           <p className={"text-[#38383899] "}>Sum</p>
-          <span className={"text-[#383838] text-base text-purple"}>P 1 500</span>
+          <span className={"md:text-base text-sm ml-[6px] text-purple"}>P 1 500</span>
         </div>
-        <div className={"flex flex-col"}>
-          <p className={"text-[#38383899] "}>Earn Point</p>
-          <span className={"text-[#383838] text-base"}>0</span>
+        <div className={"flex flex-row md:flex-col items-center md:items-start "}>
+          <p className={"text-[#38383899]"}>Earn Point</p>
+          <span className={"text-[#56971F] md:text-base text-sm ml-[6px]"}>0</span>
         </div>
-        <div className={"flex flex-col"}>
+        <div className={"flex flex-row md:flex-col items-center md:items-start "}>
           <p className={"text-[#38383899] "}>Voucher Code</p>
-          <span className={"text-[#383838] text-base font-bold"}>234569</span>
+          <span className={"text-[#383838] md:text-base text-sm ml-[6px] font-bold"}>234569</span>
         </div>
 
       </div>
 
-      <div className={"flex"}>
+      <div className={"md:order-2 order-1 w-full ph:w-[50%] md:w-full flex flex-col md:flex-row"}>
 
-        <div className={"w-full max-w-[240px] max-h-[150px] mr-[30px]"}>
-          <Image src={IMAGES.offerItem}
-                 quality={70}
-                 blurDataURL={IMAGES.placeholder.src}
-                 placeholder="blur"
-                 priority={true}
-                 alt={"product image"}
-                 className={"rounded-xl"}
-                 style={{objectFit: "cover"}}
+        <div
+            className={"w-full flex max-w-full min-w-full min-h-full ph:max-w-[150px] ph:max-h-[200px] ph:min-h-[114px] md:max-w-[240px] md:min-w-[240px] md:max-h-[150px] md:mr-[30px]"}>
+          <img src={IMAGES.offerItem.src}
+               placeholder="blur"
+               alt={"product image"}
+               className={"rounded-xl"}
+               style={{objectFit: "cover"}}
           />
         </div>
 
-        <div className={"flex justify-between items-center w-full"}>
+        <div className={"flex flex-col md:flex-row justify-between items-start md:items-center w-full"}>
           <div className={"flex flex-col"}>
-            <h2 className={"text-[#383838] font-bold text-[22px]"}>ASSA RESTAURANT</h2>
-            <p className={"text-base mt-2 text-[#38383899] max-w[464px]"}>From 80 lari, hotel apartments in
+            <h2 className={"text-[#383838] font-bold md:text-[22px] text-base mt-4 md:mt-0"}>ASSA RESTAURANT</h2>
+            <p className={"text-base mt-2 text-[#38383899] max-w[464px] hidden md:flex"}>From 80 lari, hotel apartments
+              in
               the Orbi
               hotel network
               in Batumi</p>
           </div>
 
-          <div className={"ml-[30px]"}>
+          <div className={"ml-0 md:ml-[30px] md:mt-0 mt-2"}>
 
             {
-              isEvaluated ? <Rate disabled defaultValue={4} className={"text-[16px] h-[20px] mb-1.5"}/> :
+              isEvaluated ? <Rate disabled defaultValue={4} className={"text-[16px] min-w-[120px] h-[20px] mb-1.5"}/> :
                   <div onClick={() => {
                     setIsModalOpen(true)
                   }}>
-                    <Button bgColor={"#383838"} text={"Add Review"} textColor={"white"}/>
+                    <Button classes={"hidden md:flex"} bgColor={"#383838"} text={"Add Review"} textColor={"white"}/>
+                    <p className={"text-[#8338EC] text-base underline flex md:hidden"}>Add review</p>
                   </div>
             }
 
@@ -113,7 +114,6 @@ export default function History({serverData}: any) {
 
         </div>
       </div>
-
 
     </div>
   }
@@ -187,11 +187,11 @@ export default function History({serverData}: any) {
 
         <div className={""}>
           <div
-              className={"grid grid-rows-1 pt-8 pb-[100px] grid-cols-4 container m-auto grid-flow-col gap-[30px]"}>
+              className={"grid grid-rows-1 ph:pt-8 pt-0 pb-[100px] grid-cols-1 lg:grid-cols-4 md:container m-auto grid-flow-col gap-4 ph:gap-[30px]"}>
 
             {/*company info*/}
-            <div className={"rounded-xl"}>
-              <div className={"sticky top-[150px] max-h-[calc(100vh_-_2rem)] overflow-scroll rounded-xl"}>
+            <div className={"rounded-xl hidden lg:flex w-full"}>
+              <div className={"sticky top-[150px] max-h-[calc(100vh_-_2rem)] w-full overflow-scroll rounded-xl"}>
                 <div className={"h-[160px] w-full relative bg-[#d9d9d933] rounded-t-xl "}>
                   <Image src={IMAGES.company}
                          quality={70}
@@ -221,9 +221,10 @@ export default function History({serverData}: any) {
             </div>
             {/*company info*/}
 
-            <div className={"col-span-3"}>
-              <h2 className={"capitalize text-[#383838] text-[28px] font-bold leading-[28px]"}>order history</h2>
-              <div className={"mt-4 w-full bg-white rounded-[16px] space-y-[30px] flex flex-col"}>
+            <div className={"col-span-1 md:col-span-3"}>
+              <h2 className={"capitalize text-[#383838] text-[28px] font-bold leading-[28px] hidden ph:flex"}>order
+                history</h2>
+              <div className={"mt-0 ph:mt-4 w-full bg-white rounded-[16px] space-y-[16px] ph:space-y-[30px] flex flex-col"}>
                 {[1, 2, 3, 4, 5, 6].map((e, index) => {
                   return <HistoryItem key={index} evaluated={index % 2 == 0}/>
                 })}

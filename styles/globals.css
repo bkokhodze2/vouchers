@@ -446,11 +446,13 @@ body {
     width: min-content;
 }
 
+#bwc-widget-action {
+    bottom: 93px !important;
+}
 
 @media (max-width: 600px) {
 
     .miniHeight .img {
-
         height: 155px !important;
     }
 
@@ -477,6 +479,6 @@ body {
 
 
 .container, .con {
-    max-width: 1530px !important;
+    max-width: 1562px !important;
 }
 

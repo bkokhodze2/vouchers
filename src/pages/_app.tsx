@@ -9,7 +9,7 @@ import type {ReactElement, ReactNode} from 'react'
 import type {NextPage} from 'next'
 import type {AppProps} from 'next/app'
 import store from "../components/store/index"
-
+import Script from 'next/script'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -24,9 +24,23 @@ export default function MyApp({Component, pageProps}: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
 
   return getLayout(
-      <Provider store={store}>
-        <Component {...pageProps} />
-      </Provider>
+      <>
+        <Script strategy="afterInteractive" dangerouslySetInnerHTML={{
+          __html: `(function(d, w, s) {
+                var widgetHash = '6RbjV9Nq9riHUTrKPbFJ', bch = d.createElement(s); bch.type = 'text/javascript'; bch.async = true;
+                bch.src = '//widgets.binotel.com/chat/widgets/' + widgetHash + '.js';
+                var sn = d.getElementsByTagName(s)[0]; sn.parentNode.insertBefore(bch, sn);
+              })(document, window, 'script');`
+        }}/>
+
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
+      </>
   )
 }
+
+
+
+
 

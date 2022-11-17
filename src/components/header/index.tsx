@@ -25,6 +25,7 @@ import Menu from "../../../public/images/icons/menu";
 import MenuDrawer from "../blocks/menu-drawer";
 import SearchDrawer from "../blocks/search-drawer";
 import Basket from "../../../public/images/icons/orders";
+import {notFound2} from "../../../public/images/images";
 
 
 interface Icategory {
@@ -172,20 +173,15 @@ const Header: React.FC = () => {
 
     return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
       <div className={"flex py-4 w-full"}>
-        <div className={"w-full max-w-[125px] min-w-[125px] max-h-[76px] h-[75px] mr-4 relative"}>
-          {
-            <img
-                src={_.get(data, 'additionalInfo[0].attachments[0].path', offerItem.src)}
-                // layout={"fill"}
-                height={76}
-                width={125}
-                // quality={60}
-                // blurDataURL={IMAGES.placeholder.src}
-                placeholder="blur"
-                loading={'lazy'}
-                alt={"product image"} className={"rounded-xl w-full max-h-[76px]"}
-                style={{objectFit: "cover"}}/>
-          }
+        <div className={"w-full max-w-[125px] min-w-[125px] max-h-[76px] min-h-[76px] h-[76px] flex mr-4 relative"}>
+          <img
+              src={_.get(data, 'additionalInfo[0].attachments[0].path', offerItem.src)}
+              height={76}
+              width={125}
+              placeholder="blur"
+              loading={'lazy'}
+              alt={"product image"} className={"rounded-xl w-full max-h-[76px]"}
+              style={{objectFit: "cover"}}/>
 
           <div
               className={"absolute top-[8px] left-[8px] z-20 flex justify-center items-center bg-[#E35A43] rounded-[100px] h-[25px]"}>
@@ -389,7 +385,7 @@ const Header: React.FC = () => {
                           (!findData?.length && !isLoading) &&
 													<div className={"w-full flex flex-col justify-center items-center h-[300px]"}>
 														<Image
-																src={IMAGES.notFound}
+																src={IMAGES.notFound2}
 																quality={60}
 																blurDataURL={IMAGES.placeholder.src}
 																placeholder="blur"
@@ -548,79 +544,81 @@ const Header: React.FC = () => {
 
         </header>
 
-        {!isOpenSearch && !Router.pathname.includes("/company") && <div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0"}
-															 style={{
-                                 zIndex: 999
-                               }}
-				>
-					<div className={"grid grid-cols-5 pt-3"}>
-						<div onClick={() => navTo("/")}>
-							<div className={"flex flex-col items-center justify-between"}
-									 onClick={() => {
-                     setIsOpenMenu(false)
-                     setIsOpenSearch(false)
-                   }}
-							>
-								<Home color={!isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"}/>
-								<p className={"mt-[7px] text-[10px] "}
-									 style={{
-                     color: !isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"
-                   }}
-								>Home</p>
-							</div>
-						</div>
-
-						<div className={"flex flex-col items-center justify-between pt-0.5"}
-								 onClick={() => {
-                   setIsOpenMenu(false)
-                   setIsOpenSearch(true)
+        {!isOpenSearch && !Router.pathname.includes("/company") &&
+						<div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0"}
+								 style={{
+                   zIndex: 999
                  }}
 						>
-							<Search color={isOpenSearch ? "#8338EC" : "#383838"}/>
-							<p className={"mt-[7px] text-[10px] text-[#383838]"}
-								 style={{
-                   color: isOpenSearch ? "#8338EC" : "#383838"
-                 }}
-							>Search</p>
-						</div>
-						<div onClick={() => navTo("/wishlist")}>
-							<div className={"flex flex-col items-center justify-between"}>
-								<BarHeart
-										color={!isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"}/>
-								<p
-										style={{
-                      color: !isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"
+							<div className={"grid grid-cols-5 pt-3"}>
+								<div onClick={() => navTo("/")}>
+									<div className={"flex flex-col items-center justify-between"}
+											 onClick={() => {
+                         setIsOpenMenu(false)
+                         setIsOpenSearch(false)
+                       }}
+									>
+										<Home color={!isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"}/>
+										<p className={"mt-[7px] text-[10px] "}
+											 style={{
+                         color: !isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"
+                       }}
+										>Home</p>
+									</div>
+								</div>
+
+								<div className={"flex flex-col items-center justify-between pt-0.5"}
+										 onClick={() => {
+                       setIsOpenMenu(false)
+                       setIsOpenSearch(true)
+                     }}
+								>
+									<Search color={isOpenSearch ? "#8338EC" : "#383838"}/>
+									<p className={"mt-[7px] text-[10px] text-[#383838]"}
+										 style={{
+                       color: isOpenSearch ? "#8338EC" : "#383838"
+                     }}
+									>Search</p>
+								</div>
+								<div onClick={() => navTo("/wishlist")}>
+									<div className={"flex flex-col items-center justify-between"}>
+										<BarHeart
+												color={!isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"}/>
+										<p
+												style={{
+                          color: !isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"
+                        }}
+												className={"mt-[7px] text-[10px] text-[#383838]"}
+										>Wishlist</p>
+									</div>
+								</div>
+								<div onClick={() => navTo("/cart")}>
+									<div className={"flex flex-col items-center justify-between"}>
+										<Basket
+												color={!isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"}/>
+										<p
+												style={{
+                          color: !isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"
+                        }}
+												className={"mt-[7px] text-[10px] text-[#383838]"}
+										>Basket</p>
+									</div>
+								</div>
+								<div
+										onClick={() => {
+                      setIsOpenSearch(false)
+                      setIsOpenMenu(true)
                     }}
-										className={"mt-[7px] text-[10px] text-[#383838]"}
-								>Wishlist</p>
+										className={"flex flex-col items-center justify-between"}>
+									<Menu color={isOpenMenu ? "#8338EC" : "#383838"}/>
+									<p className={"mt-[7px] text-[10px] "}
+										 style={{
+                       color: isOpenMenu ? "#8338EC" : "#383838"
+                     }}
+									>Menu</p>
+								</div>
 							</div>
-						</div>
-						<div onClick={() => navTo("/cart")}>
-							<div className={"flex flex-col items-center justify-between"}>
-								<Basket color={!isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"}/>
-								<p
-										style={{
-                      color: !isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"
-                    }}
-										className={"mt-[7px] text-[10px] text-[#383838]"}
-								>Basket</p>
-							</div>
-						</div>
-						<div
-								onClick={() => {
-                  setIsOpenSearch(false)
-                  setIsOpenMenu(true)
-                }}
-								className={"flex flex-col items-center justify-between"}>
-							<Menu color={isOpenMenu ? "#8338EC" : "#383838"}/>
-							<p className={"mt-[7px] text-[10px] "}
-								 style={{
-                   color: isOpenMenu ? "#8338EC" : "#383838"
-                 }}
-							>Menu</p>
-						</div>
-					</div>
-				</div>}
+						</div>}
 
         <MenuDrawer isOpenMenu={isOpenMenu}/>
 

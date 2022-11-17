@@ -8,6 +8,7 @@ export {default as detailsImg} from './detailsImg.png';
 export {default as company} from './company.jpeg';
 export {default as coin} from './coin.png';
 export {default as notFound} from './notFound.png';
+export {default as notFound2} from './notFound2.png';
 export {default as notFoundMobile} from './notFoundMobile.png';
 export {default as offerItem} from './offerItem.png';
 export {default as footer} from './footer.png';
