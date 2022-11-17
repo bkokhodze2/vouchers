@@ -25,7 +25,7 @@ export default function MyApp({Component, pageProps}: AppPropsWithLayout) {
 
   return getLayout(
       <>
-        <Script dangerouslySetInnerHTML={{
+        <Script strategy="afterInteractive" dangerouslySetInnerHTML={{
           __html: `(function(d, w, s) {
                 var widgetHash = '6RbjV9Nq9riHUTrKPbFJ', bch = d.createElement(s); bch.type = 'text/javascript'; bch.async = true;
                 bch.src = '//widgets.binotel.com/chat/widgets/' + widgetHash + '.js';
