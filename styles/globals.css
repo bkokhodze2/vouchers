@@ -446,9 +446,9 @@ body {
     width: min-content;
 }
 
-#bwc-widget-action {
-    bottom: 93px !important;
-}
+/*#bwc-widget-action {*/
+/*    bottom: 93px !important;*/
+/*}*/
 
 @media (max-width: 600px) {
 
