@@ -131,19 +131,19 @@ export default function Cart({serverData, productCount}: any) {
 
         <div className={""}>
           <div
-              className={"min-h-[60vh] mt-6 ph:container con ph:m-auto mb-[100px] flex flex-col xl:flex-row w-full gap-[30px]"}>
+              className={"min-h-[60vh] mt-0 md:mt-6 ph:container con ph:m-auto mb-[100px] flex flex-col xl:flex-row w-full gap-[30px]"}>
 
             {/*cart list*/}
             <div className={"flex flex-col w-full"}>
               {/*head*/}
-              <div className={"flex items-center "}>
+              <div className={"hidden md:flex items-center"}>
                 <p className={"text-[#383838] text-[28px] font-bold relative after:content-[''] after:h-[20px] after:top-[12px] after:bg-[#38383833] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500"}>
                   My cart</p>
                 <p className={"text-[#38383899] text-base ml-[25px]"}>{cart?.productCount} products</p>
               </div>
               {/*head*/}
 
-              <div className={"flex flex-col space-y-[16px] ph:space-y-[25px] mt-4 "}>
+              <div className={"flex flex-col space-y-[16px] ph:space-y-[25px] mt-0 md:mt-4 "}>
                 {cart?.cartItems?.map((item: any, index: number) => {
                   return <CartItem data={item} getCount={getCount} key={index}/>
                 })}

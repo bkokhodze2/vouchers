@@ -54,14 +54,14 @@ const CartItem = ({data, getCount}: ICartItem) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   return (
-      <div className={"p-[8px] md:p-[16px] xl:p-[30px] pr-4 xl:pr-[68px] flex bg-[white] rounded-0 ph:rounded-2xl"}>
+      <div className={"p-[16px] md:p-[16px] xl:p-[30px] pr-4 xl:pr-[68px] flex bg-[#F7F7F7] rounded-0 ph:rounded-2xl"}>
         <div
             className={"w-full max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px] lg:mr-[30px] md:mr-[16px] mr-[8px] relative"}>
           <img src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
                alt={"product image"}
                placeholder="blur"
                loading={"lazy"}
-               className={"rounded-xl w-full h-full max-h-[157px] max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px]"}
+               className={"rounded-xl w-full h-full max-h-[157px] min-h-[114px]  lg:min-h-[157px] max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px]"}
                style={{objectFit: "cover"}}/>
         </div>
         <div className={"flex flex-col w-full"}>
@@ -69,7 +69,7 @@ const CartItem = ({data, getCount}: ICartItem) => {
             <h2 className={"text-[#383838] font-bold text-[14px] lg:text-[22px] md:text-base"}>{_.get(data, '[0]additionalInfo[0].provider.name', "")}</h2>
             <div
                 onClick={() => handleRemoveFromCart(data)}
-                className={"items-center min-w-[24px] cursor-pointer"}>
+                className={"items-center min-w-[24px] cursor-pointer flex md:hidden"}>
               <Image
                   src={ICONS.trash}
                   quality={70}
@@ -88,11 +88,11 @@ const CartItem = ({data, getCount}: ICartItem) => {
           <div className={"mt-[12[px] md:mt-[28px] flex justify-between items-center 2xl:items-end"}>
             <div
                 className={"flex-col flex md:flex-row items-start md:items-center w-full md:justify-items-start justify-between"}>
-              <div className={""}>
+              <div className={"mt-[11px] md:mt-[0px]"}>
                 <Quantity getCount={getCount} data={data} currentQuantity={data.cartQuantity} isPoint={isChecked}/>
               </div>
-              <div className={"flex w-full items-center md:justify-start justify-between"}>
-                <div className={"flex flex-col items-center justify-center lg:ml-8 ph:ml-4 ml-1.5"}>
+              <div className={"flex w-full items-center md:justify-start justify-between mt-[11px] md:mt-[0px]"}>
+                <div className={"flex flex-col items-start md:items-center justify-center lg:ml-8 ph:ml-4 ml-1.5"}>
                   <p className={"text-[14px] text-[#383838b3] text-center whitespace-nowrap"}>Total price</p>
                   <div className={"flex items-center"}>
 
