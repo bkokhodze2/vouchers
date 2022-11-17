@@ -7,10 +7,8 @@ import Lari from "../../../../../public/images/icons/lari";
 import {IMAGES} from "../../../../../public/images";
 import _ from "lodash";
 import {removeFromCart, changeIsPoint} from "../../../slices/cartSlice";
-
-
 import {useDispatch, useSelector} from "react-redux";
-import slider from "../../../../../public/images/images/mainSlider.png";
+import {LazyLoadImage} from "react-lazy-load-image-component";
 
 interface ICartItem {
   id?: number,
@@ -57,9 +55,8 @@ const CartItem = ({data, getCount}: ICartItem) => {
       <div className={"p-[16px] md:p-[16px] xl:p-[30px] pr-4 xl:pr-[68px] flex bg-[#F7F7F7] rounded-0 ph:rounded-2xl"}>
         <div
             className={"w-full max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px] lg:mr-[30px] md:mr-[16px] mr-[8px] relative"}>
-          <img src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
+          <LazyLoadImage src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
                alt={"product image"}
-               placeholder="blur"
                loading={"lazy"}
                className={"rounded-xl w-full h-full max-h-[157px] min-h-[114px]  lg:min-h-[157px] max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px]"}
                style={{objectFit: "cover"}}/>

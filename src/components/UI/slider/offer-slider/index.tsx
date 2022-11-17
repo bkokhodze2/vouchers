@@ -11,7 +11,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // import required modules
-import {Pagination, Navigation} from "swiper";
+import {Pagination, Navigation, Lazy} from "swiper";
 import OfferItem from "../../../blocks/offer-item";
 
 interface IOfferSlider {
@@ -79,7 +79,8 @@ export default function OfferSlider({nav = true, loop = true, data}: IOfferSlide
             freeMode={true}
             loopFillGroupWithBlank={true}
             loop={loop}
-            modules={[Pagination, Navigation]}
+            lazy={true}
+            modules={[Pagination, Navigation, Lazy]}
             className="offerSlider"
         >
           {data?.map((item: object, index: number) => {

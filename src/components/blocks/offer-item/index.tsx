@@ -14,7 +14,8 @@ import _ from 'lodash';
 import dynamic from 'next/dynamic'
 import {useDispatch, useSelector} from "react-redux";
 import {addToFavourites, getTotalsFavourite} from "../../slices/favouritesSlice";
-import ContentLoader from "react-content-loader"
+import {LazyLoadImage} from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const CountDown = dynamic(
     () => import('../../UI/count-down'),
@@ -71,20 +72,15 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
           _.get(data, 'additionalInfo[0].attachments', []).length === 0 ?
               <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
                 <div className={"relative"}>
-                  <img src={slider?.src}
-                       alt={"slider img"}
-                       width={360}
-                       onLoad={() => {
-                         setIsLoaded(true)
-                       }}
-                      // quality={10}
-                      // blurDataURL={IMAGES.placeholder.src}
-                       placeholder="blur"
-                       style={{objectFit: "cover"}}
-                      // layout={"fill"}
-                       loading="lazy"
-                      // priority={true}
-                       className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
+                  <LazyLoadImage src={slider?.src}
+                                 alt={"slider img"}
+                                 width={360}
+                                 onLoad={() => {
+                                   setIsLoaded(true)
+                                 }}
+                                 style={{objectFit: "cover"}}
+                                 loading="lazy"
+                                 className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
                 </div>
               </Link>
               :
@@ -93,22 +89,15 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                 return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`} key={index}>
                   <div>
 
-                    <img src={item?.path}
-                         alt={"slider img"}
-                         width={360}
-                         onLoad={() => {
-                           setIsLoaded(true)
-                         }}
-                        // quality={50}
-                        // blurDataURL={IMAGES.placeholder.src}
-                         placeholder="blur"
-                         style={{objectFit: "cover"}}
-                        // layout={"fill"}
-                         loading="lazy"
-                        // priority={true}
-                         className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
-
-
+                    <LazyLoadImage src={item?.path}
+                                   alt={"slider img"}
+                                   width={360}
+                                   onLoad={() => {
+                                     setIsLoaded(true)
+                                   }}
+                                   style={{objectFit: "cover"}}
+                                   loading="lazy"
+                                   className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
                   </div>
                 </Link>
 
