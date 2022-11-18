@@ -9,10 +9,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import slider from "../../../../../public/images/images/mainSlider.png"
+import slider from "../../../../../public/images/images/mainSlider.webp"
 
 // import required modules
-import {Pagination, Navigation} from "swiper";
+import {Pagination, Navigation, Lazy} from "swiper";
 import _ from "lodash";
 import {IMAGES} from "../../../../../public/images";
 
@@ -29,19 +29,16 @@ export default function Slider() {
             draggable={true}
             loop={true}
             navigation={true}
-            modules={[Pagination, Navigation]}
+            lazy={true}
+            modules={[Pagination, Navigation, Lazy]}
             className="mySwiper"
         >
 
           {[1, 2, 3, 4, 5].map((e, index) => {
             return <SwiperSlide key={index}>
               <img src={slider.src}
-                  // layout='fill'
-                  // quality={50}
-                  // blurDataURL={IMAGES.placeholder.src}
                    placeholder="blur"
                    loading={"lazy"}
-                  // priority={true}
                    className={"rounded-[0px] md:rounded-xl"}
                    alt={"slider image"}/>
             </SwiperSlide>

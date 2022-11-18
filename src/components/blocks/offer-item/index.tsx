@@ -9,7 +9,7 @@ import "antd/dist/antd.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Carousel} from 'react-responsive-carousel';
 import InStock from "../../UI/in-stock";
-import slider from "../../../../public/images/images/mainSlider.png";
+import slider from "../../../../public/images/images/mainSlider.webp";
 import _ from 'lodash';
 import dynamic from 'next/dynamic'
 import {useDispatch, useSelector} from "react-redux";
@@ -67,7 +67,6 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
       e.stopPropagation()
     }}>
       <Carousel infiniteLoop showThumbs={false} swipeable={true} className={""}>
-
         {
           _.get(data, 'additionalInfo[0].attachments', []).length === 0 ?
               <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
@@ -85,10 +84,8 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
               </Link>
               :
               _.get(data, 'additionalInfo[0].attachments', []).slice(0, 4).map((item: any, index: number) => {
-
                 return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`} key={index}>
                   <div>
-
                     <LazyLoadImage src={item?.path}
                                    alt={"slider img"}
                                    width={360}
@@ -100,10 +97,8 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                                    className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
                   </div>
                 </Link>
-
               })
         }
-
       </Carousel>
     </div>
   }
@@ -116,8 +111,6 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
             width: !isLoaded ? "0px" : "100%",
             opacity: !isLoaded ? "0" : "1",
             height: !isLoaded ? "0px" : "unset",
-
-
           }} className={" flex-col items-start bg-[transparent] relative select-none w-full"}>
 
             <div
@@ -147,16 +140,9 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                   />}
             </div>
 
-            {/*h-[220px] w-full max-w-[360px] flex*/}
             <div
                 className={"img h-full h-[211px] sm:h-[220px] w-full lg:max-w-[400px] sm:max-w-[400px] max-w-7xl relative relative "}>
-              {/*<OfferItemSlider/>*/}
-              {/*<img src={slider.src} alt={"slider img"} className={"object-cover rounded-xl bg-no-repeat"}/>*/}
-
               <InnerSlider/>
-
-              {/*<Test/>*/}
-
             </div>
 
             <div
