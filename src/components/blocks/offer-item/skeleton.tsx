@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react"
 // @ts-ignore
 import {ICONS, IMAGES} from "public/images";
-import "antd/dist/antd.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ContentLoader from "react-content-loader"
 

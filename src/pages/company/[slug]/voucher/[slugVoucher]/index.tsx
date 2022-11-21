@@ -1,6 +1,6 @@
 import Layout from "../../../../../components/layouts/user-layout"
 import Head from 'next/head'
-import {notification} from 'antd';
+import {notification, Tabs} from 'antd';
 // @ts-ignore
 import {IMAGES, ICONS} from "public/images";
 import Image from "next/image";
@@ -12,7 +12,6 @@ import Watch from "../../../../../../public/images/icons/watch";
 import Location from "../../../../../../public/images/icons/location";
 import InStock from "../../../../../components/UI/in-stock";
 import Button from "../../../../../components/UI/button";
-import Tabs from "antd/lib/tabs";
 import Link from "next/link";
 import axios from "axios";
 import {useRouter} from "next/router";
@@ -395,7 +394,7 @@ export default function Details() {
                 </Link>
 
                 {/*info*/}
-                <div className={"flex md:flex-row flex-col justify-between mt-[18px] divide-[#D9D9D933] divide-y-2 "}>
+                <div className={"flex md:flex-row flex-col justify-between mt-[18px] divide-[#D9D9D933] divide-y-2 md:divide-y-0 "}>
                   {/*phone number*/}
                   {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', '') &&
 											<div className={"group pb-4  md:pb-0  flex items-center relative"}>

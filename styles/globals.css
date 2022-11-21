@@ -69,7 +69,7 @@ body {
 .swiper-slide img {
     display: block;
     width: 100%;
-    height: 100%;
+    height: 100% !important;
     object-fit: cover;
 }
 
@@ -280,6 +280,8 @@ body {
 
 .search {
     border-color: #8338EC;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 
 .ant-input:focus, .ant-input-focused {
@@ -362,11 +364,13 @@ body {
 .badge-favourites .ant-badge-count {
     right: 17px;
     border: 2px solid white;
+    background-color: #8338EC;
 }
 
 .badge-cart .ant-badge-count {
     right: 9px;
     border: 2px solid white;
+    background-color: #8338EC;
 }
 
 .badge-favourites .ant-scroll-number-only, .badge-cart .ant-scroll-number-only {
@@ -482,3 +486,9 @@ body {
     max-width: 1562px !important;
 }
 
+.carousel.carousel-slider {
+    background-color: white;
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+
+}

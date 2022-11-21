@@ -154,7 +154,7 @@ export default function Cart({serverData, productCount}: any) {
             {/*cart list*/}
 
             {/*cart info*/}
-            <div className={"h-full ph:min-w-[340px] xl:min-w-[360px] shrink-0 px-[16px] ph:px-0"}>
+            <div className={"h-auto ph:min-w-[340px] xl:min-w-[360px] shrink-0 px-[16px] ph:px-0"}>
               <h5 className={"text-[#383838] text-[28px] font-bold hidden ph:block"}>Order</h5>
 
               <div className={"sticky top-[130px] max-h-[600px] pb-[90px] md:pb:0 overflow-scroll rounded-xl"}>

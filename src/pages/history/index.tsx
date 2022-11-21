@@ -5,8 +5,7 @@ import {IMAGES, ICONS} from "public/images";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import Button from "../../components/UI/button";
-import Rate from "antd/lib/rate";
-import {Form, Modal, Input} from "antd";
+import {Form, Modal, Input, Rate} from "antd";
 import axios from "axios";
 
 
@@ -45,33 +44,33 @@ export default function History({serverData}: any) {
         className={"md:p-6 p-4 md:pr-[30px] flex flex-col ph:flex-row md:flex-col md:gap-0 gap-[18px] bg-[#F7F7F7] rounded-0 md:rounded-2xl"}>
       <div
           className={"md:order-1 order-2 w-full ph:w-[50%] md:w-full flex mb-0 md:mb-[30px] gap-[15px] md:gap-[0px] flex-col md:flex-row md:justify-between"}>
-        <div className={"flex flex-row md:flex-col items-center md:items-start md:w-[200px]"}>
+        <div className={"flex flex-row md:flex-col items-center md:items-start xl:w-[200px]"}>
           <p className={"text-[#38383899] "}>Order Id</p>
-          <span className={"text-[#383838] md:text-base text-sm ml-[6px]"}>sdsd</span>
+          <span className={"text-[#383838] md:text-base text-sm ml-[6px] md:ml-0"}>sdsd</span>
         </div>
         <div className={"flex flex-row md:flex-col items-center md:items-start "}>
           <p className={"text-[#38383899] "}>Date</p>
-          <span className={"text-[#383838] md:text-base text-sm ml-[6px]"}>20.10.2022</span>
+          <span className={"text-[#383838] md:text-base text-sm ml-[6px] md:ml-0"}>20.10.2022</span>
         </div>
         <div className={"flex flex-row md:flex-col items-center md:items-start "}>
           <p className={"text-[#38383899] "}>Quantity</p>
-          <span className={"text-[#383838] md:text-base text-sm ml-[6px]"}>1</span>
+          <span className={"text-[#383838] md:text-base text-sm ml-[6px] md:ml-0"}>1</span>
         </div>
         <div className={"flex flex-row md:flex-col items-center md:items-start "}>
           <p className={"text-[#38383899] "}>Price</p>
-          <span className={"text-[#383838] md:text-base text-sm ml-[6px]"}>$ 150</span>
+          <span className={"text-[#383838] md:text-base text-sm ml-[6px] md:ml-0"}>$ 150</span>
         </div>
         <div className={"flex flex-row md:flex-col items-center md:items-start "}>
           <p className={"text-[#38383899] "}>Sum</p>
-          <span className={"md:text-base text-sm ml-[6px] text-purple"}>P 1 500</span>
+          <span className={"md:text-base text-sm ml-[6px] md:ml-0 text-purple"}>P 1 500</span>
         </div>
         <div className={"flex flex-row md:flex-col items-center md:items-start "}>
           <p className={"text-[#38383899]"}>Earn Point</p>
-          <span className={"text-[#56971F] md:text-base text-sm ml-[6px]"}>0</span>
+          <span className={"text-[#56971F] md:text-base text-sm ml-[6px] md:ml-0"}>0</span>
         </div>
         <div className={"flex flex-row md:flex-col items-center md:items-start "}>
           <p className={"text-[#38383899] "}>Voucher Code</p>
-          <span className={"text-[#383838] md:text-base text-sm ml-[6px] font-bold"}>234569</span>
+          <span className={"text-[#383838] md:text-base text-sm ml-[6px] md:ml-0 font-bold"}>234569</span>
         </div>
 
       </div>
@@ -224,7 +223,8 @@ export default function History({serverData}: any) {
             <div className={"col-span-1 md:col-span-3"}>
               <h2 className={"capitalize text-[#383838] text-[28px] font-bold leading-[28px] hidden ph:flex"}>order
                 history</h2>
-              <div className={"mt-0 ph:mt-4 w-full bg-white rounded-[16px] space-y-[16px] ph:space-y-[30px] flex flex-col"}>
+              <div
+                  className={"mt-0 ph:mt-4 w-full bg-white rounded-[16px] space-y-[16px] ph:space-y-[30px] flex flex-col"}>
                 {[1, 2, 3, 4, 5, 6].map((e, index) => {
                   return <HistoryItem key={index} evaluated={index % 2 == 0}/>
                 })}

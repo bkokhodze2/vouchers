@@ -5,7 +5,6 @@ import Image from "next/image"
 import img from "/public/images/images/offerItem.png"
 import Link from "next/link";
 import Lari from "../../../../public/images/icons/lari";
-import "antd/dist/antd.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Carousel} from 'react-responsive-carousel';
 import InStock from "../../UI/in-stock";
@@ -70,7 +69,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
         {
           _.get(data, 'additionalInfo[0].attachments', []).length === 0 ?
               <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
-                <div className={"relative"}>
+                <div className={"relative h-full"}>
                   <LazyLoadImage src={slider?.src}
                                  alt={"slider img"}
                                  width={360}
@@ -85,7 +84,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
               :
               _.get(data, 'additionalInfo[0].attachments', []).slice(0, 4).map((item: any, index: number) => {
                 return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`} key={index}>
-                  <div>
+                  <div className={"relative h-full"}>
                     <LazyLoadImage src={item?.path}
                                    alt={"slider img"}
                                    width={360}

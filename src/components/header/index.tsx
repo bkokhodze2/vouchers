@@ -165,14 +165,14 @@ const Header: React.FC = () => {
   const SearchItem = ({data}: any) => {
 
     let companySlug = _.get(data, 'additionalInfo[0].provider.name', "").replaceAll(' ', '-');
-    let voucherSlug = _.get(data, 'additionalInfo[0].genericTransactionTypeId', "");
+    let voucherSlug = _.get(data, 'additionalInfo[0].genericTransactionTypeId', 1);
 
     if (!data) {
       return <p>erroor</p>
     }
 
     return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
-      <div className={"flex py-4 w-full"}>
+      <div className={"flex py-4 w-full cursor-pointer"}>
         <div className={"w-full max-w-[125px] min-w-[125px] max-h-[76px] min-h-[76px] h-[76px] flex mr-4 relative"}>
           <img
               src={_.get(data, 'additionalInfo[0].attachments[0].path', offerItem.src)}
