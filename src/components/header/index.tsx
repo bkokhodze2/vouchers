@@ -37,7 +37,7 @@ interface Icategory {
 
 const Header: React.FC = () => {
   const baseApi = process.env.baseApi;
-
+  var timer1: any;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
@@ -184,7 +184,7 @@ const Header: React.FC = () => {
               style={{objectFit: "cover"}}/>
 
           <div
-              className={"absolute top-[8px] left-[8px] z-20 flex justify-center items-center bg-[#E35A43] rounded-[100px] h-[25px]"}>
+              className={"absolute top-[8px] left-[8px] z-20 flex justify-center items-center bg-[#db0060] rounded-[100px] h-[25px]"}>
             <p className={"text-[white] text-[12px] px-[12px]"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))} %</p>
           </div>
         </div>
@@ -217,17 +217,20 @@ const Header: React.FC = () => {
         <div className={"hidden md:flex w-full bg-amber-700 h-[44px] min-h-[44px] bg-[#383838] items-center "}>
           <div className={"w-full container m-auto flex justify-between"}>
             <div className={"flex space-x-8"}>
-              <Link href={"/"}>
-                <span className={"text-sm text-[#ffffffb3] cursor-pointer"}>E-commerce</span>
+              <Link href={"https://optimoml.geopay.ge/index.php"}>
+                <span className={"text-sm text-[#ffffffb3] cursor-pointer"}>მაღაზია</span>
+              </Link>
+              <Link href={"https://medical.pirveli.ge"}>
+                <span className={"text-sm text-[#ffffffb3] cursor-pointer"}>მედიქალი</span>
               </Link>
               <Link href={"/"}>
-                <span className={"text-sm text-[#ffffffb3] cursor-pointer"}>Medical Card</span>
+                <div className={"relative"}>
+                  <span className={"text-sm text-[#db0060] cursor-pointer"}>ვაუჩერები</span>
+                  <div className={"absolute -bottom-[10px] h-[3px] w-full rounded-t-[3px] bg-[#db0060]"}/>
+                </div>
               </Link>
-              <Link href={"/"}>
-                <span className={"text-sm text-[#ffffffb3] cursor-pointer"}>Discount</span>
-              </Link>
-              <Link href={"/"}>
-                <span className={"text-sm text-[#ffffffb3] cursor-pointer"}>Lotto</span>
+              <Link href={"https://lot51.pirveli.ge"}>
+                <span className={"text-sm text-[#ffffffb3] cursor-pointer"}>ლოტო</span>
               </Link>
             </div>
 
@@ -336,6 +339,7 @@ const Header: React.FC = () => {
                       }
                     </div>
 
+                    {/*categories result/*/}
 
                     <div
                         ref={listRef}
@@ -343,6 +347,7 @@ const Header: React.FC = () => {
                         style={{
                           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.05)",
                           // borderTop: isScrolling ? "2px solid red" : '2px solid transparent',
+                          transitionDelay: "1s",
                           transition: ".3s",
                           // display: term ? "block" : "none",
                           height: term ? "400px" : "0px"
@@ -397,6 +402,7 @@ const Header: React.FC = () => {
 													</div>
                       }
                     </div>
+                    {/*categories result/*/}
                   </Form>
 
                 </div>
@@ -457,7 +463,8 @@ const Header: React.FC = () => {
 
             </div>
             <div className={"w-full relative"} onMouseLeave={() => {
-              setChosenCategory(null)
+              clearTimeout(timer1);
+              setChosenCategory(null);
             }}>
               <div className={"flex container m-auto w-full h-[48px] overflow-x-auto"}>
                 <div className={"flex items-center"}>
@@ -477,7 +484,13 @@ const Header: React.FC = () => {
                 {/*sub categories*/}
                 <div className={"flex items-center space-x-[40px] ml-[40px]"}>
                   {categories?.filter(item => item?.parentCategoryId === null).map((item: Icategory, index: number) => {
-                    return <div className={"relative"} key={index} onMouseOver={() => setChosenCategory(item)}>
+                    return <div className={"relative"} key={index}
+                                onMouseOver={() => {
+                                  timer1 = setTimeout(function () {
+                                    setChosenCategory(item)
+                                  }, 200);
+                                }}
+                    >
                       <Link href={`/category/${item.categoryId}`}>
                         <p className={"hover:text-[black] transition text-base whitespace-nowrap capitalize cursor-pointer"}
                            style={{color: item.categoryId === chosenCategory?.categoryId ? "#8338EC" : "#383838b3"}}
@@ -543,7 +556,7 @@ const Header: React.FC = () => {
           </div>
 
         </header>
-
+        {/*//burgerMenu*/}
         {!isOpenSearch && !Router.pathname.includes("/company") &&
 						<div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0"}
 								 style={{
@@ -623,6 +636,7 @@ const Header: React.FC = () => {
         <MenuDrawer isOpenMenu={isOpenMenu}/>
 
         <SearchDrawer isOpenSearch={isOpenSearch} setIsOpenSearch={setIsOpenSearch}/>
+        {/*//burgerMenu*/}
 
       </>
   )

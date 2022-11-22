@@ -113,7 +113,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
           }} className={" flex-col items-start bg-[transparent] relative select-none w-full"}>
 
             <div
-                className={"sm:h-[40px] h-[34px] z-10 bg-orange absolute top-5 left-4 sm:px-[21px] px-4 rounded-[100px] flex items-center"}>
+                className={"sm:h-[40px] h-[34px] z-10 bg-[#db0060] absolute top-5 left-4 sm:px-[21px] px-4 rounded-[100px] flex items-center"}>
               <p className={"text-[white] text-xs sm:text-base"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))}
                 %</p>
             </div>
@@ -155,10 +155,21 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                         classes={"mr-[5px]"}/>
                   {_.get(data, 'entries[0].entryAmount', 0)}
                 </p>
-                <p className={"text-[#7B92DC] text-sm "}>
+                <p className={"text-[#7B92DC] text-sm flex items-center"}>
                 <span
                     className={"text-[#383838] text-[12px] mr-[8px]"}>OR</span>
-                  {Math.round(_.get(data, 'entries[0].entryAmount', 0) * _.get(data, 'entries[0].multiplier', 0))} P
+                  {Math.round(_.get(data, 'entries[0].entryAmount', 0) * _.get(data, 'entries[0].multiplier', 0))}
+                  <div className={"ml-1.5 flex items-center justify-center"}>
+                    <Image
+                        src={IMAGES.coin}
+                        quality={100}
+                        blurDataURL={IMAGES.placeholder.src}
+                        loading={"lazy"}
+                        width={15}
+                        height={15}
+                        alt={"coin icon"}
+                    />
+                  </div>
                 </p>
 
               </div>

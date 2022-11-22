@@ -67,7 +67,7 @@ export default function Category({serverData}: any) {
 					</div>
           }
 
-          <div className={"ph:container con m-auto mt-4 ph:mt-8 pb-[100px]"}>
+          <div className={" m-auto mt-4 ph:mt-8 pb-[100px]"}>
 
             {vouchers.length > 0 && <div className={"lex flex-col mt-[44px] md:mt-0"}>
 							<div className={"ph:container con pl-0px ph:p-auto ph:m-auto w-full"}>
@@ -140,7 +140,7 @@ export default function Category({serverData}: any) {
             </div>
 
             <div
-                className={"mt-[40px] container grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-5 md:gap-y-[42px] md:gap-x-[30px]"}>
+                className={"mt-[40px] mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-5 md:gap-y-[42px] xl:gap-x-[30px]"}>
               {
                 vouchers?.map((item: any, index: any) => {
                   return <OfferItem data={item} key={index}/>
