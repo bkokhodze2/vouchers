@@ -118,7 +118,7 @@ export default function Company() {
                   <div className={"flex space-x-[33px] items-center justify-center mt-6 lg:flex hidden"}>
 
                     <div className={"flex space-x-[33px] items-center "}>
-                      {_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "") &&
+                      {_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "").includes("https://") &&
 													<div className={"cursor-pointer"}>
 														<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
 																	target={"_blank"}>
@@ -134,7 +134,7 @@ export default function Company() {
 														</Link>
 													</div>
                       }
-                      {_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "") &&
+                      {_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "").includes("https://") &&
 													<div className={"cursor-pointer"}>
 														<Link href={_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "")}
 																	target={"_blank"}>

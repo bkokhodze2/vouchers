@@ -17,7 +17,7 @@ module.exports = {
 				sm: '1rem',
 				md: '1rem',
 				lg: '1rem',
-				xl: '1rem',
+				xl: '2rem',
 				'2xl': '1rem',
 			},
 		},

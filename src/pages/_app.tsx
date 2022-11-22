@@ -1,5 +1,4 @@
 import {Provider} from 'react-redux';
-import 'antd/dist/antd.css';
 import "../../styles/globals.css"
 import {configureStore} from "@reduxjs/toolkit";
 // @ts-ignore

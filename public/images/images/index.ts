@@ -24,3 +24,4 @@ export {default as mobileBanner} from './mobileBanner.png';
 export {default as mobileBecome} from './mobileBecome.png';
 export {default as mobileBecome2} from './mobileBecome2.png';
 export {default as lookingFor} from './lookingFor.png';
+export {default as gif} from './skeleton-gif.gif';

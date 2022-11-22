@@ -89,7 +89,7 @@ const Home: NextPage = ({serverData}: any) => {
         <main className={"flex flex-col "}>
           <div className={"w-full flex-col"}>
             <div
-                className="flex flex-col md:grid grid-rows-2 md:grid-rows-1 md:max-h-[552px] mt-0 md:mt-2 lg:mt-6 grid-cols-4 md:container con m-auto grid-flow-col gap-[44px] md:gap-[10px] lg:gap-[30px]">
+                className="flex flex-col md:grid grid-rows-2 md:grid-rows-1 md:max-h-[552px] mt-0 md:mt-2 lg:mt-6 grid-cols-4 md:container con m-auto grid-flow-col gap-[44px] md:gap-[16px] xl:gap-[32px]">
 
               {/*Become Partner*/}
               <div className={"order-2 md:order-1 container p-4 py-0 ph:p-4 md:p-0 m-auto col-span-4 md:col-span-1"}>
@@ -143,7 +143,7 @@ const Home: NextPage = ({serverData}: any) => {
               </div>
               {/*Become Partner*/}
 
-              <div className="order-1 md:order-2 col-span-4 flex flex-col max-w-[1140px] h-[300px] md:h-full">
+              <div className="order-1 md:order-2 col-span-3 flex flex-col max-w-[1140px] h-[300px] md:h-full">
 
                 {/*slider*/}
                 <div className={"flex flex-1 "}>
@@ -153,14 +153,14 @@ const Home: NextPage = ({serverData}: any) => {
 
                 {/*Advertisement*/}
                 <div
-                    className={"grid hidden md:grid grid-rows-1 gap-[44px] md:gap-[10px] lg:gap-[30px] grid-cols-3 mt-2 md:mt-2 lg:mt-[30px] "}>
-                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white]"}>
+                    className={"grid hidden md:grid grid-rows-1 gap-[44px] md:gap-[16px] xl:gap-[32px] grid-cols-3 mt-4 xl:mt-[30px] "}>
+                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full"}>
                     <p className={"text-sm text-black"}>Advertsment</p>
                   </div>
-                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white]"}>
+                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full"}>
                     <p className={"text-sm text-black"}>Advertsment</p>
                   </div>
-                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white]"}>
+                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full"}>
                     <p className={"text-sm text-black"}>Advertsment</p>
                   </div>
                 </div>
@@ -384,7 +384,7 @@ const Home: NextPage = ({serverData}: any) => {
             {vouchers.length > 0 && <div className={"container m-auto"}>
 							<h1 className={"text-[18px] sm:text-[28px] text-[#383838] font-bold"}>New offers</h1>
 							<div
-									className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-5 md:gap-y-[42px] md:gap-x-[30px]"}>
+									className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-5 md:gap-y-[42px] xl:gap-x-[30px]"}>
                 {
                     !!vouchersAll?.length && vouchersAll?.map((item: any, index: any) => {
                       return <OfferItem data={item} key={index}/>

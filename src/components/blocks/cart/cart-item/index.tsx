@@ -9,6 +9,7 @@ import _ from "lodash";
 import {removeFromCart, changeIsPoint} from "../../../slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {LazyLoadImage} from "react-lazy-load-image-component";
+import Link from "next/link";
 
 interface ICartItem {
   id?: number,
@@ -51,19 +52,30 @@ const CartItem = ({data, getCount}: ICartItem) => {
 
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
+  let companySlug = _.get(data, '[0].additionalInfo[0].provider.name', "").replaceAll(' ', '-');
+  let voucherSlug = _.get(data, '[0].additionalInfo[0].genericTransactionTypeId', 1);
+
+  console.log("c-v", companySlug, voucherSlug)
+
   return (
-      <div className={"p-[16px] md:p-[16px] xl:p-[30px] pr-4 xl:pr-[68px] flex bg-[#F7F7F7] rounded-0 ph:rounded-2xl"}>
-        <div
-            className={"w-full max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px] lg:mr-[30px] md:mr-[16px] mr-[8px] relative"}>
-          <LazyLoadImage src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
-               alt={"product image"}
-               loading={"lazy"}
-               className={"rounded-xl w-full h-full max-h-[157px] min-h-[114px]  lg:min-h-[157px] max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px]"}
-               style={{objectFit: "cover"}}/>
-        </div>
+
+      <div
+          className={"p-[16px] md:p-[16px] xl:p-[30px] pr-4 xl:pr-[68px] flex bg-[#FFFFFF] rounded-0 ph:rounded-2xl"}>
+        <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
+          <div
+              className={"w-full cursor-pointer max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px] lg:mr-[30px] md:mr-[16px] mr-[8px] relative"}>
+            <LazyLoadImage src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
+                           alt={"product image"}
+                           loading={"lazy"}
+                           className={"rounded-xl w-full h-full max-h-[157px] min-h-[114px]  lg:min-h-[157px] max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px]"}
+                           style={{objectFit: "cover"}}/>
+          </div>
+        </Link>
         <div className={"flex flex-col w-full"}>
-          <div className={"flex justify-between"}>
-            <h2 className={"text-[#383838] font-bold text-[14px] lg:text-[22px] md:text-base"}>{_.get(data, '[0]additionalInfo[0].provider.name', "")}</h2>
+          <div className={"flex cursor-pointer justify-between"}>
+            <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
+              <h2 className={"text-[#383838] font-bold text-[14px] lg:text-[22px] md:text-base"}>{_.get(data, '[0]additionalInfo[0].provider.name', "")}</h2>
+            </Link>
             <div
                 onClick={() => handleRemoveFromCart(data)}
                 className={"items-center min-w-[24px] cursor-pointer flex md:hidden"}>
@@ -164,6 +176,8 @@ const CartItem = ({data, getCount}: ICartItem) => {
           </div>
         </div>
       </div>
+
+
   )
 }
 

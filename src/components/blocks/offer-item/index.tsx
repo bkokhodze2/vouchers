@@ -5,11 +5,10 @@ import Image from "next/image"
 import img from "/public/images/images/offerItem.png"
 import Link from "next/link";
 import Lari from "../../../../public/images/icons/lari";
-import "antd/dist/antd.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Carousel} from 'react-responsive-carousel';
 import InStock from "../../UI/in-stock";
-import slider from "../../../../public/images/images/mainSlider.png";
+import slider from "../../../../public/images/images/mainSlider.webp";
 import _ from 'lodash';
 import dynamic from 'next/dynamic'
 import {useDispatch, useSelector} from "react-redux";
@@ -67,11 +66,10 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
       e.stopPropagation()
     }}>
       <Carousel infiniteLoop showThumbs={false} swipeable={true} className={""}>
-
         {
           _.get(data, 'additionalInfo[0].attachments', []).length === 0 ?
               <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
-                <div className={"relative"}>
+                <div className={"relative h-full"}>
                   <LazyLoadImage src={slider?.src}
                                  alt={"slider img"}
                                  width={360}
@@ -85,10 +83,8 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
               </Link>
               :
               _.get(data, 'additionalInfo[0].attachments', []).slice(0, 4).map((item: any, index: number) => {
-
                 return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`} key={index}>
-                  <div>
-
+                  <div className={"relative h-full"}>
                     <LazyLoadImage src={item?.path}
                                    alt={"slider img"}
                                    width={360}
@@ -100,10 +96,8 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                                    className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
                   </div>
                 </Link>
-
               })
         }
-
       </Carousel>
     </div>
   }
@@ -116,12 +110,10 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
             width: !isLoaded ? "0px" : "100%",
             opacity: !isLoaded ? "0" : "1",
             height: !isLoaded ? "0px" : "unset",
-
-
           }} className={" flex-col items-start bg-[transparent] relative select-none w-full"}>
 
             <div
-                className={"sm:h-[40px] h-[34px] z-10 bg-orange absolute top-5 left-4 sm:px-[21px] px-4 rounded-[100px] flex items-center"}>
+                className={"sm:h-[40px] h-[34px] z-10 bg-[#db0060] absolute top-5 left-4 sm:px-[21px] px-4 rounded-[100px] flex items-center"}>
               <p className={"text-[white] text-xs sm:text-base"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))}
                 %</p>
             </div>
@@ -147,16 +139,9 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                   />}
             </div>
 
-            {/*h-[220px] w-full max-w-[360px] flex*/}
             <div
                 className={"img h-full h-[211px] sm:h-[220px] w-full lg:max-w-[400px] sm:max-w-[400px] max-w-7xl relative relative "}>
-              {/*<OfferItemSlider/>*/}
-              {/*<img src={slider.src} alt={"slider img"} className={"object-cover rounded-xl bg-no-repeat"}/>*/}
-
               <InnerSlider/>
-
-              {/*<Test/>*/}
-
             </div>
 
             <div
@@ -170,10 +155,21 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                         classes={"mr-[5px]"}/>
                   {_.get(data, 'entries[0].entryAmount', 0)}
                 </p>
-                <p className={"text-[#7B92DC] text-sm "}>
+                <p className={"text-[#7B92DC] text-sm flex items-center"}>
                 <span
                     className={"text-[#383838] text-[12px] mr-[8px]"}>OR</span>
-                  {Math.round(_.get(data, 'entries[0].entryAmount', 0) * _.get(data, 'entries[0].multiplier', 0))} P
+                  {Math.round(_.get(data, 'entries[0].entryAmount', 0) * _.get(data, 'entries[0].multiplier', 0))}
+                  <div className={"ml-1.5 flex items-center justify-center"}>
+                    <Image
+                        src={IMAGES.coin}
+                        quality={100}
+                        blurDataURL={IMAGES.placeholder.src}
+                        loading={"lazy"}
+                        width={15}
+                        height={15}
+                        alt={"coin icon"}
+                    />
+                  </div>
                 </p>
 
               </div>

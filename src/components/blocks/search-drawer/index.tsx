@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useState} from "react"
-import Rate from "antd/lib/rate";
 // @ts-ignore
 import {ICONS, IMAGES} from "public/images";
 import Image from "next/image"

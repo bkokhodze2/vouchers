@@ -1,22 +1,19 @@
 import React, {useEffect, useState} from "react"
 // @ts-ignore
 import {ICONS, IMAGES} from "public/images";
-import "antd/dist/antd.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ContentLoader from "react-content-loader"
+import {gif} from "../../../../public/images/images";
+import Image from "next/image";
 
 const Skeleton = () => {
 
   return (
       <div className={"h-[430px]"}>
-        <ContentLoader
-            width={"100%"}
-            height={"220"}
-            backgroundColor="#f0f0f0"
-            foregroundColor="#dedede"
-        >
-          <rect x="0" y="0" rx="12" ry="12" width="100%" height="220"/>
-        </ContentLoader>
+        <div className={"h-[200px] w-full relative"}>
+          <img className={"h-[200px] w-full"} src={IMAGES.gif.src} style={{objectFit: "cover"}}/>
+        </div>
+
         <ContentLoader
             width={"100%"}
             height={34}
