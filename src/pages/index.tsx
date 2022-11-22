@@ -384,7 +384,7 @@ const Home: NextPage = ({serverData}: any) => {
             {vouchers.length > 0 && <div className={"container m-auto"}>
 							<h1 className={"text-[18px] sm:text-[28px] text-[#383838] font-bold"}>New offers</h1>
 							<div
-									className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-5 md:gap-y-[42px] xl:gap-x-[30px]"}>
+									className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-5 md:gap-y-[42px] xl:gap-x-[30px]"}>
                 {
                     !!vouchersAll?.length && vouchersAll?.map((item: any, index: any) => {
                       return <OfferItem data={item} key={index}/>

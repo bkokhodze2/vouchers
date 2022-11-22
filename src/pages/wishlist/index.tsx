@@ -33,7 +33,7 @@ export default function Wishlist({}: any) {
 
           {favourites?.favouritesList.length > 0 ?
               <div
-                  className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-5 md:gap-y-[42px] md:gap-x-[30px]"}>
+                  className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-5 md:gap-y-[42px] md:gap-x-[30px]"}>
 
                 {
                   favourites?.favouritesList.map((item: any, index: number) => {
@@ -42,7 +42,7 @@ export default function Wishlist({}: any) {
                 }
 
               </div> : <div
-                  className={"mt-9 container m-auto w-full max-w-[490px] flex justify-center items-center flex flex-col "}>
+                  className={"mt-9 m-auto w-full max-w-[490px] flex justify-center items-center flex flex-col "}>
                 <div className={"max-w-[250px]"}>
                   <Image src={IMAGES.notFound}
                          quality={60}

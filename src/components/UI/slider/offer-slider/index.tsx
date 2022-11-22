@@ -20,7 +20,7 @@ interface IOfferSlider {
   data: any;
 }
 
-export default function OfferSlider({nav = true, loop = true, data}: IOfferSlider) {
+export default function OfferSlider({nav = true, loop = false, data}: IOfferSlider) {
 
   const prevRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);

@@ -195,7 +195,6 @@ const Header: React.FC = () => {
           <div className={"flex w-full justify-between mt-1"}>
             <p className={"mr-[20px] text-[#38383899] text-sm"}>
               {_.get(data, 'additionalInfo[0].subTitles[0].description', "")}
-
             </p>
             <p className={"text-purple text-[21px] leading-[21px] font-[500] whitespace-nowrap"}>$
               {_.get(data, 'entries[0].entryAmount', 0)}
