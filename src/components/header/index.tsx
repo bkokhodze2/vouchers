@@ -24,7 +24,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {getTotals} from "../slices/cartSlice";
 import {getTotalsFavourite} from "../slices/favouritesSlice";
 
-
 interface Icategory {
   categoryId: number,
   categoryName: string,
@@ -54,6 +53,9 @@ const Header: React.FC = () => {
   const favourites = useSelector((state: any) => state.favourites);
 
   useOutsideAlerter(wrapperRef);
+
+  // const {isLoading, error, data} = useQuery('fetchLuke', () =>
+  //     axios('http://swapi.dev/api/people/1/'))
 
   function useOutsideAlerter(ref: any) {
     useEffect(() => {
@@ -554,21 +556,21 @@ const Header: React.FC = () => {
         {/*//burgerMenu*/}
         {!isOpenSearch && !Router.pathname.includes("/company") &&
 						<div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0"}
-								 style={{
+						     style={{
                    zIndex: 999
                  }}
 						>
 							<div className={"grid grid-cols-5 pt-3"}>
 								<div onClick={() => navTo("/")}>
 									<div className={"flex flex-col items-center justify-between"}
-											 onClick={() => {
+									     onClick={() => {
                          setIsOpenMenu(false)
                          setIsOpenSearch(false)
                        }}
 									>
 										<Home color={!isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"}/>
 										<p className={"mt-[7px] text-[10px] "}
-											 style={{
+										   style={{
                          color: !isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"
                        }}
 										>Home</p>
@@ -576,14 +578,14 @@ const Header: React.FC = () => {
 								</div>
 
 								<div className={"flex flex-col items-center justify-between pt-0.5"}
-										 onClick={() => {
+								     onClick={() => {
                        setIsOpenMenu(false)
                        setIsOpenSearch(true)
                      }}
 								>
 									<Search color={isOpenSearch ? "#8338EC" : "#383838"}/>
 									<p className={"mt-[7px] text-[10px] text-[#383838]"}
-										 style={{
+									   style={{
                        color: isOpenSearch ? "#8338EC" : "#383838"
                      }}
 									>Search</p>
@@ -620,7 +622,7 @@ const Header: React.FC = () => {
 										className={"flex flex-col items-center justify-between"}>
 									<Menu color={isOpenMenu ? "#8338EC" : "#383838"}/>
 									<p className={"mt-[7px] text-[10px] "}
-										 style={{
+									   style={{
                        color: isOpenMenu ? "#8338EC" : "#383838"
                      }}
 									>Menu</p>

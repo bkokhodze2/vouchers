@@ -1,9 +1,8 @@
 import Layout from "../../components/layouts/user-layout"
 import Head from 'next/head'
 // @ts-ignore
-import {IMAGES, ICONS} from "public/images";
+import {ICONS, IMAGES} from "public/images";
 import React, {useState} from "react";
-import OfferItem from "../../components/blocks/offer-item";
 import {useRouter} from "next/router";
 import Image from "next/image";
 import Button from "../../components/UI/button";
@@ -24,7 +23,7 @@ export default function Success() {
 
           <div className={"container m-auto mt-8 mb-[100px]"}>
             <div
-                className={"mt-9 container m-auto w-full max-w-[490px] flex justify-center items-center flex flex-col "}>
+                className={"min-h-[400px] py-10 container m-auto w-full max-w-[490px] flex justify-center items-center flex flex-col "}>
               <div className={"max-w-[250px]"}>
 
                 <Image

@@ -2,7 +2,7 @@ import Layout from "../../../../../components/layouts/user-layout"
 import Head from 'next/head'
 import {notification, Tabs} from 'antd';
 // @ts-ignore
-import {IMAGES, ICONS} from "public/images";
+import {ICONS, IMAGES} from "public/images";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import GalleryScroll from "../../../../../components/blocks/gallery-scroll";
@@ -20,9 +20,7 @@ import dynamic from "next/dynamic";
 import {useDispatch, useSelector} from "react-redux";
 import _ from "lodash";
 
-import {
-  addToCartWithQuantity, getTotals,
-} from "../../../../../components/slices/cartSlice";
+import {addToCartWithQuantity, getTotals,} from "../../../../../components/slices/cartSlice";
 
 import {addToFavourites, clearFavourites, getTotalsFavourite} from "../../../../../components/slices/favouritesSlice";
 import FreeScroll from "../../../../../components/UI/slider/free-scroll";
@@ -42,6 +40,8 @@ export default function Details() {
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
   const [isWithMoney, setIsWithMoney] = useState(true);
   const [quantity, setQuantity] = useState<number>(1);
+  const [quantityInCart, setQuantityInCart] = useState<number>(0);
+  const [freeQuantity, setFreeQuantity] = useState<number>(0);
 
   const cart = useSelector((state: any) => state.cart);
   const favourites = useSelector((state: any) => state.favourites);
@@ -87,16 +87,42 @@ export default function Details() {
   useEffect(() => {
     dispatch(getTotalsFavourite({}));
     dispatch(getTotals({}));
+
   }, [cart, voucher, favourites, dispatch]);
 
-  const handleAddToCart = (product: any) => {
-    product.quantity = quantity;
-    product.isPoint = !isWithMoney;
-    dispatch(addToCartWithQuantity(product));
 
-    notification['success']({
-      message: 'item successfully add',
-    });
+  useEffect(() => {
+
+    const quantityCart = cart.cartItems.filter((e: any) => {
+      return _.get(e, '[0].additionalInfo[0].genericTransactionTypeId', 0) === _.get(voucher, '[0].additionalInfo[0].genericTransactionTypeId', 0)
+    })
+
+    setQuantityInCart(quantityCart?.reduce((prevValue: any, currValue: any) => prevValue + currValue?.cartQuantity, 0))
+    setFreeQuantity((_.get(voucher, '[0].additionalInfo[0].limitQuantity', 0) - _.get(voucher, '[0].additionalInfo[0].soldQuantity', 0) - quantityInCart));
+
+  }, [cart, voucher, quantityInCart])
+
+
+  console.log("quantity", quantityInCart, "da", freeQuantity)
+
+  const handleAddToCart = (product: any) => {
+
+    if (freeQuantity <= 0) {
+      notification['error']({
+        message: 'რაოდენობა არ არის',
+      });
+    } else {
+      product.quantity = quantity;
+      product.isPoint = !isWithMoney;
+      dispatch(addToCartWithQuantity(product));
+
+      setQuantity(1)
+      notification['success']({
+        message: 'item successfully add',
+      });
+    }
+
+
   };
   const addFav = (product: any) => {
     dispatch(addToFavourites(product));
@@ -203,12 +229,14 @@ export default function Details() {
                   <p className={"text-[#383838] text-base font-bold"}>{quantity}</p>
                 </div>
                 <div
-                    onClick={() => quantity < (_.get(voucher, '[0].additionalInfo[0].limitQuantity', 0) - _.get(voucher, '[0].additionalInfo[0].soldQuantity', 0)) && setQuantity((prevState: number) => prevState + 1)}
-                    className={`plus ${quantity < (_.get(voucher, '[0].additionalInfo[0].limitQuantity', 0) - _.get(voucher, '[0].additionalInfo[0].soldQuantity', 0)) && 'active'} cursor-pointer rounded-[50%] h-6 w-6 flex items-center justify-center`}>
+                    onClick={() => quantity < freeQuantity ? setQuantity((prevState: number) => prevState + 1) : notification['error']({
+                      message: 'რაოდენობა არ არის',
+                    })}
+                    className={`plus ${quantity < freeQuantity && 'active'} cursor-pointer rounded-[50%] h-6 w-6 flex items-center justify-center`}>
                   <div
                       className={" after min-w-[12.5px] h-[1.5px] rounded bg-[#383838] "}
                       style={{
-                        backgroundColor: quantity < (_.get(voucher, '[0].additionalInfo[0].limitQuantity', 0) - _.get(voucher, '[0].additionalInfo[0].soldQuantity', 0)) ? "#383838" : "#EEEEEE",
+                        backgroundColor: quantity < freeQuantity ? "#383838" : "#EEEEEE",
                       }}
                   />
                 </div>
@@ -341,7 +369,7 @@ export default function Details() {
 
 											<div className={"cursor-pointer w-11 flex justify-center items-center cursor-pointer"}>
 												<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
-															target={"_blank"}>
+												      target={"_blank"}>
 													<div className={"flex justify-center items-center"}>
 														<Image src={ICONS.fb} alt={"fb icon"}/>
 													</div>
@@ -351,7 +379,7 @@ export default function Details() {
                   {_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "").includes("https://") &&
 											<div className={"cursor-pointer w-11 flex justify-end pr-1 cursor-pointer"}>
 												<Link href={_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "")}
-															target={"_blank"}>
+												      target={"_blank"}>
 													<div className={"flex justify-center items-center"}>
 														<Image src={ICONS.insta} alt={"insta icon"}/>
 													</div>
@@ -394,7 +422,8 @@ export default function Details() {
                 </Link>
 
                 {/*info*/}
-                <div className={"flex md:flex-row flex-col justify-between mt-[18px] divide-[#D9D9D933] divide-y-2 md:divide-y-0 "}>
+                <div
+                    className={"flex md:flex-row flex-col justify-between mt-[18px] divide-[#D9D9D933] divide-y-2 md:divide-y-0 "}>
                   {/*phone number*/}
                   {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', '') &&
 											<div className={"group pb-4  md:pb-0  flex items-center relative"}>
@@ -500,7 +529,7 @@ export default function Details() {
                         {_.get(voucher, '[0]?.additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "").includes("https://") &&
 														< div className={"cursor-pointer"}>
 															<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
-																		target={"_blank"}>
+															      target={"_blank"}>
 																<div>
 																	<Image src={ICONS.fb} alt={"fb icon"}/>
 																</div>
@@ -511,7 +540,7 @@ export default function Details() {
                             _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "").includes("https://") &&
 														<div className={"cursor-pointer"}>
 															<Link href={_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "")}
-																		target={"_blank"}>
+															      target={"_blank"}>
 																<div>
 																	<Image src={ICONS.insta} alt={"insta icon"}/>
 																</div>

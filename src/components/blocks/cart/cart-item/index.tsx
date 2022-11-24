@@ -6,7 +6,7 @@ import Quantity from "../../../UI/quantity";
 import Lari from "../../../../../public/images/icons/lari";
 import {IMAGES} from "../../../../../public/images";
 import _ from "lodash";
-import {removeFromCart, changeIsPoint} from "../../../slices/cartSlice";
+import {changeIsPoint, removeFromCart} from "../../../slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {LazyLoadImage} from "react-lazy-load-image-component";
 import Link from "next/link";
@@ -20,6 +20,8 @@ interface ICartItem {
 const CartItem = ({data, getCount}: ICartItem) => {
   const cart = useSelector((state: any) => state.cart);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [quantityInCart, setQuantityInCart] = useState<number>(0);
+  const [freeQuantity, setFreeQuantity] = useState<number>(0);
 
   useEffect(() => {
     let count = 0;
@@ -37,6 +39,18 @@ const CartItem = ({data, getCount}: ICartItem) => {
 
     })
   }, [cart])
+
+  useEffect(() => {
+
+    const quantityCart = cart.cartItems.filter((e: any) => {
+      return _.get(e, '[0].additionalInfo[0].genericTransactionTypeId', 0) === _.get(data, '[0].additionalInfo[0].genericTransactionTypeId', 0)
+    })
+
+    setQuantityInCart(quantityCart?.reduce((prevValue: any, currValue: any) => prevValue + currValue?.cartQuantity, 0))
+    setFreeQuantity((_.get(data, '[0].additionalInfo[0].limitQuantity', 0) - _.get(data, '[0].additionalInfo[0].soldQuantity', 0) - quantityInCart));
+
+  }, [cart, data, quantityInCart])
+
 
   const dispatch = useDispatch();
 
@@ -98,7 +112,10 @@ const CartItem = ({data, getCount}: ICartItem) => {
             <div
                 className={"flex-col flex md:flex-row items-start md:items-center w-full md:justify-items-start justify-between"}>
               <div className={"mt-[11px] md:mt-[0px]"}>
-                <Quantity getCount={getCount} data={data} currentQuantity={data.cartQuantity} isPoint={isChecked}/>
+                <Quantity freeQuantity={freeQuantity}
+                          quantityInCart={quantityInCart}
+                          getCount={getCount} data={data}
+                          currentQuantity={data.cartQuantity} isPoint={isChecked}/>
               </div>
               <div className={"flex w-full items-center md:justify-start justify-between mt-[11px] md:mt-[0px]"}>
                 <div className={"flex flex-col items-start md:items-center justify-center lg:ml-8 ph:ml-4 ml-1.5"}>
