@@ -1,14 +1,12 @@
 import Layout from "../../components/layouts/user-layout"
 import Head from 'next/head'
 // @ts-ignore
-import {IMAGES, ICONS} from "public/images";
+import {ICONS, IMAGES} from "public/images";
 import React, {useEffect, useState} from "react";
 import Lari from "../../../public/images/icons/lari";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {
-  getTotals,
-} from "../../components/slices/cartSlice";
+import {getTotals,} from "../../components/slices/cartSlice";
 import dynamic from "next/dynamic";
 import _ from "lodash";
 import Image from "next/image";
@@ -41,9 +39,9 @@ export default function Cart({serverData, productCount}: any) {
     let arr = cart.cartItems.filter((e: any) => e.isPoint === false);
 
     let bogObj = {
-      "user_id": 1,
-      "contract_id": 572,
-      "party_id": -1234567,
+      "user_id": null,
+      "contract_id": null,
+      "party_id": null,
       "bog_order_request_dto": {
         "intent": "AUTHORIZE",
         "items":
@@ -58,7 +56,7 @@ export default function Cart({serverData, productCount}: any) {
         ,
         "locale": "ka",
         "shop_order_id": "123456",
-        "redirect_url": "https://bog-banking.pirveli.ge/callback/statusChange",
+        "redirect_url": "https://vouchers.pirveli.ge/success",
         "show_shop_order_id_on_extract": true,
         "capture_method": "AUTOMATIC",
         "purchase_units": [
@@ -73,9 +71,9 @@ export default function Cart({serverData, productCount}: any) {
     }
 
     let tbcObj = {
-      "user_id": 1,
-      "contract_id": 572,
-      "party_id": -1234567,
+      "user_id": null,
+      "contract_id": null,
+      "party_id": null,
       "items": arr.map((e: any) => {
         return {
           "amount": _.get(e, '[0].entries[0].entryAmount', 1),
@@ -92,11 +90,11 @@ export default function Cart({serverData, productCount}: any) {
           "tax": 0,
           "shipping": 0
         },
-        "returnurl": "https://banking-tbc.pirveli.ge/v1/tpay/payments/callback",
+        "returnurl": "https://vouchers.pirveli.ge/success",
         "userIpAddress": "127.0.0.1",
         "methods": [5],
         "expirationMinutes": "5",
-        "callbackUrl": "https://banking-tbc.pirveli.ge/v1/tpay/payments/callback",
+        "callbackUrl": "https://vouchers.pirveli.ge/success",
         "preAuth": false,
         "language": "EN",
         "merchantPaymentId": "1",
