@@ -56,7 +56,7 @@ export default function Cart({serverData, productCount}: any) {
         ,
         "locale": "ka",
         "shop_order_id": "123456",
-        "redirect_url": "https://vouchers.pirveli.ge/success",
+        "redirect_url": "https://bog-banking.pirveli.ge/api/bog/callback/statusChange",
         "show_shop_order_id_on_extract": true,
         "capture_method": "AUTOMATIC",
         "purchase_units": [
