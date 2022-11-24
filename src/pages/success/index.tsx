@@ -21,7 +21,7 @@ export default function Success() {
 
         <div className={"bg-[white]"}>
 
-          <div className={"container m-auto mt-8 mb-[100px]"}>
+          <div className={"container m-auto mb-[100px]"}>
             <div
                 className={"min-h-[400px] py-10 container m-auto w-full max-w-[490px] flex justify-center items-center flex flex-col "}>
               <div className={"max-w-[250px]"}>
