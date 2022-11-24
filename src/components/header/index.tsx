@@ -1,13 +1,20 @@
 import React, {useEffect, useRef, useState} from "react"
 // @ts-ignore
 import {ICONS} from "public/images";
-import Image from "next/image"
+import Image from "next/image";
 import RingLoader from "react-spinners/RingLoader";
 import PulseLoader from "react-spinners/PulseLoader";
-import {Button as AntButton, Drawer, Form, Input, Badge} from 'antd';
-import Button from "../UI/button";
+import {Badge, Button as AntButton, Form, Input} from 'antd';
 import offerItem from "../../../public/images/images/offerItem.png";
 import {IMAGES} from "../../../public/images";
+import Home from "../../../public/images/icons/home";
+
+import Search from "../../../public/images/icons/search";
+import BarHeart from "../../../public/images/icons/barHeart";
+import Menu from "../../../public/images/icons/menu";
+import MenuDrawer from "../blocks/menu-drawer";
+import SearchDrawer from "../blocks/search-drawer";
+import Basket from "../../../public/images/icons/orders";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import axios from "axios";
@@ -16,16 +23,6 @@ import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
 import {getTotals} from "../slices/cartSlice";
 import {getTotalsFavourite} from "../slices/favouritesSlice";
-
-import Home from "../../../public/images/icons/home";
-import Search from "../../../public/images/icons/search";
-import BarHeart from "../../../public/images/icons/barHeart";
-import Orders from "../../../public/images/icons/orders";
-import Menu from "../../../public/images/icons/menu";
-import MenuDrawer from "../blocks/menu-drawer";
-import SearchDrawer from "../blocks/search-drawer";
-import Basket from "../../../public/images/icons/orders";
-import {notFound2} from "../../../public/images/images";
 
 
 interface Icategory {
@@ -49,7 +46,6 @@ const Header: React.FC = () => {
   const [term, setTerm] = useState<string>("");
   const wrapperRef = useRef(null);
   const listRef = useRef<HTMLDivElement>(null);
-
   const [searchForm] = Form.useForm();
   const Router = useRouter();
   const dispatch = useDispatch();

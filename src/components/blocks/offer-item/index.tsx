@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react"
 // @ts-ignore
 import {ICONS, IMAGES} from "public/images";
 import Image from "next/image"
-import img from "/public/images/images/offerItem.png"
 import Link from "next/link";
 import Lari from "../../../../public/images/icons/lari";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -12,7 +11,7 @@ import slider from "../../../../public/images/images/mainSlider.webp";
 import _ from 'lodash';
 import dynamic from 'next/dynamic'
 import {useDispatch, useSelector} from "react-redux";
-import {addToFavourites, getTotalsFavourite} from "../../slices/favouritesSlice";
+import {addToFavourites} from "../../slices/favouritesSlice";
 import {LazyLoadImage} from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -155,9 +154,10 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                         classes={"mr-[5px]"}/>
                   {_.get(data, 'entries[0].entryAmount', 0)}
                 </p>
-                <p className={"text-[#7B92DC] text-sm flex items-center"}>
-                <span
-                    className={"text-[#383838] text-[12px] mr-[8px]"}>OR</span>
+                <div className={"text-[#7B92DC] text-sm flex items-center"}>
+                <span className={"text-[#383838] text-[12px] mr-[8px]"}>
+                  OR
+                </span>
                   {Math.round(_.get(data, 'entries[0].entryAmount', 0) * _.get(data, 'entries[0].multiplier', 0))}
                   <div className={"ml-1.5 flex items-center justify-center"}>
                     <Image
@@ -170,7 +170,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                         alt={"coin icon"}
                     />
                   </div>
-                </p>
+                </div>
 
               </div>
               <p className={"text-[#38383899] text-start text-base leading-[23px] font-[400] sm:mt-[14px] mt-1 textDots2 min-h-[47px]"}>

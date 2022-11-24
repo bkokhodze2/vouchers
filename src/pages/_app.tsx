@@ -1,6 +1,5 @@
 import {Provider} from 'react-redux';
 import "../../styles/globals.css"
-import {configureStore} from "@reduxjs/toolkit";
 // @ts-ignore
 import cartReducer from "../components/slices/cartSlice";
 
@@ -26,10 +25,10 @@ export default function MyApp({Component, pageProps}: AppPropsWithLayout) {
       <>
         <Script strategy="afterInteractive" dangerouslySetInnerHTML={{
           __html: `(function(d, w, s) {
-                var widgetHash = '6RbjV9Nq9riHUTrKPbFJ', bch = d.createElement(s); bch.type = 'text/javascript'; bch.async = true;
-                bch.src = '//widgets.binotel.com/chat/widgets/' + widgetHash + '.js';
-                var sn = d.getElementsByTagName(s)[0]; sn.parentNode.insertBefore(bch, sn);
-              })(document, window, 'script');`
+          var widgetHash = 'cRi3DgoS9KZnYMINwLA1', bch = d.createElement(s); bch.type = 'text/javascript'; bch.async = true;
+          bch.src = '//widgets.binotel.com/chat/widgets/' + widgetHash + '.js';
+          var sn = d.getElementsByTagName(s)[0]; sn.parentNode.insertBefore(bch, sn);
+        })(document, window, 'script');`
         }}/>
 
         <Provider store={store}>
