@@ -11,7 +11,43 @@
 
 body {
     background-color: #EDEEEF;
+}
 
+/*regular*/
+.aveSofRegular:lang(ka) {
+    font-family: avenirMedium, serif;
+}
+
+.aveSofRegular:lang(eng) {
+    font-family: sofiaRegular, serif;
+}
+
+/*regular*/
+
+/*medium*/
+.aveSofMedium:lang(ka) {
+    font-family: avenirMedium, serif;
+}
+
+.aveSofMedium:lang(eng) {
+    font-family: sofiaMedium, serif;
+}
+
+/*medium*/
+/*bold*/
+
+.aveSofBold:lang(ka) {
+    font-family: avenirBold, serif;
+}
+
+.aveSofBold:lang(eng) {
+    font-family: sofiaBold, serif;
+}
+
+/*bold*/
+
+.carousel-status {
+    display: none;
 }
 
 .textDots1 {

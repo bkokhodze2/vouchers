@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Countdown from 'react-countdown';
 
 
@@ -8,7 +7,7 @@ interface IOfferItem {
 }
 
 const CountDown = ({data}: IOfferItem) => {
-  const Complete = () => <span>დრო ამოიწურა !</span>;
+  const Complete = () => <span className={"aveSofRegular"}>დრო ამოიწურა !</span>;
 
 // Renderer callback with condition
   const renderer = ({days, hours, minutes, seconds, completed}: any) => {
@@ -18,7 +17,8 @@ const CountDown = ({data}: IOfferItem) => {
       return <Complete/>;
     } else {
       // Render a countdown jsx
-      return <span className={"sm:text-base text-[14px] font-[500]"}>{days} Days {hours}:{minutes}:{seconds}</span>;
+      return <span
+          className={"sm:text-base text-[14px] font-[500] aveSofMedium"}>{days} Days {hours}:{minutes}:{seconds}</span>;
     }
   };
 

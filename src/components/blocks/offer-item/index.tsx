@@ -112,8 +112,8 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
           }} className={" flex-col items-start bg-[transparent] relative select-none w-full"}>
 
             <div
-                className={"sm:h-[40px] h-[34px] z-10 bg-[#db0060] absolute top-5 left-4 sm:px-[21px] px-4 rounded-[100px] flex items-center"}>
-              <p className={"text-[white] text-xs sm:text-base"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))}
+                className={"sm:h-[40px] h-[34px] z-10 bg-[#8338EC] absolute top-5 left-4 sm:px-[21px] px-4 rounded-[100px] flex items-center"}>
+              <p className={"text-[white] text-xs sm:text-base aveSofRegular"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))}
                 %</p>
             </div>
 
@@ -145,17 +145,17 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
 
             <div
                 className={"flex flex-col w-full sm:bg-[white] bg-[white] sm:px-[20px] sm:pb-6 pb-[18px] px-[14px] rounded-b-xl lg:max-w-[400px] sm:max-w-[400px] max-w-7xl"}>
-              <p className={"text-clip overflow-hidden text-start sm:mt-3 mt-2 sm:font-bold font-[500] leading-[27px] text-[#383838] sm:text-[22px] text-base min-h-[54px] textDots2"}>
+              <p className={"text-clip overflow-hidden text-start sm:mt-3 mt-2 sm:font-bold font-[500] leading-[27px] text-[#383838] sm:text-[22px] text-base min-h-[54px] textDots2 aveSofBold"}>
                 {_.get(data, 'additionalInfo[0].provider.name', "")}
               </p>
-              <div className={"flex flex-row space-x-3 items-center sm:mt-3 mt-1"}>
-                <p className={"font-bold text-[#E35A43] text-[21px] flex items-center"}>
+              <div className={"flex flex-row space-x-3 items-center sm:mt-3 mt-1 aveSofMedium"}>
+                <p className={"font-bold text-[#E35A43] text-[21px] flex items-center aveSofMedium"}>
                   <Lari color={"#E35A43"}
                         classes={"mr-[5px]"}/>
                   {_.get(data, 'entries[0].entryAmount', 0)}
                 </p>
                 <div className={"text-[#7B92DC] text-sm flex items-center"}>
-                <span className={"text-[#383838] text-[12px] mr-[8px]"}>
+                <span className={"text-[#383838] text-[12px] mr-[8px] aveSofRegular"}>
                   OR
                 </span>
                   {Math.round(_.get(data, 'entries[0].entryAmount', 0) * _.get(data, 'entries[0].multiplier', 0))}
@@ -173,7 +173,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                 </div>
 
               </div>
-              <p className={"text-[#38383899] text-start text-base leading-[23px] font-[400] sm:mt-[14px] mt-1 textDots2 min-h-[47px]"}>
+              <p className={"text-[#38383899] text-start text-base leading-[23px] font-[400] sm:mt-[14px] mt-1 textDots2 min-h-[47px] aveSofRegular"}>
                 {_.get(data, 'additionalInfo[0].subTitles[0].description', "")}
               </p>
               <div className={"flex justify-between w-full sm:mt-3 mt-1"}>

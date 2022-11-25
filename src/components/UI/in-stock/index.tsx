@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useState} from "react";
+import {useMemo, useState} from "react";
 
 interface IInStock {
   max?: number
@@ -21,7 +21,7 @@ function InStock({max = 101, current = 52}: IInStock) {
             <div style={{width: `${width}%`}}
                  className={`h-1 rounded-[8px] bg-purple transition transition-all w-[0%]`}></div>
           </div>
-          <p className={"ml-1 text-[#38383880] sm:text-[#383838] text-sm"}>{current === null ? 0 : current}/{max}</p>
+          <p className={"ml-1 text-[#38383880] sm:text-[#383838] text-sm aveSofMedium"}>{current === null ? 0 : current}/{max}</p>
         </div>
       </div>
   );

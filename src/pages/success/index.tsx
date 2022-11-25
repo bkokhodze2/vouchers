@@ -37,7 +37,7 @@ export default function Success() {
               </div>
 
               <div onClick={() => Router.push('/')}>
-                <Button bgColor={"#383838"} textColor={"white"} text={"Back to home"} classes={"mt-6"}/>
+                <Button bgColor={"#383838"} textColor={"white"} text={"Back to home"} classes={"mt-6 aveSofRegular"}/>
               </div>
 
             </div>

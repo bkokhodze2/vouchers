@@ -2,7 +2,7 @@ import type {NextPage} from 'next'
 import Head from 'next/head'
 import Header from "../components/header";
 // @ts-ignore
-import {IMAGES, ICONS} from "public/images";
+import {ICONS, IMAGES} from "public/images";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import Button from "../components/UI/button";
@@ -13,8 +13,6 @@ import OfferItem from "../components/blocks/offer-item";
 import Footer from "../components/footer";
 import axios from "axios";
 import PulseLoader from "react-spinners/PulseLoader";
-import {HashLoader} from "react-spinners";
-import slider from "../../public/images/images/mainSlider.png";
 import FreeScroll from "../components/UI/slider/free-scroll";
 import CategorySlider from "../components/UI/slider/category-slider";
 
@@ -25,7 +23,7 @@ const Home: NextPage = ({serverData}: any) => {
 
   const [vouchers, setVouchers] = useState<[]>([]);
   const [vouchersAll, setVouchersAll] = useState<any>([]);
-  const [categories, setCategories] = useState<[any]>([{}]);
+  // const [categories, setCategories] = useState<[any]>([{}]);
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [promo, setPromo] = useState<any>([]);
@@ -48,14 +46,14 @@ const Home: NextPage = ({serverData}: any) => {
           });
     }
 
-    if (!!categories) {
-      axios
-          .get(`${baseApi}/providers/categories`)
-          .then((res) => {
-            setCategories(res.data)
-
-          });
-    }
+    // if (!!categories) {
+    //   axios
+    //       .get(`${baseApi}/providers/categories`)
+    //       .then((res) => {
+    //         setCategories(res.data)
+    //
+    //       });
+    // }
 
   }, [])
 
@@ -97,7 +95,7 @@ const Home: NextPage = ({serverData}: any) => {
                     // order-last
                     className="relative min-h-[138px] md:min-h-unset bg-[white] py-0 md:py-4 lg:py-8 rounded-xl flex flex-row md:flex-col md:items-center overflow-hidden bg-no-repeat bg-top"
                 >
-                  <h2 className={"text-[#383838] font-bold text-[22px] text-center z-10 hidden md:flex"}>Become
+                  <h2 className={"text-[#383838] font-bold text-[22px] text-center z-10 hidden md:flex aveSofBold"}>Become
                     Partner</h2>
                   <div className={"relative"}>
                     <div
@@ -130,15 +128,16 @@ const Home: NextPage = ({serverData}: any) => {
                     />
                   </div>
                   <div className={"p-5 md:p-0"}>
-                    <h2 className={"text-[#383838] font-bold text-[18px] md:text-[22px] z-10 flex md:hidden mb-4"}>Become
+                    <h2 className={"text-[#383838] font-bold text-[18px] md:text-[22px] z-10 flex md:hidden mb-4 aveSofBold"}>Become
                       Partner</h2>
-                    <p className={"w-full px-0 xl:px-6 text-start md:text-center leading-[23px] text-[#38383899] text-sm -mt-[14px] z-10"}>Increase
+                    <p className={"w-full px-0 xl:px-6 text-start md:text-center leading-[23px] text-[#38383899] text-sm -mt-[14px] z-10 aveSofRegular"}>Increase
                       sales,
                       attract new
                       customers and double your income with us.</p>
                   </div>
 
-                  <Button text={"Learn More"} bgColor={"#383838"} classes={"mt-[58px] z-10 hidden md:flex"}/>
+                  <Button text={"Learn More"} bgColor={"#383838"}
+                          classes={"mt-[58px] z-10 hidden md:flex aveSofRegular"}/>
                 </div>
               </div>
               {/*Become Partner*/}
@@ -155,13 +154,13 @@ const Home: NextPage = ({serverData}: any) => {
                 <div
                     className={"grid hidden md:grid grid-rows-1 gap-[44px] md:gap-[16px] xl:gap-[32px] grid-cols-3 mt-4 xl:mt-[30px] "}>
                   <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full"}>
-                    <p className={"text-sm text-black"}>Advertsment</p>
+                    <p className={"text-sm text-black aveSofRegular"}>რეკლამა</p>
                   </div>
                   <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full"}>
-                    <p className={"text-sm text-black"}>Advertsment</p>
+                    <p className={"text-sm text-black aveSofRegular"}>რეკლამა</p>
                   </div>
                   <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full"}>
-                    <p className={"text-sm text-black"}>Advertsment</p>
+                    <p className={"text-sm text-black aveSofRegular"}>რეკლამა</p>
                   </div>
                 </div>
                 {/*Advertisement*/}
@@ -175,7 +174,7 @@ const Home: NextPage = ({serverData}: any) => {
           {promo.length > 0 &&
 							<div className={"flex flex-col mt-[44px] md:mt-[40px]"}>
 								<div className={"ph:container con pl-0px ph:p-auto ph:m-auto w-full"}>
-									<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold"}>Special
+									<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Special
 										offers</h1>
 									<div className={"mt-4"}>
 										<OfferSlider data={promo} loop={false}/>
@@ -215,7 +214,7 @@ const Home: NextPage = ({serverData}: any) => {
             {/*Popular offers */}
             {vouchers.length > 0 && <div className={"flex flex-col mt-[44px] md:mt-0"}>
 							<div className={"ph:container con pl-0px ph:p-auto ph:m-auto w-full"}>
-								<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold"}>Popular
+								<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Popular
 									offers</h1>
 								<div className={"mt-4"}>
 									<OfferSlider data={vouchers}/>
@@ -264,8 +263,8 @@ const Home: NextPage = ({serverData}: any) => {
                          loading={"lazy"}
                          alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>Tourism</h4>
-                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>Tourism</h4>
+                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
                 </div>
               </Link>
 
@@ -285,8 +284,8 @@ const Home: NextPage = ({serverData}: any) => {
                          loading={"lazy"}
                          alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>beauty</h4>
-                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>beauty</h4>
+                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
                 </div>
               </Link>
 
@@ -306,8 +305,8 @@ const Home: NextPage = ({serverData}: any) => {
                          loading={"lazy"}
                          alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>food</h4>
-                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>food</h4>
+                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
                 </div>
               </Link>
 
@@ -327,8 +326,8 @@ const Home: NextPage = ({serverData}: any) => {
                          loading={"lazy"}
                          alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>entertainment</h4>
-                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>entertainment</h4>
+                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
                 </div>
               </Link>
 
@@ -348,8 +347,8 @@ const Home: NextPage = ({serverData}: any) => {
                          loading={"lazy"}
                          alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>pool</h4>
-                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>pool</h4>
+                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
                 </div>
               </Link>
 
@@ -368,8 +367,8 @@ const Home: NextPage = ({serverData}: any) => {
                          loading={"lazy"}
                          alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>electronic</h4>
-                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>electronic</h4>
+                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
                 </div>
               </Link>
             </div>
@@ -382,7 +381,7 @@ const Home: NextPage = ({serverData}: any) => {
           <div
               className={"flex flex-col w-full pb-[98px] mt-[0px] sm:mt-[0px]"}>
             {vouchers.length > 0 && <div className={"container m-auto"}>
-							<h1 className={"text-[18px] sm:text-[28px] text-[#383838] font-bold"}>New offers</h1>
+							<h1 className={"text-[18px] sm:text-[28px] text-[#383838] font-bold aveSofBold"}>New offers</h1>
 							<div
 									className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-5 md:gap-y-[42px] xl:gap-x-[30px]"}>
                 {
@@ -400,7 +399,7 @@ const Home: NextPage = ({serverData}: any) => {
                     }}
 										onClick={() => !isLoading && nextPage(page + 1)}>
 
-									<p className={"text-[16px] text-[white] font-normal whitespace-nowrap"}>{isLoading ? "loading" : "Show more"}</p>
+									<p className={"text-[16px] text-[white] font-normal whitespace-nowrap aveSofRegular"}>{isLoading ? "loading" : "Show more"}</p>
                   {isLoading &&
 											<PulseLoader size={5} color="#FFFFFF" speedMultiplier={0.7} className={"mt-1.5 ml-1.5 "}/>}
 								</div>

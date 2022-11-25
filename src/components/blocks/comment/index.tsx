@@ -1,12 +1,8 @@
-import React, {useEffect, useState} from "react"
+import React from "react"
 import {Rate} from "antd"
 // @ts-ignore
 import {ICONS, IMAGES} from "public/images";
 import Image from "next/image"
-
-import img from "/public/images/images/offerItem.png"
-import Link from "next/link";
-import Lari from "../../../../public/images/icons/lari";
 
 
 interface IOfferItem {
@@ -45,21 +41,21 @@ const Comment = ({
               />
             </div>
             <div>
-              <p className={"text-base font-bold"}>{userName}</p>
+              <p className={"text-base font-bold aveSofBold"}>{userName}</p>
               <div className={"flex items-center"}>
                 {rate && <Rate disabled defaultValue={rate} className={"text-[16px] h-[20px] lg:mb-1.5 mb-0"}/>}
-                <span className={"ml-2 text-sm font-bold"}>{rate}.0</span>
+                <span className={"ml-2 text-sm font-bold aveSofBold"}>{rate}.0</span>
               </div>
             </div>
           </div>
           <div>
-            <p className={"text-[#38383899] lg:text-sm text-[12px]"}>{date}</p>
+            <p className={"text-[#38383899] lg:text-sm text-[12px] aveSofRegular"}>{date}</p>
           </div>
         </div>
         {/*user*/}
         {/*comment*/}
         <div className={"bg-[white] rounded-xl p-4 lg:p-6 mt-3"}>
-          <p>
+          <p className={"aveSofRegular"}>
             {comment}
           </p>
         </div>

@@ -1,8 +1,8 @@
 import Layout from "../../components/layouts/user-layout"
 import Head from 'next/head'
 // @ts-ignore
-import {IMAGES, ICONS} from "public/images";
-import React, {useEffect, useState} from "react";
+import {ICONS, IMAGES} from "public/images";
+import React, {useState} from "react";
 import OfferItem from "../../components/blocks/offer-item";
 import {useRouter} from "next/router";
 import {useSelector} from "react-redux";
@@ -26,7 +26,7 @@ export default function Wishlist({}: any) {
 
         <div className={"container m-auto mt-8 mb-[100px]"}>
 
-          <p className={"text-[#383838] text-[28px] font-bold mb-4"}>
+          <p className={"text-[#383838] text-[28px] font-bold mb-4 aveSofBold"}>
             Wishlist
           </p>
 
@@ -52,9 +52,9 @@ export default function Wishlist({}: any) {
                          alt={"not found image"}
                          style={{objectFit: "cover"}}/>
                 </div>
-                <p className={"!uppercase mt-10 text-[#383838] text-[28px] font-bold "}>wishlist is empty</p>
+                <p className={"!uppercase mt-10 text-[#383838] text-[28px] font-bold aveSofBold"}>wishlist is empty</p>
                 <div onClick={() => Router.push('/')}>
-                  <Button bgColor={"#383838"} textColor={"white"} text={"Back to home"} classes={"mt-6"}/>
+                  <Button bgColor={"#383838"} textColor={"white"} text={"Back to home"} classes={"mt-6 aveSofRegular"}/>
                 </div>
 
               </div>

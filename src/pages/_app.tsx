@@ -1,5 +1,6 @@
 import {Provider} from 'react-redux';
 import "../../styles/globals.css"
+import "../../styles/font.css"
 // @ts-ignore
 import cartReducer from "../components/slices/cartSlice";
 
@@ -8,6 +9,7 @@ import type {NextPage} from 'next'
 import type {AppProps} from 'next/app'
 import store from "../components/store/index"
 import Script from 'next/script'
+import {QueryClient, QueryClientProvider} from 'react-query'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -16,6 +18,7 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
+const queryClient = new QueryClient()
 
 export default function MyApp({Component, pageProps}: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
@@ -30,10 +33,11 @@ export default function MyApp({Component, pageProps}: AppPropsWithLayout) {
           var sn = d.getElementsByTagName(s)[0]; sn.parentNode.insertBefore(bch, sn);
         })(document, window, 'script');`
         }}/>
-
-        <Provider store={store}>
-          <Component {...pageProps} />
-        </Provider>
+        <QueryClientProvider client={queryClient}>
+          <Provider store={store}>
+            <Component {...pageProps} />
+          </Provider>
+        </QueryClientProvider>
       </>
   )
 }

@@ -1,12 +1,11 @@
 import Layout from "../../components/layouts/user-layout"
 import Head from 'next/head'
 // @ts-ignore
-import {IMAGES, ICONS} from "public/images";
+import {ICONS, IMAGES} from "public/images";
 import React, {useEffect, useState} from "react";
 import OfferItem from "../../components/blocks/offer-item";
 import {useRouter} from "next/router";
 import Image from "next/image";
-import Button from "../../components/UI/button";
 import OfferSlider from "../../components/UI/slider/offer-slider";
 import axios from "axios";
 import {Form, Select} from "antd";
@@ -80,7 +79,7 @@ export default function Category({serverData}: any) {
 
             {promo.length > 0 && <div className={" flex flex-col mt-[44px] md:mt-0"}>
 							<div className={"con pl-0px ph:p-auto ph:m-auto w-full"}>
-								<h1 className={"text-[18px] pl-3 ph:pl-0 m-auto sm:text-[28px] text-[#383838] font-bold"}>Popular
+								<h1 className={"text-[18px] pl-3 ph:pl-0 m-auto sm:text-[28px] text-[#383838] font-bold aveSofMedium"}>Popular
 									offers</h1>
 								<div className={"mt-4"}>
 									<OfferSlider data={promo}/>

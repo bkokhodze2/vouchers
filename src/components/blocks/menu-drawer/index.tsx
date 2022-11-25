@@ -1,19 +1,7 @@
-import React, {useEffect, useState} from "react"
-import {Rate} from "antd";
+import React from "react"
 // @ts-ignore
 import {ICONS, IMAGES} from "public/images";
 import Image from "next/image"
-
-import Link from "next/link";
-import {
-  advertisement,
-  ecomerce,
-  logOut,
-  menuPercent,
-  orders,
-  settings,
-  whoWeAre
-} from "../../../../public/images/icons";
 
 interface IMenu {
   isOpenMenu: boolean
@@ -36,7 +24,7 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
                 }}
     >
       <Image src={icon} width={iconSize} height={iconSize} layout={"fixed"}/>
-      <p className={" text-base ml-3"}
+      <p className={" text-base ml-3 aveSofRegular"}
          style={{
            color: color
          }}
@@ -62,10 +50,10 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
             <div className={"flex items-center"}>
               <Image src={IMAGES.avatar} width={36} height={36} layout={"fixed"}/>
               <div className={"flex flex-col ml-3"}>
-                <p className={"text-[#383838] text-sm"}>Vano Tvauri</p>
+                <p className={"text-[#383838] text-sm aveSofMedium"}>Vano Tvauri</p>
                 <div className={"flex"}>
                   <Image src={IMAGES.coin} width={16} height={16} layout={"fixed"}/>
-                  <p className={"text-[#00000066] text-sm ml-2"}>2,945 Point</p>
+                  <p className={"text-[#00000066] text-sm ml-2 aveSofRegular"}>2,945 Point</p>
                 </div>
               </div>
             </div>
@@ -83,7 +71,7 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
           </div>
 
           <div className={"mt-8"}>
-            <h5 className={"text-[#38383880]"}>Navigatioon</h5>
+            <h5 className={"text-[#38383880] aveSofRegular"}>Navigatioon</h5>
             <div className={" grid grid-cols-2 gap-3 mt-3"}>
               <NavItem icon={ICONS.ecomerce} text={"E-commerce"} bg={"#F5CE5A"}/>
               <NavItem icon={ICONS.medical} text={"Medical Card"} bg={"#7B92DC"}/>
@@ -93,7 +81,7 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
           </div>
 
           <div className={"mt-8"}>
-            <h5 className={"text-[#38383880]"}>Company</h5>
+            <h5 className={"text-[#38383880] aveSofRegular"}>Company</h5>
             <div className={" grid grid-cols-2 gap-3 mt-3"}>
               <NavItem icon={ICONS.whoWeAre} iconSize={18} text={"Who we are"} color={"#383838"}/>
               <NavItem icon={ICONS.faq} iconSize={18} text={"FAQ"} color={"#383838"}/>
@@ -102,7 +90,7 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
           </div>
 
           <div className={"mt-8"}>
-            <h5 className={"text-[#38383880]"}>User</h5>
+            <h5 className={"text-[#38383880] aveSofRegular"}>User</h5>
             <div className={" grid grid-cols-2 gap-3 mt-3"}>
               <NavItem icon={ICONS.flash} iconSize={18} text={"How it works"} color={"#383838"}/>
               <NavItem icon={ICONS.tc} iconSize={24} text={"T&C"} color={"#383838"}/>
@@ -112,13 +100,12 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
           </div>
 
           <div className={"mt-8"}>
-            <h5 className={"text-[#38383880]"}>For business</h5>
+            <h5 className={"text-[#38383880] aveSofRegular"}>For business</h5>
             <div className={" grid grid-cols-2 gap-3 mt-3"}>
               <NavItem icon={ICONS.advertisement} iconSize={18} text={"Advertisement"} color={"#383838"}/>
               <NavItem icon={ICONS.partnership} iconSize={18} text={"Partnership"} color={"#383838"}/>
             </div>
           </div>
-
 
         </div>
       </div>

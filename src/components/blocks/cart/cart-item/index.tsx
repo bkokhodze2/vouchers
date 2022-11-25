@@ -88,7 +88,7 @@ const CartItem = ({data, getCount}: ICartItem) => {
         <div className={"flex flex-col w-full"}>
           <div className={"flex cursor-pointer justify-between"}>
             <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
-              <h2 className={"text-[#383838] font-bold text-[14px] lg:text-[22px] md:text-base"}>{_.get(data, '[0]additionalInfo[0].provider.name', "")}</h2>
+              <h2 className={"text-[#383838] font-bold text-[14px] lg:text-[22px] md:text-base aveSofBold"}>{_.get(data, '[0]additionalInfo[0].provider.name', "")}</h2>
             </Link>
             <div
                 onClick={() => handleRemoveFromCart(data)}
@@ -104,7 +104,7 @@ const CartItem = ({data, getCount}: ICartItem) => {
             </div>
           </div>
 
-          <p className={"text-base mt-[18px] text-[#38383899] hidden md:flex"}>
+          <p className={"text-base mt-[18px] text-[#38383899] hidden md:flex aveSofRegular"}>
             {_.get(data, '[0]additionalInfo[0].subTitles[0].description', "")}
           </p>
 
@@ -119,12 +119,13 @@ const CartItem = ({data, getCount}: ICartItem) => {
               </div>
               <div className={"flex w-full items-center md:justify-start justify-between mt-[11px] md:mt-[0px]"}>
                 <div className={"flex flex-col items-start md:items-center justify-center lg:ml-8 ph:ml-4 ml-1.5"}>
-                  <p className={"text-[14px] text-[#383838b3] text-center whitespace-nowrap"}>Total price</p>
+                  <p className={"text-[14px] text-[#383838b3] text-center whitespace-nowrap aveSofRegular"}>Total
+                    price</p>
                   <div className={"flex items-center"}>
 
                     {
                       data.isPoint ? <p
-                          className={"text-[#E35A43] text-[18px] ml-[5px]"}>
+                          className={"text-[#E35A43] text-[18px] ml-[5px] aveSofMedium"}>
                       <span className={"mr-1"}>
                         <Image
                             src={IMAGES.coin}
@@ -140,7 +141,7 @@ const CartItem = ({data, getCount}: ICartItem) => {
                       </p> : <>
                         <Lari color={"#E35A43"}/>
                         <p
-                            className={"text-[#E35A43] text-[18px] ml-[5px]"}>{_.get(data, '[0].entries[0].entryAmount', 0) * data.cartQuantity}
+                            className={"text-[#E35A43] text-[18px] ml-[5px] aveSofMedium"}>{_.get(data, '[0].entries[0].entryAmount', 0) * data.cartQuantity}
                         </p>
                       </>
                     }
@@ -188,7 +189,7 @@ const CartItem = ({data, getCount}: ICartItem) => {
                   alt={"trash icon"}
                   width={24}
                   height={24}/>
-              <p className={"text-[#383838] ml-[10px] font-[500]"}>Delete</p>
+              <p className={"text-[#383838] ml-[10px] font-[500] aveSofMedium"}>Delete</p>
             </div>
           </div>
         </div>

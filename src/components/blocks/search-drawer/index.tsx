@@ -1,20 +1,17 @@
-import React, {useCallback, useEffect, useState} from "react"
+import React, {useEffect, useState} from "react"
 // @ts-ignore
 import {ICONS, IMAGES} from "public/images";
 import Image from "next/image"
 
 import Link from "next/link";
-import {Button as AntButton, Drawer, Form, Input, Badge} from 'antd';
-
-import RingLoader from "react-spinners/RingLoader";
+import {Form, Input} from 'antd';
 import PulseLoader from "react-spinners/PulseLoader";
 import {useRouter} from "next/router";
 import axios from "axios";
 import useDocumentHeight from "../../UI/useDocumentHeight";
-import useOnScreenKeyboardScrollFix from "../../UI/useOnScreenKeyboardScrollFix";
 import _ from "lodash";
 import offerItem from "../../../../public/images/images/offerItem.png";
-import {notFoundMobile} from "../../../../public/images/images";
+import Lari from "../../../../public/images/icons/lari";
 
 interface Isearch {
   isOpenSearch: boolean
@@ -69,8 +66,9 @@ const SearchDrawer = ({isOpenSearch, setIsOpenSearch}: Isearch) => {
   const getHighlightedText = (text: any, highlight: any) => {
     // Split on highlight term and include term into parts, ignore case
     const parts = text?.split(new RegExp(`(${highlight})`, 'gi'));
-    return <span> {parts?.map((part: any, i: number) =>
-        <span key={i} style={part?.toLowerCase() === highlight?.toLowerCase() ? {color: '#8338EC'} : {}}>
+    return <span className={"aveSofBold"}> {parts?.map((part: any, i: number) =>
+        <span className={"aveSofBold"} key={i}
+              style={part?.toLowerCase() === highlight?.toLowerCase() ? {color: '#8338EC'} : {}}>
             {part}
         </span>)
     } </span>;
@@ -100,7 +98,7 @@ const SearchDrawer = ({isOpenSearch, setIsOpenSearch}: Isearch) => {
     let voucherSlug = _.get(data, 'additionalInfo[0].genericTransactionTypeId', "");
 
     if (!data) {
-      return <p>erroor</p>
+      return <p className={"aveSofBold"}>erroor</p>
     }
 
     return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
@@ -119,17 +117,18 @@ const SearchDrawer = ({isOpenSearch, setIsOpenSearch}: Isearch) => {
           }
 
           <div
-              className={"absolute top-[8px] left-[8px] z-20 flex justify-center items-center bg-[#E35A43] rounded-[100px] h-[25px]"}>
-            <p className={"text-[white] text-[12px] px-[12px]"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))} %</p>
+              className={"absolute top-[8px] left-[8px] z-20 flex justify-center items-center bg-[#8338EC] rounded-[100px] h-[25px]"}>
+            <p className={"text-[white] text-[12px] px-[12px] aveSofRegular"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))} %</p>
           </div>
         </div>
         <div className={"w-full overflow-hidden flex flex-col justify-between"}>
-          <h3 className={"text-[#383838] font-bold text-base font-bold"}>
+          <h3 className={"text-[#383838] font-bold text-base font-bold aveSofBold"}>
             {getHighlightedText(_.get(data, 'additionalInfo[0].provider.name', ""), term)}
           </h3>
           <div className={"flex w-full justify-between mt-1"}>
 
-            <p className={"text-purple text-[21px] leading-[21px] font-[500] whitespace-nowrap"}>$
+            <p className={"text-purple text-[21px] leading-[21px] font-[500] whitespace-nowrap aveSofRegular flex"}>
+              <Lari color={"#3838384d"} classes={"mr-1"}/>
               {_.get(data, 'entries[0].entryAmount', 0)}
             </p>
           </div>
@@ -157,7 +156,8 @@ const SearchDrawer = ({isOpenSearch, setIsOpenSearch}: Isearch) => {
              }}
         >
           {term === "" && <div className={"h-full flex flex-col justify-end items-center"}>
-            {!term && <p className={"mb-[22px] text-base font-[500] text-[#000000]"}>What are you looking for?</p>}
+            {!term && <p className={"mb-[22px] text-base font-[500] text-[#000000] aveSofMedium"}>What are you looking
+							for?</p>}
             {!term && <Image
 								src={IMAGES.lookingFor}
 								quality={100}
@@ -189,7 +189,7 @@ const SearchDrawer = ({isOpenSearch, setIsOpenSearch}: Isearch) => {
               term !== "" && !isLoading && findData.length === 0 &&
 							<div className={"h-full flex flex-col justify-end items-center"}>
 								<div className={"w-full flex flex-col justify-end items-center h-[300px]"}>
-									<p className={"mb-[22px] text-base font-[500] text-[#000000]"}>No result found</p>
+									<p className={"mb-[22px] text-base font-[500] text-[#000000] aveSofMedium"}>No result found</p>
 									<Image
 											src={IMAGES.notFoundMobile}
 											quality={60}
@@ -204,13 +204,10 @@ const SearchDrawer = ({isOpenSearch, setIsOpenSearch}: Isearch) => {
           }
           {isLoading && <div className={"h-full flex flex-col justify-center items-center"}>
 						<div className={"flex flex-col w-full justify-center items-center mt-2 h-full"}>
-							<RingLoader
-									color="#8338EC"
-									size={80}
-									speedMultiplier={1}
-							/>
+							<img className={"h-[300px] w-auto"} src={IMAGES.gif.src} style={{objectFit: "cover"}}
+							     alt={"skeleton animation"}/>
 							<div className={"flex items-end mt-10"}>
-								<p className={"text-[#383838] text-[24px]"}>Loading</p>
+								<p className={"text-[#383838] text-[24px] aveSofMedium"}>Loading</p>
 								<PulseLoader size={5} color="#383838" speedMultiplier={0.7} className={"mb-1.5 ml-1.5 "}/>
 							</div>
 						</div>
@@ -281,7 +278,6 @@ const SearchDrawer = ({isOpenSearch, setIsOpenSearch}: Isearch) => {
 
             </Form>
           </div>
-
 
         </div>
       </div>

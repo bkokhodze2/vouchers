@@ -22,7 +22,7 @@ import _ from "lodash";
 
 import {addToCartWithQuantity, getTotals,} from "../../../../../components/slices/cartSlice";
 
-import {addToFavourites, clearFavourites, getTotalsFavourite} from "../../../../../components/slices/favouritesSlice";
+import {addToFavourites, getTotalsFavourite} from "../../../../../components/slices/favouritesSlice";
 import FreeScroll from "../../../../../components/UI/slider/free-scroll";
 import Lari from "../../../../../../public/images/icons/lari";
 
@@ -42,6 +42,8 @@ export default function Details() {
   const [quantity, setQuantity] = useState<number>(1);
   const [quantityInCart, setQuantityInCart] = useState<number>(0);
   const [freeQuantity, setFreeQuantity] = useState<number>(0);
+  const [payType, setPayType] = useState<string>("");
+  const [showPayType, setShowPayType] = useState<boolean>(false);
 
   const cart = useSelector((state: any) => state.cart);
   const favourites = useSelector((state: any) => state.favourites);
@@ -55,13 +57,13 @@ export default function Details() {
 
   const items = [
     {
-      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold"}>offer details</h3>,
+      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold aveSofBold"}>offer details</h3>,
       key: 'item-1',
       children: <div
           dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0]?.descriptions[0]?.description}}/>
     },
     {
-      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold"}>conditions</h3>,
+      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold aveSofBold"}>conditions</h3>,
       key: 'item-2',
       children: <div
           dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0].subDescriptions[0].description}}
@@ -77,6 +79,7 @@ export default function Details() {
         if (res.data.length === 0) {
           Router.push("/");
         }
+
       })
       axios.get(`${baseApi}/vouchers?contractId=662`).then((res) => {
         setVouchers(res.data)
@@ -102,8 +105,6 @@ export default function Details() {
 
   }, [cart, voucher, quantityInCart])
 
-
-  console.log("quantity", quantityInCart, "da", freeQuantity)
 
   const handleAddToCart = (product: any) => {
 
@@ -148,6 +149,92 @@ export default function Details() {
     })
   }, [dispatch, favourites, voucher])
 
+  const buy = () => {
+    setShowPayType(true);
+
+    if (isWithMoney) {
+      if (payType === "bog") {
+        let bogObj = {
+          "user_id": null,
+          "contract_id": null,
+          "party_id": null,
+          "bog_order_request_dto": {
+            "intent": "AUTHORIZE",
+            "items": {
+              "amount": _.get(voucher, '[0].entries[0].entryAmount', 1),
+              "description": _.get(voucher, '[0].additionalInfo[0].provider.name', ""),
+              "quantity": quantity,
+              "product_id": _.get(voucher, '[0].additionalInfo[0].genericTransactionTypeId', 1)
+            }
+            ,
+            "locale": "ka",
+            "shop_order_id": "123456",
+            "redirect_url": "https://bog-banking.pirveli.ge/api/bog/callback/statusChange",
+            "show_shop_order_id_on_extract": true,
+            "capture_method": "AUTOMATIC",
+            "purchase_units": [
+              {
+                "amount": {
+                  "currency_code": "GEL",
+                  "value": _.get(voucher, '[0].entries[0].entryAmount', 1) * quantity
+                }
+              }
+            ]
+          }
+        }
+
+        axios.post(`https://vouchers.pirveli.ge/api/bog/orders`, bogObj).then((res) => {
+          let link = res.data.links[1].href;
+          typeof window !== 'undefined' && window.open(link, '_blank');
+        })
+
+      } else {
+        let tbcObj = {
+          "user_id": null,
+          "contract_id": null,
+          "party_id": null,
+          "items": {
+            "amount": _.get(voucher, '[0].entries[0].entryAmount', 1),
+            "description": _.get(voucher, '[0].additionalInfo[0].provider.name', ""),
+            "quantity": quantity,
+            "product_id": _.get(voucher, '[0].additionalInfo[0].genericTransactionTypeId', 1)
+          }
+          ,
+          "tbc_payment_request_dto": {
+            "amount": {
+              "currency": "GEL",
+              "total": _.get(voucher, '[0].entries[0].entryAmount', 1) * quantity,
+              "subTotal": 0,
+              "tax": 0,
+              "shipping": 0
+            },
+            "returnurl": "https://vouchers.pirveli.ge/success",
+            "userIpAddress": "127.0.0.1",
+            "methods": [5],
+            "expirationMinutes": "5",
+            "callbackUrl": "https://vouchers.pirveli.ge/success",
+            "preAuth": false,
+            "language": "EN",
+            "merchantPaymentId": "1",
+            "saveCard": false
+          }
+        }
+
+        axios.post(`https://vouchers.pirveli.ge/api/tbc/payments`, tbcObj).then((res) => {
+          let link = res.data.links[1].uri;
+          typeof window !== 'undefined' && window.open(link, '_blank');
+        })
+
+      }
+    } else {
+      notification['error']({
+        message: 'ამ მომენტში ქულებით ყიდვა ხელმისაწვდომი არ არის',
+      });
+    }
+
+
+  }
+
   const RightSide = () => {
     return <div className={"h-full container m-auto lg:p-0 "}>
       <div className={"bg-[transparent] lg:bg-[#ffffff66] rounded-xl p-0 lg:p-8 top-[150px] sticky overflow-y-scroll "}>
@@ -160,7 +247,8 @@ export default function Details() {
             <span className={" text-[20px] font-[500] mr-2"}
                   style={{color: isWithMoney ? "#FFFFFF" : "#383838"}}><Lari
                 color={isWithMoney ? "#FFFFFF" : "#383838"}/></span>
-            <p className={"text-[white] text-base"} style={{color: isWithMoney ? "#FFFFFF" : "#383838"}}>with money</p>
+            <p className={"text-[white] text-base aveSofRegular"}
+               style={{color: isWithMoney ? "#FFFFFF" : "#383838"}}>with money</p>
           </div>
           <div onClick={() => {
             setIsWithMoney(false)
@@ -178,7 +266,8 @@ export default function Details() {
                   alt={"coin icon"}
               />
             </span>
-            <p className={" text-base"} style={{color: !isWithMoney ? "#FFFFFF" : "#383838"}}>with point</p>
+            <p className={" text-base aveSofRegular"} style={{color: !isWithMoney ? "#FFFFFF" : "#383838"}}>with
+              point</p>
           </div>
         </div>
         <div className={"grid grid-cols-2 grid-rows-1 gap-1 gap-x-[30px] gap-y-6 mt-8"}>
@@ -196,14 +285,14 @@ export default function Details() {
               />}
             </div>
             <div className={"flex flex-col ml-[10px]"}>
-              <p className={"text-[#383838] lg:text-base text-sm"}>Voucher price</p>
+              <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>Voucher price</p>
               <div className={"flex flex-nowrap items-center"}>
                 {
                   isWithMoney ?
-                      <p className={"flex items-center lg:text-[18px] text-sm text-purple flex-nowrap whitespace-nowrap"}>
+                      <p className={"flex items-center lg:text-[18px] text-sm text-purple flex-nowrap whitespace-nowrap aveSofMedium"}>
                         {_.get(voucher, '[0].entries[0].entryAmount', 0) * quantity}
                       </p> :
-                      <p className={"lg:text-[18px] text-sm text-purple flex items-center flex-nowrap whitespace-nowrap"}>
+                      <p className={"lg:text-[18px] text-sm text-purple flex items-center flex-nowrap whitespace-nowrap aveSofMedium"}>
                         <div className={"mr-2"}>
                         </div>
                         {_.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0) * quantity}
@@ -225,7 +314,7 @@ export default function Details() {
                   />
                 </div>
                 <div className={"flex flex-col w-full justify-center items-center text-center"}>
-                  <p className={"text-[#383838] lg:text-base text-sm"}>Quantity</p>
+                  <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>Quantity</p>
                   <p className={"text-[#383838] text-base font-bold"}>{quantity}</p>
                 </div>
                 <div
@@ -257,10 +346,10 @@ export default function Details() {
                        alt={"percent icon"}/>
               </div>
               <div className={"flex flex-col ml-[16px]"}>
-                <p className={"text-[#383838] lg:text-base text-sm"}>Saving</p>
+                <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>Saving</p>
                 <div className={"flex flex-nowrap items-center"}>
-                  <p className={"lg:text-[18px] text-base text-purple flex-nowrap whitespace-nowrap"}>-{Math.round(_.get(voucher, '[0].additionalInfo[0].percentage', 0))}%</p>
-                  <p className={"ml-1 lg:text-base text-sm text-[#38383899] whitespace-nowrap flex items-center"}>
+                  <p className={"lg:text-[18px] text-base text-purple flex-nowrap whitespace-nowrap aveSofMedium"}>-{Math.round(_.get(voucher, '[0].additionalInfo[0].percentage', 0))}%</p>
+                  <p className={"ml-1 lg:text-base text-sm text-[#38383899] whitespace-nowrap flex items-center aveSofRegular"}>
                     (<Lari color={"#3838384d"} classes={"mr-1"}/>{Math.round(getSave())} )</p>
                 </div>
               </div>
@@ -270,18 +359,17 @@ export default function Details() {
                 <Lari color={"#3838384d"} classes={"scale-150"}/>
               </div>
               <div className={"flex flex-col ml-[16px]"}>
-                <p className={"text-[#383838] lg:text-base text-sm"}>Price</p>
+                <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>Price</p>
                 <div className={"flex flex-nowrap items-center"}>
-                  <p className={"lg:text-[18px] text-base text-purple flex-nowrap whitespace-nowrap flex items-center mr-1.5"}>
+                  <p className={"lg:text-[18px] text-base text-purple flex-nowrap whitespace-nowrap flex items-center mr-1.5 aveSofMedium"}>
                     <Lari color={"#3838384d"}
                           classes={"mr-1"}/> {_.get(voucher, '[0].additionalInfo[0].servicePrice', 0)}</p>
-                  <p className={"ml-1 lg:text-base text-sm  text-[#38383899] whitespace-nowrap line-through flex items-center"}>
+                  <p className={"ml-1 lg:text-base text-sm  text-[#38383899] whitespace-nowrap line-through flex items-center aveSofRegular"}>
                     <Lari color={"#3838384d"} classes={"mr-1"}/> {Math.round(getOldPrice())}</p>
                 </div>
               </div>
             </div>
           </div>
-
 
           {/*options*/}
 
@@ -304,7 +392,7 @@ export default function Details() {
             <div className={"min-w-[15px] flex"}>
               <Image src={ICONS.cart} className={"cursor-pointer"} alt={"cart icon"}/>
             </div>
-            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap"}
+            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}
             >Add to Cart</p>
           </div>
           <div
@@ -328,10 +416,42 @@ export default function Details() {
                          alt={"cart icon"}
                   />}
             </div>
-            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap"}>save</p>
+            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>save</p>
           </div>
-          <div className={" col-span-2"} onClick={() => dispatch(clearFavourites({}))}>
-            <Button text={"Buy now"} bgColor={"#8338EC"} classes={"!w-full"}/>
+
+          {showPayType && <div onClick={() => setPayType("bog")}
+					                     style={{
+                                 border: payType === "bog" ? "1px solid #8338EC" : "1px solid transparent"
+                               }}
+					                     className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
+						<Image
+								src={ICONS.bog}
+								quality={70}
+								loading={"lazy"}
+								alt={"coin icon"}
+
+						/>
+					</div>
+          }
+          {showPayType && <div onClick={() => setPayType("tbc")}
+					                     style={{
+                                 border: payType === "tbc" ? "1px solid #8338EC" : "1px solid transparent"
+                               }}
+					                     className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
+						<Image
+								src={ICONS.tbc}
+								quality={70}
+								loading={"lazy"}
+								alt={"coin icon"}
+
+						/>
+					</div>
+          }
+
+          <div className={"col-span-2"} onClick={() => buy()}>
+            <Button text={payType || !showPayType ? "buy now" : "choose payment"}
+                    bgColor={payType || !showPayType ? "#8338EC" : "#383838"}
+                    classes={"!w-full aveSofRegular"}/>
           </div>
         </div>
         {/* buy & cart buttons*/}
@@ -360,7 +480,7 @@ export default function Details() {
                         width={24}
                         height={24}
                     />
-                    <p className={"ml-2 text-[#383838] text-base"}>Back</p>
+                    <p className={"ml-2 text-[#383838] text-base aveSofRegular"}>Back</p>
                   </div>
                 </Link>
 
@@ -411,9 +531,9 @@ export default function Details() {
                           alt={"image"}/>
                     </div>
                     <div className={"flex-1 flex-col"}>
-                      <h2 className={"lg:text-[22px] text-base font-bold text-[#383838]"}>{_.get(voucher, '[0].additionalInfo[0].provider.name', '')}
+                      <h2 className={"lg:text-[22px] text-base font-bold text-[#383838] aveSofBold"}>{_.get(voucher, '[0].additionalInfo[0].provider.name', '')}
                       </h2>
-                      <p className={"text-[#38383899] mt-1.5"}>{_.get(voucher, '[0].additionalInfo[0].subTitles[0].description', '')}</p>
+                      <p className={"text-[#38383899] mt-1.5 aveSofRegular"}>{_.get(voucher, '[0].additionalInfo[0].subTitles[0].description', '')}</p>
                     </div>
                     <div className={"mr-[9px]"}>
                       <Image src={ICONS.rightArrowDetails} alt={"arrow icon"}/>
@@ -428,7 +548,7 @@ export default function Details() {
                   {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', '') &&
 											<div className={"group pb-4  md:pb-0  flex items-center relative"}>
 												<Phone classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
-												<p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>
+												<p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out aveSofRegular"}>
                           {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', '')}</p>
                         {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts', 0).length > 1 && <div
 														className={"md:flex hidden group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
@@ -441,7 +561,7 @@ export default function Details() {
 																className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 top-[40px] right-0 space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
                               {
                                 _.get(voucher, '[0].additionalInfo[0].provider.providerContacts', []).slice(1, _.get(voucher, '[0].additionalInfo[0].provider.providerContacts', 0).length).map((item: any, index: number) => {
-                                  return <p className={"text-[#383838b3] text-base"} key={index}>
+                                  return <p className={"text-[#383838b3] text-base aveSofRegular"} key={index}>
                                     {item.value}
                                   </p>
                                 })
@@ -456,7 +576,7 @@ export default function Details() {
                   <div className={"group md:py-0 py-4 flex md:flex-row flex-col items-start md:items-center relative"}>
                     <div className={"flex"}>
                       <Watch classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
-                      <p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>Working
+                      <p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out aveSofRegular"}>Working
                         Hours</p>
                       <div
                           className={"md:flex hidden group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
@@ -470,8 +590,8 @@ export default function Details() {
                       {
                         _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).map((item: any, index: number) => {
                           return <div className={"flex justify-between"} key={index}>
-                            <p className={"mr-6 text-[#383838b3]"}>{getWeekByNumber(item.dayId)}</p>
-                            <p className={"text-[#383838]"}>{item.startHour} - {item.endHour}</p>
+                            <p className={"mr-6 text-[#383838b3] aveSofRegular"}>{getWeekByNumber(item.dayId)}</p>
+                            <p className={"text-[#383838] aveSofRegular"}>{item.startHour} - {item.endHour}</p>
                           </div>
                         })
                       }
@@ -483,8 +603,8 @@ export default function Details() {
                       {
                         _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).map((item: any, index: number) => {
                           return <div className={"flex justify-between"} key={index}>
-                            <p className={"mr-6 text-[#383838b3]"}>{getWeekByNumber(item.dayId)}</p>
-                            <p className={"text-[#383838]"}>{item.startHour} - {item.endHour}</p>
+                            <p className={"mr-6 text-[#383838b3] aveSofRegular"}>{getWeekByNumber(item.dayId)}</p>
+                            <p className={"text-[#383838] aveSofRegular"}>{item.startHour} - {item.endHour}</p>
                           </div>
                         })
                       }
@@ -500,7 +620,7 @@ export default function Details() {
                   {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses[0].value', '') &&
 											<div className={"group pt-4 md:pt-0 flex items-center relative"}>
 												<Location classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
-												<p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out"}>
+												<p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out aveSofRegular"}>
                           {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses[0].value', '')}
 												</p>
                         {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', []).length > 1 && <div
@@ -513,7 +633,7 @@ export default function Details() {
 														className={"group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 right-0 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
                           {
                             _.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', []).slice(1, _.get(voucher, '[0].additionalInfo[0].provider.providerAddresses', 0).length).map((item: any, index: number) => {
-                              return <p className={"text-[#383838b3] text-base"} key={index}>
+                              return <p className={"text-[#383838b3] text-base aveSofRegular"} key={index}>
                                 {item.value}
                               </p>
                             })
@@ -527,7 +647,7 @@ export default function Details() {
                   {_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) &&
 											<div className={"hidden space-x-[33px] md:flex items-center"}>
                         {_.get(voucher, '[0]?.additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "").includes("https://") &&
-														< div className={"cursor-pointer"}>
+														<div className={"cursor-pointer"}>
 															<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
 															      target={"_blank"}>
 																<div>
@@ -556,7 +676,7 @@ export default function Details() {
 
                 {/*reviews*/}
                 <div className={"mt-[34px] lg-mt-[100px]"}>
-                  <h4 className={"text-[22px] font-bold text-[#383838] mb-4"}>Reviews</h4>
+                  <h4 className={"text-[22px] font-bold text-[#383838] mb-4 aveSofBold"}>Reviews</h4>
                   <div className={"flex flex-col lg:space-y-6 space-y-5"}>
                     <Comment rate={3}/>
                     <Comment rate={5}/>
@@ -579,7 +699,7 @@ export default function Details() {
           </div>
           {vouchers.length > 0 && <div className={"flex w-full flex-col mt-[44px] md:mt-[44px] details"}>
 						<div className={"ph:container con pl-0px ph:p-auto ph:m-auto w-full"}>
-							<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold"}>Recommended</h1>
+							<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Recommended</h1>
 							<div className={"mt-4"}>
 								<OfferSlider data={vouchers}/>
 								<FreeScroll data={vouchers} miniHeight={true}/>

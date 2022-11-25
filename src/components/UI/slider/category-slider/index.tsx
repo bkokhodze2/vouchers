@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React from "react"
 // @ts-ignore
 import 'react-indiana-drag-scroll/dist/style.css'
 // @ts-ignore
@@ -10,7 +10,7 @@ import "swiper/css/scrollbar";
 
 // import required modules
 import {Swiper, SwiperSlide} from "swiper/react";
-import {FreeMode, Scrollbar, Mousewheel, Pagination} from "swiper";
+import {FreeMode} from "swiper";
 import Link from "next/link";
 
 const CategorySlider = ({data}: any) => {
@@ -55,8 +55,8 @@ const CategorySlider = ({data}: any) => {
                      loading={"lazy"}
                      alt={"bag image"}/>
               </div>
-              <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>Tourism</h4>
-              <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
+              <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>Tourism</h4>
+              <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
             </div>
           </Link>
         </SwiperSlide>
@@ -77,8 +77,8 @@ const CategorySlider = ({data}: any) => {
                      loading={"lazy"}
                      alt={"bag image"}/>
               </div>
-              <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>beauty</h4>
-              <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
+              <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>beauty</h4>
+              <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
             </div>
           </Link>
         </SwiperSlide>
@@ -99,8 +99,8 @@ const CategorySlider = ({data}: any) => {
                      loading={"lazy"}
                      alt={"bag image"}/>
               </div>
-              <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>food</h4>
-              <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
+              <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>food</h4>
+              <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
             </div>
           </Link>
         </SwiperSlide>
@@ -121,8 +121,8 @@ const CategorySlider = ({data}: any) => {
                      loading={"lazy"}
                      alt={"bag image"}/>
               </div>
-              <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>entertainment</h4>
-              <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
+              <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>entertainment</h4>
+              <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
             </div>
           </Link>
         </SwiperSlide>
@@ -143,8 +143,8 @@ const CategorySlider = ({data}: any) => {
                      loading={"lazy"}
                      alt={"bag image"}/>
               </div>
-              <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>pool</h4>
-              <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
+              <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>pool</h4>
+              <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
             </div>
           </Link>
         </SwiperSlide>
@@ -165,8 +165,8 @@ const CategorySlider = ({data}: any) => {
                      loading={"lazy"}
                      alt={"bag image"}/>
               </div>
-              <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1"}>electronic</h4>
-              <p className={"font-[400] z-10 text-base text-[#38383880] mt-2"}>203 offer</p>
+              <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>electronic</h4>
+              <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
             </div>
           </Link>
         </SwiperSlide>
