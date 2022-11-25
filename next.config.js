@@ -20,10 +20,10 @@ const nextConfig = {
 	},
 	env:{
 		// for local
-		baseApi:"http://accounting.pirveli.ge/api/racoon-transactions",
+		//baseApi:"http://accounting.pirveli.ge/api/racoon-transactions",
 
 		// for server
-		//baseApi:"https://vouchers.pirveli.ge/api/racoon-transactions",
+		baseApi:"https://vouchers.pirveli.ge/api/racoon-transactions",
 	}
 }
 
