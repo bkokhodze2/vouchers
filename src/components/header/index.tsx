@@ -85,11 +85,11 @@ const Header: React.FC = () => {
 
   useEffect(() => {
 
-    // axios
-    //     .get(`${baseApi}/user/me`)
-    //     .then((res) => {
-    //       setIsLogged(res.data)
-    //     });
+    axios
+        .get(`${baseApi}/user`)
+        .then((res) => {
+          setIsLogged(res.data)
+        });
 
     if (!!categories) {
       axios
