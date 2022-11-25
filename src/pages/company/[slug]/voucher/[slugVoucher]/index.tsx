@@ -160,12 +160,12 @@ export default function Details() {
           "party_id": null,
           "bog_order_request_dto": {
             "intent": "AUTHORIZE",
-            "items": {
+            "items": [{
               "amount": _.get(voucher, '[0].entries[0].entryAmount', 1),
               "description": _.get(voucher, '[0].additionalInfo[0].provider.name', ""),
               "quantity": quantity,
               "product_id": _.get(voucher, '[0].additionalInfo[0].genericTransactionTypeId', 1)
-            }
+            }]
             ,
             "locale": "ka",
             "shop_order_id": "123456",
@@ -193,12 +193,12 @@ export default function Details() {
           "user_id": null,
           "contract_id": null,
           "party_id": null,
-          "items": {
+          "items": [{
             "amount": _.get(voucher, '[0].entries[0].entryAmount', 1),
             "description": _.get(voucher, '[0].additionalInfo[0].provider.name', ""),
             "quantity": quantity,
             "product_id": _.get(voucher, '[0].additionalInfo[0].genericTransactionTypeId', 1)
-          }
+          }]
           ,
           "tbc_payment_request_dto": {
             "amount": {
