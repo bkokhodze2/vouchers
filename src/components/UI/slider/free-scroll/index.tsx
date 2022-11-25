@@ -1,7 +1,6 @@
-import React, {useRef, useState} from "react";
+import React from "react";
 
 import OfferItem from "../../../blocks/offer-item";
-import {SwiperSlide} from "swiper/react/swiper-react";
 
 interface IOfferSlider {
   nav?: boolean

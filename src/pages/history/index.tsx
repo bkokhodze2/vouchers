@@ -1,13 +1,12 @@
 import Layout from "../../components/layouts/user-layout"
 import Head from 'next/head'
 // @ts-ignore
-import {IMAGES, ICONS} from "public/images";
+import {ICONS, IMAGES} from "public/images";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import Button from "../../components/UI/button";
-import {Form, Modal, Input, Rate} from "antd";
+import {Form, Input, Modal, Rate} from "antd";
 import axios from "axios";
-
 
 export default function History({serverData}: any) {
   const baseApi = process.env.baseApi;
@@ -33,8 +32,6 @@ export default function History({serverData}: any) {
     setIsModalOpen(false);
   };
   const onFinishComment = (values: object) => {
-
-
   }
 
   const HistoryItem = ({evaluated}: any) => {
@@ -119,7 +116,6 @@ export default function History({serverData}: any) {
 
   return (
       <>
-
         <Head>
           <title>order history page</title>
           <meta name="description" content="order history page"/>

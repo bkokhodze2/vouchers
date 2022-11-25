@@ -2,7 +2,7 @@ import Layout from "../../components/layouts/user-layout"
 import Head from 'next/head'
 // @ts-ignore
 import {ICONS, IMAGES} from "public/images";
-import React, {useState} from "react";
+import React from "react";
 import OfferItem from "../../components/blocks/offer-item";
 import {useRouter} from "next/router";
 import {useSelector} from "react-redux";
@@ -11,7 +11,6 @@ import Button from "../../components/UI/button";
 
 export default function Wishlist({}: any) {
   const baseApi = process.env.baseApi;
-  const [vouchers, setVouchers] = useState<[]>([]);
   const favourites = useSelector((state: any) => state.favourites);
 
   const Router = useRouter();
@@ -29,7 +28,6 @@ export default function Wishlist({}: any) {
           <p className={"text-[#383838] text-[28px] font-bold mb-4 aveSofBold"}>
             Wishlist
           </p>
-
 
           {favourites?.favouritesList.length > 0 ?
               <div

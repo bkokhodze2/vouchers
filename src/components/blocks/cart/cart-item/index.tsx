@@ -3,8 +3,10 @@ import React, {useEffect, useState} from "react"
 import {ICONS} from "public/images";
 import Image from "next/image";
 import Quantity from "../../../UI/quantity";
-import Lari from "../../../../../public/images/icons/lari";
-import {IMAGES} from "../../../../../public/images";
+// @ts-ignore
+import Lari from "/public/images/icons/lari";
+// @ts-ignore
+import {IMAGES} from "/public/images";
 import _ from "lodash";
 import {changeIsPoint, removeFromCart} from "../../../slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
@@ -112,10 +114,14 @@ const CartItem = ({data, getCount}: ICartItem) => {
             <div
                 className={"flex-col flex md:flex-row items-start md:items-center w-full md:justify-items-start justify-between"}>
               <div className={"mt-[11px] md:mt-[0px]"}>
-                <Quantity freeQuantity={freeQuantity}
-                          quantityInCart={quantityInCart}
-                          getCount={getCount} data={data}
-                          currentQuantity={data.cartQuantity} isPoint={isChecked}/>
+                <Quantity
+                    currentQuantity={data.cartQuantity}
+                    quantityInCart={quantityInCart}
+                    freeQuantity={freeQuantity}
+                    isPoint={isChecked}
+                    getCount={getCount}
+                    data={data}
+                />
               </div>
               <div className={"flex w-full items-center md:justify-start justify-between mt-[11px] md:mt-[0px]"}>
                 <div className={"flex flex-col items-start md:items-center justify-center lg:ml-8 ph:ml-4 ml-1.5"}>

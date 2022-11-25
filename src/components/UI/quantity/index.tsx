@@ -3,6 +3,9 @@ import React, {useState} from "react";
 import {useDispatch} from "react-redux";
 import {addToCart, decreaseCart,} from "../../slices/cartSlice";
 import {notification} from "antd";
+import Image from "next/image";
+// @ts-ignore
+import {ICONS} from "public/images";
 
 interface IQuantity {
   getCount: any,
@@ -56,7 +59,14 @@ function Quantity({freeQuantity, getCount, quantityInCart, currentQuantity, data
           <div className={"flex h-full items-center bg-[white] rounded-[10px] px-[12px] md:px-4"}>
             <div onClick={() => handleDecreaseCart(data)}
                  className={"cursor-pointer rounded-[50%] h-full min-w-[24px] flex items-center justify-center"}>
-              <div className={"min-w-[12.5px] h-[1.5px] rounded bg-[#383838]"}/>
+
+              {currentQuantity === 1 ? <Image
+                  src={ICONS.trash}
+                  quality={70}
+                  loading={"lazy"}
+                  alt={"trash icon"}
+                  width={18}
+                  height={18}/> : <div className={"min-w-[12.5px] h-[1.5px] rounded bg-[#383838]"}/>}
             </div>
             <div className={"flex flex-col w-full justify-center items-center text-center mx-[14px] md:mx-6"}>
               <p className={"text-[#383838] text-base font-bold aveSofMedium"}>{currentQuantity}</p>
