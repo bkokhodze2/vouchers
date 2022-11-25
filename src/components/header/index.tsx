@@ -1,13 +1,19 @@
 import React, {useEffect, useRef, useState} from "react"
 // @ts-ignore
 import {ICONS} from "public/images";
-import Image from "next/image"
-import RingLoader from "react-spinners/RingLoader";
+import Image from "next/image";
 import PulseLoader from "react-spinners/PulseLoader";
-import {Button as AntButton, Drawer, Form, Input, Badge} from 'antd';
-import Button from "../UI/button";
+import {Badge, Button as AntButton, Form, Input} from 'antd';
 import offerItem from "../../../public/images/images/offerItem.png";
 import {IMAGES} from "../../../public/images";
+import Home from "../../../public/images/icons/home";
+
+import Search from "../../../public/images/icons/search";
+import BarHeart from "../../../public/images/icons/barHeart";
+import Menu from "../../../public/images/icons/menu";
+import MenuDrawer from "../blocks/menu-drawer";
+import SearchDrawer from "../blocks/search-drawer";
+import Basket from "../../../public/images/icons/orders";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import axios from "axios";
@@ -16,17 +22,7 @@ import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
 import {getTotals} from "../slices/cartSlice";
 import {getTotalsFavourite} from "../slices/favouritesSlice";
-
-import Home from "../../../public/images/icons/home";
-import Search from "../../../public/images/icons/search";
-import BarHeart from "../../../public/images/icons/barHeart";
-import Orders from "../../../public/images/icons/orders";
-import Menu from "../../../public/images/icons/menu";
-import MenuDrawer from "../blocks/menu-drawer";
-import SearchDrawer from "../blocks/search-drawer";
-import Basket from "../../../public/images/icons/orders";
-import {notFound2} from "../../../public/images/images";
-
+import Lari from "../../../public/images/icons/lari";
 
 interface Icategory {
   categoryId: number,
@@ -38,9 +34,10 @@ interface Icategory {
 const Header: React.FC = () => {
   const baseApi = process.env.baseApi;
   var timer1: any;
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [IsLoading, setIsLoading] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
+  const [isLogged, setIsLogged] = useState<any>("");
 
   const [findData, setFindData] = useState<[]>([]);
   const [categories, setCategories] = useState<Icategory[]>([]);
@@ -49,7 +46,6 @@ const Header: React.FC = () => {
   const [term, setTerm] = useState<string>("");
   const wrapperRef = useRef(null);
   const listRef = useRef<HTMLDivElement>(null);
-
   const [searchForm] = Form.useForm();
   const Router = useRouter();
   const dispatch = useDispatch();
@@ -58,6 +54,12 @@ const Header: React.FC = () => {
   const favourites = useSelector((state: any) => state.favourites);
 
   useOutsideAlerter(wrapperRef);
+
+  // const {isLoading, error, data} = useQuery('fetchLuke', () =>
+  //     axios.get(`${baseApi}/providers/categories`)
+  // )
+
+  // console.log("isLoading, error, data", isLoading, error, data)
 
   function useOutsideAlerter(ref: any) {
     useEffect(() => {
@@ -82,6 +84,12 @@ const Header: React.FC = () => {
   }, [cart, favourites, dispatch]);
 
   useEffect(() => {
+
+    axios
+        .get(`${baseApi}/user/me`)
+        .then((res) => {
+          setIsLogged(res.data)
+        });
 
     if (!!categories) {
       axios
@@ -148,8 +156,9 @@ const Header: React.FC = () => {
   const getHighlightedText = (text: any, highlight: any) => {
     // Split on highlight term and include term into parts, ignore case
     const parts = text?.split(new RegExp(`(${highlight})`, 'gi'));
-    return <span> {parts?.map((part: any, i: number) =>
-        <span key={i} style={part?.toLowerCase() === highlight?.toLowerCase() ? {color: '#8338EC'} : {}}>
+    return <span className={"aveSofBold"}> {parts?.map((part: any, i: number) =>
+        <span className={"aveSofBold"} key={i}
+              style={part?.toLowerCase() === highlight?.toLowerCase() ? {color: '#8338EC'} : {}}>
             {part}
         </span>)
     } </span>;
@@ -168,7 +177,7 @@ const Header: React.FC = () => {
     let voucherSlug = _.get(data, 'additionalInfo[0].genericTransactionTypeId', 1);
 
     if (!data) {
-      return <p>erroor</p>
+      return <p className={"aveSofBold"}>erroor</p>
     }
 
     return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
@@ -184,19 +193,20 @@ const Header: React.FC = () => {
               style={{objectFit: "cover"}}/>
 
           <div
-              className={"absolute top-[8px] left-[8px] z-20 flex justify-center items-center bg-[#db0060] rounded-[100px] h-[25px]"}>
-            <p className={"text-[white] text-[12px] px-[12px]"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))} %</p>
+              className={"absolute top-[8px] left-[8px] z-20 flex justify-center items-center bg-[#8338EC] rounded-[100px] h-[25px]"}>
+            <p className={"text-[white] text-[12px] px-[12px] aveSofRegular"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))} %</p>
           </div>
         </div>
         <div className={"w-full overflow-auto"}>
-          <h3 className={"text-[#383838] font-bold text-base font-bold"}>
+          <h3 className={"text-[#383838] font-bold text-base font-bold aveSofBold"}>
             {getHighlightedText(_.get(data, 'additionalInfo[0].provider.name', ""), term)}
           </h3>
-          <div className={"flex w-full justify-between mt-1"}>
-            <p className={"mr-[20px] text-[#38383899] text-sm"}>
+          <div className={"flex w-full justify-between mt-1 "}>
+            <p className={"mr-[20px] text-[#38383899] text-sm aveSofRegular"}>
               {_.get(data, 'additionalInfo[0].subTitles[0].description', "")}
             </p>
-            <p className={"text-purple text-[21px] leading-[21px] font-[500] whitespace-nowrap"}>$
+            <p className={"text-purple text-[21px] flex leading-[21px] font-[500] whitespace-nowrap aveSofMedium"}>
+              <Lari color={"#3838384d"} classes={"mr-1"}/>
               {_.get(data, 'entries[0].entryAmount', 0)}
             </p>
           </div>
@@ -217,19 +227,24 @@ const Header: React.FC = () => {
           <div className={"w-full container m-auto flex justify-between"}>
             <div className={"flex space-x-8"}>
               <Link href={"https://optimoml.geopay.ge/index.php"}>
-                <span className={"text-sm text-[#ffffffb3] cursor-pointer"}>მაღაზია</span>
+                <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular "}>მაღაზია</span>
               </Link>
               <Link href={"https://medical.pirveli.ge"}>
-                <span className={"text-sm text-[#ffffffb3] cursor-pointer"}>მედიქალი</span>
+                <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>მედიქალი</span>
               </Link>
               <Link href={"/"}>
-                <div className={"relative"}>
-                  <span className={"text-sm text-[#db0060] cursor-pointer"}>ვაუჩერები</span>
-                  <div className={"absolute -bottom-[10px] h-[3px] w-full rounded-t-[3px] bg-[#db0060]"}/>
+                <div className={"relative flex"}>
+                  <span className={"text-sm text-[#8338EC] cursor-pointer aveSofRegular"}>ვაუჩერები</span>
+                  <div className={"absolute -bottom-[12px] h-[3px] w-full rounded-t-[3px] bg-[#8338EC]"}/>
                 </div>
               </Link>
+
               <Link href={"https://lot51.pirveli.ge"}>
-                <span className={"text-sm text-[#ffffffb3] cursor-pointer"}>ლოტო</span>
+                <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>გათამაშება</span>
+              </Link>
+
+              <Link href={"https://lot51.pirveli.ge"}>
+                <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>თამაშები</span>
               </Link>
             </div>
 
@@ -243,9 +258,9 @@ const Header: React.FC = () => {
                   height={20}
                   alt={"coin icon"}
               />
-              <p className={"text-sm text-[white] mr-8 ml-[5px] capitalize after:content-[''] after:h-[20px] after:bg-[#ffffffb3] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500"}>
+              <p className={"text-sm text-[white] mr-8 ml-[5px] capitalize after:content-[''] after:h-[20px] after:bg-[#ffffffb3] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500 aveSofRegular"}>
                 40,076</p>
-              <p className={"text-sm text-[#ffffffb3] mr-8 capitalize"}>English</p>
+              <p className={"text-sm text-[#ffffffb3] mr-8 capitalize aveSofRegular"}>English</p>
             </div>
           </div>
         </div>
@@ -318,8 +333,7 @@ const Header: React.FC = () => {
                             layout={"fixed"}
                         />
                         {/*<img src={search?.src} alt={"search icon"} className={"w-[18px] h-[18px]"}/>*/}
-                        <p className={"ml-[5px] lg:ml-[11px] lg:text-sm text-xs"}>Search</p>
-
+                        <p className={"ml-[5px] lg:ml-[11px] lg:text-sm text-xs aveSofRegular"}>Search</p>
 
                       </AntButton>
 
@@ -353,27 +367,25 @@ const Header: React.FC = () => {
                         }}
                     >
                       {
-                        (!!findData?.length && !isLoading) ? <div className={"flex items-center my-[20px]"}>
-                          <p className={"text-[#383838] text-[22px] font-bold capitalize"}>search result</p>
+                        (!!findData?.length && !IsLoading) ? <div className={"flex items-center my-[20px]"}>
+                          <p className={"text-[#383838] text-[22px] font-bold capitalize aveSofBold"}>search result</p>
                           <div onClick={() => {
                             setTerm("")
                             Router.push(`/search/${term}`)
                           }}>
-                            <p className={"text-purple text-sm ml-2 cursor-pointer"}>See all</p>
+                            <p className={"text-purple text-sm ml-2 cursor-pointer aveSofRegular"}>See all</p>
                           </div>
                         </div> : ""
 
                       }
 
                       {
-                        isLoading ? <div className={"flex flex-col w-full justify-center items-center mt-2 h-full"}>
-                          <RingLoader
-                              color="#8338EC"
-                              size={80}
-                              speedMultiplier={1}
-                          />
-                          <div className={"flex items-end mt-10"}>
-                            <p className={"text-[#383838] text-[24px]"}>Loading</p>
+                        IsLoading ? <div className={"flex flex-col w-full justify-center items-center mt-2 h-full"}>
+                          <img className={"h-[250px] w-auto"} src={IMAGES.gif.src} style={{objectFit: "cover"}}
+                               alt={"skeleton animation"}/>
+
+                          <div className={"flex items-end mt-4"}>
+                            <p className={"text-[#383838] text-[24px] aveSofRegular"}>Loading</p>
                             <PulseLoader size={5} color="#383838" speedMultiplier={0.7} className={"mb-1.5 ml-1.5 "}/>
                           </div>
                         </div> : <div className={" flex flex-col mt-4 divide-y divide-[#D9D9D94D]"}>
@@ -386,7 +398,7 @@ const Header: React.FC = () => {
                       }
 
                       {
-                          (!findData?.length && !isLoading) &&
+                          (!findData?.length && !IsLoading) &&
 													<div className={"w-full flex flex-col justify-center items-center h-[300px]"}>
 														<Image
 																src={IMAGES.notFound2}
@@ -397,7 +409,7 @@ const Header: React.FC = () => {
 																width={240}
 																height={200}
 														/>
-														<p className={"text-[22px] mt-[20px] font-bold"}>No result found</p>
+														<p className={"text-[22px] mt-[20px] font-bold aveSofBold"}>No result found</p>
 													</div>
                       }
                     </div>
@@ -424,7 +436,7 @@ const Header: React.FC = () => {
                           />
 
 
-                          <p className={"capitalize mt-[11px] text-sm lg:text-base leading-4"}>Basket </p>
+                          <p className={"capitalize mt-[11px] text-sm lg:text-base leading-4 aveSofRegular"}>basket</p>
                         </div>
                       </Badge>
                     </div>
@@ -443,17 +455,30 @@ const Header: React.FC = () => {
                               height={18}
                               alt={"heart icon"}
                           />
-                          <p className={"capitalize mt-[11px] text-sm lg:text-base leading-4"}>Favorites</p>
+                          <p className={"capitalize mt-[11px] text-sm lg:text-base leading-4 aveSofRegular"}>Favorites</p>
                         </div>
                       </Badge>
                     </div>
                   </Link>
-                  <div
-                      className={`h-[40px] lg:h-[44px] bg-[#383838] rounded-[8px] lg:rounded-xl px-[23px] lg:px-10 flex justify-center items-center cursor-pointer `}>
-                    <p style={{}}
-                       className={`text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap`}
-                    >sign in</p>
-                  </div>
+
+                  {
+                    isLogged ? <div className={"min-w-[48px] max-h-[48px] relative"}>
+                      <Image layout={"fill"} height={48}
+                             width={48}
+                             src={IMAGES.avatar}/>
+                    </div> : <Link
+                        href={"https://auth.pirveli.ge/realms/xracoon-demo/protocol/openid-connect/auth?response_type=code&client_id=demo-client&scope=email%20profile%20roles%20openid&state=ozej6dlmtIpneeVt7QoGPy2zXJ9e6BNPdGltyKyn3X4%3D&redirect_uri=https://vouchers.pirveli.ge&nonce=KAmXCp0jHrPiUph9D2p5yVwdpT5g3qWO0iCxqJFbiv0"}
+                        style={{}}
+                        className={`text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular`}
+                    >
+                      <div
+                          className={`h-[40px] lg:h-[44px] bg-[#383838] rounded-[8px] lg:rounded-xl px-[23px] lg:px-10 flex justify-center items-center cursor-pointer`}>
+                        <p className={"text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular"}>
+                          sign in</p>
+                      </div>
+                    </Link>
+                  }
+
                 </div>
                 {/*buttons*/}
               </div>
@@ -477,7 +502,7 @@ const Header: React.FC = () => {
                       layout={"fixed"}
                       alt={"shock offer icon"}
                   />
-                  <p className={"ml-[9px] text-purple text-base whitespace-nowrap"}>Shock offers</p>
+                  <p className={"ml-[9px] text-purple text-base whitespace-nowrap aveSofRegular"}>Shock offers</p>
                 </div>
 
                 {/*sub categories*/}
@@ -491,7 +516,7 @@ const Header: React.FC = () => {
                                 }}
                     >
                       <Link href={`/category/${item.categoryId}`}>
-                        <p className={"hover:text-[black] transition text-base whitespace-nowrap capitalize cursor-pointer"}
+                        <p className={"hover:text-[black] transition text-base whitespace-nowrap capitalize cursor-pointer aveSofRegular"}
                            style={{color: item.categoryId === chosenCategory?.categoryId ? "#8338EC" : "#383838b3"}}
                         >{item.categoryName}
                         </p>
@@ -517,10 +542,10 @@ const Header: React.FC = () => {
                 <div className={"container m-auto grid grid-rows-1 grid-cols-4 gap-x-[30px] w-full mt-4"}>
                   <div>
                     <div className={"flex justify-between items-center"}>
-                      <p className={"font-bold text-[#383838] text-[22px] leading-[22px]"}>{chosenCategory?.categoryName} ({getSumOffer() + chosenCategory?.offersQuantity})</p>
+                      <p className={"font-bold text-[#383838] text-[22px] leading-[22px] aveSofBold "}>{chosenCategory?.categoryName} ({getSumOffer() + chosenCategory?.offersQuantity})</p>
                       <Link href={`/category/${chosenCategory?.categoryId}`}>
                         <span
-                            className={"text-[#8338EC] text-[14px] cursor-pointer"}>see all </span>
+                            className={"text-[#8338EC] text-[14px] cursor-pointer aveSofRegular"}>see all </span>
                       </Link>
                     </div>
 
@@ -529,9 +554,10 @@ const Header: React.FC = () => {
                         return <div className={"flex justify-between items-center"} key={index}>
                           <Link href={`/category/${item.categoryId}`}>
                             <p
-                                className={"text-[#383838b3] text-base mr-2 cursor-pointer hover:text-[#8338ecb3] hover:underline decoration-1"}>{item?.categoryName}</p>
+                                className={"text-[#383838b3] text-base mr-2 cursor-pointer hover:text-[#8338ecb3] hover:underline decoration-1 aveSofRegular"}>{item?.categoryName}</p>
                           </Link>
-                          <span className={"text-[#383838] text-[14px]"}>{item?.offersQuantity} offer</span>
+                          <span
+                              className={"text-[#383838] text-[14px] aveSofRegular"}>{item?.offersQuantity} offer</span>
                         </div>
                       })}
                     </div>
@@ -558,21 +584,21 @@ const Header: React.FC = () => {
         {/*//burgerMenu*/}
         {!isOpenSearch && !Router.pathname.includes("/company") &&
 						<div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0"}
-								 style={{
+						     style={{
                    zIndex: 999
                  }}
 						>
 							<div className={"grid grid-cols-5 pt-3"}>
 								<div onClick={() => navTo("/")}>
 									<div className={"flex flex-col items-center justify-between"}
-											 onClick={() => {
+									     onClick={() => {
                          setIsOpenMenu(false)
                          setIsOpenSearch(false)
                        }}
 									>
 										<Home color={!isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"}/>
-										<p className={"mt-[7px] text-[10px] "}
-											 style={{
+										<p className={"mt-[7px] text-[10px] aveSofMedium"}
+										   style={{
                          color: !isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"
                        }}
 										>Home</p>
@@ -580,14 +606,14 @@ const Header: React.FC = () => {
 								</div>
 
 								<div className={"flex flex-col items-center justify-between pt-0.5"}
-										 onClick={() => {
+								     onClick={() => {
                        setIsOpenMenu(false)
                        setIsOpenSearch(true)
                      }}
 								>
 									<Search color={isOpenSearch ? "#8338EC" : "#383838"}/>
-									<p className={"mt-[7px] text-[10px] text-[#383838]"}
-										 style={{
+									<p className={"mt-[7px] text-[10px] text-[#383838] aveSofMedium"}
+									   style={{
                        color: isOpenSearch ? "#8338EC" : "#383838"
                      }}
 									>Search</p>
@@ -600,7 +626,7 @@ const Header: React.FC = () => {
 												style={{
                           color: !isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"
                         }}
-												className={"mt-[7px] text-[10px] text-[#383838]"}
+												className={"mt-[7px] text-[10px] text-[#383838] aveSofMedium"}
 										>Wishlist</p>
 									</div>
 								</div>
@@ -612,7 +638,7 @@ const Header: React.FC = () => {
 												style={{
                           color: !isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"
                         }}
-												className={"mt-[7px] text-[10px] text-[#383838]"}
+												className={"mt-[7px] text-[10px] text-[#383838] aveSofMedium"}
 										>Basket</p>
 									</div>
 								</div>
@@ -623,8 +649,8 @@ const Header: React.FC = () => {
                     }}
 										className={"flex flex-col items-center justify-between"}>
 									<Menu color={isOpenMenu ? "#8338EC" : "#383838"}/>
-									<p className={"mt-[7px] text-[10px] "}
-										 style={{
+									<p className={"mt-[7px] text-[10px] aveSofMedium"}
+									   style={{
                        color: isOpenMenu ? "#8338EC" : "#383838"
                      }}
 									>Menu</p>

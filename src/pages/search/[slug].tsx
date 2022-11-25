@@ -1,7 +1,7 @@
 import Layout from "../../components/layouts/user-layout"
 import Head from 'next/head'
 // @ts-ignore
-import {IMAGES, ICONS} from "public/images";
+import {ICONS, IMAGES} from "public/images";
 import React, {useEffect, useState} from "react";
 import OfferItem from "../../components/blocks/offer-item";
 import {useRouter} from "next/router";
@@ -45,7 +45,8 @@ export default function Search({serverData}: any) {
               <p className={"text-[#383838] text-[28px] font-bold mb-4"}>
                 Search result “<span className={"text-purple"}>{Router.query.slug}</span>”
               </p>
-              <div className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-5 md:gap-y-[42px] xl:gap-x-[30px]"}>
+              <div
+                  className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-5 md:gap-y-[42px] xl:gap-x-[30px]"}>
 
                 {vouchers?.map((item: any, index: number) => {
                   return <OfferItem data={item} key={index}/>
@@ -63,12 +64,13 @@ export default function Search({serverData}: any) {
                        alt={"not found image"}
                        style={{objectFit: "cover"}}/>
               </div>
-              <p className={"uppercase mt-10 text-[#383838] text-[28px] font-bold"}>no result found</p>
-              <p className={"mt-6 text-base text-[#38383899] text-center"}>We’ve searched more than 350 hotels we did
+              <p className={"uppercase mt-10 text-[#383838] text-[28px] font-bold aveSofBold"}>no result found</p>
+              <p className={"mt-6 text-base text-[#38383899] text-center aveSofRegular"}>We’ve searched more than 350
+                hotels we did
                 not find any hotels for your search.</p>
 
               <div onClick={() => Router.push('/')}>
-                <Button bgColor={"#383838"} textColor={"white"} text={"Back to home"} classes={"mt-6"}/>
+                <Button bgColor={"#383838"} textColor={"white"} text={"Back to home"} classes={"mt-6 aveSofRegular"}/>
               </div>
 
             </div>

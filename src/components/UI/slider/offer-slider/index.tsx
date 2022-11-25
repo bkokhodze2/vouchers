@@ -1,17 +1,15 @@
 import React, {useEffect, useRef, useState} from "react";
+import Image from "next/image";
 // Import Swiper React components
 import {Swiper, SwiperSlide} from "swiper/react";
-import Image from "next/image";
-// @ts-ignore
-import {ICONS} from "public/images";
-
+// import required modules
+import {Pagination, Navigation, Lazy} from "swiper";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
-// import required modules
-import {Pagination, Navigation, Lazy} from "swiper";
+// @ts-ignore
+import {ICONS} from "public/images";
 import OfferItem from "../../../blocks/offer-item";
 
 interface IOfferSlider {
@@ -21,11 +19,9 @@ interface IOfferSlider {
 }
 
 export default function OfferSlider({nav = true, loop = false, data}: IOfferSlider) {
-
   const prevRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
   const swiper = useRef() as any;
-
 
   if (!data) {
     return <p className={"text-[red]"}>error</p>

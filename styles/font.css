@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'avenirRegular';
+    src: url('../src/assets/fonts/AvenirNextGeorgian-Regular.woff') format('woff');
+    font-display: swap;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'avenirMedium';
+    src: url('../src/assets/fonts/AvenirNextGeorgian-Medium.woff') format('woff');
+    font-display: swap;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'avenirBold';
+    src: url('../src/assets/fonts/AvenirNextGeorgian-Bold.woff') format('woff');
+    font-display: swap;
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'sofiaRegular';
+    src: url('../src/assets/fonts/SofiaPro-Regular.woff') format('woff');
+    font-display: swap;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'sofiaMedium';
+    src: url('../src/assets/fonts/SofiaPro-Medium.woff') format('woff');
+    font-display: swap;
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'sofiaBold';
+    src: url('../src/assets/fonts/SofiaPro-Bold.woff') format('woff');
+    font-display: swap;
+    font-weight: 700;
+    font-style: normal;
+}

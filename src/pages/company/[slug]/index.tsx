@@ -1,7 +1,7 @@
 import Layout from "../../../components/layouts/user-layout"
 import Head from 'next/head'
 // @ts-ignore
-import {IMAGES, ICONS} from "public/images";
+import {ICONS, IMAGES} from "public/images";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import Location from "../../../../public/images/icons/location";
@@ -114,14 +114,14 @@ export default function Company() {
                   </div>
                 </div>
                 <div className={"p-4 pt-[60px] ph:px-6 ph:pb-4 bg-[#d9d9d933] rounded-b-xl"}>
-                  <p className={"ph:text-[22px] text-[18px] font-bold text-[#383838] text-center"}>{_.get(voucher, '[0].additionalInfo[0].provider.name', "")}</p>
+                  <p className={"ph:text-[22px] text-[18px] font-bold text-[#383838] text-center aveSofBold"}>{_.get(voucher, '[0].additionalInfo[0].provider.name', "")}</p>
                   <div className={"flex space-x-[33px] items-center justify-center mt-6 lg:flex hidden"}>
 
                     <div className={"flex space-x-[33px] items-center "}>
                       {_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "").includes("https://") &&
 													<div className={"cursor-pointer"}>
 														<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
-																	target={"_blank"}>
+														      target={"_blank"}>
 															<div>
 																<Image
 																		src={ICONS.fb}
@@ -137,7 +137,7 @@ export default function Company() {
                       {_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "").includes("https://") &&
 													<div className={"cursor-pointer"}>
 														<Link href={_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "")}
-																	target={"_blank"}>
+														      target={"_blank"}>
 															<div>
 																<Image
 																		src={ICONS.insta}
@@ -159,26 +159,25 @@ export default function Company() {
                     {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses[0].value', "") &&
 												<div className={"flex py-[18px]"}>
 													<Location classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
-													<p className={"ml-2 text-base text-[#383838]"}>{_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses[0].value', "")}</p>
+													<p className={"ml-2 text-base text-[#383838] aveSofRegular"}>{_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses[0].value', "")}</p>
 												</div>}
 
                     {_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', "") &&
 												<div className={"flex py-[18px]"}>
 													<Phone classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
 													<a href="tel:+995 599 99 99 63"
-														 className={"ml-2 text-base text-[#383838]"}>{_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', "")}</a>
+													   className={"ml-2 text-base text-[#383838] aveSofRegular"}>{_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', "")}</a>
 												</div>}
                   </div>
 
                   <div
                       className={"w-full mt-6 bg-[white] p-6 top-[40px] space-y-5 rounded-xl transition duration-200 ease-in-out"}>
 
-
                     {
                       _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).map((item: any, index: number) => {
                         return <div className={"flex justify-between"} key={index}>
-                          <p className={"mr-6 text-[#383838b3]"}>{getWeekByNumber(item.dayId)}</p>
-                          <p className={"text-[#383838]"}>{item.startHour} - {item.endHour}</p>
+                          <p className={"mr-6 text-[#383838b3] aveSofRegular"}>{getWeekByNumber(item.dayId)}</p>
+                          <p className={"text-[#383838] aveSofRegular"}>{item.startHour} - {item.endHour}</p>
                         </div>
                       })
                     }

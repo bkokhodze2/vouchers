@@ -20,6 +20,7 @@
     "react-dom": "18.2.0",
     "react-indiana-drag-scroll": "^3.0.0-alpha",
     "react-lazy-load-image-component": "^1.5.6",
+    "react-query": "^3.39.2",
     "react-redux": "^8.0.4",
     "react-responsive-carousel": "^3.2.23",
     "react-spinners": "^0.13.6",

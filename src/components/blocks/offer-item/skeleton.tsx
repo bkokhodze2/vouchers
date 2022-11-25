@@ -1,17 +1,15 @@
-import React, {useEffect, useState} from "react"
+import React from "react"
 // @ts-ignore
 import {ICONS, IMAGES} from "public/images";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import ContentLoader from "react-content-loader"
-import {gif} from "../../../../public/images/images";
-import Image from "next/image";
 
 const Skeleton = () => {
 
   return (
       <div className={"h-[430px]"}>
         <div className={"h-[200px] w-full relative"}>
-          <img className={"h-[200px] w-full"} src={IMAGES.gif.src} style={{objectFit: "cover"}}/>
+          <img className={"h-[200px] w-full"} src={IMAGES.gif.src} style={{objectFit: "cover"}} alt={"skeleton animation"}/>
         </div>
 
         <ContentLoader
