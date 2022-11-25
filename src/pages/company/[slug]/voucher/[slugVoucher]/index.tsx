@@ -182,13 +182,12 @@ export default function Details() {
             ]
           }
         }
-
         axios.post(`https://vouchers.pirveli.ge/api/bog/orders`, bogObj).then((res) => {
           let link = res.data.links[1].href;
           typeof window !== 'undefined' && window.open(link, '_blank');
         })
 
-      } else {
+      } else if (payType === "tbc") {
         let tbcObj = {
           "user_id": null,
           "contract_id": null,
