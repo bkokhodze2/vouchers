@@ -145,6 +145,13 @@ const Header: React.FC = () => {
     searchForm.resetFields();
     setTerm('');
   }
+  const logout = () => {
+    axios
+        .post(`${baseApi}/logout`)
+        .then((res) => {
+          console.log("logout", res.data)
+        });
+  }
 
   const onFinish = (values: any) => {
     resetFields();
@@ -472,23 +479,23 @@ const Header: React.FC = () => {
 
                   {
 
-                    !isLogged ? <Link href={"/logout"}>
-                      <div className={"min-w-[48px] max-h-[48px] relative"}>
-                        <Image layout={"fill"} height={48}
-                               width={48}
-                               src={IMAGES.avatar}/>
-                      </div>
-                    </Link> : <Link
-                        href={"https://auth.pirveli.ge/realms/xracoon-demo/protocol/openid-connect/auth?response_type=code&client_id=demo-client&scope=email%20profile%20roles%20openid&state=ozej6dlmtIpneeVt7QoGPy2zXJ9e6BNPdGltyKyn3X4%3D&redirect_uri=https://vouchers.pirveli.ge&nonce=KAmXCp0jHrPiUph9D2p5yVwdpT5g3qWO0iCxqJFbiv0"}
-                        style={{}}
-                        className={`text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular`}
-                    >
-                      <div
-                          className={`h-[40px] lg:h-[44px] bg-[#383838] rounded-[8px] lg:rounded-xl px-[23px] lg:px-10 flex justify-center items-center cursor-pointer`}>
-                        <p className={"text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular"}>
-                          sign in</p>
-                      </div>
-                    </Link>
+                    !isLogged ?
+                        <div onClick={() => logout()} className={"min-w-[48px] max-h-[48px] relative"}>
+                          <Image layout={"fill"} height={48}
+                                 width={48}
+                                 src={IMAGES.avatar}/>
+                        </div>
+                        : <Link
+                            href={"https://auth.pirveli.ge/realms/xracoon-demo/protocol/openid-connect/auth?response_type=code&client_id=demo-client&scope=email%20profile%20roles%20openid&state=ozej6dlmtIpneeVt7QoGPy2zXJ9e6BNPdGltyKyn3X4%3D&redirect_uri=https://vouchers.pirveli.ge&nonce=KAmXCp0jHrPiUph9D2p5yVwdpT5g3qWO0iCxqJFbiv0"}
+                            style={{}}
+                            className={`text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular`}
+                        >
+                          <div
+                              className={`h-[40px] lg:h-[44px] bg-[#383838] rounded-[8px] lg:rounded-xl px-[23px] lg:px-10 flex justify-center items-center cursor-pointer`}>
+                            <p className={"text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular"}>
+                              sign in</p>
+                          </div>
+                        </Link>
                   }
 
                 </div>
