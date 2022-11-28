@@ -17,17 +17,19 @@ import FreeScroll from "../components/UI/slider/free-scroll";
 import CategorySlider from "../components/UI/slider/category-slider";
 
 const Home: NextPage = ({serverData}: any) => {
-  const baseApi = process.env.baseApi;
 
+  const baseApi = process.env.baseApi;
   const [vouchers, setVouchers] = useState<[]>([]);
   const [vouchersAll, setVouchersAll] = useState<any>([]);
   // const [categories, setCategories] = useState<[any]>([{}]);
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [promo, setPromo] = useState<any>([]);
-
+  // useDispatch(getPosts());
 
   useEffect(() => {
+    // @ts-ignore
+
 
     axios
         .get(`${baseApi}/vouchers?contractId=662`)
@@ -112,7 +114,7 @@ const Home: NextPage = ({serverData}: any) => {
                     </div>
 
                   </div>
-                  <div className={"flex md:hidden max-w-[150px] w-full relative"}>
+                  <div className={"flex md:hidden max-w-[150px] min-w-[136px] w-full relative"}>
                     <Image
                         src={IMAGES.mobileBecome2}
                         alt={"partner"}
@@ -125,13 +127,11 @@ const Home: NextPage = ({serverData}: any) => {
                         priority={true}
                     />
                   </div>
-                  <div className={"p-5 md:p-0"}>
-                    <h2 className={"text-[#383838] font-bold text-[18px] md:text-[22px] z-10 flex md:hidden mb-4 aveSofBold"}>Become
-                      Partner</h2>
-                    <p className={"w-full px-0 xl:px-6 text-start md:text-center leading-[23px] text-[#38383899] text-sm -mt-[14px] z-10 aveSofRegular"}>Increase
-                      sales,
-                      attract new
-                      customers and double your income with us.</p>
+                  <div className={"p-3 sm:p-5 md:p-0"}>
+                    <h2 className={"text-[#383838] leading-[20px] font-bold text-[18px] md:text-[22px] z-10 flex md:hidden mb-4 aveSofBold"}>
+                      Become Partner</h2>
+                    <p className={"w-full ph:text-sm px-0 xl:px-6 text-start md:text-center leading-[20px] ph:leading-[23px] text-[#38383899] text-[12px] -mt-[14px] z-10 aveSofRegular"}>
+                      Increase sales,attract new customers and double your income with us.</p>
                   </div>
 
                   <Button text={"Learn More"} bgColor={"#383838"}
@@ -169,14 +169,14 @@ const Home: NextPage = ({serverData}: any) => {
 
           </div>
           {/*Special offers*/}
-          {promo.length > 0 &&
+          {promo?.length > 0 &&
 							<div className={"flex flex-col mt-[44px] md:mt-[40px]"}>
-								<div className={"ph:container con pl-0px ph:p-auto ph:m-auto w-full"}>
-									<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Special
+								<div className={"ph:container h-min con pl-0px ph:p-auto ph:m-auto w-full"}>
+									<h1 className={"text-[18px] pl-3 ph:pl-0 m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Special
 										offers</h1>
 									<div className={"mt-4"}>
 										<OfferSlider data={promo} loop={false}/>
-										<FreeScroll data={vouchers} miniHeight={true}/>
+										<FreeScroll data={promo} miniHeight={true}/>
 									</div>
 								</div>
 							</div>}

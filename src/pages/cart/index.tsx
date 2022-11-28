@@ -11,15 +11,16 @@ import {getTotals,} from "../../components/slices/cartSlice";
 import dynamic from "next/dynamic";
 import _ from "lodash";
 import Image from "next/image";
-import Button from "../../components/UI/button";
 import {useRouter} from "next/router";
+import Button from "../../components/UI/button";
 
-// import CartItem from "../../components/blocks/cart/cart-item";
 
 const CartItem = dynamic(
     () => import('../../components/blocks/cart/cart-item'),
     {ssr: false}
 )
+
+// ----------- bug cart?.cartItems?.length idzleva Hydration failed errors
 
 export default function Cart({serverData, productCount}: any) {
   const baseApi = process.env.baseApi;
@@ -27,7 +28,9 @@ export default function Cart({serverData, productCount}: any) {
 
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
-  const [payType, setPayType] = useState<string>("bog");
+
+  const [payType, setPayType] = useState<string>("");
+  const [errorAnim, setErrorAnim] = useState<boolean>(false);
 
   const getCount = (count: number) => {
   }
@@ -35,6 +38,18 @@ export default function Cart({serverData, productCount}: any) {
   useEffect(() => {
     dispatch(getTotals({}));
   }, [cart, dispatch]);
+
+
+  const shake = () => {
+
+    if (payType.length === 0) {
+      setErrorAnim(true)
+      setTimeout(() => {
+        setErrorAnim(false)
+      }, 1000)
+    }
+
+  }
 
   const pay = () => {
 
@@ -77,7 +92,7 @@ export default function Cart({serverData, productCount}: any) {
         typeof window !== 'undefined' && window.open(link, '_blank');
 
       })
-    } else {
+    } else if (payType === "tbc") {
       let tbcObj = {
         "user_id": null,
         "contract_id": null,
@@ -114,6 +129,8 @@ export default function Cart({serverData, productCount}: any) {
         typeof window !== 'undefined' && window.open(link, '_blank');
 
       })
+    } else if (payType === "") {
+      shake()
     }
 
   }
@@ -213,7 +230,25 @@ export default function Cart({serverData, productCount}: any) {
 											</div>
 
 										</div>
-										<div className={"grid grid-rows-1 grid-cols-2 h-[48px] gap-x-3 mt-6"}>
+										<div className={"items-end flex justify-center overflow-hidden"}
+										     style={{
+                           height: payType.length === 0 ? "30px" : "0px",
+                           opacity: payType.length === 0 ? 1 : 0,
+                           transition: "0.3s linear all"
+                         }}
+										>
+											<p
+													className={`animate__animated animate__fast ${errorAnim ? "animate__shakeX" : ""}`}
+													style={{
+                            color: errorAnim ? "#ff4d4f" : "#383838",
+                            transition: ".2s linear all"
+                          }}
+											>აირჩიეთ
+												გადახდის
+												მეთოდი</p>
+										</div>
+										<div
+												className={`grid grid-rows-1 grid-cols-2 h-[48px] gap-x-3 mt-6`}>
 											<div onClick={() => setPayType("bog")}
 											     style={{
                              border: payType === "bog" ? "1px solid #8338EC" : "1px solid transparent"
@@ -244,7 +279,7 @@ export default function Cart({serverData, productCount}: any) {
 										<div
 												onClick={() => pay()}
 												style={{
-                          backgroundColor: payType ? "#8338EC" : "gray"
+                          backgroundColor: payType ? "#8338EC" : "gray",
                         }}
 												className={"cursor-pointer w-full h-12 mt-6 rounded-xl flex justify-center items-center"}>
 											<p className={"text-base font-[500] text-base text-[white] aveSofMedium"}>Buy</p>

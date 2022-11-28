@@ -43,3 +43,4 @@ export {default as arrowBack} from './arrowBack.svg';
 export {default as advertisement} from './advertisement.svg';
 export {default as partnership} from './partnership.svg';
 export {default as privacy} from './privacy.svg';
+export {default as geoFlag} from './geoFlag.svg';
