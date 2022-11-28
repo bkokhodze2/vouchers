@@ -3,13 +3,16 @@ import Head from 'next/head'
 // @ts-ignore
 import {ICONS, IMAGES} from "public/images";
 import React, {useEffect, useState} from "react";
-import Lari from "../../../public/images/icons/lari";
+// @ts-ignore
+import Lari from "/public/images/icons/lari";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
 import {getTotals,} from "../../components/slices/cartSlice";
 import dynamic from "next/dynamic";
 import _ from "lodash";
 import Image from "next/image";
+import Button from "../../components/UI/button";
+import {useRouter} from "next/router";
 
 // import CartItem from "../../components/blocks/cart/cart-item";
 
@@ -20,11 +23,11 @@ const CartItem = dynamic(
 
 export default function Cart({serverData, productCount}: any) {
   const baseApi = process.env.baseApi;
+  const Router = useRouter();
 
   const cart = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
   const [payType, setPayType] = useState<string>("bog");
-
 
   const getCount = (count: number) => {
   }
@@ -32,7 +35,6 @@ export default function Cart({serverData, productCount}: any) {
   useEffect(() => {
     dispatch(getTotals({}));
   }, [cart, dispatch]);
-
 
   const pay = () => {
 
@@ -143,93 +145,114 @@ export default function Cart({serverData, productCount}: any) {
                   return <CartItem data={item} getCount={getCount} key={index}/>
                 })}
 
+                {cart?.cartItems?.length === 0 && <div
+										className={"mt-9 m-auto w-full max-w-[490px] flex justify-center items-center flex flex-col "}>
+									<div className={"max-w-[250px]"}>
+										<Image src={IMAGES.notFound}
+										       quality={60}
+										       blurDataURL={IMAGES.placeholder.src}
+										       placeholder="blur"
+										       loading={"lazy"}
+										       alt={"not found image"}
+										       style={{objectFit: "cover"}}/>
+									</div>
+									<p className={"!uppercase mt-10 text-[#383838] text-[28px] font-bold aveSofBold"}>basket is
+										empty</p>
+									<div onClick={() => Router.push('/')}>
+										<Button bgColor={"#383838"} textColor={"white"} text={"Back to home"}
+										        classes={"mt-6 aveSofRegular"}/>
+									</div>
+
+								</div>}
+
               </div>
 
             </div>
             {/*cart list*/}
 
             {/*cart info*/}
-            <div className={"h-auto ph:min-w-[340px] xl:min-w-[360px] shrink-0 px-[16px] ph:px-0"}>
-              <h5 className={"text-[#383838] text-[28px] font-bold hidden ph:block aveSofBold"}>Order</h5>
+            {cart?.cartItems?.length > 0 &&
+								<div className={"h-auto ph:min-w-[340px] xl:min-w-[360px] shrink-0 px-[16px] ph:px-0"}>
+									<h5 className={"text-[#383838] text-[28px] font-bold hidden ph:block aveSofBold"}>Order</h5>
 
-              <div className={"sticky top-[130px] max-h-[600px] pb-[90px] md:pb:0 overflow-scroll rounded-xl"}>
+									<div className={"sticky top-[130px] max-h-[600px] pb-[90px] md:pb:0 overflow-scroll rounded-xl"}>
 
-                <div className={"rounded-xl bg-[white] ph:px-6 mt-4 ph:pt-[30px] ph:pb-[54px] p-4"}>
-                  <h5 className={"text-[#383838] text-[18px] font-bold block ph:hidden mb-[16px] aveSofBold"}>Order</h5>
-                  <div className={"flex items-center w-full justify-between "}>
-                    <p className={"ph:text-[22px] text-base text-[#38383899] aveSofRegular"}>Number of vouchers</p>
-                    <p className={"ph:text-[22px] text-base text-[#38383899] font-[500] aveSofMedium"}>{cart?.cartTotalQuantity}</p>
-                  </div>
+										<div className={"rounded-xl bg-[white] ph:px-6 mt-4 ph:pt-[30px] ph:pb-[54px] p-4"}>
+											<h5 className={"text-[#383838] text-[18px] font-bold block ph:hidden mb-[16px] aveSofBold"}>Order</h5>
+											<div className={"flex items-center w-full justify-between "}>
+												<p className={"ph:text-[22px] text-base text-[#38383899] aveSofRegular"}>Number of vouchers</p>
+												<p className={"ph:text-[22px] text-base text-[#38383899] font-[500] aveSofMedium"}>{cart?.cartTotalQuantity}</p>
+											</div>
 
-                  <div className={"h-[1px] w-full bg-[#38383833] rounded-xl mt-6 mb-[30px]"}/>
+											<div className={"h-[1px] w-full bg-[#38383833] rounded-xl mt-6 mb-[30px]"}/>
 
-                  <div className={"flex justify-between"}>
-                    <p className={"text-[#383838] ph:text-[28px] text-[18px] font-bold aveSofBold"}>Total Price</p>
-                    <div className={"flex items-center"}>
-                      <Lari color={"#E35A43"} height={18} width={18}/>
-                      <p className={"ph:text-[22px] text-[18px] text-[#E35A43] aveSofMedium"}>{cart?.cartTotalPrice}</p>
-                    </div>
-                  </div>
+											<div className={"flex justify-between"}>
+												<p className={"text-[#383838] ph:text-[28px] text-[18px] font-bold aveSofBold"}>Total Price</p>
+												<div className={"flex items-center"}>
+													<Lari color={"#E35A43"} height={18} width={18}/>
+													<p className={"ph:text-[22px] text-[18px] text-[#E35A43] aveSofMedium"}>{cart?.cartTotalPrice}</p>
+												</div>
+											</div>
 
-                  <div className={"flex justify-between"}>
-                    <p className={"text-[#383838] ph:text-[28px] text-[18px] font-bold aveSofBold"}>Total Points</p>
-                    <div className={"flex items-center"}>
-                      <p className={"z-10 text-[20px] text-[#E35A43] font-bold transition ml-[10px] mr-1.5"}>
-                        <Image
-                            src={IMAGES.coin}
-                            quality={100}
-                            blurDataURL={IMAGES.placeholder.src}
-                            loading={"lazy"}
-                            width={16}
-                            height={16}
-                            alt={"coin icon"}
-                        />
-                      </p>
-                      <p className={"ph:text-[22px] text-[18px] text-[#E35A43] aveSofMedium"}>{cart?.totalPoint}</p>
-                    </div>
-                  </div>
+											<div className={"flex justify-between"}>
+												<p className={"text-[#383838] ph:text-[28px] text-[18px] font-bold aveSofBold"}>Total Points</p>
+												<div className={"flex items-center"}>
+													<p className={"z-10 text-[20px] text-[#E35A43] font-bold transition ml-[10px] mr-1.5"}>
+														<Image
+																src={IMAGES.coin}
+																quality={100}
+																blurDataURL={IMAGES.placeholder.src}
+																loading={"lazy"}
+																width={16}
+																height={16}
+																alt={"coin icon"}
+														/>
+													</p>
+													<p className={"ph:text-[22px] text-[18px] text-[#E35A43] aveSofMedium"}>{cart?.totalPoint}</p>
+												</div>
+											</div>
 
-                </div>
-                <div className={"grid grid-rows-1 grid-cols-2 h-[48px] gap-x-3 mt-6"}>
-                  <div onClick={() => setPayType("bog")}
-                       style={{
-                         border: payType === "bog" ? "1px solid #8338EC" : "1px solid transparent"
-                       }}
-                       className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
-                    <Image
-                        src={ICONS.bog}
-                        quality={70}
-                        loading={"lazy"}
-                        alt={"coin icon"}
+										</div>
+										<div className={"grid grid-rows-1 grid-cols-2 h-[48px] gap-x-3 mt-6"}>
+											<div onClick={() => setPayType("bog")}
+											     style={{
+                             border: payType === "bog" ? "1px solid #8338EC" : "1px solid transparent"
+                           }}
+											     className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
+												<Image
+														src={ICONS.bog}
+														quality={70}
+														loading={"lazy"}
+														alt={"coin icon"}
 
-                    />
-                  </div>
-                  <div onClick={() => setPayType("tbc")}
-                       style={{
-                         border: payType === "tbc" ? "1px solid #8338EC" : "1px solid transparent"
-                       }}
-                       className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
-                    <Image
-                        src={ICONS.tbc}
-                        quality={70}
-                        loading={"lazy"}
-                        alt={"coin icon"}
+												/>
+											</div>
+											<div onClick={() => setPayType("tbc")}
+											     style={{
+                             border: payType === "tbc" ? "1px solid #8338EC" : "1px solid transparent"
+                           }}
+											     className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
+												<Image
+														src={ICONS.tbc}
+														quality={70}
+														loading={"lazy"}
+														alt={"coin icon"}
 
-                    />
-                  </div>
-                </div>
-                <div
-                    onClick={() => pay()}
-                    style={{
-                      backgroundColor: payType ? "#8338EC" : "gray"
-                    }}
-                    className={"cursor-pointer w-full h-12 mt-6 rounded-xl flex justify-center items-center"}>
-                  <p className={"text-base font-[500] text-base text-[white] aveSofMedium"}>Buy</p>
-                </div>
+												/>
+											</div>
+										</div>
+										<div
+												onClick={() => pay()}
+												style={{
+                          backgroundColor: payType ? "#8338EC" : "gray"
+                        }}
+												className={"cursor-pointer w-full h-12 mt-6 rounded-xl flex justify-center items-center"}>
+											<p className={"text-base font-[500] text-base text-[white] aveSofMedium"}>Buy</p>
+										</div>
 
-              </div>
+									</div>
 
-            </div>
+								</div>}
             {/*cart info*/}
 
           </div>

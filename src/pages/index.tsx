@@ -16,8 +16,6 @@ import PulseLoader from "react-spinners/PulseLoader";
 import FreeScroll from "../components/UI/slider/free-scroll";
 import CategorySlider from "../components/UI/slider/category-slider";
 
-// import Background from "../../public/images/images/test.png.png"
-
 const Home: NextPage = ({serverData}: any) => {
   const baseApi = process.env.baseApi;
 

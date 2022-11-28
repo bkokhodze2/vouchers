@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react"
 // @ts-ignore
 import {ICONS, IMAGES} from "public/images";
 import Image from "next/image"
-
 import Link from "next/link";
 import {Form, Input} from 'antd';
 import PulseLoader from "react-spinners/PulseLoader";
@@ -10,8 +9,9 @@ import {useRouter} from "next/router";
 import axios from "axios";
 import useDocumentHeight from "../../UI/useDocumentHeight";
 import _ from "lodash";
-import offerItem from "../../../../public/images/images/offerItem.png";
-import Lari from "../../../../public/images/icons/lari";
+import offerItem from "/public/images/images/offerItem.png";
+// @ts-ignore
+import Lari from "/public/images/icons/lari";
 
 interface Isearch {
   isOpenSearch: boolean

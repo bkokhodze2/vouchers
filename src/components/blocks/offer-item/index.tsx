@@ -3,11 +3,12 @@ import React, {useEffect, useState} from "react"
 import {ICONS, IMAGES} from "public/images";
 import Image from "next/image"
 import Link from "next/link";
-import Lari from "../../../../public/images/icons/lari";
+// @ts-ignore
+import Lari from "/public/images/icons/lari";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Carousel} from 'react-responsive-carousel';
 import InStock from "../../UI/in-stock";
-import slider from "../../../../public/images/images/mainSlider.webp";
+import slider from "/public/images/images/mainSlider.webp";
 import _ from 'lodash';
 import dynamic from 'next/dynamic'
 import {useDispatch, useSelector} from "react-redux";
@@ -32,7 +33,6 @@ interface IOfferItem {
 
 
 const OfferItem = ({data, miniHeight}: IOfferItem) => {
-  const [isVisibleDrawer, setIsVisibleDrawer] = useState<boolean>(false);
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
@@ -54,52 +54,9 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
       if (_.get(e, 'additionalInfo[0].genericTransactionTypeId', 0) === _.get(data, 'additionalInfo[0].genericTransactionTypeId', 0)) {
         setIsFavourite(true);
       }
-
     })
 
   }, [favourites, data, dispatch]);
-
-
-  const InnerSlider = () => {
-    return <div className="carousel-wrapper " onClick={(e) => {
-      e.stopPropagation()
-    }}>
-      <Carousel infiniteLoop showThumbs={false} swipeable={true} className={""}>
-        {
-          _.get(data, 'additionalInfo[0].attachments', []).length === 0 ?
-              <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
-                <div className={"relative h-full"}>
-                  <LazyLoadImage src={slider?.src}
-                                 alt={"slider img"}
-                                 width={360}
-                                 onLoad={() => {
-                                   setIsLoaded(true)
-                                 }}
-                                 style={{objectFit: "cover"}}
-                                 loading="lazy"
-                                 className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
-                </div>
-              </Link>
-              :
-              _.get(data, 'additionalInfo[0].attachments', []).slice(0, 4).map((item: any, index: number) => {
-                return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`} key={index}>
-                  <div className={"relative h-full"}>
-                    <LazyLoadImage src={item?.path}
-                                   alt={"slider img"}
-                                   width={360}
-                                   onLoad={() => {
-                                     setIsLoaded(true)
-                                   }}
-                                   style={{objectFit: "cover"}}
-                                   loading="lazy"
-                                   className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
-                  </div>
-                </Link>
-              })
-        }
-      </Carousel>
-    </div>
-  }
 
   return (
       <div className={`${miniHeight ? 'miniHeight' : ''} cursor-pointer lg:max-w-[400px] sm:max-w-[400px] max-w-7xl`}>
@@ -140,7 +97,44 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
 
             <div
                 className={"img h-full h-[211px] sm:h-[220px] w-full lg:max-w-[400px] sm:max-w-[400px] max-w-7xl relative relative "}>
-              <InnerSlider/>
+              <div className="carousel-wrapper " onClick={(e) => {
+                e.stopPropagation()
+              }}>
+                <Carousel infiniteLoop showThumbs={false} swipeable={true} className={""}>
+                  {
+                    _.get(data, 'additionalInfo[0].attachments', []).length === 0 ?
+                        <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
+                          <div className={"relative h-full"}>
+                            <LazyLoadImage src={slider?.src}
+                                           alt={"slider img"}
+                                           width={360}
+                                           onLoad={() => {
+                                             setIsLoaded(true)
+                                           }}
+                                           style={{objectFit: "cover"}}
+                                           loading="lazy"
+                                           className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
+                          </div>
+                        </Link>
+                        :
+                        _.get(data, 'additionalInfo[0].attachments', []).slice(0, 4).map((item: any, index: number) => {
+                          return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`} key={index}>
+                            <div className={"relative h-full"}>
+                              <LazyLoadImage src={item?.path}
+                                             alt={"slider img"}
+                                             width={360}
+                                             onLoad={() => {
+                                               setIsLoaded(true)
+                                             }}
+                                             style={{objectFit: "cover"}}
+                                             loading="lazy"
+                                             className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
+                            </div>
+                          </Link>
+                        })
+                  }
+                </Carousel>
+              </div>
             </div>
 
             <div

@@ -1,4 +1,3 @@
-import Layout from "../../../../../components/layouts/user-layout"
 import Head from 'next/head'
 import {notification, Tabs} from 'antd';
 // @ts-ignore
@@ -6,16 +5,24 @@ import {ICONS, IMAGES} from "public/images";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import GalleryScroll from "../../../../../components/blocks/gallery-scroll";
+import Layout from "../../../../../components/layouts/user-layout"
 import Comment from "../../../../../components/blocks/comment";
-import Phone from '../../../../../../public/images/icons/phone';
-import Watch from "../../../../../../public/images/icons/watch";
-import Location from "../../../../../../public/images/icons/location";
 import InStock from "../../../../../components/UI/in-stock";
 import Button from "../../../../../components/UI/button";
+import OfferSlider from "../../../../../components/UI/slider/offer-slider";
+// @ts-ignore
+import Phone from '/public/images/icons/phone';
+// @ts-ignore
+import Watch from "/public/images/icons/watch";
+// @ts-ignore
+import Location from "/public/images/icons/location";
+// @ts-ignore
+import Lari from "/public/images/icons/lari";
+
 import Link from "next/link";
 import axios from "axios";
 import {useRouter} from "next/router";
-import OfferSlider from "../../../../../components/UI/slider/offer-slider";
+
 import dynamic from "next/dynamic";
 import {useDispatch, useSelector} from "react-redux";
 import _ from "lodash";
@@ -24,7 +31,7 @@ import {addToCartWithQuantity, getTotals,} from "../../../../../components/slice
 
 import {addToFavourites, getTotalsFavourite} from "../../../../../components/slices/favouritesSlice";
 import FreeScroll from "../../../../../components/UI/slider/free-scroll";
-import Lari from "../../../../../../public/images/icons/lari";
+
 
 const CountDown = dynamic(
     () => import("../../../../../components/UI/count-down"),
@@ -160,12 +167,12 @@ export default function Details() {
           "party_id": null,
           "bog_order_request_dto": {
             "intent": "AUTHORIZE",
-            "items": {
+            "items": [{
               "amount": _.get(voucher, '[0].entries[0].entryAmount', 1),
               "description": _.get(voucher, '[0].additionalInfo[0].provider.name', ""),
               "quantity": quantity,
               "product_id": _.get(voucher, '[0].additionalInfo[0].genericTransactionTypeId', 1)
-            }
+            }]
             ,
             "locale": "ka",
             "shop_order_id": "123456",
@@ -182,23 +189,22 @@ export default function Details() {
             ]
           }
         }
-
         axios.post(`https://vouchers.pirveli.ge/api/bog/orders`, bogObj).then((res) => {
           let link = res.data.links[1].href;
           typeof window !== 'undefined' && window.open(link, '_blank');
         })
 
-      } else {
+      } else if (payType === "tbc") {
         let tbcObj = {
           "user_id": null,
           "contract_id": null,
           "party_id": null,
-          "items": {
+          "items": [{
             "amount": _.get(voucher, '[0].entries[0].entryAmount', 1),
             "description": _.get(voucher, '[0].additionalInfo[0].provider.name', ""),
             "quantity": quantity,
             "product_id": _.get(voucher, '[0].additionalInfo[0].genericTransactionTypeId', 1)
-          }
+          }]
           ,
           "tbc_payment_request_dto": {
             "amount": {

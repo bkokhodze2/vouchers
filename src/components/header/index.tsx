@@ -4,16 +4,21 @@ import {ICONS} from "public/images";
 import Image from "next/image";
 import PulseLoader from "react-spinners/PulseLoader";
 import {Badge, Button as AntButton, Form, Input} from 'antd';
-import offerItem from "../../../public/images/images/offerItem.png";
-import {IMAGES} from "../../../public/images";
-import Home from "../../../public/images/icons/home";
-
-import Search from "../../../public/images/icons/search";
-import BarHeart from "../../../public/images/icons/barHeart";
-import Menu from "../../../public/images/icons/menu";
+import offerItem from "/public/images/images/offerItem.png";
+// @ts-ignore
+import {IMAGES} from "/public/images";
+// @ts-ignore
+import Home from "/public/images/icons/home";
+// @ts-ignore
+import Search from "/public/images/icons/search";
+// @ts-ignore
+import BarHeart from "/public/images/icons/barHeart";
+// @ts-ignore
+import Menu from "/public/images/icons/menu";
 import MenuDrawer from "../blocks/menu-drawer";
 import SearchDrawer from "../blocks/search-drawer";
-import Basket from "../../../public/images/icons/orders";
+// @ts-ignore
+import Basket from "/public/images/icons/orders";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import axios from "axios";
@@ -22,7 +27,8 @@ import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
 import {getTotals} from "../slices/cartSlice";
 import {getTotalsFavourite} from "../slices/favouritesSlice";
-import Lari from "../../../public/images/icons/lari";
+// @ts-ignore
+import Lari from "/public/images/icons/lari";
 
 interface Icategory {
   categoryId: number,
@@ -86,7 +92,7 @@ const Header: React.FC = () => {
   useEffect(() => {
 
     axios
-        .get(`${baseApi}/user/me`)
+        .get(`${baseApi}/user`)
         .then((res) => {
           setIsLogged(res.data)
         });

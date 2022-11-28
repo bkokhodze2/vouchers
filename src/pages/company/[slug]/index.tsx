@@ -4,8 +4,10 @@ import Head from 'next/head'
 import {ICONS, IMAGES} from "public/images";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
-import Location from "../../../../public/images/icons/location";
-import Phone from "../../../../public/images/icons/phone";
+// @ts-ignore
+import Location from "/public/images/icons/location";
+// @ts-ignore
+import Phone from "/public/images/icons/phone";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import axios from "axios";

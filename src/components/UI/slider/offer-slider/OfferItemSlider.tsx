@@ -1,18 +1,16 @@
-import React, {useRef, useState} from "react";
+import React from "react";
 // Import Swiper React components
-
 import {Swiper, SwiperSlide} from "swiper/react";
-import Image from "next/image";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import slider from "../../../../../public/images/images/mainSlider.png"
+import slider from "/public/images/images/mainSlider.png"
 
 // import required modules
-import {Pagination, Navigation} from "swiper";
+import {Pagination} from "swiper";
 
 export default function OfferItemSlider() {
 

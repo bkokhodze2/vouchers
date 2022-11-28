@@ -12,7 +12,6 @@ const nextConfig = {
 			{
 				protocol:'http',
 				hostname:'s3.pirveli.ge',
-				port:'',
 				pathname:'/v1/api/**',
 			},
 		],
