@@ -47,8 +47,6 @@ function Quantity({freeQuantity, getCount, quantityInCart, currentQuantity, data
 
   };
 
-  console.log("quantity", quantityInCart, "da", freeQuantity)
-
 
   return (
       <div className={"rounded-xl bg-[#EEEEEE] h-[32px] md:h-[48px] w-full flex items-center"}>
