@@ -53,7 +53,6 @@ const CartItem = ({data, getCount}: ICartItem) => {
 
   }, [cart, data, quantityInCart])
 
-
   const dispatch = useDispatch();
 
   const handleRemoveFromCart = (product: any) => {

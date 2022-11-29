@@ -1,6 +1,7 @@
 import {Provider} from 'react-redux';
 import "../../styles/globals.css"
 import "../../styles/font.css"
+import 'animate.css';
 // @ts-ignore
 import cartReducer from "../components/slices/cartSlice";
 

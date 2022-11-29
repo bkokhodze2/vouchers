@@ -75,18 +75,20 @@ export default function Category({serverData}: any) {
 					</div>
           }
 
-          <div className={"container m-auto mt-4 ph:mt-8 pb-[100px]"}>
+          <div className={"m-auto  mt-4 ph:mt-8 pb-[100px]"}>
 
-            {promo.length > 0 && <div className={" flex flex-col mt-[44px] md:mt-0"}>
-							<div className={"con pl-0px ph:p-auto ph:m-auto w-full"}>
-								<h1 className={"text-[18px] pl-3 ph:pl-0 m-auto sm:text-[28px] text-[#383838] font-bold aveSofMedium"}>Popular
-									offers</h1>
-								<div className={"mt-4"}>
-									<OfferSlider data={promo}/>
-									<FreeScroll data={promo} miniHeight={true}/>
-								</div>
-							</div>
-						</div>}
+
+            {promo.length > 0 &&
+								<div className={"flex flex-col mt-[44px] md:mt-[40px]"}>
+									<div className={"ph:container h-min con pl-0px ph:p-auto ph:m-auto w-full"}>
+										<h1 className={"text-[18px] pl-3 ph:pl-0 m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Popular
+											offers</h1>
+										<div className={"mt-4"}>
+											<OfferSlider data={promo}/>
+											<FreeScroll data={promo} miniHeight={true}/>
+										</div>
+									</div>
+								</div>}
 
 
             {/*<div className={"h-[60px] bg-[black] mt-[54px] flex justify-between"}>*/}
@@ -121,7 +123,7 @@ export default function Category({serverData}: any) {
             {/*  <div></div>*/}
             {/*</div>*/}
 
-            <div className={"m-auto mt-[20px] hidden sm:flex"}>
+            <div className={"m-auto container mt-[20px] hidden sm:flex"}>
               <Image
                   src={IMAGES.banner}
                   quality={70}
@@ -132,7 +134,7 @@ export default function Category({serverData}: any) {
               />
             </div>
 
-            <div className={"mb-[114px]  container m-auto mt-[44px] w-full flex sm:hidden relative"}>
+            <div className={"mb-[114px] container m-auto mt-[44px] w-full flex sm:hidden relative"}>
               <img
                   src={IMAGES.mobileBanner.src}
                   placeholder="blur"
@@ -147,7 +149,7 @@ export default function Category({serverData}: any) {
             </div>
 
             <div
-                className={"mt-[40px] mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-5 md:gap-y-[42px] xl:gap-x-[30px]"}>
+                className={"mt-[40px] container mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-5 md:gap-y-[42px] xl:gap-x-[30px]"}>
               {
                 vouchers?.map((item: any, index: any) => {
                   return <OfferItem data={item} key={index}/>

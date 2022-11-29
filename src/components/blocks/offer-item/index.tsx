@@ -105,15 +105,16 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                     _.get(data, 'additionalInfo[0].attachments', []).length === 0 ?
                         <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
                           <div className={"relative h-full"}>
-                            <LazyLoadImage src={slider?.src}
-                                           alt={"slider img"}
-                                           width={360}
-                                           onLoad={() => {
-                                             setIsLoaded(true)
-                                           }}
-                                           style={{objectFit: "cover"}}
-                                           loading="lazy"
-                                           className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
+                            <Image src={slider?.src}
+                                   alt={"slider img"}
+                                   width={360}
+                                   layout={"fill"}
+                                   onLoad={() => {
+                                     setIsLoaded(true)
+                                   }}
+                                   style={{objectFit: "cover"}}
+                                   loading="lazy"
+                                   className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
                           </div>
                         </Link>
                         :

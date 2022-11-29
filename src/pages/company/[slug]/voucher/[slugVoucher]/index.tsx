@@ -51,6 +51,7 @@ export default function Details() {
   const [freeQuantity, setFreeQuantity] = useState<number>(0);
   const [payType, setPayType] = useState<string>("");
   const [showPayType, setShowPayType] = useState<boolean>(false);
+  const [errorAnim, setErrorAnim] = useState<boolean>(false);
 
   const cart = useSelector((state: any) => state.cart);
   const favourites = useSelector((state: any) => state.favourites);
@@ -231,6 +232,8 @@ export default function Details() {
           typeof window !== 'undefined' && window.open(link, '_blank');
         })
 
+      } else if (payType === "") {
+        shake()
       }
     } else {
       notification['error']({
@@ -238,6 +241,16 @@ export default function Details() {
       });
     }
 
+  }
+
+  const shake = () => {
+
+    if (payType.length === 0) {
+      setErrorAnim(true)
+      setTimeout(() => {
+        setErrorAnim(false)
+      }, 1000)
+    }
 
   }
 
@@ -391,9 +404,9 @@ export default function Details() {
         </div>
 
         {/* buy & cart buttons*/}
-        <div className={"grid grid-cols-2 grid-rows-2 gap-1 gap-x-[30px] gap-y-8 mt-8"}>
+        <div className={"grid grid-cols-2  gap-1 gap-x-[30px] gap-y-8 mt-8"}>
           <div
-              className={"w-full rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
+              className={"w-full min-h-[64px] rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
               onClick={() => handleAddToCart(voucher)}>
             <div className={"min-w-[15px] flex"}>
               <Image src={ICONS.cart} className={"cursor-pointer"} alt={"cart icon"}/>
@@ -402,7 +415,7 @@ export default function Details() {
             >Add to Cart</p>
           </div>
           <div
-              className={"w-full rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
+              className={"w-full min-h-[64px] rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
               onClick={() => {
                 addFav(voucher[0])
               }}
@@ -424,6 +437,23 @@ export default function Details() {
             </div>
             <p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>save</p>
           </div>
+
+
+          {/*{showPayType && !payType && <div className={"col-span-2 items-end flex justify-center overflow-hidden"}*/}
+          {/*                                 style={{*/}
+          {/*                                   height: payType.length === 0 ? "30px" : "0px",*/}
+          {/*                                   opacity: payType.length === 0 ? 1 : 0,*/}
+          {/*                                   transition: "0.3s linear all"*/}
+          {/*                                 }}*/}
+          {/*>*/}
+          {/*	<p*/}
+          {/*			className={`animate__animated animate__fast ${errorAnim ? "animate__shakeX" : ""}`}*/}
+          {/*			style={{*/}
+          {/*        color: errorAnim ? "#ff4d4f" : "#383838",*/}
+          {/*        transition: ".2s linear all"*/}
+          {/*      }}*/}
+          {/*	>აირჩიეთ გადახდის მეთოდი</p>*/}
+          {/*</div>}*/}
 
           {showPayType && <div onClick={() => setPayType("bog")}
 					                     style={{
@@ -456,7 +486,7 @@ export default function Details() {
 
           <div className={"col-span-2"} onClick={() => buy()}>
             <Button text={payType || !showPayType ? "buy now" : "choose payment"}
-                    bgColor={payType || !showPayType ? "#8338EC" : "#383838"}
+                    bgColor={payType || !showPayType ? "#8338EC" : "gray"}
                     classes={"!w-full aveSofRegular"}/>
           </div>
         </div>

@@ -145,6 +145,13 @@ const Header: React.FC = () => {
     searchForm.resetFields();
     setTerm('');
   }
+  const logout = () => {
+    axios
+        .post(`${baseApi}/logout`)
+        .then((res) => {
+          console.log("logout", res.data)
+        });
+  }
 
   const onFinish = (values: any) => {
     resetFields();
@@ -266,7 +273,10 @@ const Header: React.FC = () => {
               />
               <p className={"text-sm text-[white] mr-8 ml-[5px] capitalize after:content-[''] after:h-[20px] after:bg-[#ffffffb3] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500 aveSofRegular"}>
                 40,076</p>
-              <p className={"text-sm text-[#ffffffb3] mr-8 capitalize aveSofRegular"}>English</p>
+              <div className={"mr-8"}>
+                <img src={ICONS.geoFlag.src} alt={"geo flag"}/>
+              </div>
+              {/*<p className={"text-sm text-[#ffffffb3] mr-8 capitalize aveSofRegular"}>English</p>*/}
             </div>
           </div>
         </div>
@@ -468,21 +478,24 @@ const Header: React.FC = () => {
                   </Link>
 
                   {
-                    isLogged ? <div className={"min-w-[48px] max-h-[48px] relative"}>
-                      <Image layout={"fill"} height={48}
-                             width={48}
-                             src={IMAGES.avatar}/>
-                    </div> : <Link
-                        href={"https://auth.pirveli.ge/realms/xracoon-demo/protocol/openid-connect/auth?response_type=code&client_id=demo-client&scope=email%20profile%20roles%20openid&state=ozej6dlmtIpneeVt7QoGPy2zXJ9e6BNPdGltyKyn3X4%3D&redirect_uri=https://vouchers.pirveli.ge&nonce=KAmXCp0jHrPiUph9D2p5yVwdpT5g3qWO0iCxqJFbiv0"}
-                        style={{}}
-                        className={`text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular`}
-                    >
-                      <div
-                          className={`h-[40px] lg:h-[44px] bg-[#383838] rounded-[8px] lg:rounded-xl px-[23px] lg:px-10 flex justify-center items-center cursor-pointer`}>
-                        <p className={"text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular"}>
-                          sign in</p>
-                      </div>
-                    </Link>
+
+                    isLogged ?
+                        <div onClick={() => logout()} className={"min-w-[48px] max-h-[48px] relative"}>
+                          <Image layout={"fill"} height={48}
+                                 width={48}
+                                 src={IMAGES.avatar}/>
+                        </div>
+                        : <Link
+                            href={"https://auth.pirveli.ge/realms/xracoon-demo/protocol/openid-connect/auth?response_type=code&client_id=demo-client&scope=email%20profile%20roles%20openid&state=ozej6dlmtIpneeVt7QoGPy2zXJ9e6BNPdGltyKyn3X4%3D&redirect_uri=https://vouchers.pirveli.ge&nonce=KAmXCp0jHrPiUph9D2p5yVwdpT5g3qWO0iCxqJFbiv0"}
+                            style={{}}
+                            className={`text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular`}
+                        >
+                          <div
+                              className={`h-[40px] lg:h-[44px] bg-[#383838] rounded-[8px] lg:rounded-xl px-[23px] lg:px-10 flex justify-center items-center cursor-pointer`}>
+                            <p className={"text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular"}>
+                              sign in</p>
+                          </div>
+                        </Link>
                   }
 
                 </div>
@@ -512,7 +525,7 @@ const Header: React.FC = () => {
                 </div>
 
                 {/*sub categories*/}
-                <div className={"flex items-center space-x-[40px] ml-[40px]"}>
+                <div className={"flex items-center space-x-[20px] ml-[20px] sm:space-x-[40px] sm:ml-[40px]"}>
                   {categories?.filter(item => item?.parentCategoryId === null).map((item: Icategory, index: number) => {
                     return <div className={"relative"} key={index}
                                 onMouseOver={() => {
