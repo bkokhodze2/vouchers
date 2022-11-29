@@ -1,13 +1,13 @@
 import {configureStore} from "@reduxjs/toolkit";
 import cartReducer from "../slices/cartSlice";
 import favouritesReducer from "../slices/favouritesSlice";
-// import {RemarksSlice} from "../slices/categories";
+import categoriesReducer from '../slices/categoriesSlice';
 
 const store = configureStore({
 	reducer:{
 		cart:cartReducer,
 		favourites:favouritesReducer,
-		// RemarksSlice:RemarksSlice
+		categories:categoriesReducer,
 	}
 })
 

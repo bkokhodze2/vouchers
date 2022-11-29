@@ -27,8 +27,10 @@ import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
 import {getTotals} from "../slices/cartSlice";
 import {getTotalsFavourite} from "../slices/favouritesSlice";
+import {getCategories} from "../slices/categoriesSlice";
 // @ts-ignore
 import Lari from "/public/images/icons/lari";
+
 
 interface Icategory {
   categoryId: number,
@@ -44,9 +46,7 @@ const Header: React.FC = () => {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
   const [isLogged, setIsLogged] = useState<any>("");
-
   const [findData, setFindData] = useState<[]>([]);
-  const [categories, setCategories] = useState<Icategory[]>([]);
   const [categoryVouchers, setCategoryVouchers] = useState<[any]>([null]);
   const [chosenCategory, setChosenCategory] = useState<any>({});
   const [term, setTerm] = useState<string>("");
@@ -58,14 +58,11 @@ const Header: React.FC = () => {
 
   const cart = useSelector((state: any) => state.cart);
   const favourites = useSelector((state: any) => state.favourites);
+  const categories = useSelector((state: any) => state.categories.categoriesList);
+
+  // const [categories, setCategories] = useState<Icategory[]>(categories2.cartItems);
 
   useOutsideAlerter(wrapperRef);
-
-  // const {isLoading, error, data} = useQuery('fetchLuke', () =>
-  //     axios.get(`${baseApi}/providers/categories`)
-  // )
-
-  // console.log("isLoading, error, data", isLoading, error, data)
 
   function useOutsideAlerter(ref: any) {
     useEffect(() => {
@@ -97,12 +94,10 @@ const Header: React.FC = () => {
           setIsLogged(res.data)
         });
 
-    if (!!categories) {
-      axios
-          .get(`${baseApi}/providers/categories`)
-          .then((res) => {
-            setCategories(res.data)
-          });
+    if (categories?.length === 0 || !categories) {
+
+      // @ts-ignore
+      dispatch(getCategories())
     }
 
   }, [])
@@ -178,8 +173,8 @@ const Header: React.FC = () => {
   }
 
   const getSumOffer = () => {
-    let arr = categories?.filter(item => item.parentCategoryId === chosenCategory?.categoryId);
-    let sum = arr?.reduce((prevValue, currValue) => prevValue + currValue?.offersQuantity, 0)
+    let arr = categories?.filter((item: any) => item.parentCategoryId === chosenCategory?.categoryId);
+    let sum = arr?.reduce((prevValue: any, currValue: any) => prevValue + currValue?.offersQuantity, 0)
 
     return sum
   }
@@ -526,7 +521,7 @@ const Header: React.FC = () => {
 
                 {/*sub categories*/}
                 <div className={"flex items-center space-x-[20px] ml-[20px] sm:space-x-[40px] sm:ml-[40px]"}>
-                  {categories?.filter(item => item?.parentCategoryId === null).map((item: Icategory, index: number) => {
+                  {categories?.filter((item: any) => item?.parentCategoryId === null).map((item: Icategory, index: number) => {
                     return <div className={"relative"} key={index}
                                 onMouseOver={() => {
                                   timer1 = setTimeout(function () {
@@ -569,7 +564,7 @@ const Header: React.FC = () => {
                     </div>
 
                     <div className={"flex flex-col space-y-[20px] mt-[20px]"}>
-                      {categories?.filter(item => item.parentCategoryId === chosenCategory?.categoryId).map((item, index) => {
+                      {categories?.filter((item: any) => item.parentCategoryId === chosenCategory?.categoryId).map((item: any, index: number) => {
                         return <div className={"flex justify-between items-center"} key={index}>
                           <Link href={`/category/${item.categoryId}`}>
                             <p
