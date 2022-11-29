@@ -27,7 +27,7 @@ import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
 import {getTotals} from "../slices/cartSlice";
 import {getTotalsFavourite} from "../slices/favouritesSlice";
-import {getCategories} from "../slices/categories";
+import {getCategories} from "../slices/categoriesSlice";
 // @ts-ignore
 import Lari from "/public/images/icons/lari";
 
