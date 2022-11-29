@@ -479,7 +479,7 @@ const Header: React.FC = () => {
 
                   {
 
-                    !isLogged ?
+                    isLogged ?
                         <div onClick={() => logout()} className={"min-w-[48px] max-h-[48px] relative"}>
                           <Image layout={"fill"} height={48}
                                  width={48}
