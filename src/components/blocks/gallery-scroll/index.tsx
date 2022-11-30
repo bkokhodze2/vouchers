@@ -2,9 +2,11 @@ import React, {useEffect, useState} from "react"
 // @ts-ignore
 import {ICONS} from "public/images";
 import 'react-indiana-drag-scroll/dist/style.css'
-import {Image} from 'antd';
+// import {Image} from 'antd';
 import _ from "lodash";
 import {LazyLoadImage} from 'react-lazy-load-image-component';
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
 
 // Import Swiper styles
 import "swiper/css";
@@ -13,10 +15,12 @@ import "swiper/css/scrollbar";
 
 // import required modules
 import {Swiper, SwiperSlide} from "swiper/react";
-import {FreeMode, Scrollbar, Mousewheel, Pagination, Lazy} from "swiper";
+import {FreeMode, Lazy, Mousewheel, Pagination} from "swiper";
 
 const GalleryScroll = ({data}: any) => {
   const [isVisibleDrawer, setIsVisibleDrawer] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
 
   const images = [
     ..._.get(data, '[0]additionalInfo[0].attachments', [])
@@ -25,10 +29,14 @@ const GalleryScroll = ({data}: any) => {
   const Slide1 = ({idx, data}: any) => {
     return <div
         key={idx}
-        className={"min-w-[880px] max-w-[880px] relative  h-[546px] relative !ml-0"}
+        className={"min-w-[880px] max-w-[880px] relative  h-[546px] relative !ml-0 cursor-pointer"}
         style={{marginLeft: `${idx === 0 ? '50px' : '0px'}`}}>
-      <Image
+      <img
           src={_.get(data, 'path', [])}
+          onClick={() => {
+            setIsOpen(true)
+            setPhotoIndex(idx)
+          }}
           className={"object-cover h-full min-w-[880px] max-w-[880px] w-full h-[546px] rounded-xl"}
           alt={"voucher photo"}/>
     </div>
@@ -39,14 +47,16 @@ const GalleryScroll = ({data}: any) => {
 
       {[1, 2, 3, 4].map((e, index) => {
         return images[idx + index + 1] &&
-						<div key={idx + index + "four"} className={"h-[258px] max-h-[258px] w-[490px] max-w-[490px] relative"}>
-							<Image
+						<div key={idx + index + "four"}
+						     className={"h-[258px] max-h-[258px] w-[490px] max-w-[490px] relative cursor-pointer"}>
+							<img
+									onClick={() => {
+                    setIsOpen(true)
+                    setPhotoIndex(idx + index + 1)
+                  }}
 									src={_.get(images, `[${idx + index + 1}].path`, [])}
-									placeholder="loading"
-									preview={true}
 									className={"object-cover h-full w-full rounded-xl w-[490px] h-[258px]"}
 									alt={"voucher photo"}/>
-
 						</div>
       })}
 
@@ -59,16 +69,38 @@ const GalleryScroll = ({data}: any) => {
     return cb();
   }
 
+  console.log("images[photoIndex]sss", images[photoIndex].path)
+
+  useEffect(() => {
+
+  }, [])
+
   return (
       <div className={"w-full overflow-x-auto"}>
         <div className={"py-8 h-[610px] hidden md:flex select-none"}>
+          {
+              isOpen && <Lightbox
+									mainSrc={images[photoIndex].path}
+									nextSrc={images[(photoIndex + 1) % images.length].path}
+									prevSrc={images[(photoIndex + images.length - 1) % images.length].path}
+									onMoveNextRequest={() =>
+                      setPhotoIndex((photoIndex + 1) % images.length)
+                  }
+									onMovePrevRequest={() =>
+                      setPhotoIndex(
+                          (photoIndex + images.length - 1) % images.length
+                      )
+                  }
+									onCloseRequest={() => setIsOpen(false)}
+							/>
+          }
 
           <Swiper
               direction={"horizontal"}
               slidesPerView={"auto"}
               freeMode={true}
               scrollbar={true}
-              mousewheel={true}
+              // mousewheel={true}
               lazy={true}
               modules={[FreeMode, Mousewheel, Lazy]}
               className="gallery"

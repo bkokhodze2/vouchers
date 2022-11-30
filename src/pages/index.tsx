@@ -21,7 +21,6 @@ const Home: NextPage = ({serverData}: any) => {
   const baseApi = process.env.baseApi;
   const [vouchers, setVouchers] = useState<[]>([]);
   const [vouchersAll, setVouchersAll] = useState<any>([]);
-  // const [categories, setCategories] = useState<[any]>([{}]);
   const [page, setPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [promo, setPromo] = useState<any>([]);
@@ -29,7 +28,6 @@ const Home: NextPage = ({serverData}: any) => {
 
   useEffect(() => {
     // @ts-ignore
-
 
     axios
         .get(`${baseApi}/vouchers?contractId=662`)
@@ -45,15 +43,6 @@ const Home: NextPage = ({serverData}: any) => {
             setPromo(res.data)
           });
     }
-
-    // if (!!categories) {
-    //   axios
-    //       .get(`${baseApi}/providers/categories`)
-    //       .then((res) => {
-    //         setCategories(res.data)
-    //
-    //       });
-    // }
 
   }, [])
 

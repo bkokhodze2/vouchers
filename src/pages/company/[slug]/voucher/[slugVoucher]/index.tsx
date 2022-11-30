@@ -680,30 +680,30 @@ export default function Details() {
                   {/*location dropdown*/}
 
                   {/*fb  insta*/}
-                  {_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) &&
-											<div className={"hidden space-x-[33px] md:flex items-center"}>
-                        {_.get(voucher, '[0]?.additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "").includes("https://") &&
-														<div className={"cursor-pointer"}>
-															<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
-															      target={"_blank"}>
-																<div>
-																	<Image src={ICONS.fb} alt={"fb icon"}/>
-																</div>
-															</Link>
-														</div>
-                        }
-                        {
-                            _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "").includes("https://") &&
-														<div className={"cursor-pointer"}>
-															<Link href={_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "")}
-															      target={"_blank"}>
-																<div>
-																	<Image src={ICONS.insta} alt={"insta icon"}/>
-																</div>
-															</Link>
-														</div>
-                        }
-											</div>
+                  {
+                    <div className={"hidden space-x-[33px] md:flex items-center"}>
+                      {_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "").includes("https://") &&
+													<div className={"cursor-pointer"}>
+														<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
+														      target={"_blank"}>
+															<div>
+																<Image src={ICONS.fb} alt={"fb icon"}/>
+															</div>
+														</Link>
+													</div>
+                      }
+                      {
+                          _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "").includes("https://") &&
+													<div className={"cursor-pointer"}>
+														<Link href={_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "")}
+														      target={"_blank"}>
+															<div>
+																<Image src={ICONS.insta} alt={"insta icon"}/>
+															</div>
+														</Link>
+													</div>
+                      }
+                    </div>
                   }
                   {/*fb  insta*/}
                 </div>

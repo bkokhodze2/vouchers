@@ -9,7 +9,6 @@ import Image from "next/image";
 import OfferSlider from "../../components/UI/slider/offer-slider";
 import axios from "axios";
 import {Form, Select} from "antd";
-import RingLoader from "react-spinners/RingLoader";
 import PulseLoader from "react-spinners/PulseLoader";
 import FreeScroll from "../../components/UI/slider/free-scroll";
 
@@ -59,17 +58,12 @@ export default function Category({serverData}: any) {
 
         <div className={""}>
 
-          {isLoading && <div className={"m-auto flex justify-center mt-16 mb-10"}>
-						<div>
-							<RingLoader
-									color="#8338EC"
-									size={80}
-									speedMultiplier={1}
-							/>
-							<div className={"flex items-end mt-10"}>
-								<p className={"text-[#383838] text-[24px]"}>Loading</p>
-								<PulseLoader size={5} color="#383838" speedMultiplier={0.7} className={"mb-1.5 ml-1.5 "}/>
-							</div>
+          {isLoading && <div className={"w-full flex justify-center items-center flex-col mt-16 mb-10"}>
+						<img className={"h-[250px] w-auto"} src={IMAGES.gif.src} style={{objectFit: "cover"}}
+						     alt={"skeleton animation"}/>
+						<div className={"flex items-end mt-10"}>
+							<p className={"text-[#383838] text-[24px]"}>Loading</p>
+							<PulseLoader size={5} color="#383838" speedMultiplier={0.7} className={"mb-1.5 ml-1.5 "}/>
 						</div>
 
 					</div>

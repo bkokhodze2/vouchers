@@ -14,6 +14,7 @@ export {default as prev} from './leftArrow.svg';
 export {default as rightArrowDetails} from './rightArrowDetails.svg';
 export {default as phone} from './phone.svg';
 export {default as arrowDrop} from './arrowDrop.svg';
+export {default as arrowDown} from './arrowDown.svg';
 export {default as location} from './location.svg';
 export {default as watch} from './watch.svg';
 export {default as share} from './share.svg';

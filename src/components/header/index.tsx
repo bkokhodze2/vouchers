@@ -95,7 +95,6 @@ const Header: React.FC = () => {
         });
 
     if (categories?.length === 0 || !categories) {
-
       // @ts-ignore
       dispatch(getCategories())
     }
@@ -268,8 +267,10 @@ const Header: React.FC = () => {
               />
               <p className={"text-sm text-[white] mr-8 ml-[5px] capitalize after:content-[''] after:h-[20px] after:bg-[#ffffffb3] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500 aveSofRegular"}>
                 40,076</p>
-              <div className={"mr-8"}>
-                <img src={ICONS.geoFlag.src} alt={"geo flag"}/>
+              <div className={"flex cursor-pointer"}>
+                <img className={"mr-[11px]"} src={ICONS.geoFlag.src} alt={"geo flag"}/>
+
+                <Image src={ICONS.arrowDown} alt={"arrow down"}/>
               </div>
               {/*<p className={"text-sm text-[#ffffffb3] mr-8 capitalize aveSofRegular"}>English</p>*/}
             </div>
@@ -486,7 +487,7 @@ const Header: React.FC = () => {
                             className={`text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular`}
                         >
                           <div
-                              className={`h-[40px] lg:h-[44px] bg-[#383838] rounded-[8px] lg:rounded-xl px-[23px] lg:px-10 flex justify-center items-center cursor-pointer`}>
+                              className={`h-[40px] lg:h-[48px] bg-[#383838] rounded-[8px] lg:rounded-xl px-[23px] lg:px-10 flex justify-center items-center cursor-pointer`}>
                             <p className={"text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular"}>
                               sign in</p>
                           </div>
