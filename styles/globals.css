@@ -486,6 +486,12 @@ body {
     width: min-content;
 }
 
+.ol, ul, menu {
+    list-style: initial;
+    margin: revert;
+    padding: revert;
+}
+
 /*#bwc-widget-action {*/
 /*    bottom: 93px !important;*/
 /*}*/
