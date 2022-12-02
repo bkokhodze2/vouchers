@@ -17,7 +17,6 @@ export default function History({serverData}: any) {
   const [commentForm] = Form.useForm();
   const {TextArea} = Input;
 
-
   useEffect(() => {
     axios.get(`${baseApi}/vouchers?contractId=662&providerId=${63}`).then((res) => {
       setVouchers(res.data)
@@ -25,7 +24,6 @@ export default function History({serverData}: any) {
 
 
   }, [])
-
 
   const handleCancel = () => {
     commentForm.resetFields();
