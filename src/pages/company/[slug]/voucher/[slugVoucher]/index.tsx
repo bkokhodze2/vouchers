@@ -51,6 +51,7 @@ export default function Details() {
   const [freeQuantity, setFreeQuantity] = useState<number>(0);
   const [payType, setPayType] = useState<string>("");
   const [showPayType, setShowPayType] = useState<boolean>(false);
+  const [mainImg, setMainImg] = useState<any>({});
   const [errorAnim, setErrorAnim] = useState<boolean>(false);
 
   const cart = useSelector((state: any) => state.cart);
@@ -156,6 +157,12 @@ export default function Details() {
       }
     })
   }, [dispatch, favourites, voucher])
+
+  useEffect(() => {
+    setMainImg(_.get(voucher, '[0].additionalInfo[0].provider.providerAttachments', []).find((e: any) => {
+      return e.isMain === 1
+    }))
+  }, [voucher])
 
   const buy = () => {
     setShowPayType(true);
@@ -556,15 +563,28 @@ export default function Details() {
                   <div
                       className={"flex justify-between w-full lg:p-6 p-4 rounded-xl items-center bg-[white] cursor-pointer"}>
                     <div className={"mr-4 flex justify-center items-center"}>
-                      <Image
-                          src={IMAGES.detailsImg}
-                          quality={40}
-                          blurDataURL={IMAGES.placeholder.src}
-                          placeholder="blur"
-                          loading={"lazy"}
-                          height={60}
-                          width={60}
-                          alt={"image"}/>
+
+                      {
+                        mainImg?.path ? <img
+                                src={mainImg?.path}
+                                alt={"company logo"}
+                                className={"w-[60px] h-[60px] rounded-[16px] object-cover"}
+                                style={{
+                                  zIndex: 10
+                                }}
+                            /> :
+                            <Image
+                                src={IMAGES.detailsImg}
+                                quality={40}
+                                blurDataURL={IMAGES.placeholder.src}
+                                placeholder="blur"
+                                loading={"lazy"}
+                                height={60}
+                                width={60}
+                                alt={"image"}/>
+
+                      }
+
                     </div>
                     <div className={"flex-1 flex-col"}>
                       <h2 className={"lg:text-[22px] text-base font-bold text-[#383838] aveSofBold"}>{_.get(voucher, '[0].additionalInfo[0].provider.name', '')}

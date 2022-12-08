@@ -20,6 +20,23 @@ export default function Company() {
   const baseApi = process.env.baseApi;
   const Router = useRouter();
   const [voucher, setVoucher] = useState<any>([]);
+  const [images, setImages] = useState<any>({
+    main: "",
+    cover: ""
+  });
+
+
+  useEffect(() => {
+    setImages({
+      main: _.get(voucher, '[0].additionalInfo[0].provider.providerAttachments', []).find((e: any) => {
+        return e.isMain === 1
+      }),
+      cover: _.get(voucher, '[0].additionalInfo[0].provider.providerAttachments', []).find((e: any) => {
+        return e.isCover === 1
+      })
+    })
+  }, [voucher])
+
 
   // @ts-ignore
   let slug = Router?.query.slug?.replaceAll('-', ' ');
@@ -31,11 +48,22 @@ export default function Company() {
       })
     }
 
+    // let b = _.get(voucher, '[0].additionalInfo[0].provider.providerAttachments', []).find((e: any) => {
+    //   return e.isMain === 1
+    // })
+    //
+    // let cover = _.get(voucher, '[0].additionalInfo[0].provider.providerAttachments', []).find((e: any) => {
+    //   return e.isCover === 1
+    // })
+
   }, [slug])
+
+  console.log("images", images)
 
   const getWeekByNumber = (index: number) => {
     return weekDays[index - 1]
   }
+
 
   return (
       <>
@@ -90,30 +118,45 @@ export default function Company() {
             <div className={"rounded-xl ph:min-w-[360px]"}>
 
               <div className={"sticky top-[130px] max-h-[calc(100vh_-_2rem)] overflow-scroll rounded-xl"}>
-                <div className={"h-[160px] w-full relative bg-[#d9d9d933] rounded-t-xl "}>
-                  <Image src={IMAGES.company}
-                         quality={80}
-                         blurDataURL={IMAGES.placeholder.src}
-                         loading={"lazy"}
-                         style={{objectFit: "cover"}}
-                         layout={"fill"}
-                         className={"rounded-t-xl"}
-                         alt={"company image"}
+
+                <div className={"h-[160px] w-full relative bg-[#d9d9d933] rounded-t-xl"}>
+                  {images?.cover?.path ? <img src={images?.cover?.path}
+                                              loading={"lazy"}
+                                              style={{objectFit: "cover", height: "160px", width: "100%"}}
+                                              className={"rounded-t-xl"}
+                                              alt={"company image"}
+                  /> : <Image src={IMAGES.company}
+                              quality={80}
+                              blurDataURL={IMAGES.placeholder.src}
+                              loading={"lazy"}
+                              style={{objectFit: "cover"}}
+                              layout={"fill"}
+                              className={"rounded-t-xl"}
+                              alt={"company image"}
                   />
+                  }
 
                   <div className={"flex justify-center items-center w-full z-10 absolute -bottom-[40px]"}>
-                    <Image src={IMAGES.detailsImg}
-                           quality={80}
-                           blurDataURL={IMAGES.placeholder.src}
-                           placeholder="blur"
-                           loading={"lazy"}
-                           width={104}
-                           height={104}
-                           className={"z-10"}
-                           alt={"company logo"}
+                    {images?.main?.path ? <img
+                        src={images?.main?.path}
+                        alt={"company logo"}
+                        className={"w-[104px] h-[104px] rounded-[16px] object-cover"}
+                        style={{
+                          zIndex: 10
+                        }}
+                    /> : <Image src={IMAGES.detailsImg}
+                                quality={80}
+                                blurDataURL={IMAGES.placeholder.src}
+                                placeholder="blur"
+                                loading={"lazy"}
+                                width={104}
+                                height={104}
+                                className={"z-10"}
+                                alt={"company logo"}
+                    />}
 
-                    />
                   </div>
+
                 </div>
                 <div className={"p-4 pt-[60px] ph:px-6 ph:pb-4 bg-[#d9d9d933] rounded-b-xl"}>
                   <p className={"ph:text-[22px] text-[18px] font-bold text-[#383838] text-center aveSofBold"}>{_.get(voucher, '[0].additionalInfo[0].provider.name', "")}</p>
