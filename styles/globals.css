@@ -549,3 +549,7 @@ body {
     border-top-left-radius: 12px;
 
 }
+
+.hideBar::-webkit-scrollbar {
+    display: none;
+}
