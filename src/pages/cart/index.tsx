@@ -135,6 +135,11 @@ export default function Cart({serverData, productCount}: any) {
 
   }
 
+  const payWithPoints = () => {
+    let arr = cart.cartItems.filter((e: any) => e.isPoint === true);
+    console.log("arrr points", arr)
+  }
+
 
   return (
       <>
@@ -283,6 +288,16 @@ export default function Cart({serverData, productCount}: any) {
                         }}
 												className={"cursor-pointer w-full h-12 mt-6 rounded-xl flex justify-center items-center"}>
 											<p className={"text-base font-[500] text-base text-[white] aveSofMedium"}>Buy</p>
+										</div>
+										<p className={"text-center mt-3"}>ან</p>
+										<div
+												onClick={() => payWithPoints()}
+												className={"cursor-pointer w-full bg-[#DB0060] h-12 mt-3 rounded-xl flex justify-center items-center"}
+												style={{
+                          backgroundColor: cart?.totalPoint === 0 ? "gray" : "#DB0060"
+                        }}
+										>
+											<p className={"text-base font-[500] text-base text-[white] aveSofMedium"}>Pay with points</p>
 										</div>
 
 									</div>

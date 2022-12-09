@@ -199,8 +199,6 @@ const CartItem = ({data, getCount}: ICartItem) => {
           </div>
         </div>
       </div>
-
-
   )
 }
 
