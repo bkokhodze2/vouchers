@@ -7,7 +7,7 @@ import BecomeOurUser from "../blocks/become-our-user";
 import {footer} from "/public/images/images";
 // @ts-ignore
 import {IMAGES} from "/public/images";
-// import footer from "../../../public/images/images/footer.png";
+
 const Footer: React.FC = () => {
 
   return (

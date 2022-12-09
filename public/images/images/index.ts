@@ -11,7 +11,7 @@ export {default as notFound} from './notFound.png';
 export {default as notFound2} from './notFound2.png';
 export {default as notFoundMobile} from './notFoundMobile.png';
 export {default as offerItem} from './offerItem.png';
-export {default as footer} from './footer.png';
+export {default as footer} from './footerNew.png';
 export {default as thank} from './thank.png';
 export {default as food} from './foodCategory.png';
 export {default as electronic} from './electronicCategory.png';
