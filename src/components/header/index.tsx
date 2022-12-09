@@ -511,7 +511,7 @@ const Header: React.FC = () => {
               clearTimeout(timer1);
               setChosenCategory(null);
             }}>
-              <div className={"flex container m-auto w-full h-[48px] overflow-x-auto"}>
+              <div className={"flex container m-auto w-full h-[48px] overflow-x-auto hideBar"}>
                 <div className={"flex items-center"}>
                   <Image
                       src={ICONS.shock}
