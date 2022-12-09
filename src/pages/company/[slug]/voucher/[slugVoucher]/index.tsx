@@ -261,6 +261,11 @@ export default function Details() {
 
   }
 
+  const payWithPoints = () => {
+    let arr = cart.cartItems.filter((e: any) => e.isPoint === true);
+    console.log("arrr points", arr)
+  }
+
   const RightSide = () => {
     return <div className={"h-full container m-auto lg:p-0 "}>
       <div className={"bg-[transparent] lg:bg-[#ffffff66] rounded-xl p-0 lg:p-8 top-[150px] sticky overflow-y-scroll "}>
@@ -446,56 +451,46 @@ export default function Details() {
           </div>
 
 
-          {/*{showPayType && !payType && <div className={"col-span-2 items-end flex justify-center overflow-hidden"}*/}
-          {/*                                 style={{*/}
-          {/*                                   height: payType.length === 0 ? "30px" : "0px",*/}
-          {/*                                   opacity: payType.length === 0 ? 1 : 0,*/}
-          {/*                                   transition: "0.3s linear all"*/}
-          {/*                                 }}*/}
-          {/*>*/}
-          {/*	<p*/}
-          {/*			className={`animate__animated animate__fast ${errorAnim ? "animate__shakeX" : ""}`}*/}
-          {/*			style={{*/}
-          {/*        color: errorAnim ? "#ff4d4f" : "#383838",*/}
-          {/*        transition: ".2s linear all"*/}
-          {/*      }}*/}
-          {/*	>აირჩიეთ გადახდის მეთოდი</p>*/}
-          {/*</div>}*/}
+          {isWithMoney && <>
+            {showPayType && <div onClick={() => setPayType("bog")}
+						                     style={{
+                                   border: payType === "bog" ? "1px solid #8338EC" : "1px solid transparent"
+                                 }}
+						                     className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
+							<Image
+									src={ICONS.bog}
+									quality={70}
+									loading={"lazy"}
+									alt={"coin icon"}
 
-          {showPayType && <div onClick={() => setPayType("bog")}
-					                     style={{
-                                 border: payType === "bog" ? "1px solid #8338EC" : "1px solid transparent"
-                               }}
-					                     className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
-						<Image
-								src={ICONS.bog}
-								quality={70}
-								loading={"lazy"}
-								alt={"coin icon"}
+							/>
+						</div>
+            }
+            {showPayType && <div onClick={() => setPayType("tbc")}
+						                     style={{
+                                   border: payType === "tbc" ? "1px solid #8338EC" : "1px solid transparent"
+                                 }}
+						                     className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
+							<Image
+									src={ICONS.tbc}
+									quality={70}
+									loading={"lazy"}
+									alt={"coin icon"}
 
-						/>
-					</div>
-          }
-          {showPayType && <div onClick={() => setPayType("tbc")}
-					                     style={{
-                                 border: payType === "tbc" ? "1px solid #8338EC" : "1px solid transparent"
-                               }}
-					                     className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
-						<Image
-								src={ICONS.tbc}
-								quality={70}
-								loading={"lazy"}
-								alt={"coin icon"}
+							/>
+						</div>
+            }
+					</>}
 
-						/>
-					</div>
-          }
-
-          <div className={"col-span-2"} onClick={() => buy()}>
+          {isWithMoney ? <div className={"col-span-2"} onClick={() => buy()}>
             <Button text={payType || !showPayType ? "buy now" : "choose payment"}
                     bgColor={payType || !showPayType ? "#8338EC" : "gray"}
                     classes={"!w-full aveSofRegular"}/>
-          </div>
+          </div> : <div className={"col-span-2"} onClick={() => payWithPoints()}>
+            <Button text={"texxxt"}
+                    bgColor={payType || !showPayType ? "#8338EC" : "gray"}
+                    classes={"!w-full aveSofRegular"}/>
+          </div>}
         </div>
         {/* buy & cart buttons*/}
       </div>

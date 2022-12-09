@@ -106,11 +106,13 @@ body {
     display: block;
     width: 100%;
     height: 100% !important;
-    object-fit: cover;
+    object-fit: fill;
 }
 
 .mySwiper {
     /*padding-bottom: 35px !important;*/
+    overflow: hidden;
+    border-radius: 22px;
 }
 
 .swiper-horizontal > .swiper-pagination {
@@ -158,6 +160,7 @@ body {
     justify-content: center;
     align-items: center;
     margin-bottom: 34px;
+    width: 150px !important;
 }
 
 
@@ -182,7 +185,7 @@ body {
 }
 
 .mySwiper .swiper-slide {
-    border-radius: 12px;
+    border-radius: 22px;
     overflow: hidden;
 }
 
@@ -511,6 +514,18 @@ body {
 
     .swiper-button-next, .swiper-button-prev {
         display: none !important;
+    }
+
+    /*.swiper-slide img {*/
+    /*    object-fit: cover;*/
+    /*}*/
+    .mySwiper .swiper-pagination {
+        margin-bottom: 2px;
+    }
+
+    .mySwiper {
+        border-radius: unset;
+        overflow: unset;
     }
 
     .mySwiper:hover img {

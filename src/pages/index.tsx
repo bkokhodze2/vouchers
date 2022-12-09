@@ -16,6 +16,10 @@ import PulseLoader from "react-spinners/PulseLoader";
 import FreeScroll from "../components/UI/slider/free-scroll";
 import CategorySlider from "../components/UI/slider/category-slider";
 
+import banner1 from "/public/images/images/main-slider/small-banners/1.webp"
+import banner2 from "/public/images/images/main-slider/small-banners/2.webp"
+import banner3 from "/public/images/images/main-slider/small-banners/3.webp"
+
 const Home: NextPage = ({serverData}: any) => {
 
   const baseApi = process.env.baseApi;
@@ -129,7 +133,7 @@ const Home: NextPage = ({serverData}: any) => {
               </div>
               {/*Become Partner*/}
 
-              <div className="order-1 md:order-2 col-span-3 flex flex-col max-w-[1140px] h-[300px] md:h-full">
+              <div className="order-1 md:order-2 col-span-3 flex flex-col max-w-[1140px]  md:h-full">
 
                 {/*slider*/}
                 <div className={"flex flex-1 "}>
@@ -140,14 +144,14 @@ const Home: NextPage = ({serverData}: any) => {
                 {/*Advertisement*/}
                 <div
                     className={"grid hidden md:grid grid-rows-1 gap-[44px] md:gap-[16px] xl:gap-[32px] grid-cols-3 mt-4 xl:mt-[30px] "}>
-                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full"}>
-                    <p className={"text-sm text-black aveSofRegular"}>რეკლამა</p>
+                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full relative"}>
+                    <Image src={banner1.src} alt={""} layout={"fill"}/>
                   </div>
-                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full"}>
-                    <p className={"text-sm text-black aveSofRegular"}>რეკლამა</p>
+                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full relative"}>
+                    <Image src={banner2.src} alt={""} layout={"fill"}/>
                   </div>
-                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full"}>
-                    <p className={"text-sm text-black aveSofRegular"}>რეკლამა</p>
+                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full relative"}>
+                    <Image src={banner3.src} alt={""} layout={"fill"}/>
                   </div>
                 </div>
                 {/*Advertisement*/}
