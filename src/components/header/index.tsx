@@ -139,8 +139,11 @@ const Header: React.FC = () => {
     searchForm.resetFields();
     setTerm('');
   }
+
+
   const logout = () => {
-    typeof window !== 'undefined' && window.open("https://auth.pirveli.ge/realms/xracoon-demo/protocol/openid-connect/logout", '_self');
+    typeof window !== 'undefined' && window.open("https://profile.pirveli.ge/", '_self');
+
 
     // axios
     //     .post(`${baseApi}/logout`)
@@ -148,6 +151,7 @@ const Header: React.FC = () => {
     //       console.log("logout", res.data)
     //
     //     });
+
   }
 
   const onFinish = (values: any) => {
