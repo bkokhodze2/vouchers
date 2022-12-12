@@ -262,8 +262,22 @@ export default function Details() {
   }
 
   const payWithPoints = () => {
-    let arr = cart.cartItems.filter((e: any) => e.isPoint === true);
-    console.log("arrr points", arr)
+    if (!isWithMoney) {
+      let obj = {
+        "fullAmountOfPoints": _.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0) * quantity,
+        "items": [{
+          "providerName": _.get(voucher, '[0].additionalInfo[0].provider.name', ""),
+          "itemPrice": _.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0),
+          "quantity": quantity,
+          "voucherId": _.get(voucher, '[0].additionalInfo[0].genericTransactionTypeId', 1)
+        }]
+      }
+      // _.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0)
+      axios.post(`${baseApi}/vouchers/buy-with-points`, obj).then((res) => {
+        console.log("res", res)
+      })
+    }
+
   }
 
   const RightSide = () => {
@@ -487,7 +501,7 @@ export default function Details() {
                     bgColor={payType || !showPayType ? "#8338EC" : "gray"}
                     classes={"!w-full aveSofRegular"}/>
           </div> : <div className={"col-span-2"} onClick={() => payWithPoints()}>
-            <Button text={"texxxt"}
+            <Button text={"Pay with points"}
                     bgColor={payType || !showPayType ? "#8338EC" : "gray"}
                     classes={"!w-full aveSofRegular"}/>
           </div>}

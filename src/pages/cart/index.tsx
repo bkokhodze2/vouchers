@@ -136,8 +136,26 @@ export default function Cart({serverData, productCount}: any) {
   }
 
   const payWithPoints = () => {
-    let arr = cart.cartItems.filter((e: any) => e.isPoint === true);
-    console.log("arrr points", arr)
+    
+    if (cart?.totalPoint > 0) {
+      let arr = cart.cartItems.filter((e: any) => e.isPoint === true);
+      let obj = {
+        "fullAmountOfPoints": cart?.totalPoint,
+        "items": arr.map((e: any) => {
+          return {
+            "productName": _.get(e, '[0].additionalInfo[0].provider.name', ""),
+            "itemPrice": _.get(e, '[0].entries[0].entryAmount', 1) * _.get(e, '[0].entries[0].multiplier', 0),
+            "quantity": _.get(e, 'cartQuantity', 1),
+            "voucherId": _.get(e, '[0].additionalInfo[0].genericTransactionTypeId', 1)
+          }
+        })
+      }
+      // _.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0)
+      axios.post(`${baseApi}/vouchers/buy-with-points`, obj).then((res) => {
+        console.log("res", res)
+      })
+    }
+
   }
 
 
@@ -197,7 +215,7 @@ export default function Cart({serverData, productCount}: any) {
 								<div className={"h-auto ph:min-w-[340px] xl:min-w-[360px] shrink-0 px-[16px] ph:px-0"}>
 									<h5 className={"text-[#383838] text-[28px] font-bold hidden ph:block aveSofBold"}>Order</h5>
 
-									<div className={"sticky top-[130px] max-h-[600px] pb-[90px] md:pb:0 overflow-scroll rounded-xl"}>
+									<div className={"sticky top-[130px] max-h-[628¬px] pb-[90px] md:pb:0 overflow-scroll rounded-xl"}>
 
 										<div className={"rounded-xl bg-[white] ph:px-6 mt-4 ph:pt-[30px] ph:pb-[54px] p-4"}>
 											<h5 className={"text-[#383838] text-[18px] font-bold block ph:hidden mb-[16px] aveSofBold"}>Order</h5>

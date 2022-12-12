@@ -11,7 +11,6 @@ import slider2 from "/public/images/images/main-slider/2.webp"
 import slider3 from "/public/images/images/main-slider/3.webp"
 import slider4 from "/public/images/images/main-slider/4.webp"
 import slider5 from "/public/images/images/main-slider/5.webp"
-import slider6 from "/public/images/images/main-slider/6.webp"
 
 // import required modules
 import {Lazy, Navigation, Pagination} from "swiper";
@@ -74,13 +73,6 @@ export default function Slider() {
           </SwiperSlide>
           <SwiperSlide key={5}>
             <img src={slider5.src}
-                 placeholder="blur"
-                 loading={"lazy"}
-                 className={"rounded-[0px] md:rounded-xl"}
-                 alt={"slider image"}/>
-          </SwiperSlide>
-          <SwiperSlide key={6}>
-            <img src={slider6.src}
                  placeholder="blur"
                  loading={"lazy"}
                  className={"rounded-[0px] md:rounded-xl"}
