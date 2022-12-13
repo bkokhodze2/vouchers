@@ -69,7 +69,6 @@ const GalleryScroll = ({data}: any) => {
     return cb();
   }
 
-  console.log("images[photoIndex]sss", images[photoIndex].path)
 
   useEffect(() => {
 

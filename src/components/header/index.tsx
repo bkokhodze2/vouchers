@@ -333,7 +333,7 @@ const Header: React.FC = () => {
                     >
 
                       <Input className={"h-[48px] rounded-tl-[12px] bg-[#D9D9D94D] border-none rounded-bl-[12px]"}
-                             placeholder={"Search Offer..."}>
+                             placeholder={"რასაც არ უნდა ეძებდე..."}>
 
                       </Input>
                     </Form.Item>
@@ -354,7 +354,7 @@ const Header: React.FC = () => {
                             layout={"fixed"}
                         />
                         {/*<img src={search?.src} alt={"search icon"} className={"w-[18px] h-[18px]"}/>*/}
-                        <p className={"ml-[5px] lg:ml-[11px] lg:text-sm text-xs aveSofRegular"}>Search</p>
+                        <p className={"ml-[5px] lg:ml-[11px] lg:text-sm text-xs aveSofRegular"}>ძებნა</p>
 
                       </AntButton>
 
@@ -389,7 +389,7 @@ const Header: React.FC = () => {
                     >
                       {
                         (!!findData?.length && !IsLoading) ? <div className={"flex items-center my-[20px]"}>
-                          <p className={"text-[#383838] text-[22px] font-bold capitalize aveSofBold"}>search result</p>
+                          <p className={"text-[#383838] text-[22px] font-bold capitalize aveSofBold"}>ძებნის შედეგი</p>
                           <div onClick={() => {
                             setTerm("")
                             Router.push(`/search/${term}`)
@@ -457,7 +457,7 @@ const Header: React.FC = () => {
                           />
 
 
-                          <p className={"capitalize mt-[11px] text-sm lg:text-base leading-4 aveSofRegular"}>basket</p>
+                          <p className={"capitalize mt-[11px] text-sm lg:text-base leading-4 aveSofRegular"}>კალათა</p>
                         </div>
                       </Badge>
                     </div>
@@ -476,7 +476,7 @@ const Header: React.FC = () => {
                               height={18}
                               alt={"heart icon"}
                           />
-                          <p className={"capitalize mt-[11px] text-sm lg:text-base leading-4 aveSofRegular"}>Favorites</p>
+                          <p className={"capitalize mt-[11px] text-sm lg:text-base leading-4 aveSofRegular"}>ფავორიტები</p>
                         </div>
                       </Badge>
                     </div>
@@ -499,7 +499,7 @@ const Header: React.FC = () => {
                               className={`h-[40px] lg:h-[48px] bg-[#383838] rounded-[8px] lg:rounded-xl px-[23px] lg:px-10 flex justify-center items-center cursor-pointer`}>
                             <p
                                 className={"text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular"}>
-                              sign in</p>
+                              შესვლა</p>
                           </div>
                         </Link>
                   }
@@ -666,7 +666,7 @@ const Header: React.FC = () => {
                           color: !isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"
                         }}
 												className={"mt-[7px] text-[10px] text-[#383838] aveSofMedium"}
-										>Basket</p>
+										>კალათა</p>
 									</div>
 								</div>
 								<div

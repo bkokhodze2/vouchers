@@ -66,13 +66,13 @@ export default function Details() {
 
   const items = [
     {
-      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold aveSofBold"}>offer details</h3>,
+      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold aveSofBold"}>შეკვეთის დეტალები</h3>,
       key: 'item-1',
       children: <div
           dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0]?.descriptions[0]?.description}}/>
     },
     {
-      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold aveSofBold"}>conditions</h3>,
+      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold aveSofBold"}>პირობები</h3>,
       key: 'item-2',
       children: <div
           dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0].subDescriptions[0].description}}
@@ -293,7 +293,7 @@ export default function Details() {
                   style={{color: isWithMoney ? "#FFFFFF" : "#383838"}}><Lari
                 color={isWithMoney ? "#FFFFFF" : "#383838"}/></span>
             <p className={"text-[white] text-base aveSofRegular"}
-               style={{color: isWithMoney ? "#FFFFFF" : "#383838"}}>with money</p>
+               style={{color: isWithMoney ? "#FFFFFF" : "#383838"}}>თანხით</p>
           </div>
           <div onClick={() => {
             setIsWithMoney(false)
@@ -311,8 +311,7 @@ export default function Details() {
                   alt={"coin icon"}
               />
             </span>
-            <p className={" text-base aveSofRegular"} style={{color: !isWithMoney ? "#FFFFFF" : "#383838"}}>with
-              point</p>
+            <p className={" text-base aveSofRegular"} style={{color: !isWithMoney ? "#FFFFFF" : "#383838"}}>ქულებით</p>
           </div>
         </div>
         <div className={"grid grid-cols-2 grid-rows-1 gap-1 gap-x-[30px] gap-y-6 mt-8"}>
@@ -330,7 +329,7 @@ export default function Details() {
               />}
             </div>
             <div className={"flex flex-col ml-[10px]"}>
-              <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>Voucher price</p>
+              <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>ვაუჩერის ფასი</p>
               <div className={"flex flex-nowrap items-center"}>
                 {
                   isWithMoney ?
@@ -359,7 +358,7 @@ export default function Details() {
                   />
                 </div>
                 <div className={"flex flex-col w-full justify-center items-center text-center"}>
-                  <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>Quantity</p>
+                  <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>რაოდენობა</p>
                   <p className={"text-[#383838] text-base font-bold"}>{quantity}</p>
                 </div>
                 <div
@@ -391,7 +390,7 @@ export default function Details() {
                        alt={"percent icon"}/>
               </div>
               <div className={"flex flex-col ml-[16px]"}>
-                <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>Saving</p>
+                <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>დანაზოგი</p>
                 <div className={"flex flex-nowrap items-center"}>
                   <p className={"lg:text-[18px] text-base text-purple flex-nowrap whitespace-nowrap aveSofMedium"}>-{Math.round(_.get(voucher, '[0].additionalInfo[0].percentage', 0))}%</p>
                   <p className={"ml-1 lg:text-base text-sm text-[#38383899] whitespace-nowrap flex items-center aveSofRegular"}>
@@ -404,7 +403,7 @@ export default function Details() {
                 <Lari color={"#3838384d"} classes={"scale-150"}/>
               </div>
               <div className={"flex flex-col ml-[16px]"}>
-                <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>Price</p>
+                <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>ფასი</p>
                 <div className={"flex flex-nowrap items-center"}>
                   <p className={"lg:text-[18px] text-base text-purple flex-nowrap whitespace-nowrap flex items-center mr-1.5 aveSofMedium"}>
                     <Lari color={"#3838384d"}
@@ -437,8 +436,7 @@ export default function Details() {
             <div className={"min-w-[15px] flex"}>
               <Image src={ICONS.cart} className={"cursor-pointer"} alt={"cart icon"}/>
             </div>
-            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}
-            >Add to Cart</p>
+            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>კალათაში</p>
           </div>
           <div
               className={"w-full min-h-[64px] rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
@@ -461,7 +459,7 @@ export default function Details() {
                          alt={"cart icon"}
                   />}
             </div>
-            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>save</p>
+            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>ფავორიტები</p>
           </div>
 
 
@@ -497,11 +495,11 @@ export default function Details() {
 					</>}
 
           {isWithMoney ? <div className={"col-span-2"} onClick={() => buy()}>
-            <Button text={payType || !showPayType ? "buy now" : "choose payment"}
+            <Button text={payType || !showPayType ? "ყიდვა" : "აირჩიეთ გადახდის ტიპი"}
                     bgColor={payType || !showPayType ? "#8338EC" : "gray"}
                     classes={"!w-full aveSofRegular"}/>
           </div> : <div className={"col-span-2"} onClick={() => payWithPoints()}>
-            <Button text={"Pay with points"}
+            <Button text={"ქულებით გადახდა"}
                     bgColor={payType || !showPayType ? "#8338EC" : "gray"}
                     classes={"!w-full aveSofRegular"}/>
           </div>}
@@ -532,7 +530,7 @@ export default function Details() {
                         width={24}
                         height={24}
                     />
-                    <p className={"ml-2 text-[#383838] text-base aveSofRegular"}>Back</p>
+                    <p className={"ml-2 text-[#383838] text-base aveSofRegular"}>უკან</p>
                   </div>
                 </Link>
 
@@ -741,7 +739,7 @@ export default function Details() {
 
                 {/*reviews*/}
                 <div className={"mt-[34px] lg-mt-[100px]"}>
-                  <h4 className={"text-[22px] font-bold text-[#383838] mb-4 aveSofBold"}>Reviews</h4>
+                  <h4 className={"text-[22px] font-bold text-[#383838] mb-4 aveSofBold"}>შეფასებები</h4>
                   <div className={"flex flex-col lg:space-y-6 space-y-5"}>
                     <Comment rate={3}/>
                     <Comment rate={5}/>
