@@ -13,6 +13,7 @@ import _ from "lodash";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import Button from "../../components/UI/button";
+import {notification} from "antd";
 
 
 const CartItem = dynamic(
@@ -151,9 +152,19 @@ export default function Cart({serverData, productCount}: any) {
           }
         })
       }
+
       // _.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0)
       axios.post(`${baseApi}/vouchers/buy-with-points`, obj).then((res) => {
-        console.log("res", res)
+
+        notification['success']({
+          message: 'თქვენ წარმატებით შეიძინეთ ვაუჩერი',
+        });
+        Router.push("/")
+
+      }).catch((res) => {
+        notification['error']({
+          message: 'დაფიქსირდა შეცდომა',
+        });
       })
     }
 

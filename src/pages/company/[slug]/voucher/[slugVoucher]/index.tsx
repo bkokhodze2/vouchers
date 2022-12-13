@@ -274,7 +274,15 @@ export default function Details() {
       }
       // _.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0)
       axios.post(`${baseApi}/vouchers/buy-with-points`, obj).then((res) => {
-        console.log("res", res)
+        notification['success']({
+          message: 'თქვენ წარმატებით შეიძინეთ ვაუჩერი',
+        });
+        Router.push("/")
+
+      }).catch((res) => {
+        notification['error']({
+          message: 'დაფიქსირდა შეცდომა',
+        });
       })
     }
 
@@ -500,7 +508,7 @@ export default function Details() {
                     classes={"!w-full aveSofRegular"}/>
           </div> : <div className={"col-span-2"} onClick={() => payWithPoints()}>
             <Button text={"ქულებით გადახდა"}
-                    bgColor={payType || !showPayType ? "#8338EC" : "gray"}
+                    bgColor={"#8338EC"}
                     classes={"!w-full aveSofRegular"}/>
           </div>}
         </div>
