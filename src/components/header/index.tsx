@@ -46,6 +46,7 @@ const Header: React.FC = () => {
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
   const [isLogged, setIsLogged] = useState<any>("");
+  const [points, setPoints] = useState<number>(0);
   const [findData, setFindData] = useState<[]>([]);
   const [categoryVouchers, setCategoryVouchers] = useState<[any]>([null]);
   const [chosenCategory, setChosenCategory] = useState<any>({});
@@ -92,6 +93,12 @@ const Header: React.FC = () => {
         .get(`${baseApi}/user`)
         .then((res) => {
           setIsLogged(res.data)
+        });
+
+    axios
+        .get(`${baseApi}/points`)
+        .then((res) => {
+          setPoints(res.data)
         });
 
     if (categories?.length === 0 || !categories) {
@@ -275,7 +282,7 @@ const Header: React.FC = () => {
               />
               <p
                   className={"text-sm text-[white] mr-8 ml-[5px] capitalize after:content-[''] after:h-[20px] after:bg-[#ffffffb3] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500 aveSofRegular"}>
-                40,076</p>
+                {points}</p>
               <div className={"flex cursor-pointer"}>
                 <img className={"mr-[11px]"} src={ICONS.geoFlag.src} alt={"geo flag"}/>
 
