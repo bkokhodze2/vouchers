@@ -52,7 +52,7 @@ function Quantity({freeQuantity, getCount, quantityInCart, currentQuantity, data
       <div className={"rounded-xl bg-[#EEEEEE] h-[32px] md:h-[48px] w-full flex items-center"}>
         <div
             className={"rounded-[10px] bg-[#EEEEEE] h-full w-full py-0 md:py-1 pl-0 mr-0 md:pl-6 md:pr-1 flex items-center"}>
-          <p className={"text-[#383838b3] text-base mr-6 hidden md:flex aveSofRegular"}>Quantity</p>
+          <p className={"text-[#383838b3] text-base mr-6 hidden md:flex aveSofRegular"}>რაოდენობა</p>
 
           <div className={"flex h-full items-center bg-[white] rounded-[10px] px-[12px] md:px-4"}>
             <div onClick={() => handleDecreaseCart(data)}

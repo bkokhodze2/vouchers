@@ -58,7 +58,6 @@ export default function Company() {
 
   }, [slug])
 
-  console.log("images", images)
 
   const getWeekByNumber = (index: number) => {
     return weekDays[index - 1]

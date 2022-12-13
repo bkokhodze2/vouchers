@@ -70,7 +70,6 @@ const CartItem = ({data, getCount}: ICartItem) => {
   let companySlug = _.get(data, '[0].additionalInfo[0].provider.name', "").replaceAll(' ', '-');
   let voucherSlug = _.get(data, '[0].additionalInfo[0].genericTransactionTypeId', 1);
 
-  console.log("c-v", companySlug, voucherSlug)
 
   return (
 
@@ -124,8 +123,8 @@ const CartItem = ({data, getCount}: ICartItem) => {
               </div>
               <div className={"flex w-full items-center md:justify-start justify-between mt-[11px] md:mt-[0px]"}>
                 <div className={"flex flex-col items-start md:items-center justify-center lg:ml-8 ph:ml-4 ml-1.5"}>
-                  <p className={"text-[14px] text-[#383838b3] text-center whitespace-nowrap aveSofRegular"}>Total
-                    price</p>
+                  <p className={"text-[14px] text-[#383838b3] text-center whitespace-nowrap aveSofRegular"}>
+                    ჯამური ფასი</p>
                   <div className={"flex items-center"}>
 
                     {
@@ -181,7 +180,6 @@ const CartItem = ({data, getCount}: ICartItem) => {
                 </div>
               </div>
 
-
             </div>
             <div
                 onClick={() => handleRemoveFromCart(data)}
@@ -194,7 +192,7 @@ const CartItem = ({data, getCount}: ICartItem) => {
                   alt={"trash icon"}
                   width={24}
                   height={24}/>
-              <p className={"text-[#383838] ml-[10px] font-[500] aveSofMedium"}>Delete</p>
+              <p className={"text-[#383838] ml-[10px] font-[500] aveSofMedium"}>წაშლა</p>
             </div>
           </div>
         </div>

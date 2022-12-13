@@ -136,9 +136,10 @@ export default function Cart({serverData, productCount}: any) {
   }
 
   const payWithPoints = () => {
-    
+
     if (cart?.totalPoint > 0) {
-      let arr = cart.cartItems.filter((e: any) => e.isPoint === true);
+      let arr = cart.cartItems.filter((e: any) => e.isPoint);
+
       let obj = {
         "fullAmountOfPoints": cart?.totalPoint,
         "items": arr.map((e: any) => {
@@ -175,8 +176,8 @@ export default function Cart({serverData, productCount}: any) {
               {/*head*/}
               <div className={"hidden md:flex items-center"}>
                 <p className={"text-[#383838] text-[28px] font-bold relative after:content-[''] after:h-[20px] after:top-[12px] after:bg-[#38383833] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500 aveSofBold"}>
-                  My cart</p>
-                <p className={"text-[#38383899] text-base ml-[25px] aveSofRegular"}>{cart?.productCount} products</p>
+                  ჩემი კალათა</p>
+                <p className={"text-[#38383899] text-base ml-[25px] aveSofRegular"}>{cart?.productCount} პროდუქტი</p>
               </div>
               {/*head*/}
 
@@ -196,8 +197,7 @@ export default function Cart({serverData, productCount}: any) {
 										       alt={"not found image"}
 										       style={{objectFit: "cover"}}/>
 									</div>
-									<p className={"!uppercase mt-10 text-[#383838] text-[28px] font-bold aveSofBold"}>basket is
-										empty</p>
+									<p className={"!uppercase mt-10 text-[#383838] text-[28px] font-bold aveSofBold"}>კალათა ცარიელია</p>
 									<div onClick={() => Router.push('/')}>
 										<Button bgColor={"#383838"} textColor={"white"} text={"Back to home"}
 										        classes={"mt-6 aveSofRegular"}/>
@@ -213,21 +213,21 @@ export default function Cart({serverData, productCount}: any) {
             {/*cart info*/}
             {cart?.cartItems?.length > 0 &&
 								<div className={"h-auto ph:min-w-[340px] xl:min-w-[360px] shrink-0 px-[16px] ph:px-0"}>
-									<h5 className={"text-[#383838] text-[28px] font-bold hidden ph:block aveSofBold"}>Order</h5>
+									<h5 className={"text-[#383838] text-[28px] font-bold hidden ph:block aveSofBold"}>შეკვეთა</h5>
 
 									<div className={"sticky top-[130px] max-h-[628¬px] pb-[90px] md:pb:0 overflow-scroll rounded-xl"}>
 
 										<div className={"rounded-xl bg-[white] ph:px-6 mt-4 ph:pt-[30px] ph:pb-[54px] p-4"}>
-											<h5 className={"text-[#383838] text-[18px] font-bold block ph:hidden mb-[16px] aveSofBold"}>Order</h5>
+											<h5 className={"text-[#383838] text-[18px] font-bold block ph:hidden mb-[16px] aveSofBold"}>შეკვეთა</h5>
 											<div className={"flex items-center w-full justify-between "}>
-												<p className={"ph:text-[22px] text-base text-[#38383899] aveSofRegular"}>Number of vouchers</p>
+												<p className={"ph:text-[22px] text-base text-[#38383899] aveSofRegular"}>ვაუჩერის რაოდენობა</p>
 												<p className={"ph:text-[22px] text-base text-[#38383899] font-[500] aveSofMedium"}>{cart?.cartTotalQuantity}</p>
 											</div>
 
 											<div className={"h-[1px] w-full bg-[#38383833] rounded-xl mt-6 mb-[30px]"}/>
 
 											<div className={"flex justify-between"}>
-												<p className={"text-[#383838] ph:text-[28px] text-[18px] font-bold aveSofBold"}>Total Price</p>
+												<p className={"text-[#383838] ph:text-[28px] text-[18px] font-bold aveSofBold"}>ჯამური ფასი</p>
 												<div className={"flex items-center"}>
 													<Lari color={"#E35A43"} height={18} width={18}/>
 													<p className={"ph:text-[22px] text-[18px] text-[#E35A43] aveSofMedium"}>{cart?.cartTotalPrice}</p>
@@ -235,7 +235,8 @@ export default function Cart({serverData, productCount}: any) {
 											</div>
 
 											<div className={"flex justify-between"}>
-												<p className={"text-[#383838] ph:text-[28px] text-[18px] font-bold aveSofBold"}>Total Points</p>
+												<p className={"text-[#383838] ph:text-[28px] text-[18px] font-bold aveSofBold"}>ჯამური
+													ქულები</p>
 												<div className={"flex items-center"}>
 													<p className={"z-10 text-[20px] text-[#E35A43] font-bold transition ml-[10px] mr-1.5"}>
 														<Image
@@ -305,7 +306,7 @@ export default function Cart({serverData, productCount}: any) {
                           backgroundColor: payType ? "#8338EC" : "gray",
                         }}
 												className={"cursor-pointer w-full h-12 mt-6 rounded-xl flex justify-center items-center"}>
-											<p className={"text-base font-[500] text-base text-[white] aveSofMedium"}>Buy</p>
+											<p className={"text-base font-[500] text-base text-[white] aveSofMedium"}>ყიდვა</p>
 										</div>
 										<p className={"text-center mt-3"}>ან</p>
 										<div
@@ -315,7 +316,7 @@ export default function Cart({serverData, productCount}: any) {
                           backgroundColor: cart?.totalPoint === 0 ? "gray" : "#DB0060"
                         }}
 										>
-											<p className={"text-base font-[500] text-base text-[white] aveSofMedium"}>Pay with points</p>
+											<p className={"text-base font-[500] text-base text-[white] aveSofMedium"}>ქულებით ყიდვა</p>
 										</div>
 
 									</div>
