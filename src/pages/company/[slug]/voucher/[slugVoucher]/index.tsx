@@ -6,7 +6,6 @@ import Image from "next/image";
 import React, {useEffect, useState} from "react";
 import GalleryScroll from "../../../../../components/blocks/gallery-scroll";
 import Layout from "../../../../../components/layouts/user-layout"
-import Comment from "../../../../../components/blocks/comment";
 import InStock from "../../../../../components/UI/in-stock";
 import Button from "../../../../../components/UI/button";
 import OfferSlider from "../../../../../components/UI/slider/offer-slider";
@@ -71,13 +70,13 @@ export default function Details() {
       children: <div
           dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0]?.descriptions[0]?.description}}/>
     },
-    {
-      label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold aveSofBold"}>პირობები</h3>,
-      key: 'item-2',
-      children: <div
-          dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0]?.subDescriptions[0]?.description}}
-      />
-    },
+    // {
+    //   label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold aveSofBold"}>პირობები</h3>,
+    //   key: 'item-2',
+    //   children: <div
+    //       dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0]?.subDescriptions[0]?.description}}
+    //   />
+    // },
   ];
 
   useEffect(() => {
@@ -746,16 +745,16 @@ export default function Details() {
                 <Tabs defaultActiveKey="1" className={"tabDescription mt-[34px]"} items={items}/>
 
                 {/*reviews*/}
-                <div className={"mt-[34px] lg-mt-[100px]"}>
-                  <h4 className={"text-[22px] font-bold text-[#383838] mb-4 aveSofBold"}>შეფასებები</h4>
-                  <div className={"flex flex-col lg:space-y-6 space-y-5"}>
-                    <Comment rate={3}/>
-                    <Comment rate={5}/>
-                    <Comment rate={3}/>
-                    <Comment rate={5}/>
-                    <Comment rate={3}/>
-                  </div>
-                </div>
+                {/*<div className={"mt-[34px] lg-mt-[100px]"}>*/}
+                {/*  <h4 className={"text-[22px] font-bold text-[#383838] mb-4 aveSofBold"}>შეფასებები</h4>*/}
+                {/*  <div className={"flex flex-col lg:space-y-6 space-y-5"}>*/}
+                {/*    <Comment rate={3}/>*/}
+                {/*    <Comment rate={5}/>*/}
+                {/*    <Comment rate={3}/>*/}
+                {/*    <Comment rate={5}/>*/}
+                {/*    <Comment rate={3}/>*/}
+                {/*  </div>*/}
+                {/*</div>*/}
                 {/*reviews*/}
               </div>
               {/*left side*/}
