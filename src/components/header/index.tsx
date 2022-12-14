@@ -95,11 +95,11 @@ const Header: React.FC = () => {
           setIsLogged(res.data)
         });
 
-    // axios
-    //     .get(`${baseApi}/points`)
-    //     .then((res) => {
-    //       setPoints(res.data)
-    //     });
+    axios
+        .get(`${baseApi}/vouchers/get-user-points`)
+        .then((res) => {
+          setPoints(res.data.amountOfPoints)
+        });
 
     if (categories?.length === 0 || !categories) {
       // @ts-ignore
