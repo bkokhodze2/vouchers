@@ -553,3 +553,7 @@ body {
 .hideBar::-webkit-scrollbar {
     display: none;
 }
+
+.tabDescription span, .tabDescription p, .tabDescription b, .tabDescription a, .tabDescription strong, .tabDescription div {
+    font-family: avenirMedium, serif;
+}

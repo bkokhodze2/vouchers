@@ -37,7 +37,7 @@ const GalleryScroll = ({data}: any) => {
             setIsOpen(true)
             setPhotoIndex(idx)
           }}
-          className={"object-cover h-full min-w-[880px] max-w-[880px] w-full h-[546px] rounded-xl"}
+          className={"!object-cover h-full min-w-[880px] max-w-[880px] w-full h-[546px] rounded-xl"}
           alt={"voucher photo"}/>
     </div>
   }

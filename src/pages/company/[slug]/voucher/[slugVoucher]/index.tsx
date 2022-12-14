@@ -75,7 +75,7 @@ export default function Details() {
       label: <h3 className={"capitalize text-[#383838] text-[22px] font-bold aveSofBold"}>პირობები</h3>,
       key: 'item-2',
       children: <div
-          dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0].subDescriptions[0].description}}
+          dangerouslySetInnerHTML={{__html: voucher[0]?.additionalInfo[0]?.subDescriptions[0]?.description}}
       />
     },
   ];
