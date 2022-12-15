@@ -1,9 +1,9 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef} from "react";
 import Image from "next/image";
 // Import Swiper React components
 import {Swiper, SwiperSlide} from "swiper/react";
 // import required modules
-import {Pagination, Navigation, Lazy} from "swiper";
+import {Lazy, Navigation, Pagination} from "swiper";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -79,7 +79,7 @@ export default function OfferSlider({nav = true, loop = false, data}: IOfferSlid
             modules={[Pagination, Navigation, Lazy]}
             className="offerSlider"
         >
-          {data?.map((item: object, index: number) => {
+          {Array.isArray(data) && data?.map((item: object, index: number) => {
             return <SwiperSlide key={index}>
               <OfferItem data={item}/>
             </SwiperSlide>

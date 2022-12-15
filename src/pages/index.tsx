@@ -376,7 +376,7 @@ const Home: NextPage = ({serverData}: any) => {
 							<div
 									className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-5 md:gap-y-[42px] xl:gap-x-[30px]"}>
                 {
-                    !!vouchersAll?.length && vouchersAll?.map((item: any, index: any) => {
+                    Array.isArray(vouchersAll) && !!vouchersAll?.length && vouchersAll?.map((item: any, index: any) => {
                       return <OfferItem data={item} key={index}/>
                     })
                 }

@@ -194,8 +194,9 @@ const Header: React.FC = () => {
   }
 
   const getSumOffer = () => {
-    let arr = categories?.filter((item: any) => item.parentCategoryId === chosenCategory?.categoryId);
-    let sum = arr?.reduce((prevValue: any, currValue: any) => prevValue + currValue?.offersQuantity, 0)
+    let arr = Array.isArray(categories) && categories?.filter((item: any) => item.parentCategoryId === chosenCategory?.categoryId);
+    // @ts-ignore
+    let sum = Array.isArray(arr) && arr?.reduce((prevValue: any, currValue: any) => prevValue + currValue?.offersQuantity, 0)
 
     return sum
   }
@@ -292,7 +293,7 @@ const Header: React.FC = () => {
           <p>საიტი მუშაობს სატესტო რეჟიმში</p>
         </div>
         <div
-            className={"hidden md:flex w-full sticky top-[0px] bg-amber-700 h-[44px] min-h-[44px] bg-[#1d1d1e] items-center z-20"}>
+            className={"hidden md:flex w-full sticky top-[0px]  h-[44px] min-h-[44px] bg-[#1d1d1e] items-center z-20"}>
           <div className={"w-full container m-auto flex justify-between"}>
             <div className={"flex space-x-8"}>
               <Link href={"https://optimoml.geopay.ge/index.php"}>
@@ -609,7 +610,7 @@ const Header: React.FC = () => {
 
                 {/*sub categories*/}
                 <div className={"flex items-center space-x-[20px] ml-[20px] sm:space-x-[40px] sm:ml-[40px]"}>
-                  {categories?.filter((item: any) => item?.parentCategoryId === null).map((item: Icategory, index: number) => {
+                  {Array.isArray(categories) && categories?.filter((item: any) => item?.parentCategoryId === null).map((item: Icategory, index: number) => {
                     return <div className={"relative"} key={index}
                                 onMouseOver={() => {
                                   timer1 = setTimeout(function () {
@@ -654,7 +655,7 @@ const Header: React.FC = () => {
                     </div>
 
                     <div className={"flex flex-col space-y-[20px] mt-[20px]"}>
-                      {categories?.filter((item: any) => item.parentCategoryId === chosenCategory?.categoryId).map((item: any, index: number) => {
+                      {Array.isArray(categories) && categories?.filter((item: any) => item.parentCategoryId === chosenCategory?.categoryId).map((item: any, index: number) => {
                         return <div className={"flex justify-between items-center"} key={index}>
                           <Link href={`/category/${item.categoryId}`}>
                             <p
