@@ -75,7 +75,7 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
             <div className={" grid grid-cols-2 gap-3 mt-3"}>
               <NavItem icon={ICONS.ecomerce} text={"E-commerce"} bg={"#F5CE5A"}/>
               <NavItem icon={ICONS.medical} text={"Medical Card"} bg={"#7B92DC"}/>
-              <NavItem icon={ICONS.lotto} iconSize={20} text={"Lotto"} bg={"#56971F"}/>
+              <NavItem icon={ICONS.lotto} iconSize={20} text={"გათამაშება"} bg={"#56971F"}/>
               <NavItem icon={ICONS.menuPercent} text={"Discounts"} bg={"#E35A43"}/>
             </div>
           </div>

@@ -299,7 +299,7 @@ const Header: React.FC = () => {
               <Link href={"https://optimoml.geopay.ge/index.php"}>
                 <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular "}>მაღაზია</span>
               </Link>
-              <Link href={"https://medical.pirveli.ge"}>
+              <Link href={"https://medical.pirveli.com"}>
                 <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>მედიქალი</span>
               </Link>
               <Link href={"/"}>
@@ -309,11 +309,11 @@ const Header: React.FC = () => {
                 </div>
               </Link>
 
-              <Link href={"https://lot51.pirveli.ge"}>
+              <Link href={"https://win.pirveli.com"}>
                 <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>გათამაშება</span>
               </Link>
 
-              <Link href={"https://lot51.pirveli.ge"}>
+              <Link href={"https://www.pame.pirveli.com"}>
                 <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>თამაშები</span>
               </Link>
             </div>
