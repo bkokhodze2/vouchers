@@ -125,7 +125,7 @@ export default function Cart({serverData, productCount}: any) {
           "saveCard": false
         }
       }
-      axios.post(`https://vouchers.pirveli.ge/api/tbc/payments`, tbcObj).then((res) => {
+      axios.post(`https://vouchers.pirveli.com/api/tbc/payments`, tbcObj).then((res) => {
         let link = res.data.links[1].uri;
         typeof window !== 'undefined' && window.open(link, '_blank');
 

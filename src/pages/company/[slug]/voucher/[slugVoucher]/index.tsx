@@ -183,7 +183,7 @@ export default function Details() {
             ,
             "locale": "ka",
             "shop_order_id": "123456",
-            "redirect_url": "https://bog-banking.pirveli.ge/api/bog/callback/statusChange",
+            "redirect_url": "https://bog-banking.pirveli.com/api/bog/callback/statusChange",
             "show_shop_order_id_on_extract": true,
             "capture_method": "AUTOMATIC",
             "purchase_units": [
@@ -196,7 +196,7 @@ export default function Details() {
             ]
           }
         }
-        axios.post(`https://vouchers.pirveli.ge/api/bog/orders`, bogObj).then((res) => {
+        axios.post(`https://vouchers.pirveli.com/api/bog/orders`, bogObj).then((res) => {
           let link = res.data.links[1].href;
           typeof window !== 'undefined' && window.open(link, '_blank');
         })
@@ -221,11 +221,11 @@ export default function Details() {
               "tax": 0,
               "shipping": 0
             },
-            "returnurl": "https://vouchers.pirveli.ge/success",
+            "returnurl": "https://vouchers.pirveli.com/success",
             "userIpAddress": "127.0.0.1",
             "methods": [5],
             "expirationMinutes": "5",
-            "callbackUrl": "https://vouchers.pirveli.ge/success",
+            "callbackUrl": "https://vouchers.pirveli.com/success",
             "preAuth": false,
             "language": "EN",
             "merchantPaymentId": "1",
@@ -233,7 +233,7 @@ export default function Details() {
           }
         }
 
-        axios.post(`https://vouchers.pirveli.ge/api/tbc/payments`, tbcObj).then((res) => {
+        axios.post(`https://vouchers.pirveli.com/api/tbc/payments`, tbcObj).then((res) => {
           let link = res.data.links[1].uri;
           typeof window !== 'undefined' && window.open(link, '_blank');
         })
