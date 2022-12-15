@@ -225,7 +225,7 @@ const Header: React.FC = () => {
         <p className={"text-[#383838] text-base ml-2"}>შეკვეთების ისტორია</p>
       </div>
 
-      <div className={"flex mt-3 cursor-pointer"} onClick={() => navTo("/")}>
+      <div className={"flex mt-3 cursor-pointer"}>
         <Image src={ICONS.logout}/>
         <form className={"ml-2"} action="https://vouchers.pirveli.com/logout" method="post">
           <button className={"text-[#E35A43] text-base "} type={"submit"}>გასვლა</button>
