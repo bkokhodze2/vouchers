@@ -80,7 +80,7 @@ const Home: NextPage = ({serverData}: any) => {
         <main className={"flex flex-col "}>
           <div className={"w-full flex-col"}>
             <div
-                className="flex flex-col md:grid grid-rows-2 md:grid-rows-1 md:max-h-[552px] mt-0 md:mt-2 lg:mt-6 grid-cols-4 md:container con m-auto grid-flow-col gap-[44px] md:gap-[16px] xl:gap-[32px]">
+                className="flex flex-col md:grid grid-rows-2 md:grid-rows-1 md:max-h-[552px] mt-0 md:mt-4? lg:mt-6 grid-cols-4 md:container con m-auto grid-flow-col gap-[44px] md:gap-[16px] xl:gap-[32px]">
 
               {/*Become Partner*/}
               <div className={"order-2 md:order-1 container p-4 py-0 ph:p-4 md:p-0 m-auto col-span-4 md:col-span-1"}>

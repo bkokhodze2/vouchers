@@ -45,3 +45,9 @@ export {default as advertisement} from './advertisement.svg';
 export {default as partnership} from './partnership.svg';
 export {default as privacy} from './privacy.svg';
 export {default as geoFlag} from './geoFlag.svg';
+
+export {default as liderboard} from './menu/liderboard.svg';
+export {default as logout} from './menu/logout.svg';
+export {default as order} from './menu/order.svg';
+
+

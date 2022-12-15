@@ -7,11 +7,11 @@ const nextConfig = {
 		defaultLocale:'eng',
 	},
 	images:{
-		domains:['www.google.com','http://s3.pirveli.ge',"https://s3.pirveli.ge"],
+		domains:['www.google.com','http://s3.pirveli.com',"https://s3.pirveli.com"],
 		remotePatterns:[
 			{
 				protocol:'http',
-				hostname:'s3.pirveli.ge',
+				hostname:'s3.pirveli.com',
 				pathname:'/v1/api/**',
 			},
 		],
@@ -19,10 +19,10 @@ const nextConfig = {
 	},
 	env:{
 		// for local
-		//baseApi:"http://accounting.pirveli.ge/api/racoon-transactions",
+		// baseApi:"http://accounting.pirveli.com/api/racoon-transactions",
 
 		// for server
-		baseApi:"https://vouchers.pirveli.ge/api/racoon-transactions",
+		baseApi:"https://vouchers.pirveli.com/api/racoon-transactions",
 	}
 }
 

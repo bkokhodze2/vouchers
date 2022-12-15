@@ -145,7 +145,8 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                 className={"flex flex-col w-full sm:bg-[white] bg-[white] sm:px-[20px] sm:pb-6 pb-[18px] px-[14px] rounded-b-xl lg:max-w-[400px] sm:max-w-[400px] max-w-7xl"}>
               <p
                   className={"text-clip overflow-hidden text-start sm:mt-3 mt-2 sm:font-bold font-[500] leading-[27px] text-[#383838] sm:text-[20px] text-base min-h-[54px] textDots2 aveSofBold"}>
-                {_.get(data, 'additionalInfo[0].provider.nameGEO', "")}
+                {_.get(data, 'additionalInfo[0].provider.name', "")}
+                {/*aq unda name geo*/}
               </p>
               <div className={"flex flex-row space-x-3 items-center sm:mt-3 mt-1 aveSofMedium"}>
                 <p className={"font-bold text-[#E35A43] text-[21px] flex items-center aveSofMedium"}>
