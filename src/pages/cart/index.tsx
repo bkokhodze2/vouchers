@@ -75,7 +75,7 @@ export default function Cart({serverData, productCount}: any) {
           ,
           "locale": "ka",
           "shop_order_id": "123456",
-          "redirect_url": "https://bog-banking.pirveli.ge/api/bog/callback/statusChange",
+          "redirect_url": "https://vouchers.pirveli.com",
           "show_shop_order_id_on_extract": true,
           "capture_method": "AUTOMATIC",
           "purchase_units": [
@@ -88,7 +88,7 @@ export default function Cart({serverData, productCount}: any) {
           ]
         }
       }
-      axios.post(`https://vouchers.pirveli.ge/api/bog/orders`, bogObj).then((res) => {
+      axios.post(`https://vouchers.pirveli.com/api/bog/orders`, bogObj).then((res) => {
         let link = res.data.links[1].href;
         typeof window !== 'undefined' && window.open(link, '_blank');
 
@@ -114,11 +114,11 @@ export default function Cart({serverData, productCount}: any) {
             "tax": 0,
             "shipping": 0
           },
-          "returnurl": "https://vouchers.pirveli.ge/success",
+          "returnurl": "https://vouchers.pirveli.com/success",
           "userIpAddress": "127.0.0.1",
           "methods": [5],
           "expirationMinutes": "5",
-          "callbackUrl": "https://vouchers.pirveli.ge/success",
+          "callbackUrl": "https://vouchers.pirveli.com/success",
           "preAuth": false,
           "language": "EN",
           "merchantPaymentId": "1",
