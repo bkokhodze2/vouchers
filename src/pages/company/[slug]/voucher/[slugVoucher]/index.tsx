@@ -263,10 +263,10 @@ export default function Details() {
   const payWithPoints = () => {
     if (!isWithMoney) {
       let obj = {
-        "fullAmountOfPoints": _.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0) * quantity,
+        "fullAmountOfPoints": _.get(voucher, '[0].entries[0].entryAmount', 0) / _.get(voucher, '[0].entries[0].multiplier', 0) * quantity,
         "items": [{
           "providerName": _.get(voucher, '[0].additionalInfo[0].provider.name', ""),
-          "itemPrice": _.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0),
+          "itemPrice": _.get(voucher, '[0].entries[0].entryAmount', 0) / _.get(voucher, '[0].entries[0].multiplier', 0),
           "quantity": quantity,
           "voucherId": _.get(voucher, '[0].additionalInfo[0].genericTransactionTypeId', 1)
         }]
@@ -346,7 +346,7 @@ export default function Details() {
                       <p className={"lg:text-[18px] text-sm text-purple flex items-center flex-nowrap whitespace-nowrap aveSofMedium"}>
                         <div className={"mr-2"}>
                         </div>
-                        {_.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0) * quantity}
+                        {_.get(voucher, '[0].entries[0].entryAmount', 0) / _.get(voucher, '[0].entries[0].multiplier', 0) * quantity}
                       </p>
                 }
               </div>

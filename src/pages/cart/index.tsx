@@ -146,7 +146,7 @@ export default function Cart({serverData, productCount}: any) {
         "items": arr.map((e: any) => {
           return {
             "productName": _.get(e, '[0].additionalInfo[0].provider.name', ""),
-            "itemPrice": _.get(e, '[0].entries[0].entryAmount', 1) * _.get(e, '[0].entries[0].multiplier', 0),
+            "itemPrice": _.get(e, '[0].entries[0].entryAmount', 1) / _.get(e, '[0].entries[0].multiplier', 0),
             "quantity": _.get(e, 'cartQuantity', 1),
             "voucherId": _.get(e, '[0].additionalInfo[0].genericTransactionTypeId', 1)
           }

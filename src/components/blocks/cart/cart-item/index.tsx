@@ -141,7 +141,7 @@ const CartItem = ({data, getCount}: ICartItem) => {
                             alt={"coin icon"}
                         />
                       </span>
-                        {_.get(data, '[0].entries[0].entryAmount', 0) * _.get(data, '[0].entries[0].multiplier', 0) * data.cartQuantity}
+                        {_.get(data, '[0].entries[0].entryAmount', 0) / _.get(data, '[0].entries[0].multiplier', 0) * data.cartQuantity}
                       </p> : <>
                         <Lari color={"#E35A43"}/>
                         <p

@@ -158,7 +158,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                 <span className={"text-[#383838] text-[12px] mr-[8px] aveSofRegular"}>
                   OR
                 </span>
-                  {Math.round(_.get(data, 'entries[0].entryAmount', 0) * _.get(data, 'entries[0].multiplier', 0))}
+                  {Math.round(_.get(data, 'entries[0].entryAmount', 0) / _.get(data, 'entries[0].multiplier', 0))}
                   <div className={"ml-1.5 flex items-center justify-center"}>
                     <Image
                         src={IMAGES.coin}
