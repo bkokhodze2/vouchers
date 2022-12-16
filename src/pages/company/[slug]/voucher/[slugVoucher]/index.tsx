@@ -572,7 +572,7 @@ export default function Details() {
             <div className={"container flex w-full gap-[30px] m-auto pt-8"}>
               {/*left side*/}
 
-              <div className={"h-full "}>
+              <div className={"h-full w-full"}>
                 <Link href={`/company/${_.get(voucher, '[0].additionalInfo[0].provider.name', '')}`}>
                   <div
                       className={"flex justify-between w-full lg:p-6 p-4 rounded-xl items-center bg-[white] cursor-pointer"}>
