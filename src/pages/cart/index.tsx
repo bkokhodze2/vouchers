@@ -7,7 +7,7 @@ import React, {useEffect, useState} from "react";
 import Lari from "/public/images/icons/lari";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {getTotals,} from "../../components/slices/cartSlice";
+import {getTotals} from "../../components/slices/cartSlice";
 import dynamic from "next/dynamic";
 import _ from "lodash";
 import Image from "next/image";
@@ -159,11 +159,16 @@ export default function Cart({serverData, productCount}: any) {
         notification['success']({
           message: 'თქვენ წარმატებით შეიძინეთ ვაუჩერი',
         });
+
+        // arr.map((e: any) => {
+        //   removeFromCart(e);
+        // })
+
         Router.push("/")
 
       }).catch((res) => {
         notification['error']({
-          message: 'დაფიქსირდა შეცდომა',
+          message: 'თქვენს ანგარიშზე არ არის საკმარისი ქულები',
         });
       })
     }

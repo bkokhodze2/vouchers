@@ -280,7 +280,7 @@ export default function Details() {
 
       }).catch((res) => {
         notification['error']({
-          message: 'დაფიქსირდა შეცდომა',
+          message: 'თქვენს ანგარიშზე არ არის საკმარისი ქულები',
         });
       })
     }
