@@ -42,7 +42,7 @@ const Home: NextPage = ({serverData}: any) => {
 
     if (!!promo) {
       axios
-          .get(`${baseApi}/vouchers?contractId=662&isPromo=1`)
+          .get(`${baseApi}/vouchers?contractId=662&isPromo=1&limit=999`)
           .then((res) => {
             setPromo(res.data)
           });
@@ -56,7 +56,7 @@ const Home: NextPage = ({serverData}: any) => {
     setPage((prevState) => prevState + 1);
 
     axios
-        .get(`${baseApi}/vouchers?contractId=662&page=${page}&limit=16`)
+        .get(`${baseApi}/vouchers?contractId=662&page=${page}&limit=12`)
         .then((res) => {
           setVouchersAll((prevState: []) => [...prevState, ...res.data])
           setIsLoading(false)

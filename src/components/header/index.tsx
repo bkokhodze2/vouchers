@@ -537,20 +537,23 @@ const Header: React.FC = () => {
 
                   {
                     isLogged ?
-                        <div className={"flex items-center h-[46px] "}>
-                          <div onClick={() => navToProfile()}
-                               className={"min-w-[48px] max-h-[48px] min-h-[48px] relative cursor-pointer"}>
-                            <Image layout={"fill"} height={48}
-                                   width={48}
-                                   src={IMAGES.avatar}/>
-                          </div>
-                          <Dropdown
-                              onOpenChange={() => setIsOpenDropdown(!isOpenDropdown)}
-                              open={isOpenDropdown}
-                              arrow={true}
-                              className={"cursor-pointer dropdownMenuJsx "}
-                              dropdownRender={() => dropdownJsx()}
-                          >
+                        <Dropdown
+                            trigger={['click']}
+                            onOpenChange={() => setIsOpenDropdown(!isOpenDropdown)}
+                            open={isOpenDropdown}
+                            arrow={true}
+                            className={"cursor-pointer dropdownMenuJsx "}
+                            dropdownRender={() => dropdownJsx()}
+                        >
+                          <div className={"flex items-center h-[46px] "}>
+                            {/*onClick={() => navToProfile()}*/}
+                            <div
+                                className={"min-w-[48px] max-h-[48px] min-h-[48px] relative cursor-pointer"}>
+                              <Image layout={"fill"} height={48}
+                                     width={48}
+                                     src={IMAGES.avatar}/>
+                            </div>
+
                             <div className={"h-full flex items-center relative  pl-3"}
 
                             >
@@ -564,10 +567,8 @@ const Header: React.FC = () => {
                                       strokeLinecap="round" strokeLinejoin="round"/>
                               </svg>
                             </div>
-
-                          </Dropdown>
-                        </div>
-
+                          </div>
+                        </Dropdown>
                         : <Link
                             href={"https://auth.pirveli.com/realms/xracoon-demo/protocol/openid-connect/auth?response_type=code&client_id=demo-client&scope=email%20profile%20roles%20openid&state=ozej6dlmtIpneeVt7QoGPy2zXJ9e6BNPdGltyKyn3X4%3D&redirect_uri=https://vouchers.pirveli.com&nonce=KAmXCp0jHrPiUph9D2p5yVwdpT5g3qWO0iCxqJFbiv0"}
                             style={{}}
@@ -605,7 +606,7 @@ const Header: React.FC = () => {
                       layout={"fixed"}
                       alt={"shock offer icon"}
                   />
-                  <p className={"ml-[9px] text-purple text-base whitespace-nowrap aveSofRegular"}>Shock offers</p>
+                  <p className={"ml-[9px] text-purple text-base whitespace-nowrap aveSofRegular"}>შოკ შეთავაზება</p>
                 </div>
 
                 {/*sub categories*/}
