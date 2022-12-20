@@ -13,8 +13,10 @@ import {useRouter} from "next/router";
 import axios from "axios";
 import _ from "lodash";
 import OfferItem from "../../../components/blocks/offer-item";
+import dayjs from "dayjs";
 
 const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const dateFormat = 'HH:mm:s';
 
 export default function Company() {
   const baseApi = process.env.baseApi;
@@ -221,7 +223,7 @@ export default function Company() {
                       _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).map((item: any, index: number) => {
                         return <div className={"flex justify-between"} key={index}>
                           <p className={"mr-6 text-[#383838b3] aveSofRegular"}>{getWeekByNumber(item.dayId)}</p>
-                          <p className={"text-[#383838] aveSofRegular"}>{item.startHour} - {item.endHour}</p>
+                          <p className={"text-[#383838] aveSofRegular"}>{dayjs(item.startHour).format(dateFormat).toString()} - {dayjs(item.endHour).format(dateFormat).toString()}</p>
                         </div>
                       })
                     }
