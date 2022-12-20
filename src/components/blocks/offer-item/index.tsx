@@ -51,9 +51,14 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
 
   useEffect(() => {
 
-    setPhotos(_.get(data, 'additionalInfo[0].attachments', []).sort(function (x: any, y: any) {
-      return (x.isMain === y.isMain) ? 0 : x.isMain ? -1 : 1;
-    }).slice(0, 4))
+    //
+    // if (data && _.get(data, 'additionalInfo[0].attachments', [])?.length > 0) {
+    //
+    //   setPhotos(_.get(data, 'additionalInfo[0].attachments', [])?.sort(function (x: any, y: any) {
+    //     return (x?.isMain === y?.isMain) ? 0 : x?.isMain ? -1 : 1;
+    //   })?.slice(0, 4))
+    // }
+    setPhotos(_.get(data, 'additionalInfo[0].attachments', [])?.slice(0, 4))
 
   }, [data])
 
