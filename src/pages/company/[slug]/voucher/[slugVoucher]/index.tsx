@@ -429,7 +429,7 @@ export default function Details() {
           <div className={""}>
             <div className={"flex mt-[34px] bg-[white] p-6 rounded-xl col-span-2"}>
               <p className={"text-purple text-base font-[500] mr-5"}>
-                <CountDown data={_.get(voucher, '[0].additionalInfo[0].useEndDate', 0)}/>
+                <CountDown data={_.get(voucher, '[0].additionalInfo[0].sellEndDate', 0)}/>
               </p>
               <InStock max={_.get(voucher, '[0].additionalInfo[0].limitQuantity', 0)}
                        current={_.get(voucher, '[0].additionalInfo[0].soldQuantity', 0)}/>
