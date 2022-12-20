@@ -34,6 +34,8 @@ interface IOfferItem {
 
 const OfferItem = ({data, miniHeight}: IOfferItem) => {
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
+  const [photos, setPhotos] = useState<any>([]);
+
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   let companySlug = _.get(data, 'additionalInfo[0].provider.name', "").replaceAll(' ', '-');
@@ -46,6 +48,14 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
   const addFav = (product: any) => {
     dispatch(addToFavourites(product));
   }
+
+  useEffect(() => {
+
+    setPhotos(_.get(data, 'additionalInfo[0].attachments', []).sort(function (x: any, y: any) {
+      return (x.isMain === y.isMain) ? 0 : x.isMain ? -1 : 1;
+    }).slice(0, 4))
+
+  }, [data])
 
   useEffect(() => {
     setIsFavourite(false);
@@ -105,7 +115,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
               }}>
                 <Carousel infiniteLoop showThumbs={false} swipeable={true} className={""}>
                   {
-                    _.get(data, 'additionalInfo[0].attachments', []).length === 0 ?
+                    photos?.length === 0 ?
                         <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
                           <div className={"relative h-full"}>
                             <Image src={slider?.src}
@@ -120,11 +130,10 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                                    className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
                           </div>
                         </Link>
-                        :
-                        _.get(data, 'additionalInfo[0].attachments', []).slice(0, 4).map((item: any, index: number) => {
+                        : photos.map((item: any, index: number) => {
                           return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`} key={index}>
                             <div className={"relative h-full"}>
-                              <LazyLoadImage src={item?.path}
+                              <LazyLoadImage src={item.path}
                                              alt={"slider img"}
                                              width={360}
                                              onLoad={() => {
@@ -137,6 +146,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                           </Link>
                         })
                   }
+
                 </Carousel>
               </div>
             </div>

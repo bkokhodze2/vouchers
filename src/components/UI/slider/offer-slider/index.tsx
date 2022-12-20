@@ -3,7 +3,7 @@ import Image from "next/image";
 // Import Swiper React components
 import {Swiper, SwiperSlide} from "swiper/react";
 // import required modules
-import {Lazy, Navigation, Pagination} from "swiper";
+import {Lazy, Mousewheel, Navigation, Pagination} from "swiper";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -68,15 +68,24 @@ export default function OfferSlider({nav = true, loop = false, data}: IOfferSlid
             onInit={(core) => {
               swiper.current = core.el
             }}
+            slidesPerGroup={2}
+            // cssMode={true}
+            // draggable={true}
+            // direction={"horizontal"}
+            direction={"horizontal"}
+            freeMode={true}
+            mousewheel={{
+              forceToAxis: true
+            }}
             navigation={{
               prevEl: prevRef.current ? prevRef.current : undefined,
               nextEl: nextRef.current ? nextRef.current : undefined,
             }}
-            freeMode={true}
+            // freeMode={true}
             loopFillGroupWithBlank={true}
             loop={loop}
             lazy={true}
-            modules={[Pagination, Navigation, Lazy]}
+            modules={[Pagination, Navigation, Lazy, Mousewheel]}
             className="offerSlider"
         >
           {Array.isArray(data) && data?.map((item: object, index: number) => {

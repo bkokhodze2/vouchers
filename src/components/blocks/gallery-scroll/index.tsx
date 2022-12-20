@@ -21,10 +21,16 @@ const GalleryScroll = ({data}: any) => {
   const [isVisibleDrawer, setIsVisibleDrawer] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [images, setImages] = useState<any>([..._.get(data, '[0]additionalInfo[0].attachments', [])]);
 
-  const images = [
-    ..._.get(data, '[0]additionalInfo[0].attachments', [])
-  ]
+
+  useEffect(() => {
+
+    setImages(_.get(data, '[0]additionalInfo[0].attachments', []).sort(function (x: any, y: any) {
+      return (x.isMain === y.isMain) ? 0 : x.isMain ? -1 : 1;
+    }))
+
+  }, [data])
 
   const Slide1 = ({idx, data}: any) => {
     return <div
@@ -140,7 +146,7 @@ const GalleryScroll = ({data}: any) => {
               modules={[Pagination, Lazy]}
               className="mySwiper detailsSwiper"
           >
-            {images.map((e, index) => {
+            {images.map((e: any, index: any) => {
               return <SwiperSlide key={"swiper" + index}>
                 <LazyLoadImage
                     src={_.get(images, `[${index}].path`, [])}
