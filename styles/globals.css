@@ -558,9 +558,9 @@ body {
     display: none;
 }
 
-.tabDescription span, .tabDescription p, .tabDescription b, .tabDescription a, .tabDescription strong, .tabDescription div {
-    font-family: avenirMedium, serif !important;
-}
+/*.tabDescription span, .tabDescription p, .tabDescription b, .tabDescription a, .tabDescription strong, .tabDescription div {*/
+/*    font-family: avenirMedium, serif !important;*/
+/*}*/
 
 
 #bwc-widget-action {
