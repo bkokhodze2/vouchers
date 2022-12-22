@@ -14,33 +14,33 @@ body {
 }
 
 /*regular*/
-.aveSofRegular:lang(ka) {
+.aveSofRegular:lang(eng) {
     font-family: avenirMedium, serif;
 }
 
-.aveSofRegular:lang(eng) {
+.aveSofRegular:lang(ka) {
     font-family: sofiaRegular, serif;
 }
 
 /*regular*/
 
 /*medium*/
-.aveSofMedium:lang(ka) {
+.aveSofMedium:lang(eng) {
     font-family: avenirMedium, serif;
 }
 
-.aveSofMedium:lang(eng) {
+.aveSofMedium:lang(ka) {
     font-family: sofiaMedium, serif;
 }
 
 /*medium*/
 /*bold*/
 
-.aveSofBold:lang(ka) {
+.aveSofBold:lang(eng) {
     font-family: avenirBold, serif;
 }
 
-.aveSofBold:lang(eng) {
+.aveSofBold:lang(ka) {
     font-family: sofiaBold, serif;
 }
 

@@ -318,7 +318,7 @@ const Header: React.FC = () => {
   return (
       <>
         <div className={"h-[40px] w-full flex items-center justify-center bg-[white]"}>
-          <p>საიტი მუშაობს სატესტო რეჟიმში</p>
+          <p className={"aveSofRegular"}>საიტი მუშაობს სატესტო რეჟიმში</p>
         </div>
         <div
             className={"hidden md:flex w-full sticky top-[0px]  h-[44px] min-h-[44px] bg-[#1d1d1e] items-center z-20"}>
