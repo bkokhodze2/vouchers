@@ -520,6 +520,11 @@ body {
         display: none !important;
     }
 
+    .detailsSwiper .swiper-pagination-horizontal {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
     /*.swiper-slide img {*/
     /*    object-fit: cover;*/
     /*}*/

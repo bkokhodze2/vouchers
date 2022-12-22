@@ -18,7 +18,7 @@ export default function History({serverData}: any) {
   const {TextArea} = Input;
 
   useEffect(() => {
-    axios.get(`${baseApi}/vouchers?contractId=662&providerId=${63}`).then((res) => {
+    axios.get(`${baseApi}/vouchers?contractId=662&providerId=${63}&isValid=true`).then((res) => {
       setVouchers(res.data)
     })
 

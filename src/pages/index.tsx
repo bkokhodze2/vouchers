@@ -5,7 +5,6 @@ import Header from "../components/header";
 import {ICONS, IMAGES} from "public/images";
 import Image from "next/image";
 import React, {useEffect, useState} from "react";
-import Button from "../components/UI/button";
 import Slider from "../components/UI/slider/main-slider";
 import OfferSlider from "../components/UI/slider/offer-slider";
 import Link from "next/link";
@@ -36,7 +35,7 @@ const Home: NextPage = ({serverData}: any) => {
     // @ts-ignore
 
     axios
-        .get(`${baseApi}/vouchers?contractId=662`)
+        .get(`${baseApi}/vouchers?contractId=662&isValid=true`)
         .then((res) => {
           setVouchers(res.data)
           setVouchersAll(res.data)
@@ -44,7 +43,7 @@ const Home: NextPage = ({serverData}: any) => {
 
     if (!!promo) {
       axios
-          .get(`${baseApi}/vouchers?contractId=662&isPromo=1&limit=999`)
+          .get(`${baseApi}/vouchers?contractId=662&isPromo=1&limit=999&isValid=true`)
           .then((res) => {
             setPromo(res.data)
           });
@@ -58,7 +57,7 @@ const Home: NextPage = ({serverData}: any) => {
     setPage((prevState) => prevState + 1);
 
     axios
-        .get(`${baseApi}/vouchers?contractId=662&page=${page}&limit=12`)
+        .get(`${baseApi}/vouchers?contractId=662&page=${page}&limit=12&isValid=true`)
         .then((res) => {
           setVouchersAll((prevState: []) => [...prevState, ...res.data])
           setIsLoading(false)
@@ -87,56 +86,57 @@ const Home: NextPage = ({serverData}: any) => {
         <main className={"flex flex-col "}>
           <div className={"w-full flex-col"}>
             <div
-                className="flex flex-col md:grid grid-rows-2 md:grid-rows-1 md:max-h-[552px] mt-0 md:mt-4? lg:mt-6 grid-cols-4 md:container con m-auto grid-flow-col gap-[44px] md:gap-[16px] xl:gap-[32px]">
+                className="flex flex-col md:grid grid-rows-2 md:grid-rows-1 md:max-h-[552px] mt-0 md:mt-4 lg:mt-6 grid-cols-4 md:container con m-auto grid-flow-col gap-[44px] md:gap-[16px] xl:gap-[32px]">
 
               {/*Become Partner*/}
               <div className={"order-2 md:order-1 container p-4 py-0 ph:p-4 md:p-0 m-auto col-span-4 md:col-span-1"}>
-                <div
-                    // order-last
-                    className="relative min-h-[138px] md:min-h-unset bg-[white] py-0 md:py-4 lg:py-8 rounded-xl flex flex-row md:flex-col md:items-center overflow-hidden bg-no-repeat bg-top"
-                >
-                  <h2 className={"text-[#383838] font-bold text-[22px] text-center z-10 hidden md:flex aveSofBold"}>Become
-                    Partner</h2>
-                  <div className={"relative"}>
-                    <div
-                        className={"absolute hidden md:flex left-[50%] top-[50%] -translate-x-[50%] -translate-y-[92%] rounded-[50%] h-[554px] w-[554px] bg-[#F5CE5A] "}></div>
-                    <div className={"hidden md:flex"}>
-                      <Image
-                          src={IMAGES.partner}
-                          alt={"partner"}
-                          blurDataURL={IMAGES.placeholder.src}
-                          placeholder="blur"
-                          width={312}
-                          height={312}
-                          quality={50}
-                          priority={true}
-                      />
-                    </div>
+                <img src={IMAGES.leftBanner.src} alt={"left side banner"} className={"rounded-xl w-full h-full"}/>
+                {/*<div*/}
+                {/*    // order-last*/}
+                {/*    className="relative min-h-[138px] md:min-h-unset bg-[white] py-0 md:py-4 lg:py-8 rounded-xl flex flex-row md:flex-col md:items-center overflow-hidden bg-no-repeat bg-top"*/}
+                {/*>*/}
+                {/*  <h2 className={"text-[#383838] font-bold text-[22px] text-center z-10 hidden md:flex aveSofBold"}>Become*/}
+                {/*    Partner</h2>*/}
+                {/*  <div className={"relative"}>*/}
+                {/*    <div*/}
+                {/*        className={"absolute hidden md:flex left-[50%] top-[50%] -translate-x-[50%] -translate-y-[92%] rounded-[50%] h-[554px] w-[554px] bg-[#F5CE5A] "}></div>*/}
+                {/*    <div className={"hidden md:flex"}>*/}
+                {/*      <Image*/}
+                {/*          src={IMAGES.partner}*/}
+                {/*          alt={"partner"}*/}
+                {/*          blurDataURL={IMAGES.placeholder.src}*/}
+                {/*          placeholder="blur"*/}
+                {/*          width={312}*/}
+                {/*          height={312}*/}
+                {/*          quality={50}*/}
+                {/*          priority={true}*/}
+                {/*      />*/}
+                {/*    </div>*/}
 
-                  </div>
-                  <div className={"flex md:hidden max-w-[150px] min-w-[136px] w-full relative"}>
-                    <Image
-                        src={IMAGES.mobileBecome2}
-                        alt={"partner"}
-                        blurDataURL={IMAGES.placeholder.src}
-                        placeholder="blur"
-                        width={136}
-                        height={136}
-                        quality={90}
-                        layout={"fill"}
-                        priority={true}
-                    />
-                  </div>
-                  <div className={"p-3 sm:p-5 md:p-0"}>
-                    <h2 className={"text-[#383838] leading-[20px] font-bold text-[18px] md:text-[22px] z-10 flex md:hidden mb-4 aveSofBold"}>
-                      Become Partner</h2>
-                    <p className={"w-full ph:text-sm px-0 xl:px-6 text-start md:text-center leading-[20px] ph:leading-[23px] text-[#38383899] text-[12px] -mt-[14px] z-10 aveSofRegular"}>
-                      Increase sales,attract new customers and double your income with us.</p>
-                  </div>
+                {/*  </div>*/}
+                {/*  <div className={"flex md:hidden max-w-[150px] min-w-[136px] w-full relative"}>*/}
+                {/*    <Image*/}
+                {/*        src={IMAGES.mobileBecome2}*/}
+                {/*        alt={"partner"}*/}
+                {/*        blurDataURL={IMAGES.placeholder.src}*/}
+                {/*        placeholder="blur"*/}
+                {/*        width={136}*/}
+                {/*        height={136}*/}
+                {/*        quality={90}*/}
+                {/*        layout={"fill"}*/}
+                {/*        priority={true}*/}
+                {/*    />*/}
+                {/*  </div>*/}
+                {/*  <div className={"p-3 sm:p-5 md:p-0"}>*/}
+                {/*    <h2 className={"text-[#383838] leading-[20px] font-bold text-[18px] md:text-[22px] z-10 flex md:hidden mb-4 aveSofBold"}>*/}
+                {/*      Become Partner</h2>*/}
+                {/*    <p className={"w-full ph:text-sm px-0 xl:px-6 text-start md:text-center leading-[20px] ph:leading-[23px] text-[#38383899] text-[12px] -mt-[14px] z-10 aveSofRegular"}>*/}
+                {/*      Increase sales,attract new customers and double your income with us.</p>*/}
+                {/*  </div>*/}
 
-                  <Button text={"Learn More"} bgColor={"#383838"}
-                          classes={"mt-[58px] z-10 hidden md:flex aveSofRegular"}/>
-                </div>
+                {/*  <Button text={"Learn More"} bgColor={"#383838"}*/}
+                {/*          classes={"mt-[58px] z-10 hidden md:flex aveSofRegular"}/>*/}
+                {/*</div>*/}
               </div>
               {/*Become Partner*/}
 
@@ -151,14 +151,14 @@ const Home: NextPage = ({serverData}: any) => {
                 {/*Advertisement*/}
                 <div
                     className={"grid hidden md:grid grid-rows-1 gap-[44px] md:gap-[16px] xl:gap-[32px] grid-cols-3 mt-4 xl:mt-[30px] "}>
-                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full relative"}>
-                    <Image src={banner1.src} alt={""} layout={"fill"}/>
+                  <div className={"rounded-xl flex justify-center items-center h-full bg-[white] w-full relative"}>
+                    <img src={banner1.src} alt={""} className={"!object-cover"}/>
                   </div>
-                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full relative"}>
-                    <Image src={banner2.src} alt={""} layout={"fill"}/>
+                  <div className={"rounded-xl flex justify-center items-center h-full bg-[white] w-full relative"}>
+                    <img src={banner2.src} alt={""} className={"!object-cover"}/>
                   </div>
-                  <div className={"rounded-xl flex justify-center items-center h-[120px] bg-[white] w-full relative"}>
-                    <Image src={banner3.src} alt={""} layout={"fill"}/>
+                  <div className={"rounded-xl flex justify-center items-center h-full bg-[white] w-full relative"}>
+                    <img src={banner3.src} alt={""} className={"!object-cover"}/>
                   </div>
                 </div>
                 {/*Advertisement*/}
@@ -171,8 +171,8 @@ const Home: NextPage = ({serverData}: any) => {
           {/*Special offers*/}
           {promo?.length > 0 &&
 							<div className={"flex flex-col mt-[44px] md:mt-[40px]"}>
-								<div className={"ph:container h-min con pl-0px ph:p-auto ph:m-auto w-full"}>
-									<h1 className={"text-[18px] pl-3 ph:pl-0 m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Special
+								<div className={"sm:container h-min con pl-0px ph:p-auto ph:m-auto w-full"}>
+									<h1 className={"text-[18px] pl-3 sm:pl-0 m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Special
 										offers</h1>
 									<div className={"mt-4"}>
 										<OfferSlider data={promo} loop={false}/>
@@ -211,8 +211,8 @@ const Home: NextPage = ({serverData}: any) => {
 
             {/*Popular offers */}
             {vouchers.length > 0 && <div className={"flex flex-col mt-[44px] md:mt-0"}>
-							<div className={"ph:container con pl-0px ph:p-auto ph:m-auto w-full"}>
-								<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Popular
+							<div className={"sm:container con pl-0px ph:p-auto ph:m-auto w-full"}>
+								<h1 className={"text-[18px] pl-3 sm:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Popular
 									offers</h1>
 								<div className={"mt-4"}>
 									<OfferSlider data={vouchers}/>

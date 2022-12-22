@@ -50,6 +50,7 @@ const Header: React.FC = () => {
   const [findData, setFindData] = useState<[]>([]);
   const [categoryVouchers, setCategoryVouchers] = useState<[any]>([null]);
   const [chosenCategory, setChosenCategory] = useState<any>({});
+  const [userInfo, setUserInfo] = useState<any>({});
   const [term, setTerm] = useState<string>("");
   const wrapperRef = useRef(null);
   const listRef = useRef<HTMLDivElement>(null);
@@ -61,15 +62,36 @@ const Header: React.FC = () => {
   const favourites = useSelector((state: any) => state.favourites);
   const categories = useSelector((state: any) => state.categories.categoriesList);
 
-  // axios.interceptors.request.use((config) => {
-  //   config.headers = {
-  //     ...config.headers,
-  //     'Access-Control-Allow-Origin': '*',
-  //     'Content-Type': 'application/json',
-  //     Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJzRUNseXdhVnNxOURBMU1oMElNLTVFTUNsRU5WM1FMTnhuNlh1bDJoOVBnIn0.eyJleHAiOjE2NzE1NjUxNzcsImlhdCI6MTY3MTUyOTE5OCwiYXV0aF90aW1lIjoxNjcxNTI5MTc3LCJqdGkiOiI0YzFmNDY4Yi1lNjQxLTRhMjUtOGRjNC04Y2MwMDIxY2U5OWEiLCJpc3MiOiJodHRwczovL2F1dGgucGlydmVsaS5jb20vcmVhbG1zL3hyYWNvb24tZGVtbyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiY2I1NjcyOC1mM2YxLTRmZjgtYTQ3ZC1kNGExOGFjMDgxOGMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjcy1jYXJ0Iiwic2Vzc2lvbl9zdGF0ZSI6IjRkODkzNjI4LWIwZjctNDQwOC1iYzE4LTcyYTJkMGNkZjhhMiIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy14cmFjb29uLWRlbW8iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNGQ4OTM2MjgtYjBmNy00NDA4LWJjMTgtNzJhMmQwY2RmOGEyIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX2lkIjoiYmNiNTY3MjgtZjNmMS00ZmY4LWE0N2QtZDRhMThhYzA4MThjIiwibmFtZSI6ImlyYWtsaSBvY2RhbWVydmUiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJpcmFrbGkyOEBnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiaXJha2xpIiwiZmFtaWx5X25hbWUiOiJvY2RhbWVydmUiLCJlbWFpbCI6ImlyYWtsaTI4QGdtYWlsLmNvbSJ9.SdehqtDUk6DNzTdUK2EqIckkLgRv10wFwmi44Upw8gS9OYVYkw4SNWMTtoEaxlz26esl17M0XNc_0JswJQMPB83PuzEqEVW6TvqF1a34A6Pg9t_IwrFVTxbakwa17VakUeQwQfHQOW3YBx9GPeVKpVYhiD-IUpy1BNhwxFSf5uDRcT3KzxZG27z3XmAYtao0rXj2oqeVUGU7_f2b1ixi2sDJd2boO0KbCeck9cYvwUVAvYmN_i4FgneNEkqpXvP_iDPGUCKVrm_xMYRbdaQdJWF7ALrhSMO4fHHoCJNrBhkfRV1sWkR3F9kd2i8B9rqKasu93vHYOuPgc216WlD2gQ`
-  //   };
-  //   return config;
-  // });
+  axios.interceptors.request.use((config) => {
+    config.headers = {
+      ...config.headers,
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJzRUNseXdhVnNxOURBMU1oMElNLTVFTUNsRU5WM1FMTnhuNlh1bDJoOVBnIn0.eyJleHAiOjE2NzE3MzE3OTUsImlhdCI6MTY3MTY5NTgwOCwiYXV0aF90aW1lIjoxNjcxNjk1Nzk1LCJqdGkiOiIxYjUyNTlmMi1mYmI1LTQ2MmYtODcyYS01YWM5NDEwMGQ2ZTMiLCJpc3MiOiJodHRwczovL2F1dGgucGlydmVsaS5jb20vcmVhbG1zL3hyYWNvb24tZGVtbyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiY2I1NjcyOC1mM2YxLTRmZjgtYTQ3ZC1kNGExOGFjMDgxOGMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjcy1jYXJ0Iiwic2Vzc2lvbl9zdGF0ZSI6IjViNzZjZjY0LTI4MmItNDIyNC1hNDI3LTA1YjJlZTAzMzU5YSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy14cmFjb29uLWRlbW8iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNWI3NmNmNjQtMjgyYi00MjI0LWE0MjctMDViMmVlMDMzNTlhIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX2lkIjoiYmNiNTY3MjgtZjNmMS00ZmY4LWE0N2QtZDRhMThhYzA4MThjIiwibmFtZSI6ImlyYWtsaSBvY2RhbWVydmUiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJpcmFrbGkyOEBnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiaXJha2xpIiwiZmFtaWx5X25hbWUiOiJvY2RhbWVydmUiLCJlbWFpbCI6ImlyYWtsaTI4QGdtYWlsLmNvbSJ9.BSDnwowOOfvFdUxWuHqZnculD_8cnSLTepetq34noNj21eWLMJP2VHUg6KPCnVMT0z6FXgWymN3SIzNjrWw2HyfKz1ErKKITxwZeS2GEbtTLFn698LSiYBk-Nu23r-q3KfZTalLVSpE1C98wk2iLVT-fs9cWPUmBUM61TiQHAQUMytZqVWsdaenfJXCK3hD6fLfujTR9EkLN1ZtF1c6LUjO3nSbQy1yi94Mz4xY6dM6sQA80yV0yOU1C1FWsgG2YGsI9kW5Cs-L4DiVA-J2SIXtXTBEgTNO2Uw0xQ2xTZ-B471YaeHnhFYBDYfYxbf-kC7chWO867sGKVxR1rdHong`
+    };
+    return config;
+  });
+
+  const getChosenAvatar = () => {
+
+    switch (parseInt(userInfo?.avatar?.path)) {
+      case 1:
+        return IMAGES.avatar1.src
+      case 2:
+        return IMAGES.avatar2.src
+      case 3:
+        return IMAGES.avatar3.src
+      case 4:
+        return IMAGES.avatar4.src
+      case 5:
+        return IMAGES.avatar5.src
+      case 6:
+        return IMAGES.avatar6.src
+      default :
+        return IMAGES.avatar1.src
+    }
+
+  }
 
   useOutsideAlerter(wrapperRef);
 
@@ -98,6 +120,12 @@ const Header: React.FC = () => {
   useEffect(() => {
 
     axios
+        .get(`https://vouchers.pirveli.com/api/user/user/detail-info`)
+        .then((res) => {
+          setUserInfo(res.data)
+        });
+
+    axios
         .get(`${baseApi}/user`)
         .then((res) => {
           setIsLogged(res.data)
@@ -120,7 +148,7 @@ const Header: React.FC = () => {
 
     if (chosenCategory?.categoryId) {
       axios
-          .get(`${baseApi}/vouchers?contractId=662&categoryId=${chosenCategory?.categoryId}`)
+          .get(`${baseApi}/vouchers?contractId=662&categoryId=${chosenCategory?.categoryId}&isValid=true`)
           .then((res) => {
             setCategoryVouchers(res.data)
           });
@@ -134,7 +162,7 @@ const Header: React.FC = () => {
       getData = setTimeout(() => {
         setIsLoading(true)
         axios
-            .get(`${baseApi}/vouchers?contractId=662&name=${term}`)
+            .get(`${baseApi}/vouchers?contractId=662&name=${term}&isValid=true`)
             .then((res) => {
               setFindData(res.data)
               setIsLoading(false)
@@ -204,7 +232,7 @@ const Header: React.FC = () => {
   const dropdownJsx = () => {
     return <div
         className={"flex rounded-xl flex-col w-[258px] min-h-[250px] bg-[white] px-6  py-5"}>
-      <p className={"text-[#383838] text-[18px] leading-[18px]"}>Vano Tvauri</p>
+      <p className={"text-[#383838] text-[18px] leading-[18px]"}>{userInfo.details.firstName} {userInfo.details.lastName}</p>
       <span
           className={"text-[#00000066] text-[14px] leading-[14px] mt-1"}>{points} ქულა</span>
       <div className={"w-full h-[1px] bg-[#D9D9D94D] my-4"}/>
@@ -346,8 +374,8 @@ const Header: React.FC = () => {
             {/*flex container max-h-[80px]*/}
             <div className={"max-h-[80px] py-4 container m-auto grid grid-row-1 grid-cols-4"}>
               {/*logo*/}
-              <div onClick={() => navTo("/")} className={"min-w-[380px] sm:min-w-[380px] max-h-[48px]"}>
-                <div className={"flex items-center min-w-[380px] sm:min-w-[380px] max-h-[48px]"}>
+              <div onClick={() => navTo("/")} className={"min-w-[220px] sm:min-w-[380px] max-h-[48px]"}>
+                <div className={"flex items-center min-w-[220px] sm:min-w-[380px] max-h-[48px]"}>
                   <Image
                       src={IMAGES.logo}
                       quality={50}
@@ -548,14 +576,18 @@ const Header: React.FC = () => {
                           <div className={"flex items-center h-[46px] "}>
                             {/*onClick={() => navToProfile()}*/}
                             <div
-                                className={"min-w-[48px] max-h-[48px] min-h-[48px] relative cursor-pointer"}>
-                              <Image layout={"fill"} height={48}
-                                     width={48}
-                                     src={IMAGES.avatar}/>
+                                className={"group min-w-[46px] h-[46px] mr-5 relative flex  items-center justify-center rounded-[50%] pb-[5px] cursor-pointer"}
+                                style={{
+                                  transition: "0.5s",
+                                  backgroundColor: "#" + userInfo?.avatar?.code
+                                }}>
+
+                              <img src={getChosenAvatar()}
+                                   alt={"avatar"}
+                                   style={{objectFit: "cover", height: "100%", width: "auto"}}/>
                             </div>
 
                             <div className={"h-full flex items-center relative  pl-3"}
-
                             >
                               <svg style={{
                                 transition: '0.5s',

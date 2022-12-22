@@ -45,7 +45,7 @@ export default function Company() {
 
   useEffect(() => {
     if (slug) {
-      axios.get(`${baseApi}/vouchers?contractId=662&providerName=${slug}`).then((res) => {
+      axios.get(`${baseApi}/vouchers?contractId=662&providerName=${slug}&isValid=true`).then((res) => {
         setVoucher(res.data)
       })
     }
@@ -118,7 +118,7 @@ export default function Company() {
             {/*company info*/}
             <div className={"rounded-xl ph:min-w-[360px]"}>
 
-              <div className={"sticky top-[130px] max-h-[calc(100vh_-_2rem)] overflow-scroll rounded-xl"}>
+              <div className={"sticky top-[130px] max-h-[calc(100vh_-_2rem)] overflow-scroll rounded-xl hidebar"}>
 
                 <div className={"h-[160px] w-full relative bg-[#d9d9d933] rounded-t-xl"}>
                   {images?.cover?.path ? <img src={images?.cover?.path}

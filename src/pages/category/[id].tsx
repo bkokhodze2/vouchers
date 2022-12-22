@@ -29,7 +29,7 @@ export default function Category({serverData}: any) {
     setIsLoading(true)
 
     if (Router?.query?.id) {
-      axios.get(`${baseApi}/vouchers?contractId=662&categoryId=${Router?.query?.id}&limit=100`).then((res) => {
+      axios.get(`${baseApi}/vouchers?contractId=662&categoryId=${Router?.query?.id}&limit=100&isValid=true`).then((res) => {
         setVouchers(res.data)
         setIsLoading(false)
       })
@@ -37,7 +37,7 @@ export default function Category({serverData}: any) {
 
     if (!!promo && Router?.query?.id) {
       axios
-          .get(`${baseApi}/vouchers?contractId=662&categoryId=${Router?.query?.id}&isPromo=1&limit=999`)
+          .get(`${baseApi}/vouchers?contractId=662&categoryId=${Router?.query?.id}&isPromo=1&limit=999&isValid=true`)
           .then((res) => {
             setPromo(res.data)
           });
@@ -74,9 +74,9 @@ export default function Category({serverData}: any) {
 
             {promo.length > 0 &&
 								<div className={"flex flex-col mt-[44px] md:mt-[40px]"}>
-									<div className={"ph:container h-min con pl-0px ph:p-auto ph:m-auto w-full"}>
+									<div className={"sm:container h-min con pl-0px ph:p-auto ph:m-auto w-full"}>
 										<h1
-												className={"text-[18px] pl-3 ph:pl-0 m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Popular
+												className={"text-[18px] pl-3 sm:pl-0 m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Popular
 											offers</h1>
 										<div className={"mt-4"}>
 											<OfferSlider data={promo}/>

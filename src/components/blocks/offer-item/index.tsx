@@ -42,23 +42,27 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
   let voucherSlug = _.get(data, 'additionalInfo[0].genericTransactionTypeId', "");
 
   const favourites = useSelector((state: any) => state.favourites);
-
   const dispatch = useDispatch();
 
   const addFav = (product: any) => {
     dispatch(addToFavourites(product));
   }
+  // console.log("dataaaaaaaa-------", data.useEndDate)
+  // console.log("---ax-------", new Date().getTime())
+  //
+  // if (data.useEndDate < new Date().getTime()) {
+  //   return undefined
+  // }
 
   useEffect(() => {
 
-    //
-    // if (data && _.get(data, 'additionalInfo[0].attachments', [])?.length > 0) {
-    //
-    //   setPhotos(_.get(data, 'additionalInfo[0].attachments', [])?.sort(function (x: any, y: any) {
-    //     return (x?.isMain === y?.isMain) ? 0 : x?.isMain ? -1 : 1;
-    //   })?.slice(0, 4))
-    // }
-    setPhotos(_.get(data, 'additionalInfo[0].attachments', [])?.slice(0, 4))
+    if (data && Array.isArray(_.get(data, 'additionalInfo[0].attachments', null))) {
+
+      setPhotos([..._.get(data, 'additionalInfo[0].attachments', [])]?.sort((x: any, y: any) => {
+        return (x?.isMain === y?.isMain) ? 0 : x?.isMain ? -1 : 1;
+      })?.slice(0, 4))
+    }
+    // setPhotos(_.get(data, 'additionalInfo[0].attachments', [])?.slice(0, 4))
 
   }, [data])
 

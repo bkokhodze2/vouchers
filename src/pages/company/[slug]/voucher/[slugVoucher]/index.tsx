@@ -55,6 +55,8 @@ export default function Details() {
   const [mainImg, setMainImg] = useState<any>({});
   const [errorAnim, setErrorAnim] = useState<boolean>(false);
 
+  const [isActive, setIsActive] = useState<boolean>(true);
+
   const cart = useSelector((state: any) => state.cart);
   const favourites = useSelector((state: any) => state.favourites);
   const dispatch = useDispatch();
@@ -85,6 +87,21 @@ export default function Details() {
     if (slugVoucher && slug) {
       axios.get(`${baseApi}/vouchers?contractId=662&providerName=${slug}&id=${slugVoucher}`).then((res) => {
         setVoucher(res.data)
+
+        console.log("raviii", _.get(res, 'data[0].additionalInfo[0].limitQuantity', -1), _.get(res, 'data[0].additionalInfo[0].soldQuantity', 0))
+
+        // data.useEndDate < new Date().getTime()
+
+        if ((_.get(res, 'data[0].useEndDate', 0) < new Date().getTime()) || (_.get(res, 'data[0].additionalInfo[0].limitQuantity', -1) === _.get(res, 'data[0].additionalInfo[0].soldQuantity', 0))) {
+          notification['warning']({
+            message: 'ვაუჩერი არ არის აქტიური',
+            placement: "top",
+            duration: 5
+          });
+          setIsActive(false);
+        } else {
+          setIsActive(true)
+        }
 
         if (res.data.length === 0) {
           Router.push("/");
@@ -291,7 +308,8 @@ export default function Details() {
 
   const RightSide = () => {
     return <div className={"h-full container m-auto lg:p-0 "}>
-      <div className={"bg-[transparent] lg:bg-[#ffffff66] rounded-xl p-0 lg:p-8 top-[150px] sticky overflow-y-scroll "}>
+      <div
+          className={"bg-[transparent] lg:bg-[#ffffff66] rounded-xl h-full lg:max-h-[calc(100vh_-_156px)] max-h-unset p-0 lg:p-8 top-[150px] sticky overflow-y-scroll hidebar"}>
         <div className={"grid grid-cols-2 grid-rows-1 bg-[white] w-full h-[48px] rounded-xl p-1"}>
           <div onClick={() => {
             setIsWithMoney(true)
@@ -438,22 +456,24 @@ export default function Details() {
         </div>
 
         {/* buy & cart buttons*/}
-        <div className={"grid grid-cols-2  gap-1 gap-x-[30px] gap-y-8 mt-8"}>
-          <div
-              className={"w-full min-h-[64px] rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
-              onClick={() => handleAddToCart(voucher)}>
-            <div className={"min-w-[15px] flex"}>
-              <Image src={ICONS.cart} className={"cursor-pointer"} alt={"cart icon"}/>
-            </div>
-            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>კალათაში</p>
-          </div>
-          <div
-              className={"w-full min-h-[64px] rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
-              onClick={() => {
+        {isActive && <div className={"grid grid-cols-2  gap-1 gap-x-[30px] gap-y-8 mt-8"}>
+					<div
+							className={"w-full min-h-[64px] rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
+							onClick={() => handleAddToCart(voucher)}>
+						<div className={"min-w-[15px] flex"}>
+							<Image src={ICONS.cart} className={"cursor-pointer"} alt={"cart icon"}/>
+						</div>
+						<p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>კალათაში</p>
+					</div>
+
+
+					<div
+							className={"w-full min-h-[64px] rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
+							onClick={() => {
                 addFav(voucher[0])
               }}
-          >
-            <div className={"min-w-[15px] flex"}>
+					>
+						<div className={"min-w-[15px] flex"}>
               {isFavourite ? <Image src={ICONS.heartPurple}
                                     quality={70}
                                     blurDataURL={IMAGES.placeholder.src}
@@ -467,9 +487,27 @@ export default function Details() {
                          className={"cursor-pointer"}
                          alt={"cart icon"}
                   />}
-            </div>
-            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>ფავორიტები</p>
-          </div>
+						</div>
+						<p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>ფავორიტები</p>
+					</div>
+
+          {/*{*/}
+          {/*    showPayType && !payType && <div className={"col-span-2 items-end flex justify-center overflow-hidden"}*/}
+          {/*		                                style={{*/}
+          {/*                                      height: payType.length === 0 ? "30px" : "0px",*/}
+          {/*                                      opacity: payType.length === 0 ? 1 : 0,*/}
+          {/*                                      transition: "0.3s linear all"*/}
+          {/*                                    }}*/}
+          {/*		>*/}
+          {/*			<p*/}
+          {/*					className={`animate__animated animate__fast ${errorAnim ? "animate__shakeX" : ""}`}*/}
+          {/*					style={{*/}
+          {/*            color: errorAnim ? "#ff4d4f" : "#383838",*/}
+          {/*            transition: ".2s linear all"*/}
+          {/*          }}*/}
+          {/*			>აირჩიეთ გადახდის მეთოდი</p>*/}
+          {/*		</div>*/}
+          {/*}*/}
 
 
           {isWithMoney && <>
@@ -512,7 +550,7 @@ export default function Details() {
                     bgColor={"#8338EC"}
                     classes={"!w-full aveSofRegular"}/>
           </div>}
-        </div>
+				</div>}
         {/* buy & cart buttons*/}
       </div>
     </div>
@@ -770,8 +808,8 @@ export default function Details() {
 
           </div>
           {vouchers.length > 0 && <div className={"flex w-full flex-col mt-[44px] md:mt-[44px] details"}>
-						<div className={"ph:container con pl-0px ph:p-auto ph:m-auto w-full"}>
-							<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Recommended</h1>
+						<div className={"sm:container con pl-0px ph:p-auto ph:m-auto w-full"}>
+							<h1 className={"text-[18px] pl-3 sm:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Recommended</h1>
 							<div className={"mt-4"}>
 								<OfferSlider data={vouchers}/>
 								<FreeScroll data={vouchers} miniHeight={true}/>

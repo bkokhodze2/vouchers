@@ -3,7 +3,7 @@ import Image from "next/image";
 // Import Swiper React components
 import {Swiper, SwiperSlide} from "swiper/react";
 // import required modules
-import {Lazy, Mousewheel, Navigation, Pagination} from "swiper";
+import {Autoplay, Lazy, Mousewheel, Navigation, Pagination} from "swiper";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
@@ -44,6 +44,10 @@ export default function OfferSlider({nav = true, loop = false, data}: IOfferSlid
         <Swiper
             slidesPerView={"auto"}
             spaceBetween={30}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: true,
+            }}
             breakpoints={{
               // when window width is >= 640px
               320: {
@@ -85,7 +89,7 @@ export default function OfferSlider({nav = true, loop = false, data}: IOfferSlid
             loopFillGroupWithBlank={true}
             loop={loop}
             lazy={true}
-            modules={[Pagination, Navigation, Lazy, Mousewheel]}
+            modules={[Pagination, Autoplay, Navigation, Lazy, Mousewheel]}
             className="offerSlider"
         >
           {Array.isArray(data) && data?.map((item: object, index: number) => {

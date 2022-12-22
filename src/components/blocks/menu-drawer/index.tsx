@@ -2,6 +2,7 @@ import React from "react"
 // @ts-ignore
 import {ICONS, IMAGES} from "public/images";
 import Image from "next/image"
+import {useRouter} from "next/router";
 
 interface IMenu {
   isOpenMenu: boolean
@@ -13,12 +14,16 @@ interface INavItem {
   iconSize?: number
   color?: string
   icon: any
+  url?: string
 }
 
 const MenuDrawer = ({isOpenMenu}: IMenu) => {
 
-  const NavItem = ({text, icon, iconSize = 15, bg = "#D9D9D933", color = "white"}: INavItem) => {
+  const Router = useRouter();
+
+  const NavItem = ({text, icon, iconSize = 15, bg = "#D9D9D933", color = "white", url = "/"}: INavItem) => {
     return <div className={"w-full h-[48px] p-4 flex items-center bg-[#F5CE5A] rounded-[8px] cursor-pointer "}
+                onClick={() => Router.push(url)}
                 style={{
                   backgroundColor: bg
                 }}
@@ -73,9 +78,10 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
           <div className={"mt-8"}>
             <h5 className={"text-[#38383880] aveSofRegular"}>Navigatioon</h5>
             <div className={" grid grid-cols-2 gap-3 mt-3"}>
-              <NavItem icon={ICONS.ecomerce} text={"E-commerce"} bg={"#F5CE5A"}/>
-              <NavItem icon={ICONS.medical} text={"Medical Card"} bg={"#7B92DC"}/>
-              <NavItem icon={ICONS.lotto} iconSize={20} text={"გათამაშება"} bg={"#56971F"}/>
+              <NavItem icon={ICONS.ecomerce} text={"მაღაზია"} url={'https://shop.pirveli.com'} bg={"#F5CE5A"}/>
+              <NavItem icon={ICONS.medical} text={"მედიქალი"} url={'https://medical.pirveli.com'} bg={"#7B92DC"}/>
+              <NavItem icon={ICONS.lotto} iconSize={20} url={'https://win.pirveli.com'} text={"გათამაშება"}
+                       bg={"#56971F"}/>
               <NavItem icon={ICONS.menuPercent} text={"Discounts"} bg={"#E35A43"}/>
             </div>
           </div>

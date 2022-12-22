@@ -231,7 +231,8 @@ export default function Cart({serverData, productCount}: any) {
 								<div className={"h-auto ph:min-w-[340px] xl:min-w-[360px] shrink-0 px-[16px] ph:px-0"}>
 									<h5 className={"text-[#383838] text-[28px] font-bold hidden ph:block aveSofBold"}>შეკვეთა</h5>
 
-									<div className={"sticky top-[130px] max-h-[628¬px] pb-[90px] md:pb:0 overflow-scroll rounded-xl"}>
+									<div
+											className={"sticky top-[130px] max-h-[628¬px] pb-[90px] md:pb:0 overflow-scroll rounded-xl hidebar"}>
 
 										<div className={"rounded-xl bg-[white] ph:px-6 mt-4 ph:pt-[30px] ph:pb-[54px] p-4"}>
 											<h5 className={"text-[#383838] text-[18px] font-bold block ph:hidden mb-[16px] aveSofBold"}>შეკვეთა</h5>

@@ -36,7 +36,7 @@ const GalleryScroll = ({data}: any) => {
     return <div
         key={idx}
         className={"min-w-[880px] max-w-[880px] relative  h-[546px] relative !ml-0 cursor-pointer"}
-        style={{marginLeft: `${idx === 0 ? '50px' : '0px'}`}}>
+        style={{marginLeft: `${idx === 0 ? '0px' : '0px'}`}}>
       <img
           src={_.get(data, 'path', [])}
           onClick={() => {
@@ -117,7 +117,7 @@ const GalleryScroll = ({data}: any) => {
                   galleryItem.push(
                       <div key={i + "l"} className={"flex"}>
                         <SwiperSlide key={i + "f"} className={"min-w-[880px] max-w-[880px] mr-[30px]"}
-                                     style={{marginLeft: `${i === 0 ? '50px' : '0px'}`}}
+                                     style={{marginLeft: `${i === 0 ? '16px' : '0px'}`}}
                         >
                           <Slide1 idx={i} data={images[i]}/>
                         </SwiperSlide>
