@@ -90,7 +90,10 @@ const Home: NextPage = ({serverData}: any) => {
 
               {/*Become Partner*/}
               <div className={"order-2 md:order-1 container p-4 py-0 ph:p-4 md:p-0 m-auto col-span-4 md:col-span-1"}>
-                <img src={IMAGES.leftBanner.src} alt={"left side banner"} className={"rounded-xl w-full h-full"}/>
+                <img src={IMAGES.leftBanner.src} alt={"left side banner"}
+                     className={"hidden sm:block rounded-xl w-full h-full"}/>
+                <img src={IMAGES.leftBannerMobile.src} alt={"left side leftBannerMobile"}
+                     className={"block sm:hidden rounded-xl w-full h-full"}/>
                 {/*<div*/}
                 {/*    // order-last*/}
                 {/*    className="relative min-h-[138px] md:min-h-unset bg-[white] py-0 md:py-4 lg:py-8 rounded-xl flex flex-row md:flex-col md:items-center overflow-hidden bg-no-repeat bg-top"*/}

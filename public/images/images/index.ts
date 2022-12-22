@@ -27,6 +27,7 @@ export {default as lookingFor} from './lookingFor.png';
 export {default as gif} from './skeleton-gif.gif';
 export {default as logo} from './logo.png';
 export {default as leftBanner} from './leftBanner.webp';
+export {default as leftBannerMobile} from './leftBannerMobile.webp';
 
 export {default as avatar1} from './avatars/avatar1.webp';
 export {default as avatar2} from './avatars/avatar2.webp';
