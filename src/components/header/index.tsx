@@ -323,6 +323,9 @@ const Header: React.FC = () => {
             className={"hidden md:flex w-full sticky top-[0px]  h-[44px] min-h-[44px] bg-[#1d1d1e] items-center z-20"}>
           <div className={"w-full container m-auto flex justify-between"}>
             <div className={"flex space-x-8"}>
+              <Link href={"https://pirveli.com"}>
+                <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular "}>მთავარი</span>
+              </Link>
               <Link href={"https://shop.pirveli.com"}>
                 <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular "}>მაღაზია</span>
               </Link>
