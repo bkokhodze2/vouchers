@@ -220,6 +220,11 @@ export default function Company() {
                       className={"w-full mt-6 bg-[white] p-6 top-[40px] space-y-5 rounded-xl transition duration-200 ease-in-out"}>
 
                     {
+                        _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).length == 0 &&
+												<p>სამუშაო საათები: 24/7</p>
+                    }
+
+                    {
                       _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).map((item: any, index: number) => {
                         return <div className={"flex justify-between"} key={index}>
                           <p className={"mr-6 text-[#383838b3] aveSofRegular"}>{getWeekByNumber(item.dayId)}</p>

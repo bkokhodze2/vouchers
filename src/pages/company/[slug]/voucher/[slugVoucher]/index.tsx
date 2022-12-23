@@ -694,6 +694,8 @@ export default function Details() {
 														<Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>}
                       </div>
                     </div>
+                    {_.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).length == 0 &&
+												<p>24/7</p>}
                     {_.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).length > 0 && <div
 												style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
 												className={"hidden md:block group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 right-0 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>

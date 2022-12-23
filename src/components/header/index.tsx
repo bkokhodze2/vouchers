@@ -30,6 +30,7 @@ import {getTotalsFavourite} from "../slices/favouritesSlice";
 import {getCategories} from "../slices/categoriesSlice";
 // @ts-ignore
 import Lari from "/public/images/icons/lari";
+import {getUserInfo} from "../slices/userSlice";
 
 interface Icategory {
   categoryId: number,
@@ -41,6 +42,7 @@ interface Icategory {
 const Header: React.FC = () => {
   const baseApi = process.env.baseApi;
   var timer1: any;
+
   const [IsLoading, setIsLoading] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false);
@@ -50,27 +52,29 @@ const Header: React.FC = () => {
   const [findData, setFindData] = useState<[]>([]);
   const [categoryVouchers, setCategoryVouchers] = useState<[any]>([null]);
   const [chosenCategory, setChosenCategory] = useState<any>({});
-  const [userInfo, setUserInfo] = useState<any>({});
   const [term, setTerm] = useState<string>("");
+
   const wrapperRef = useRef(null);
   const listRef = useRef<HTMLDivElement>(null);
-  const [searchForm] = Form.useForm();
-  const Router = useRouter();
+
   const dispatch = useDispatch();
+  const Router = useRouter();
+  const [searchForm] = Form.useForm();
 
   const cart = useSelector((state: any) => state.cart);
   const favourites = useSelector((state: any) => state.favourites);
   const categories = useSelector((state: any) => state.categories.categoriesList);
+  const userInfo = useSelector((state: any) => state.userInfo.userInfo);
 
-  // axios.interceptors.request.use((config) => {
-  //   config.headers = {
-  //     ...config.headers,
-  //     'Access-Control-Allow-Origin': '*',
-  //     'Content-Type': 'application/json',
-  //     Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJzRUNseXdhVnNxOURBMU1oMElNLTVFTUNsRU5WM1FMTnhuNlh1bDJoOVBnIn0.eyJleHAiOjE2NzE4MTQ2MDUsImlhdCI6MTY3MTc3ODYyOCwiYXV0aF90aW1lIjoxNjcxNzc4NjA1LCJqdGkiOiI2ZGI1NjAyYy01NTEzLTQ3MmQtYTE3Zi02M2U2Mjc2OWVjMzkiLCJpc3MiOiJodHRwczovL2F1dGgucGlydmVsaS5jb20vcmVhbG1zL3hyYWNvb24tZGVtbyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiY2I1NjcyOC1mM2YxLTRmZjgtYTQ3ZC1kNGExOGFjMDgxOGMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjcy1jYXJ0Iiwic2Vzc2lvbl9zdGF0ZSI6Ijc4YzkwZTQzLTFkMzAtNDM1NS04ZTMxLTBlNmVmODRmYWUwYiIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy14cmFjb29uLWRlbW8iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNzhjOTBlNDMtMWQzMC00MzU1LThlMzEtMGU2ZWY4NGZhZTBiIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX2lkIjoiYmNiNTY3MjgtZjNmMS00ZmY4LWE0N2QtZDRhMThhYzA4MThjIiwibmFtZSI6ImlyYWtsaSBvY2RhbWVydmUiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJpcmFrbGkyOEBnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiaXJha2xpIiwiZmFtaWx5X25hbWUiOiJvY2RhbWVydmUiLCJlbWFpbCI6ImlyYWtsaTI4QGdtYWlsLmNvbSJ9.I_Yhw45OK80hC2u-ApPFW6OOvAoUor7YSETGlkJK8yQBNzTELVmSFknCvBLVbugyRaoPilvkclq8a7M1iVuIzHWsOTEY-l-Zvi3h8dV7Plp1zIAbBJUt7ophWSvoORAw5g01lGu1_pKpcYipWL-RyQTcH7l_L-bXa7fnLQU5MsJzDwSyHMCm6pLGrH_U8cIQEthYGbslHg8-20VPMK38Z4uZ1MQQtcLniQUY2O_Fu5IxL9M87NY93Z-CoiftJ-_B6oPpAR1E2t_jow4abOMMZX1QVMFEva_w6NZycAMBoltI5wBiEfg-YaPJaKDUOihbAclX7TKn8bNDkhzcjZ3tfQ`
-  //   };
-  //   return config;
-  // });
+  axios.interceptors.request.use((config) => {
+    config.headers = {
+      ...config.headers,
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJzRUNseXdhVnNxOURBMU1oMElNLTVFTUNsRU5WM1FMTnhuNlh1bDJoOVBnIn0.eyJleHAiOjE2NzE4MjQ3NTIsImlhdCI6MTY3MTc4ODc2NywiYXV0aF90aW1lIjoxNjcxNzg4NzUyLCJqdGkiOiIwYzJiNTZmNy00OWY3LTQ4NmYtYmM5My04ZGU0ZWUwNGFiYTciLCJpc3MiOiJodHRwczovL2F1dGgucGlydmVsaS5jb20vcmVhbG1zL3hyYWNvb24tZGVtbyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI5Zjk2MzQ5Ni1lMzE5LTQ5NjAtYWMzMy1mZDYzNzJlZmFmNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjcy1jYXJ0Iiwic2Vzc2lvbl9zdGF0ZSI6IjNlNTVkZGEzLTMyZGYtNGI4ZS1iN2M4LWVkNjA2YjgwNzlkYSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy14cmFjb29uLWRlbW8iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiM2U1NWRkYTMtMzJkZi00YjhlLWI3YzgtZWQ2MDZiODA3OWRhIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX2lkIjoiOWY5NjM0OTYtZTMxOS00OTYwLWFjMzMtZmQ2MzcyZWZhZjc0IiwibmFtZSI6InZhdG8ga29idWxpYSIsInByZWZlcnJlZF91c2VybmFtZSI6ImNvbGxlci52YXRvQGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJ2YXRvIiwiZmFtaWx5X25hbWUiOiJrb2J1bGlhIiwiZW1haWwiOiJjb2xsZXIudmF0b0BnbWFpbC5jb20ifQ.LNxW7-OJBhdURbNwcyj9vApTHym92EnY682UPTOLCY2AMH1Ssy6YjV6ku1YRQtlsaar2fUV0IO_Hhp3IX7Qw2Yi9wCbSoMmUzFRpqgIsu2_6q8FHekjazS0uYVqG4XrCFBbb-ZJGFzbM7VW0d9haHcapyuCbsszcoEYvmpbP9La9ARyYqyj6z5ail4zY57mrTxWtWmcF3gVWMZfXpsTFRilSJtgo1dNxVgaHodMOfDmKtK-iyQtygl6B4LYJZT9m4UOC8YC_a97QKWfy5_2upd5Io3mMEdCNOsHlHBCCsASJ6rRjbOXlXGhhV5XQggxy22peA-q0ZuRl5uiZ06iL2A`
+    };
+    return config;
+  });
 
   const getChosenAvatar = () => {
 
@@ -118,11 +122,11 @@ const Header: React.FC = () => {
   }, [cart, favourites, dispatch]);
   useEffect(() => {
 
-    axios
-        .get(`https://vouchers.pirveli.com/api/user/user/detail-info`)
-        .then((res) => {
-          setUserInfo(res.data)
-        });
+    // axios
+    //     .get(`https://vouchers.pirveli.com/api/user/user/detail-info`)
+    //     .then((res) => {
+    //       setUserInfo(res.data)
+    //     });
 
     axios
         .get(`${baseApi}/user`)
@@ -141,7 +145,14 @@ const Header: React.FC = () => {
       dispatch(getCategories())
     }
 
+    if (!userInfo?.details) {
+      // @ts-ignore
+      dispatch(getUserInfo())
+    }
+
   }, [])
+
+  console.log("user--------", userInfo)
 
   useEffect(() => {
 
@@ -231,7 +242,7 @@ const Header: React.FC = () => {
   const dropdownJsx = () => {
     return <div
         className={"flex rounded-xl flex-col w-[258px] min-h-[250px] bg-[white] px-6  py-5"}>
-      <p className={"text-[#383838] text-[18px] leading-[18px]"}>{userInfo.details.firstName} {userInfo.details.lastName}</p>
+      <p className={"text-[#383838] text-[18px] leading-[18px]"}>{userInfo?.details?.firstName} {userInfo?.details?.lastName}</p>
       <span
           className={"text-[#00000066] text-[14px] leading-[14px] mt-1"}>{points} ქულა</span>
       <div className={"w-full h-[1px] bg-[#D9D9D94D] my-4"}/>
@@ -578,7 +589,7 @@ const Header: React.FC = () => {
                           <div className={"flex items-center h-[46px] "}>
                             {/*onClick={() => navToProfile()}*/}
                             <div
-                                className={"group min-w-[46px] h-[46px] mr-5 relative flex  items-center justify-center rounded-[50%] pb-[5px] cursor-pointer"}
+                                className={"group min-w-[46px] h-[46px] relative flex  items-center justify-center rounded-[50%] pb-[5px] cursor-pointer"}
                                 style={{
                                   transition: "0.5s",
                                   backgroundColor: "#" + userInfo?.avatar?.code
