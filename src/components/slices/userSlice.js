@@ -2,7 +2,7 @@ import {createAsyncThunk,createSlice} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const baseApi = process.env.baseApi;
-const url = `${baseApi}/user/user/detail-info`;
+const url = `https://vouchers.pirveli.com/api/user/user/detail-info`;
 
 const initialState = {
 	userInfo:{},
