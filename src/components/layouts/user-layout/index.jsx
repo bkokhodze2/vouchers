@@ -14,6 +14,8 @@ export default function Layout({children}){
 				<Provider store={store}>
 					<Head>
 						<title>Layouts Example</title>
+						<meta key="robots" name="robots" content="noindex,follow"/>
+						<meta key="googlebot" name="googlebot" content="noindex,follow"/>
 					</Head>
 					<Header/>
 					<main style={{

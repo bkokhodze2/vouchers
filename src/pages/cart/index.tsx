@@ -215,7 +215,7 @@ export default function Cart({serverData, productCount}: any) {
 									</div>
 									<p className={"!uppercase mt-10 text-[#383838] text-[28px] font-bold aveSofBold"}>კალათა ცარიელია</p>
 									<div onClick={() => Router.push('/')}>
-										<Button bgColor={"#383838"} textColor={"white"} text={"Back to home"}
+										<Button bgColor={"#383838"} textColor={"white"} text={"უკან დაბრუნება"}
 										        classes={"mt-6 aveSofRegular"}/>
 									</div>
 
