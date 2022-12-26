@@ -146,7 +146,7 @@ const SearchDrawer = ({isOpenSearch, setIsOpenSearch}: Isearch) => {
              right: isOpenSearch ? "0%" : "0%",
              top: isOpenSearch ? "calc(0% + 107px)" : "100%",
              // @ts-ignore
-             height: isOpenSearch ? use - 80 : "0%"
+             height: isOpenSearch ? use - 105 : "0%"
            }}
       >
 

@@ -572,3 +572,7 @@ body {
     bottom: 97px !important;
     right: 0px !important;
 }
+
+.reviewModal .ant-modal-content {
+    padding-top: 50px;
+}

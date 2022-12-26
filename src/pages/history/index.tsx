@@ -162,15 +162,17 @@ export default function History({serverData}: any) {
             </Form.Item>
 
             <Form.Item name={"comment"}>
-              <TextArea rows={4} placeholder={"Add Comment"}
+              <TextArea rows={4}
+                        style={{height: 120, resize: 'none'}}
+                        placeholder={"კომენტარი"}
                         className={"bg-[#d9d9d91a] rounded-[16px] border-none p-5"}/>
             </Form.Item>
 
             <div className={"flex justify-end mt-6 items-center"}>
-              <p className={"mr-10 text-[#383838] cursor-pointer"} onClick={handleCancel}>Cancel</p>
+              <p className={"mr-10 text-[#383838] cursor-pointer"} onClick={handleCancel}>გაუქმება</p>
               <button type={"submit"}
                       className={"flex justify-center items-center rounded-xl bg-purple py-4 px-10 cursor-pointer"}>
-                <p className={"text-[white]"}>Add Review</p>
+                <p className={"text-[white]"}>კომენტარის დამატება</p>
               </button>
             </div>
 
@@ -215,8 +217,8 @@ export default function History({serverData}: any) {
             {/*company info*/}
 
             <div className={"col-span-1 md:col-span-3"}>
-              <h2 className={"capitalize text-[#383838] text-[28px] font-bold leading-[28px] hidden ph:flex"}>order
-                history</h2>
+              <h2 className={"capitalize text-[#383838] text-[28px] font-bold leading-[28px] hidden ph:flex"}>შეკვეთების
+                ისტორია</h2>
               <div
                   className={"mt-0 ph:mt-4 w-full bg-white rounded-[16px] space-y-[16px] ph:space-y-[30px] flex flex-col"}>
                 {[1, 2, 3, 4, 5, 6].map((e, index) => {
@@ -224,7 +226,6 @@ export default function History({serverData}: any) {
                 })}
               </div>
             </div>
-
           </div>
         </div>
       </>
