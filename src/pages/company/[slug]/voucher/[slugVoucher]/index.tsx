@@ -202,7 +202,7 @@ export default function Details() {
             ,
             "locale": "ka",
             "shop_order_id": "123456",
-            "redirect_url": "https://bog-banking.pirveli.com/api/bog/callback/statusChange",
+            "redirect_url": "https://vouchers.pirveli.com",
             "show_shop_order_id_on_extract": true,
             "capture_method": "AUTOMATIC",
             "purchase_units": [
