@@ -351,13 +351,13 @@ const Header: React.FC = () => {
                 </div>
               </Link>
 
-              <Link href={"https://win.pirveli.com"}>
+              <a href={"http://s3.pirveli.com/v1/api/getFile?id=6555"} target={"_blank"} rel="noopener noreferrer">
                 <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>გათამაშება</span>
-              </Link>
+              </a>
 
-              <Link href={"https://www.game.pirveli.com"}>
+              <a href={"http://s3.pirveli.com/v1/api/getFile?id=6556"} target={"_blank"} rel="noopener noreferrer">
                 <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>თამაშები</span>
-              </Link>
+              </a>
             </div>
 
             <div className={"flex"}>
