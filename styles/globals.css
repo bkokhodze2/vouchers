@@ -576,3 +576,19 @@ body {
 .reviewModal .ant-modal-content {
     padding-top: 50px;
 }
+
+.search .ant-radio-checked .ant-radio-inner {
+    border-color: #8338EC;
+    background-color: #8338EC;
+    width: 21px;
+    height: 21px;
+}
+
+.search .ant-radio-inner {
+    width: 21px;
+    height: 21px;
+}
+
+.ant-btn-primary {
+    background-color: #8338EC;
+}
