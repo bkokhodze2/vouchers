@@ -117,6 +117,11 @@ const Header: React.FC = () => {
   }
 
   useEffect(() => {
+
+    // if (typeof window !== 'undefined') {
+    //   document.body.classList.add('active');
+    // }
+
     dispatch(getTotals({}));
     dispatch(getTotalsFavourite({}))
   }, [cart, favourites, dispatch]);

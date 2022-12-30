@@ -88,7 +88,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
           }} className={" flex-col items-start bg-[transparent] relative select-none w-full"}>
 
             <div
-                className={"sm:h-[40px] h-[34px] z-10 bg-[#8338EC] absolute top-5 left-4 sm:px-[21px] px-4 rounded-[100px] flex items-center"}>
+                className={"sm:h-[40px] h-[34px] z-10 bg-[#E35A43] absolute top-5 left-4 sm:px-[21px] px-4 rounded-[12px] flex items-center"}>
               <p
                   className={"text-[white] text-xs sm:text-base aveSofRegular"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))}
                 %</p>

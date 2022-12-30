@@ -262,8 +262,8 @@ const Home: NextPage = ({serverData}: any) => {
                          loading={"lazy"}
                          alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>Tourism</h4>
-                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>ტურიზმი</h4>
+                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 შეთავაზება</p>
                 </div>
               </Link>
 
@@ -283,8 +283,8 @@ const Home: NextPage = ({serverData}: any) => {
                          loading={"lazy"}
                          alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>beauty</h4>
-                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>სილამაზე</h4>
+                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 შეთავაზება</p>
                 </div>
               </Link>
 
@@ -304,8 +304,8 @@ const Home: NextPage = ({serverData}: any) => {
                          loading={"lazy"}
                          alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>food</h4>
-                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>კვება</h4>
+                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 შეთავაზება</p>
                 </div>
               </Link>
 
@@ -325,19 +325,19 @@ const Home: NextPage = ({serverData}: any) => {
                          loading={"lazy"}
                          alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>entertainment</h4>
-                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>გართობა</h4>
+                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 შეთავაზება</p>
                 </div>
               </Link>
 
 
-              <Link href={"/category/12"}>
+              <Link href={"/category/11"}>
                 <div
                     className={"cursor-pointer flex justify-center flex-col bg-[white] w-full max-w-[166px] min-w-[166px] max-h-[198px] md:max-w-[230px] md:min-w-[230px] md:max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div
                       className={"bg-[#56971F] w-[400px] h-[400px] rounded-[50%] absolute -top-[170%] md:-top-[110%]"}/>
                   <div className={"mt-1 w-full h-auto z-10 flex justify-center"}>
-                    <img src={IMAGES.pool.src}
+                    <img src={IMAGES.children.src}
                          placeholder="blur"
                          style={{
                            objectFit: "cover"
@@ -346,18 +346,18 @@ const Home: NextPage = ({serverData}: any) => {
                          loading={"lazy"}
                          alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>pool</h4>
-                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>საბავშვო</h4>
+                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 შეთავაზება</p>
                 </div>
               </Link>
 
-              <Link href={"/category/7"}>
+              <Link href={"/category/10"}>
                 <div
                     className={"cursor-pointer flex justify-center flex-col bg-[white] w-full max-w-[166px] min-w-[166px] max-h-[198px] md:max-w-[230px] md:min-w-[230px] md:max-h-[268px] bg-[white] rounded-xl items-center pb-6 relative overflow-hidden"}>
                   <div
                       className={"bg-[#7B92DC] w-[400px] h-[400px] rounded-[50%] absolute -top-[170%] md:-top-[110%]"}/>
                   <div className={"mt-1 w-full h-auto z-10 flex justify-center"}>
-                    <img src={IMAGES.electronic.src}
+                    <img src={IMAGES.education.src}
                          placeholder="blur"
                          style={{
                            objectFit: "cover"
@@ -366,8 +366,8 @@ const Home: NextPage = ({serverData}: any) => {
                          loading={"lazy"}
                          alt={"bag image"}/>
                   </div>
-                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>electronic</h4>
-                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 offer</p>
+                  <h4 className={"font-bold z-10 text-[18px] text-[#383838] mt-1 flex-1 aveSofBold"}>განათლება</h4>
+                  <p className={"font-[400] z-10 text-base text-[#38383880] mt-2 aveSofRegular"}>203 შეთავაზება</p>
                 </div>
               </Link>
             </div>

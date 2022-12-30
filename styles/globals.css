@@ -566,12 +566,16 @@ body {
 /*.tabDescription span, .tabDescription p, .tabDescription b, .tabDescription a, .tabDescription strong, .tabDescription div {*/
 /*    font-family: avenirMedium, serif !important;*/
 /*}*/
-
-
 #bwc-widget-action {
     bottom: 97px !important;
     right: 0px !important;
 }
+
+
+.active #bwc-widget-action {
+    display: none !important;
+}
+
 
 .reviewModal .ant-modal-content {
     padding-top: 50px;
