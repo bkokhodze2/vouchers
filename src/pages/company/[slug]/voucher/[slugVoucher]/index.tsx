@@ -31,7 +31,6 @@ import {addToCartWithQuantity, getTotals,} from "../../../../../components/slice
 import {addToFavourites, getTotalsFavourite} from "../../../../../components/slices/favouritesSlice";
 import FreeScroll from "../../../../../components/UI/slider/free-scroll";
 
-
 const CountDown = dynamic(
     () => import("../../../../../components/UI/count-down"),
     {ssr: false}
@@ -309,7 +308,7 @@ export default function Details() {
   const RightSide = () => {
     return <div className={"h-full container m-auto lg:p-0 "}>
       <div
-          className={"bg-[transparent] lg:bg-[#ffffff66] rounded-xl h-full lg:max-h-[calc(100vh_-_156px)] max-h-unset p-0 lg:p-8 top-[150px] sticky overflow-y-scroll hidebar"}>
+          className={"bg-[transparent] lg:bg-[#ffffff66] rounded-xl p-0 lg:p-8 overflow-y-scroll hidebar"}>
         <div className={"grid grid-cols-2 grid-rows-1 bg-[white] w-full h-[48px] rounded-xl p-1"}>
           <div onClick={() => {
             setIsWithMoney(true)
@@ -456,7 +455,7 @@ export default function Details() {
         </div>
 
         {/* buy & cart buttons*/}
-        {isActive && <div className={"grid grid-cols-2  gap-1 gap-x-[30px] gap-y-8 mt-8"}>
+        {isActive && <div className={"grid grid-cols-2 gap-1 gap-x-[30px] gap-y-8 mt-8"}>
 					<div
 							className={"w-full min-h-[64px] rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
 							onClick={() => handleAddToCart(voucher)}>
@@ -465,7 +464,6 @@ export default function Details() {
 						</div>
 						<p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>კალათაში</p>
 					</div>
-
 
 					<div
 							className={"w-full min-h-[64px] rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
@@ -583,7 +581,6 @@ export default function Details() {
 
                 <div className={"flex items-center h-full "}>
                   {_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "").includes("https://") &&
-
 											<div className={"cursor-pointer w-11 flex justify-center items-center cursor-pointer"}>
 												<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
 												      target={"_blank"}>
@@ -725,7 +722,6 @@ export default function Details() {
 
                   </div>
 
-
                   {/*working hours*/}
 
                   {/*location dropdown*/}
@@ -800,26 +796,22 @@ export default function Details() {
                 {/*reviews*/}
               </div>
               {/*left side*/}
-
               <div className={"hidden lg:block w-[450px] shrink-0"}><RightSide/></div>
             </div>
-
             {/*recommended*/}
-
             {/*recommended*/}
-
           </div>
-          {vouchers.length > 0 && <div className={"flex w-full flex-col mt-[44px] md:mt-[44px] details"}>
-						<div className={"sm:container con pl-0px ph:p-auto ph:m-auto w-full"}>
-							<h1 className={"text-[18px] pl-3 sm:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Recommended</h1>
-							<div className={"mt-4"}>
-								<OfferSlider data={vouchers}/>
-								<FreeScroll data={vouchers} miniHeight={true}/>
-
+          {
+              vouchers.length > 0 && <div className={"flex w-full flex-col mt-[44px] md:mt-[44px] details"}>
+								<div className={"sm:container con pl-0px ph:p-auto ph:m-auto w-full"}>
+									<h1 className={"text-[18px] pl-3 sm:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Recommended</h1>
+									<div className={"mt-4"}>
+										<OfferSlider data={vouchers}/>
+										<FreeScroll data={vouchers} miniHeight={true}/>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>}
-
+          }
         </div>
       </>
   )

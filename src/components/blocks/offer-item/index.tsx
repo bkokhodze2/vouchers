@@ -145,7 +145,9 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                               <LazyLoadImage src={item.path}
                                              alt={"slider img"}
                                              width={360}
-                                             onLoad={() => {
+                                             threshold={500}
+                                             effect="blur"
+                                             afterLoad={() => {
                                                setIsLoaded(true)
                                              }}
                                              style={{objectFit: "cover"}}
@@ -155,8 +157,25 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                           </Link>
                         })
                   }
-
                 </Carousel>
+
+
+                {/*<Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>*/}
+                {/*  <div className={"relative h-full"}>*/}
+                {/*    <LazyLoadImage src={_.get(photos, '[0].path', "")}*/}
+                {/*                   alt={"slider img"}*/}
+                {/*                   width={360}*/}
+                {/*                   threshold={1000}*/}
+                {/*                   effect="blur"*/}
+                {/*        // effect={"blur"}*/}
+                {/*                   afterLoad={() => {*/}
+                {/*                     setIsLoaded(true)*/}
+                {/*                   }}*/}
+                {/*                   style={{objectFit: "cover"}}*/}
+                {/*        // loading="lazy"*/}
+                {/*                   className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>*/}
+                {/*  </div>*/}
+                {/*</Link>*/}
               </div>
             </div>
 

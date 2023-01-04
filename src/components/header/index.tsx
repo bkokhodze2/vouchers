@@ -32,7 +32,7 @@ import {getCategories} from "../slices/categoriesSlice";
 import Lari from "/public/images/icons/lari";
 import {getUserInfo} from "../slices/userSlice";
 
-interface Icategory {
+interface ICategory {
   categoryId: number,
   categoryName: string,
   offersQuantity: number
@@ -158,8 +158,6 @@ const Header: React.FC = () => {
 
   }, [])
 
-  console.log("user--------", userInfo)
-
   useEffect(() => {
 
     if (chosenCategory?.categoryId) {
@@ -199,18 +197,8 @@ const Header: React.FC = () => {
     setTerm('');
   }
 
-
   const navToProfile = () => {
     typeof window !== 'undefined' && window.open("https://profile.pirveli.com/", '_self');
-
-
-    // axios
-    //     .post(`${baseApi}/logout`)
-    //     .then((res) => {
-    //       console.log("logout", res.data)
-    //
-    //     });
-
   }
 
   const onFinish = (values: any) => {
@@ -662,7 +650,7 @@ const Header: React.FC = () => {
 
                 {/*sub categories*/}
                 <div className={"flex items-center space-x-[20px] ml-[20px] sm:space-x-[40px] sm:ml-[40px]"}>
-                  {Array.isArray(categories) && categories?.filter((item: any) => item?.parentCategoryId === null).map((item: Icategory, index: number) => {
+                  {Array.isArray(categories) && categories?.filter((item: any) => item?.parentCategoryId === null).map((item: ICategory, index: number) => {
                     return <div className={"relative"} key={index}
                                 onMouseOver={() => {
                                   timer1 = setTimeout(function () {
@@ -740,64 +728,59 @@ const Header: React.FC = () => {
         </header>
         {/*//burgerMenu*/}
         {!isOpenSearch && !Router.pathname.includes("/company") &&
-						<div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0"}
+						<div className={"bar h-[56px] bg-[white] w-full block md:hidden fixed bottom-0 py-[7px]"}
 						     style={{
                    zIndex: 999
                  }}
 						>
-							<div className={"grid grid-cols-5 pt-3"}>
-								<div onClick={() => navTo("/")}>
-									<div className={"flex flex-col items-center justify-between"}
-									     onClick={() => {
-                         setIsOpenMenu(false)
-                         setIsOpenSearch(false)
-                       }}
-									>
-										<Home color={!isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"}/>
-										<p className={"mt-[7px] text-[10px] aveSofMedium"}
-										   style={{
-                         color: !isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"
-                       }}
-										>Home</p>
-									</div>
+							<div className={"grid grid-cols-5 "}>
+								<div className={"flex flex-col items-center justify-between"}
+								     onClick={() => {
+                       setIsOpenMenu(false)
+                       setIsOpenSearch(false)
+                       navTo("/")
+                     }}
+								>
+									<Home color={!isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"}/>
+									<p className={"leading-[14px]  text-[10px] aveSofMedium"}
+									   style={{
+                       color: !isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"
+                     }}
+									>Home</p>
 								</div>
 
-								<div className={"flex flex-col items-center justify-between pt-0.5"}
+								<div className={"flex flex-col items-center justify-between"}
 								     onClick={() => {
                        setIsOpenMenu(false)
                        setIsOpenSearch(true)
                      }}
 								>
 									<Search color={isOpenSearch ? "#8338EC" : "#383838"}/>
-									<p className={"mt-[7px] text-[10px] text-[#383838] aveSofMedium"}
+									<p className={" text-[10px] leading-[14px] text-[#383838] aveSofMedium"}
 									   style={{
                        color: isOpenSearch ? "#8338EC" : "#383838"
                      }}
 									>Search</p>
 								</div>
-								<div onClick={() => navTo("/wishlist")}>
-									<div className={"flex flex-col items-center justify-between"}>
-										<BarHeart
-												color={!isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"}/>
-										<p
-												style={{
-                          color: !isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"
-                        }}
-												className={"mt-[7px] text-[10px] text-[#383838] aveSofMedium"}
-										>Wishlist</p>
-									</div>
+								<div onClick={() => navTo("/wishlist")} className={"flex flex-col items-center justify-between"}>
+									<BarHeart
+											color={!isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"}/>
+									<p
+											style={{
+                        color: !isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"
+                      }}
+											className={" text-[10px] text-[#383838] aveSofMedium"}
+									>Wishlist</p>
 								</div>
-								<div onClick={() => navTo("/cart")}>
-									<div className={"flex flex-col items-center justify-between"}>
-										<Basket
-												color={!isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"}/>
-										<p
-												style={{
-                          color: !isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"
-                        }}
-												className={"mt-[7px] text-[10px] text-[#383838] aveSofMedium"}
-										>კალათა</p>
-									</div>
+								<div onClick={() => navTo("/cart")} className={"flex flex-col items-center justify-between"}>
+									<Basket
+											color={!isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"}/>
+									<p
+											style={{
+                        color: !isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"
+                      }}
+											className={"leading-[14px] text-[10px] text-[#383838] aveSofMedium"}
+									>კალათა</p>
 								</div>
 								<div
 										onClick={() => {
@@ -806,7 +789,7 @@ const Header: React.FC = () => {
                     }}
 										className={"flex flex-col items-center justify-between"}>
 									<Menu color={isOpenMenu ? "#8338EC" : "#383838"}/>
-									<p className={"mt-[7px] text-[10px] aveSofMedium"}
+									<p className={"leading-[14px]  text-[10px] aveSofMedium"}
 									   style={{
                        color: isOpenMenu ? "#8338EC" : "#383838"
                      }}

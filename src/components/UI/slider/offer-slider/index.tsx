@@ -45,7 +45,7 @@ export default function OfferSlider({nav = true, loop = false, data}: IOfferSlid
             slidesPerView={"auto"}
             spaceBetween={30}
             autoplay={{
-              delay: 3000,
+              delay: 5000,
               disableOnInteraction: true,
             }}
             breakpoints={{
