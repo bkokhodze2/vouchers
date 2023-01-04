@@ -144,9 +144,9 @@ const SearchDrawer = ({isOpenSearch, setIsOpenSearch}: Isearch) => {
              overflow: "hidden",
              transition: "all 0.3s ease-in-out 0s",
              right: isOpenSearch ? "0%" : "0%",
-             top: isOpenSearch ? "calc(0% + 80px)" : "100%",
+             top: isOpenSearch ? "calc(0% + 107px)" : "100%",
              // @ts-ignore
-             height: isOpenSearch ? use - 80 : "0%"
+             height: isOpenSearch ? use - 105 : "0%"
            }}
       >
 

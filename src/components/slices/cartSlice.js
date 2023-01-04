@@ -148,7 +148,7 @@ const cartSlice = createSlice({
 			let {totalPoint,quantityPoint} = filteredPoints.reduce(
 					(cartTotal,cartItem) => {
 
-						const price = _.get(cartItem,'[0].entries[0].entryAmount',0) * _.get(cartItem,'[0].entries[0].multiplier',0)
+						const price = _.get(cartItem,'[0].entries[0].entryAmount',0) / _.get(cartItem,'[0].entries[0].multiplier',0)
 
 						const cartQuantity = cartItem.cartQuantity;
 

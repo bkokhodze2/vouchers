@@ -21,16 +21,22 @@ const GalleryScroll = ({data}: any) => {
   const [isVisibleDrawer, setIsVisibleDrawer] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [images, setImages] = useState<any>([..._.get(data, '[0]additionalInfo[0].attachments', [])]);
 
-  const images = [
-    ..._.get(data, '[0]additionalInfo[0].attachments', [])
-  ]
+
+  useEffect(() => {
+
+    setImages(_.get(data, '[0]additionalInfo[0].attachments', []).sort(function (x: any, y: any) {
+      return (x.isMain === y.isMain) ? 0 : x.isMain ? -1 : 1;
+    }))
+
+  }, [data])
 
   const Slide1 = ({idx, data}: any) => {
     return <div
         key={idx}
         className={"min-w-[880px] max-w-[880px] relative  h-[546px] relative !ml-0 cursor-pointer"}
-        style={{marginLeft: `${idx === 0 ? '50px' : '0px'}`}}>
+        style={{marginLeft: `${idx === 0 ? '0px' : '0px'}`}}>
       <img
           src={_.get(data, 'path', [])}
           onClick={() => {
@@ -111,7 +117,7 @@ const GalleryScroll = ({data}: any) => {
                   galleryItem.push(
                       <div key={i + "l"} className={"flex"}>
                         <SwiperSlide key={i + "f"} className={"min-w-[880px] max-w-[880px] mr-[30px]"}
-                                     style={{marginLeft: `${i === 0 ? '50px' : '0px'}`}}
+                                     style={{marginLeft: `${i === 0 ? '16px' : '0px'}`}}
                         >
                           <Slide1 idx={i} data={images[i]}/>
                         </SwiperSlide>
@@ -140,7 +146,7 @@ const GalleryScroll = ({data}: any) => {
               modules={[Pagination, Lazy]}
               className="mySwiper detailsSwiper"
           >
-            {images.map((e, index) => {
+            {images.map((e: any, index: any) => {
               return <SwiperSlide key={"swiper" + index}>
                 <LazyLoadImage
                     src={_.get(images, `[${index}].path`, [])}

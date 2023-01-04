@@ -22,7 +22,7 @@ export default function Search({serverData}: any) {
   useEffect(() => {
 
     if (slug) {
-      axios.get(`${baseApi}/vouchers?contractId=662&name=${slug}`).then((res) => {
+      axios.get(`${baseApi}/vouchers?contractId=662&name=${slug}&isValid=true`).then((res) => {
         setVouchers(res.data)
       })
     }

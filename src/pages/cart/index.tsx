@@ -7,7 +7,7 @@ import React, {useEffect, useState} from "react";
 import Lari from "/public/images/icons/lari";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {getTotals,} from "../../components/slices/cartSlice";
+import {getTotals} from "../../components/slices/cartSlice";
 import dynamic from "next/dynamic";
 import _ from "lodash";
 import Image from "next/image";
@@ -75,7 +75,7 @@ export default function Cart({serverData, productCount}: any) {
           ,
           "locale": "ka",
           "shop_order_id": "123456",
-          "redirect_url": "https://bog-banking.pirveli.ge/api/bog/callback/statusChange",
+          "redirect_url": "https://vouchers.pirveli.com",
           "show_shop_order_id_on_extract": true,
           "capture_method": "AUTOMATIC",
           "purchase_units": [
@@ -88,7 +88,7 @@ export default function Cart({serverData, productCount}: any) {
           ]
         }
       }
-      axios.post(`https://vouchers.pirveli.ge/api/bog/orders`, bogObj).then((res) => {
+      axios.post(`https://vouchers.pirveli.com/api/bog/orders`, bogObj).then((res) => {
         let link = res.data.links[1].href;
         typeof window !== 'undefined' && window.open(link, '_blank');
 
@@ -114,18 +114,18 @@ export default function Cart({serverData, productCount}: any) {
             "tax": 0,
             "shipping": 0
           },
-          "returnurl": "https://vouchers.pirveli.ge/success",
+          "returnurl": "https://vouchers.pirveli.com/success",
           "userIpAddress": "127.0.0.1",
           "methods": [5],
           "expirationMinutes": "5",
-          "callbackUrl": "https://vouchers.pirveli.ge/success",
+          "callbackUrl": "https://vouchers.pirveli.com/success",
           "preAuth": false,
           "language": "EN",
           "merchantPaymentId": "1",
           "saveCard": false
         }
       }
-      axios.post(`https://vouchers.pirveli.ge/api/tbc/payments`, tbcObj).then((res) => {
+      axios.post(`https://vouchers.pirveli.com/api/tbc/payments`, tbcObj).then((res) => {
         let link = res.data.links[1].uri;
         typeof window !== 'undefined' && window.open(link, '_blank');
 
@@ -146,7 +146,7 @@ export default function Cart({serverData, productCount}: any) {
         "items": arr.map((e: any) => {
           return {
             "productName": _.get(e, '[0].additionalInfo[0].provider.name', ""),
-            "itemPrice": _.get(e, '[0].entries[0].entryAmount', 1) * _.get(e, '[0].entries[0].multiplier', 0),
+            "itemPrice": _.get(e, '[0].entries[0].entryAmount', 1) / _.get(e, '[0].entries[0].multiplier', 0),
             "quantity": _.get(e, 'cartQuantity', 1),
             "voucherId": _.get(e, '[0].additionalInfo[0].genericTransactionTypeId', 1)
           }
@@ -159,11 +159,16 @@ export default function Cart({serverData, productCount}: any) {
         notification['success']({
           message: 'თქვენ წარმატებით შეიძინეთ ვაუჩერი',
         });
+
+        // arr.map((e: any) => {
+        //   removeFromCart(e);
+        // })
+
         Router.push("/")
 
       }).catch((res) => {
         notification['error']({
-          message: 'დაფიქსირდა შეცდომა',
+          message: 'თქვენს ანგარიშზე არ არის საკმარისი ქულები',
         });
       })
     }
@@ -210,7 +215,7 @@ export default function Cart({serverData, productCount}: any) {
 									</div>
 									<p className={"!uppercase mt-10 text-[#383838] text-[28px] font-bold aveSofBold"}>კალათა ცარიელია</p>
 									<div onClick={() => Router.push('/')}>
-										<Button bgColor={"#383838"} textColor={"white"} text={"Back to home"}
+										<Button bgColor={"#383838"} textColor={"white"} text={"უკან დაბრუნება"}
 										        classes={"mt-6 aveSofRegular"}/>
 									</div>
 
@@ -226,7 +231,8 @@ export default function Cart({serverData, productCount}: any) {
 								<div className={"h-auto ph:min-w-[340px] xl:min-w-[360px] shrink-0 px-[16px] ph:px-0"}>
 									<h5 className={"text-[#383838] text-[28px] font-bold hidden ph:block aveSofBold"}>შეკვეთა</h5>
 
-									<div className={"sticky top-[130px] max-h-[628¬px] pb-[90px] md:pb:0 overflow-scroll rounded-xl"}>
+									<div
+											className={"sticky top-[130px] max-h-[628¬px] pb-[90px] md:pb:0 overflow-scroll rounded-xl hidebar"}>
 
 										<div className={"rounded-xl bg-[white] ph:px-6 mt-4 ph:pt-[30px] ph:pb-[54px] p-4"}>
 											<h5 className={"text-[#383838] text-[18px] font-bold block ph:hidden mb-[16px] aveSofBold"}>შეკვეთა</h5>

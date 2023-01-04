@@ -34,18 +34,37 @@ interface IOfferItem {
 
 const OfferItem = ({data, miniHeight}: IOfferItem) => {
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
+  const [photos, setPhotos] = useState<any>([]);
+
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   let companySlug = _.get(data, 'additionalInfo[0].provider.name', "").replaceAll(' ', '-');
   let voucherSlug = _.get(data, 'additionalInfo[0].genericTransactionTypeId', "");
 
   const favourites = useSelector((state: any) => state.favourites);
-
   const dispatch = useDispatch();
 
   const addFav = (product: any) => {
     dispatch(addToFavourites(product));
   }
+  // console.log("dataaaaaaaa-------", data.useEndDate)
+  // console.log("---ax-------", new Date().getTime())
+  //
+  // if (data.useEndDate < new Date().getTime()) {
+  //   return undefined
+  // }
+
+  useEffect(() => {
+
+    if (data && Array.isArray(_.get(data, 'additionalInfo[0].attachments', null))) {
+
+      setPhotos([..._.get(data, 'additionalInfo[0].attachments', [])]?.sort((x: any, y: any) => {
+        return (x?.isMain === y?.isMain) ? 0 : x?.isMain ? -1 : 1;
+      })?.slice(0, 4))
+    }
+    // setPhotos(_.get(data, 'additionalInfo[0].attachments', [])?.slice(0, 4))
+
+  }, [data])
 
   useEffect(() => {
     setIsFavourite(false);
@@ -69,7 +88,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
           }} className={" flex-col items-start bg-[transparent] relative select-none w-full"}>
 
             <div
-                className={"sm:h-[40px] h-[34px] z-10 bg-[#8338EC] absolute top-5 left-4 sm:px-[21px] px-4 rounded-[100px] flex items-center"}>
+                className={"sm:h-[40px] h-[34px] z-10 bg-[#E35A43] absolute top-5 left-4 sm:px-[21px] px-4 rounded-[12px] flex items-center"}>
               <p
                   className={"text-[white] text-xs sm:text-base aveSofRegular"}>- {Math.round(_.get(data, 'additionalInfo[0].percentage', 0))}
                 %</p>
@@ -105,7 +124,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
               }}>
                 <Carousel infiniteLoop showThumbs={false} swipeable={true} className={""}>
                   {
-                    _.get(data, 'additionalInfo[0].attachments', []).length === 0 ?
+                    photos?.length === 0 ?
                         <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
                           <div className={"relative h-full"}>
                             <Image src={slider?.src}
@@ -120,14 +139,15 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                                    className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
                           </div>
                         </Link>
-                        :
-                        _.get(data, 'additionalInfo[0].attachments', []).slice(0, 4).map((item: any, index: number) => {
+                        : photos.map((item: any, index: number) => {
                           return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`} key={index}>
                             <div className={"relative h-full"}>
-                              <LazyLoadImage src={item?.path}
+                              <LazyLoadImage src={item.path}
                                              alt={"slider img"}
                                              width={360}
-                                             onLoad={() => {
+                                             threshold={500}
+                                             effect="blur"
+                                             afterLoad={() => {
                                                setIsLoaded(true)
                                              }}
                                              style={{objectFit: "cover"}}
@@ -138,6 +158,24 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                         })
                   }
                 </Carousel>
+
+
+                {/*<Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>*/}
+                {/*  <div className={"relative h-full"}>*/}
+                {/*    <LazyLoadImage src={_.get(photos, '[0].path', "")}*/}
+                {/*                   alt={"slider img"}*/}
+                {/*                   width={360}*/}
+                {/*                   threshold={1000}*/}
+                {/*                   effect="blur"*/}
+                {/*        // effect={"blur"}*/}
+                {/*                   afterLoad={() => {*/}
+                {/*                     setIsLoaded(true)*/}
+                {/*                   }}*/}
+                {/*                   style={{objectFit: "cover"}}*/}
+                {/*        // loading="lazy"*/}
+                {/*                   className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>*/}
+                {/*  </div>*/}
+                {/*</Link>*/}
               </div>
             </div>
 
@@ -145,7 +183,8 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                 className={"flex flex-col w-full sm:bg-[white] bg-[white] sm:px-[20px] sm:pb-6 pb-[18px] px-[14px] rounded-b-xl lg:max-w-[400px] sm:max-w-[400px] max-w-7xl"}>
               <p
                   className={"text-clip overflow-hidden text-start sm:mt-3 mt-2 sm:font-bold font-[500] leading-[27px] text-[#383838] sm:text-[20px] text-base min-h-[54px] textDots2 aveSofBold"}>
-                {_.get(data, 'additionalInfo[0].provider.nameGEO', "")}
+                {_.get(data, 'additionalInfo[0].provider.name', "")}
+                {/*aq unda name geo*/}
               </p>
               <div className={"flex flex-row space-x-3 items-center sm:mt-3 mt-1 aveSofMedium"}>
                 <p className={"font-bold text-[#E35A43] text-[21px] flex items-center aveSofMedium"}>
@@ -157,7 +196,7 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                 <span className={"text-[#383838] text-[12px] mr-[8px] aveSofRegular"}>
                   OR
                 </span>
-                  {Math.round(_.get(data, 'entries[0].entryAmount', 0) * _.get(data, 'entries[0].multiplier', 0))}
+                  {Math.round(_.get(data, 'entries[0].entryAmount', 0) / _.get(data, 'entries[0].multiplier', 0))}
                   <div className={"ml-1.5 flex items-center justify-center"}>
                     <Image
                         src={IMAGES.coin}

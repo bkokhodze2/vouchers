@@ -13,8 +13,10 @@ import {useRouter} from "next/router";
 import axios from "axios";
 import _ from "lodash";
 import OfferItem from "../../../components/blocks/offer-item";
+import dayjs from "dayjs";
 
 const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const dateFormat = 'HH:mm:s';
 
 export default function Company() {
   const baseApi = process.env.baseApi;
@@ -43,7 +45,7 @@ export default function Company() {
 
   useEffect(() => {
     if (slug) {
-      axios.get(`${baseApi}/vouchers?contractId=662&providerName=${slug}`).then((res) => {
+      axios.get(`${baseApi}/vouchers?contractId=662&providerName=${slug}&isValid=true`).then((res) => {
         setVoucher(res.data)
       })
     }
@@ -116,7 +118,7 @@ export default function Company() {
             {/*company info*/}
             <div className={"rounded-xl ph:min-w-[360px]"}>
 
-              <div className={"sticky top-[130px] max-h-[calc(100vh_-_2rem)] overflow-scroll rounded-xl"}>
+              <div className={"sticky top-[130px] max-h-[calc(100vh_-_2rem)] overflow-scroll rounded-xl hidebar"}>
 
                 <div className={"h-[160px] w-full relative bg-[#d9d9d933] rounded-t-xl"}>
                   {images?.cover?.path ? <img src={images?.cover?.path}
@@ -218,10 +220,15 @@ export default function Company() {
                       className={"w-full mt-6 bg-[white] p-6 top-[40px] space-y-5 rounded-xl transition duration-200 ease-in-out"}>
 
                     {
+                        _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).length == 0 &&
+												<p>სამუშაო საათები: 24/7</p>
+                    }
+
+                    {
                       _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).map((item: any, index: number) => {
                         return <div className={"flex justify-between"} key={index}>
                           <p className={"mr-6 text-[#383838b3] aveSofRegular"}>{getWeekByNumber(item.dayId)}</p>
-                          <p className={"text-[#383838] aveSofRegular"}>{item.startHour} - {item.endHour}</p>
+                          <p className={"text-[#383838] aveSofRegular"}>{dayjs(item.startHour).format(dateFormat).toString()} - {dayjs(item.endHour).format(dateFormat).toString()}</p>
                         </div>
                       })
                     }

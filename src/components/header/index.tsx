@@ -3,7 +3,7 @@ import React, {useEffect, useRef, useState} from "react"
 import {ICONS} from "public/images";
 import Image from "next/image";
 import PulseLoader from "react-spinners/PulseLoader";
-import {Badge, Button as AntButton, Form, Input} from 'antd';
+import {Badge, Button as AntButton, Dropdown, Form, Input} from 'antd';
 import offerItem from "/public/images/images/offerItem.png";
 // @ts-ignore
 import {IMAGES} from "/public/images";
@@ -30,9 +30,9 @@ import {getTotalsFavourite} from "../slices/favouritesSlice";
 import {getCategories} from "../slices/categoriesSlice";
 // @ts-ignore
 import Lari from "/public/images/icons/lari";
+import {getUserInfo} from "../slices/userSlice";
 
-
-interface Icategory {
+interface ICategory {
   categoryId: number,
   categoryName: string,
   offersQuantity: number
@@ -42,8 +42,10 @@ interface Icategory {
 const Header: React.FC = () => {
   const baseApi = process.env.baseApi;
   var timer1: any;
+
   const [IsLoading, setIsLoading] = useState<boolean>(false);
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
+  const [isOpenDropdown, setIsOpenDropdown] = useState<boolean>(false);
   const [isOpenSearch, setIsOpenSearch] = useState<boolean>(false);
   const [isLogged, setIsLogged] = useState<any>("");
   const [points, setPoints] = useState<number>(0);
@@ -51,17 +53,49 @@ const Header: React.FC = () => {
   const [categoryVouchers, setCategoryVouchers] = useState<[any]>([null]);
   const [chosenCategory, setChosenCategory] = useState<any>({});
   const [term, setTerm] = useState<string>("");
+
   const wrapperRef = useRef(null);
   const listRef = useRef<HTMLDivElement>(null);
-  const [searchForm] = Form.useForm();
-  const Router = useRouter();
+
   const dispatch = useDispatch();
+  const Router = useRouter();
+  const [searchForm] = Form.useForm();
 
   const cart = useSelector((state: any) => state.cart);
   const favourites = useSelector((state: any) => state.favourites);
   const categories = useSelector((state: any) => state.categories.categoriesList);
+  const userInfo = useSelector((state: any) => state.userInfo.userInfo);
 
-  // const [categories, setCategories] = useState<Icategory[]>(categories2.cartItems);
+  // axios.interceptors.request.use((config) => {
+  //   config.headers = {
+  //     ...config.headers,
+  //     'Access-Control-Allow-Origin': '*',
+  //     'Content-Type': 'application/json',
+  //     Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJzRUNseXdhVnNxOURBMU1oMElNLTVFTUNsRU5WM1FMTnhuNlh1bDJoOVBnIn0.eyJleHAiOjE2NzIwNzYzMjEsImlhdCI6MTY3MjA0MDMzNSwiYXV0aF90aW1lIjoxNjcyMDQwMzIxLCJqdGkiOiJhYTM3ZjZjNC1iMzI3LTQ2MTQtYjIyOS1mYmMyNTBjMmE5ZDQiLCJpc3MiOiJodHRwczovL2F1dGgucGlydmVsaS5jb20vcmVhbG1zL3hyYWNvb24tZGVtbyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiY2I1NjcyOC1mM2YxLTRmZjgtYTQ3ZC1kNGExOGFjMDgxOGMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjcy1jYXJ0Iiwic2Vzc2lvbl9zdGF0ZSI6ImQ2NzM5ZmUwLTRmNGMtNGFkMC1hN2YwLWJkZmVlNzEwNjJmNyIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy14cmFjb29uLWRlbW8iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiZDY3MzlmZTAtNGY0Yy00YWQwLWE3ZjAtYmRmZWU3MTA2MmY3IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX2lkIjoiYmNiNTY3MjgtZjNmMS00ZmY4LWE0N2QtZDRhMThhYzA4MThjIiwibmFtZSI6ImlyYWtsaSBvY2RhbWVydmUiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJpcmFrbGkyOEBnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiaXJha2xpIiwiZmFtaWx5X25hbWUiOiJvY2RhbWVydmUiLCJlbWFpbCI6ImlyYWtsaTI4QGdtYWlsLmNvbSJ9.aZx0oUbHd-J-M6uDPqsrxbASbTey9JL7AZtTYJ-5P1DxVF58DEw_BzPV9ge7hIeNsoEtNhfGUSDNb6XaqJThF1Iqu_hWWcPW2fst8bJvi1IqEgXlPNLY4us74JMeGyrnODc3Oihj7GNZCS_nhZE9wN7tOsURQSkIiX8PemOmr-827yupU7XFgTzB8gqTFLbd7PnQcixHDc2SOY3ZDqGcLiNyKxYUiW-l7bBFbmo6nuZ47yW6XWjtrbz-HSgUphc7naIVzHdGgyiZoFOE1VBF4WWJ5Ik9BHuaSMH04wACwLaJfe3G2R8CPKJWXC4qdxs_skSqNJE6tFTjLKip-KglYQ`
+  //   };
+  //   return config;
+  // });
+
+  const getChosenAvatar = () => {
+
+    switch (parseInt(userInfo?.avatar?.path)) {
+      case 1:
+        return IMAGES.avatar1.src
+      case 2:
+        return IMAGES.avatar2.src
+      case 3:
+        return IMAGES.avatar3.src
+      case 4:
+        return IMAGES.avatar4.src
+      case 5:
+        return IMAGES.avatar5.src
+      case 6:
+        return IMAGES.avatar6.src
+      default :
+        return IMAGES.avatar1.src
+    }
+
+  }
 
   useOutsideAlerter(wrapperRef);
 
@@ -83,11 +117,22 @@ const Header: React.FC = () => {
   }
 
   useEffect(() => {
+
+    // if (typeof window !== 'undefined') {
+    //   document.body.classList.add('active');
+    // }
+
     dispatch(getTotals({}));
     dispatch(getTotalsFavourite({}))
   }, [cart, favourites, dispatch]);
 
   useEffect(() => {
+
+    // axios
+    //     .get(`https://vouchers.pirveli.com/api/user/user/detail-info`)
+    //     .then((res) => {
+    //       setUserInfo(res.data)
+    //     });
 
     axios
         .get(`${baseApi}/user`)
@@ -106,13 +151,18 @@ const Header: React.FC = () => {
       dispatch(getCategories())
     }
 
+    if (!userInfo?.details) {
+      // @ts-ignore
+      dispatch(getUserInfo())
+    }
+
   }, [])
 
   useEffect(() => {
 
     if (chosenCategory?.categoryId) {
       axios
-          .get(`${baseApi}/vouchers?contractId=662&categoryId=${chosenCategory?.categoryId}`)
+          .get(`${baseApi}/vouchers?contractId=662&categoryId=${chosenCategory?.categoryId}&isValid=true`)
           .then((res) => {
             setCategoryVouchers(res.data)
           });
@@ -126,7 +176,7 @@ const Header: React.FC = () => {
       getData = setTimeout(() => {
         setIsLoading(true)
         axios
-            .get(`${baseApi}/vouchers?contractId=662&name=${term}`)
+            .get(`${baseApi}/vouchers?contractId=662&name=${term}&isValid=true`)
             .then((res) => {
               setFindData(res.data)
               setIsLoading(false)
@@ -147,18 +197,8 @@ const Header: React.FC = () => {
     setTerm('');
   }
 
-
-  const logout = () => {
-    typeof window !== 'undefined' && window.open("https://profile.pirveli.ge/", '_self');
-
-
-    // axios
-    //     .post(`${baseApi}/logout`)
-    //     .then((res) => {
-    //       console.log("logout", res.data)
-    //
-    //     });
-
+  const navToProfile = () => {
+    typeof window !== 'undefined' && window.open("https://profile.pirveli.com/", '_self');
   }
 
   const onFinish = (values: any) => {
@@ -186,10 +226,46 @@ const Header: React.FC = () => {
   }
 
   const getSumOffer = () => {
-    let arr = categories?.filter((item: any) => item.parentCategoryId === chosenCategory?.categoryId);
-    let sum = arr?.reduce((prevValue: any, currValue: any) => prevValue + currValue?.offersQuantity, 0)
+    let arr = Array.isArray(categories) && categories?.filter((item: any) => item.parentCategoryId === chosenCategory?.categoryId);
+    // @ts-ignore
+    let sum = Array.isArray(arr) && arr?.reduce((prevValue: any, currValue: any) => prevValue + currValue?.offersQuantity, 0)
 
     return sum
+  }
+
+  const dropdownJsx = () => {
+    return <div
+        className={"flex rounded-xl flex-col w-[258px] min-h-[250px] bg-[white] px-6  py-5"}>
+      <p className={"text-[#383838] text-[18px] leading-[18px]"}>{userInfo?.details?.firstName} {userInfo?.details?.lastName}</p>
+      <span
+          className={"text-[#00000066] text-[14px] leading-[14px] mt-1"}>{points} ქულა</span>
+      <div className={"w-full h-[1px] bg-[#D9D9D94D] my-4"}/>
+      <div className={"flex cursor-pointer"} onClick={() => navToProfile()}>
+        <Image src={ICONS.liderboard}/>
+        <p className={"text-[#383838] text-base ml-2"}>პროფილი</p>
+      </div>
+
+      <div className={"flex mt-3 cursor-pointer"}
+           onClick={() => navTo("https://profile.pirveli.com/tickets")}>
+        <Image src={ICONS.tickets}/>
+        <p className={"text-[#383838] text-base ml-2"}>ბილეთები</p>
+      </div>
+      <div className={"w-full h-[1px] bg-[#D9D9D94D] my-4"}/>
+
+      <div className={"flex cursor-pointer"}
+           onClick={() => navTo("https://profile.pirveli.com/orders")}>
+        <Image src={ICONS.order}/>
+        <p className={"text-[#383838] text-base ml-2"}>შეკვეთების ისტორია</p>
+      </div>
+
+      <div className={"flex mt-3 cursor-pointer"}>
+        <Image src={ICONS.logout}/>
+        <form className={"ml-2"} action="https://vouchers.pirveli.com/logout" method="post">
+          <button className={"text-[#E35A43] text-base "} type={"submit"}>გასვლა</button>
+        </form>
+      </div>
+
+    </div>
   }
 
   const SearchItem = ({data}: any) => {
@@ -245,13 +321,20 @@ const Header: React.FC = () => {
 
   return (
       <>
-        <div className={"hidden md:flex w-full bg-amber-700 h-[44px] min-h-[44px] bg-[#383838] items-center "}>
+        <div className={"h-[40px] w-full flex items-center justify-center bg-[white]"}>
+          <p className={"aveSofRegular"}>საიტი მუშაობს სატესტო რეჟიმში</p>
+        </div>
+        <div
+            className={"hidden md:flex w-full sticky top-[0px]  h-[44px] min-h-[44px] bg-[#1d1d1e] items-center z-20"}>
           <div className={"w-full container m-auto flex justify-between"}>
             <div className={"flex space-x-8"}>
-              <Link href={"https://optimoml.geopay.ge/index.php"}>
+              <Link href={"https://pirveli.com"}>
+                <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular "}>მთავარი</span>
+              </Link>
+              <Link href={"https://shop.pirveli.com"}>
                 <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular "}>მაღაზია</span>
               </Link>
-              <Link href={"https://medical.pirveli.ge"}>
+              <Link href={"https://medical.pirveli.com"}>
                 <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>მედიქალი</span>
               </Link>
               <Link href={"/"}>
@@ -261,13 +344,13 @@ const Header: React.FC = () => {
                 </div>
               </Link>
 
-              <Link href={"https://lot51.pirveli.ge"}>
+              <a href={"http://s3.pirveli.com/v1/api/getFile?id=6555"} target={"_blank"} rel="noopener noreferrer">
                 <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>გათამაშება</span>
-              </Link>
+              </a>
 
-              <Link href={"https://lot51.pirveli.ge"}>
+              <a href={"http://s3.pirveli.com/v1/api/getFile?id=6556"} target={"_blank"} rel="noopener noreferrer">
                 <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>თამაშები</span>
-              </Link>
+              </a>
             </div>
 
             <div className={"flex"}>
@@ -292,29 +375,29 @@ const Header: React.FC = () => {
             </div>
           </div>
         </div>
-        <header className={"w-full m-auto sticky top-[0px] z-20"}>
+        <header className={"w-full m-auto sticky md:top-[44px] top-[0px] z-20"}>
 
           <div className={"bg-[white] w-full relative"}>
             {/*flex container max-h-[80px]*/}
             <div className={"max-h-[80px] py-4 container m-auto grid grid-row-1 grid-cols-4"}>
               {/*logo*/}
-              <div onClick={() => navTo("/")}>
-                <div className={"flex items-center min-w-[200px] sm:min-w-[380px] max-h-[48px]"}>
+              <div onClick={() => navTo("/")} className={"min-w-[220px] sm:min-w-[380px] max-h-[48px]"}>
+                <div className={"flex items-center min-w-[220px] sm:min-w-[380px] max-h-[48px]"}>
                   <Image
-                      src={ICONS.logo}
-                      quality={30}
+                      src={IMAGES.logo}
+                      quality={50}
                       blurDataURL={IMAGES.placeholder.src}
                       loading={"lazy"}
-                      width={40}
-                      height={40}
-                      alt={"search"}
+                      width={233}
+                      height={43}
+                      alt={"logo"}
                       className={"cursor-pointer"}
                   />
-                  <div className={"ml-3 cursor-pointer"}>
-                    <p className={"text-[#383838] text-[18px] lg:text-[26px] font-bold leading-[26px]"}>pirveli <sup
-                        className={"text-purple text-sm lg:text-base font-[500]"}>.com</sup></p>
-                    <p className={"text-gray text-sm -translate-y-[5px]"}>ფასდაკლება</p>
-                  </div>
+                  {/*<div className={"ml-3 cursor-pointer"}>*/}
+                  {/*  <p className={"text-[#383838] text-[18px] lg:text-[26px] font-bold leading-[26px]"}>pirveli <sup*/}
+                  {/*      className={"text-purple text-sm lg:text-base font-[500]"}>.com</sup></p>*/}
+                  {/*  <p className={"text-gray text-sm -translate-y-[5px]"}>ფასდაკლება</p>*/}
+                  {/*</div>*/}
                 </div>
               </div>
 
@@ -332,19 +415,17 @@ const Header: React.FC = () => {
                       onFinish={onFinish}
                       autoComplete="off"
                       onChange={onChange}
-                      className={"flex w-full justify-start relative"}
+                      className={"flex w-full justify-end relative"}
                   >
                     <Form.Item
-                        className={"w-full max-w-[622px] searchInput"}
+                        className={"max-w-[622px] lg:w-full w-[50%] searchInput"}
                         name="search"
                     >
-
                       <Input className={"h-[48px] rounded-tl-[12px] bg-[#D9D9D94D] border-none rounded-bl-[12px]"}
                              placeholder={"რასაც არ უნდა ეძებდე..."}>
 
                       </Input>
                     </Form.Item>
-
 
                     <div className={"relative"}>
                       <AntButton type="primary"
@@ -490,15 +571,45 @@ const Header: React.FC = () => {
                   </Link>
 
                   {
-
                     isLogged ?
-                        <div onClick={() => logout()} className={"min-w-[48px] max-h-[48px] relative"}>
-                          <Image layout={"fill"} height={48}
-                                 width={48}
-                                 src={IMAGES.avatar}/>
-                        </div>
+                        <Dropdown
+                            trigger={['click']}
+                            onOpenChange={() => setIsOpenDropdown(!isOpenDropdown)}
+                            open={isOpenDropdown}
+                            arrow={true}
+                            className={"cursor-pointer dropdownMenuJsx "}
+                            dropdownRender={() => dropdownJsx()}
+                        >
+                          <div className={"flex items-center h-[46px] "}>
+                            {/*onClick={() => navToProfile()}*/}
+                            <div
+                                className={"group min-w-[46px] h-[46px] relative flex  items-center justify-center rounded-[50%] pb-[5px] cursor-pointer"}
+                                style={{
+                                  transition: "0.5s",
+                                  backgroundColor: "#" + userInfo?.avatar?.code
+                                }}>
+
+                              <img src={getChosenAvatar()}
+                                   alt={"avatar"}
+                                   style={{objectFit: "cover", height: "100%", width: "auto"}}/>
+                            </div>
+
+                            <div className={"h-full flex items-center relative  pl-3"}
+                            >
+                              <svg style={{
+                                transition: '0.5s',
+                                transform: isOpenDropdown ? 'rotate(0deg)' : 'rotate(180deg)'
+                              }}
+                                   width="8" height="5" viewBox="0 0 8 5" fill="none"
+                                   xmlns="http://www.w3.org/2000/svg">
+                                <path opacity="0.7" d="M0.75 4.25L4 0.75L7.25 4.25" stroke="#383838" strokeWidth="1.5"
+                                      strokeLinecap="round" strokeLinejoin="round"/>
+                              </svg>
+                            </div>
+                          </div>
+                        </Dropdown>
                         : <Link
-                            href={"https://auth.pirveli.ge/realms/xracoon-demo/protocol/openid-connect/auth?response_type=code&client_id=demo-client&scope=email%20profile%20roles%20openid&state=ozej6dlmtIpneeVt7QoGPy2zXJ9e6BNPdGltyKyn3X4%3D&redirect_uri=https://vouchers.pirveli.ge&nonce=KAmXCp0jHrPiUph9D2p5yVwdpT5g3qWO0iCxqJFbiv0"}
+                            href={"https://auth.pirveli.com/realms/xracoon-demo/protocol/openid-connect/auth?response_type=code&client_id=demo-client&scope=email%20profile%20roles%20openid&state=ozej6dlmtIpneeVt7QoGPy2zXJ9e6BNPdGltyKyn3X4%3D&redirect_uri=https://vouchers.pirveli.com&nonce=KAmXCp0jHrPiUph9D2p5yVwdpT5g3qWO0iCxqJFbiv0"}
                             style={{}}
                             className={`text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular`}
                         >
@@ -534,12 +645,12 @@ const Header: React.FC = () => {
                       layout={"fixed"}
                       alt={"shock offer icon"}
                   />
-                  <p className={"ml-[9px] text-purple text-base whitespace-nowrap aveSofRegular"}>Shock offers</p>
+                  <p className={"ml-[9px] text-purple text-base whitespace-nowrap aveSofRegular"}>შოკ შეთავაზება</p>
                 </div>
 
                 {/*sub categories*/}
                 <div className={"flex items-center space-x-[20px] ml-[20px] sm:space-x-[40px] sm:ml-[40px]"}>
-                  {categories?.filter((item: any) => item?.parentCategoryId === null).map((item: Icategory, index: number) => {
+                  {Array.isArray(categories) && categories?.filter((item: any) => item?.parentCategoryId === null).map((item: ICategory, index: number) => {
                     return <div className={"relative"} key={index}
                                 onMouseOver={() => {
                                   timer1 = setTimeout(function () {
@@ -584,7 +695,7 @@ const Header: React.FC = () => {
                     </div>
 
                     <div className={"flex flex-col space-y-[20px] mt-[20px]"}>
-                      {categories?.filter((item: any) => item.parentCategoryId === chosenCategory?.categoryId).map((item: any, index: number) => {
+                      {Array.isArray(categories) && categories?.filter((item: any) => item.parentCategoryId === chosenCategory?.categoryId).map((item: any, index: number) => {
                         return <div className={"flex justify-between items-center"} key={index}>
                           <Link href={`/category/${item.categoryId}`}>
                             <p
@@ -617,64 +728,59 @@ const Header: React.FC = () => {
         </header>
         {/*//burgerMenu*/}
         {!isOpenSearch && !Router.pathname.includes("/company") &&
-						<div className={"bar h-[83px] bg-[white] w-full block md:hidden fixed bottom-0"}
+						<div className={"bar h-[56px] bg-[white] w-full block md:hidden fixed bottom-0 py-[7px]"}
 						     style={{
                    zIndex: 999
                  }}
 						>
-							<div className={"grid grid-cols-5 pt-3"}>
-								<div onClick={() => navTo("/")}>
-									<div className={"flex flex-col items-center justify-between"}
-									     onClick={() => {
-                         setIsOpenMenu(false)
-                         setIsOpenSearch(false)
-                       }}
-									>
-										<Home color={!isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"}/>
-										<p className={"mt-[7px] text-[10px] aveSofMedium"}
-										   style={{
-                         color: !isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"
-                       }}
-										>Home</p>
-									</div>
+							<div className={"grid grid-cols-5 "}>
+								<div className={"flex flex-col items-center justify-between"}
+								     onClick={() => {
+                       setIsOpenMenu(false)
+                       setIsOpenSearch(false)
+                       navTo("/")
+                     }}
+								>
+									<Home color={!isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"}/>
+									<p className={"leading-[14px]  text-[10px] aveSofMedium"}
+									   style={{
+                       color: !isOpenMenu && !isOpenSearch && Router.pathname === "/" ? "#8338EC" : "#383838"
+                     }}
+									>Home</p>
 								</div>
 
-								<div className={"flex flex-col items-center justify-between pt-0.5"}
+								<div className={"flex flex-col items-center justify-between"}
 								     onClick={() => {
                        setIsOpenMenu(false)
                        setIsOpenSearch(true)
                      }}
 								>
 									<Search color={isOpenSearch ? "#8338EC" : "#383838"}/>
-									<p className={"mt-[7px] text-[10px] text-[#383838] aveSofMedium"}
+									<p className={" text-[10px] leading-[14px] text-[#383838] aveSofMedium"}
 									   style={{
                        color: isOpenSearch ? "#8338EC" : "#383838"
                      }}
 									>Search</p>
 								</div>
-								<div onClick={() => navTo("/wishlist")}>
-									<div className={"flex flex-col items-center justify-between"}>
-										<BarHeart
-												color={!isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"}/>
-										<p
-												style={{
-                          color: !isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"
-                        }}
-												className={"mt-[7px] text-[10px] text-[#383838] aveSofMedium"}
-										>Wishlist</p>
-									</div>
+								<div onClick={() => navTo("/wishlist")} className={"flex flex-col items-center justify-between"}>
+									<BarHeart
+											color={!isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"}/>
+									<p
+											style={{
+                        color: !isOpenMenu && !isOpenSearch && Router.pathname === "/wishlist" ? "#8338EC" : "#383838"
+                      }}
+											className={" text-[10px] text-[#383838] aveSofMedium"}
+									>Wishlist</p>
 								</div>
-								<div onClick={() => navTo("/cart")}>
-									<div className={"flex flex-col items-center justify-between"}>
-										<Basket
-												color={!isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"}/>
-										<p
-												style={{
-                          color: !isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"
-                        }}
-												className={"mt-[7px] text-[10px] text-[#383838] aveSofMedium"}
-										>კალათა</p>
-									</div>
+								<div onClick={() => navTo("/cart")} className={"flex flex-col items-center justify-between"}>
+									<Basket
+											color={!isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"}/>
+									<p
+											style={{
+                        color: !isOpenMenu && !isOpenSearch && Router.pathname === "/cart" ? "#8338EC" : "#383838"
+                      }}
+											className={"leading-[14px] text-[10px] text-[#383838] aveSofMedium"}
+									>კალათა</p>
 								</div>
 								<div
 										onClick={() => {
@@ -683,7 +789,7 @@ const Header: React.FC = () => {
                     }}
 										className={"flex flex-col items-center justify-between"}>
 									<Menu color={isOpenMenu ? "#8338EC" : "#383838"}/>
-									<p className={"mt-[7px] text-[10px] aveSofMedium"}
+									<p className={"leading-[14px]  text-[10px] aveSofMedium"}
 									   style={{
                        color: isOpenMenu ? "#8338EC" : "#383838"
                      }}

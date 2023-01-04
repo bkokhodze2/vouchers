@@ -81,6 +81,8 @@ const CartItem = ({data, getCount}: ICartItem) => {
             <LazyLoadImage src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
                            alt={"product image"}
                            loading={"lazy"}
+                           effect={"blur"}
+                           threshold={500}
                            className={"rounded-xl w-full h-full max-h-[157px] min-h-[114px]  lg:min-h-[157px] max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px]"}
                            style={{objectFit: "cover"}}/>
           </div>
@@ -141,7 +143,7 @@ const CartItem = ({data, getCount}: ICartItem) => {
                             alt={"coin icon"}
                         />
                       </span>
-                        {_.get(data, '[0].entries[0].entryAmount', 0) * _.get(data, '[0].entries[0].multiplier', 0) * data.cartQuantity}
+                        {_.get(data, '[0].entries[0].entryAmount', 0) / _.get(data, '[0].entries[0].multiplier', 0) * data.cartQuantity}
                       </p> : <>
                         <Lari color={"#E35A43"}/>
                         <p

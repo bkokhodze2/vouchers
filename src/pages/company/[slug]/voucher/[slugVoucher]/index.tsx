@@ -25,18 +25,19 @@ import {useRouter} from "next/router";
 import dynamic from "next/dynamic";
 import {useDispatch, useSelector} from "react-redux";
 import _ from "lodash";
-
+import dayjs from "dayjs";
 import {addToCartWithQuantity, getTotals,} from "../../../../../components/slices/cartSlice";
 
 import {addToFavourites, getTotalsFavourite} from "../../../../../components/slices/favouritesSlice";
 import FreeScroll from "../../../../../components/UI/slider/free-scroll";
-
 
 const CountDown = dynamic(
     () => import("../../../../../components/UI/count-down"),
     {ssr: false}
 )
 const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+const dateFormat = 'HH:mm:s';
 
 export default function Details() {
   const baseApi = process.env.baseApi;
@@ -52,6 +53,8 @@ export default function Details() {
   const [showPayType, setShowPayType] = useState<boolean>(false);
   const [mainImg, setMainImg] = useState<any>({});
   const [errorAnim, setErrorAnim] = useState<boolean>(false);
+
+  const [isActive, setIsActive] = useState<boolean>(true);
 
   const cart = useSelector((state: any) => state.cart);
   const favourites = useSelector((state: any) => state.favourites);
@@ -83,6 +86,21 @@ export default function Details() {
     if (slugVoucher && slug) {
       axios.get(`${baseApi}/vouchers?contractId=662&providerName=${slug}&id=${slugVoucher}`).then((res) => {
         setVoucher(res.data)
+
+        console.log("raviii", _.get(res, 'data[0].additionalInfo[0].limitQuantity', -1), _.get(res, 'data[0].additionalInfo[0].soldQuantity', 0))
+
+        // data.useEndDate < new Date().getTime()
+
+        if ((_.get(res, 'data[0].useEndDate', 0) < new Date().getTime()) || (_.get(res, 'data[0].additionalInfo[0].limitQuantity', -1) === _.get(res, 'data[0].additionalInfo[0].soldQuantity', 0))) {
+          notification['warning']({
+            message: 'ვაუჩერი არ არის აქტიური',
+            placement: "top",
+            duration: 5
+          });
+          setIsActive(false);
+        } else {
+          setIsActive(true)
+        }
 
         if (res.data.length === 0) {
           Router.push("/");
@@ -183,7 +201,7 @@ export default function Details() {
             ,
             "locale": "ka",
             "shop_order_id": "123456",
-            "redirect_url": "https://bog-banking.pirveli.ge/api/bog/callback/statusChange",
+            "redirect_url": "https://vouchers.pirveli.com",
             "show_shop_order_id_on_extract": true,
             "capture_method": "AUTOMATIC",
             "purchase_units": [
@@ -196,7 +214,7 @@ export default function Details() {
             ]
           }
         }
-        axios.post(`https://vouchers.pirveli.ge/api/bog/orders`, bogObj).then((res) => {
+        axios.post(`https://vouchers.pirveli.com/api/bog/orders`, bogObj).then((res) => {
           let link = res.data.links[1].href;
           typeof window !== 'undefined' && window.open(link, '_blank');
         })
@@ -221,11 +239,11 @@ export default function Details() {
               "tax": 0,
               "shipping": 0
             },
-            "returnurl": "https://vouchers.pirveli.ge/success",
+            "returnurl": "https://vouchers.pirveli.com/success",
             "userIpAddress": "127.0.0.1",
             "methods": [5],
             "expirationMinutes": "5",
-            "callbackUrl": "https://vouchers.pirveli.ge/success",
+            "callbackUrl": "https://vouchers.pirveli.com/success",
             "preAuth": false,
             "language": "EN",
             "merchantPaymentId": "1",
@@ -233,7 +251,7 @@ export default function Details() {
           }
         }
 
-        axios.post(`https://vouchers.pirveli.ge/api/tbc/payments`, tbcObj).then((res) => {
+        axios.post(`https://vouchers.pirveli.com/api/tbc/payments`, tbcObj).then((res) => {
           let link = res.data.links[1].uri;
           typeof window !== 'undefined' && window.open(link, '_blank');
         })
@@ -263,10 +281,10 @@ export default function Details() {
   const payWithPoints = () => {
     if (!isWithMoney) {
       let obj = {
-        "fullAmountOfPoints": _.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0) * quantity,
+        "fullAmountOfPoints": _.get(voucher, '[0].entries[0].entryAmount', 0) / _.get(voucher, '[0].entries[0].multiplier', 0) * quantity,
         "items": [{
           "providerName": _.get(voucher, '[0].additionalInfo[0].provider.name', ""),
-          "itemPrice": _.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0),
+          "itemPrice": _.get(voucher, '[0].entries[0].entryAmount', 0) / _.get(voucher, '[0].entries[0].multiplier', 0),
           "quantity": quantity,
           "voucherId": _.get(voucher, '[0].additionalInfo[0].genericTransactionTypeId', 1)
         }]
@@ -280,7 +298,7 @@ export default function Details() {
 
       }).catch((res) => {
         notification['error']({
-          message: 'დაფიქსირდა შეცდომა',
+          message: 'თქვენს ანგარიშზე არ არის საკმარისი ქულები',
         });
       })
     }
@@ -289,7 +307,8 @@ export default function Details() {
 
   const RightSide = () => {
     return <div className={"h-full container m-auto lg:p-0 "}>
-      <div className={"bg-[transparent] lg:bg-[#ffffff66] rounded-xl p-0 lg:p-8 top-[150px] sticky overflow-y-scroll "}>
+      <div
+          className={"bg-[transparent] lg:bg-[#ffffff66] rounded-xl p-0 lg:p-8 overflow-y-scroll hidebar"}>
         <div className={"grid grid-cols-2 grid-rows-1 bg-[white] w-full h-[48px] rounded-xl p-1"}>
           <div onClick={() => {
             setIsWithMoney(true)
@@ -346,7 +365,7 @@ export default function Details() {
                       <p className={"lg:text-[18px] text-sm text-purple flex items-center flex-nowrap whitespace-nowrap aveSofMedium"}>
                         <div className={"mr-2"}>
                         </div>
-                        {_.get(voucher, '[0].entries[0].entryAmount', 0) * _.get(voucher, '[0].entries[0].multiplier', 0) * quantity}
+                        {_.get(voucher, '[0].entries[0].entryAmount', 0) / _.get(voucher, '[0].entries[0].multiplier', 0) * quantity}
                       </p>
                 }
               </div>
@@ -427,7 +446,7 @@ export default function Details() {
           <div className={""}>
             <div className={"flex mt-[34px] bg-[white] p-6 rounded-xl col-span-2"}>
               <p className={"text-purple text-base font-[500] mr-5"}>
-                <CountDown data={_.get(voucher, '[0].additionalInfo[0].useEndDate', 0)}/>
+                <CountDown data={_.get(voucher, '[0].additionalInfo[0].sellEndDate', 0)}/>
               </p>
               <InStock max={_.get(voucher, '[0].additionalInfo[0].limitQuantity', 0)}
                        current={_.get(voucher, '[0].additionalInfo[0].soldQuantity', 0)}/>
@@ -436,22 +455,23 @@ export default function Details() {
         </div>
 
         {/* buy & cart buttons*/}
-        <div className={"grid grid-cols-2  gap-1 gap-x-[30px] gap-y-8 mt-8"}>
-          <div
-              className={"w-full min-h-[64px] rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
-              onClick={() => handleAddToCart(voucher)}>
-            <div className={"min-w-[15px] flex"}>
-              <Image src={ICONS.cart} className={"cursor-pointer"} alt={"cart icon"}/>
-            </div>
-            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>კალათაში</p>
-          </div>
-          <div
-              className={"w-full min-h-[64px] rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
-              onClick={() => {
+        {isActive && <div className={"grid grid-cols-2 gap-1 gap-x-[30px] gap-y-8 mt-8"}>
+					<div
+							className={"w-full min-h-[64px] rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
+							onClick={() => handleAddToCart(voucher)}>
+						<div className={"min-w-[15px] flex"}>
+							<Image src={ICONS.cart} className={"cursor-pointer"} alt={"cart icon"}/>
+						</div>
+						<p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>კალათაში</p>
+					</div>
+
+					<div
+							className={"w-full min-h-[64px] rounded-xl bg-[white] px-10 flex justify-center items-center cursor-pointer flex-nowrap"}
+							onClick={() => {
                 addFav(voucher[0])
               }}
-          >
-            <div className={"min-w-[15px] flex"}>
+					>
+						<div className={"min-w-[15px] flex"}>
               {isFavourite ? <Image src={ICONS.heartPurple}
                                     quality={70}
                                     blurDataURL={IMAGES.placeholder.src}
@@ -465,9 +485,27 @@ export default function Details() {
                          className={"cursor-pointer"}
                          alt={"cart icon"}
                   />}
-            </div>
-            <p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>ფავორიტები</p>
-          </div>
+						</div>
+						<p className={"ml-3 text-base text-[#383838] whitespace-nowrap aveSofRegular"}>ფავორიტები</p>
+					</div>
+
+          {/*{*/}
+          {/*    showPayType && !payType && <div className={"col-span-2 items-end flex justify-center overflow-hidden"}*/}
+          {/*		                                style={{*/}
+          {/*                                      height: payType.length === 0 ? "30px" : "0px",*/}
+          {/*                                      opacity: payType.length === 0 ? 1 : 0,*/}
+          {/*                                      transition: "0.3s linear all"*/}
+          {/*                                    }}*/}
+          {/*		>*/}
+          {/*			<p*/}
+          {/*					className={`animate__animated animate__fast ${errorAnim ? "animate__shakeX" : ""}`}*/}
+          {/*					style={{*/}
+          {/*            color: errorAnim ? "#ff4d4f" : "#383838",*/}
+          {/*            transition: ".2s linear all"*/}
+          {/*          }}*/}
+          {/*			>აირჩიეთ გადახდის მეთოდი</p>*/}
+          {/*		</div>*/}
+          {/*}*/}
 
 
           {isWithMoney && <>
@@ -510,7 +548,7 @@ export default function Details() {
                     bgColor={"#8338EC"}
                     classes={"!w-full aveSofRegular"}/>
           </div>}
-        </div>
+				</div>}
         {/* buy & cart buttons*/}
       </div>
     </div>
@@ -543,7 +581,6 @@ export default function Details() {
 
                 <div className={"flex items-center h-full "}>
                   {_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "").includes("https://") &&
-
 											<div className={"cursor-pointer w-11 flex justify-center items-center cursor-pointer"}>
 												<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
 												      target={"_blank"}>
@@ -572,7 +609,7 @@ export default function Details() {
             <div className={"container flex w-full gap-[30px] m-auto pt-8"}>
               {/*left side*/}
 
-              <div className={"h-full "}>
+              <div className={"h-full w-full"}>
                 <Link href={`/company/${_.get(voucher, '[0].additionalInfo[0].provider.name', '')}`}>
                   <div
                       className={"flex justify-between w-full lg:p-6 p-4 rounded-xl items-center bg-[white] cursor-pointer"}>
@@ -654,6 +691,8 @@ export default function Details() {
 														<Image src={ICONS.arrowDrop} alt={"dropdown icon"}/>}
                       </div>
                     </div>
+                    {_.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).length == 0 &&
+												<p>24/7</p>}
                     {_.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).length > 0 && <div
 												style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.08)"}}
 												className={"hidden md:block group-hover:opacity-100 group-hover:pointer-events-auto pointer-events-none z-10 absolute w-max bg-[white] p-6 right-0 top-[40px] space-y-5 rounded-xl opacity-0 transition duration-200 ease-in-out"}>
@@ -661,7 +700,7 @@ export default function Details() {
                         _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).map((item: any, index: number) => {
                           return <div className={"flex justify-between"} key={index}>
                             <p className={"mr-6 text-[#383838b3] aveSofRegular"}>{getWeekByNumber(item.dayId)}</p>
-                            <p className={"text-[#383838] aveSofRegular"}>{item.startHour} - {item.endHour}</p>
+                            <p className={"text-[#383838] aveSofRegular"}>{dayjs(item.startHour).format(dateFormat).toString()} - {dayjs(item.endHour).format(dateFormat).toString()}</p>
                           </div>
                         })
                       }
@@ -674,7 +713,7 @@ export default function Details() {
                         _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).map((item: any, index: number) => {
                           return <div className={"flex justify-between"} key={index}>
                             <p className={"mr-6 text-[#383838b3] aveSofRegular"}>{getWeekByNumber(item.dayId)}</p>
-                            <p className={"text-[#383838] aveSofRegular"}>{item.startHour} - {item.endHour}</p>
+                            <p className={"text-[#383838] aveSofRegular"}>{dayjs(item.startHour).format(dateFormat).toString()} - {dayjs(item.endHour).format(dateFormat).toString()}</p>
                           </div>
                         })
                       }
@@ -682,7 +721,6 @@ export default function Details() {
                     {/*mobile*/}
 
                   </div>
-
 
                   {/*working hours*/}
 
@@ -758,26 +796,22 @@ export default function Details() {
                 {/*reviews*/}
               </div>
               {/*left side*/}
-
               <div className={"hidden lg:block w-[450px] shrink-0"}><RightSide/></div>
             </div>
-
             {/*recommended*/}
-
             {/*recommended*/}
-
           </div>
-          {vouchers.length > 0 && <div className={"flex w-full flex-col mt-[44px] md:mt-[44px] details"}>
-						<div className={"ph:container con pl-0px ph:p-auto ph:m-auto w-full"}>
-							<h1 className={"text-[18px] pl-3 ph:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Recommended</h1>
-							<div className={"mt-4"}>
-								<OfferSlider data={vouchers}/>
-								<FreeScroll data={vouchers} miniHeight={true}/>
-
+          {
+              vouchers.length > 0 && <div className={"flex w-full flex-col mt-[44px] md:mt-[44px] details"}>
+								<div className={"sm:container con pl-0px ph:p-auto ph:m-auto w-full"}>
+									<h1 className={"text-[18px] pl-3 sm:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Recommended</h1>
+									<div className={"mt-4"}>
+										<OfferSlider data={vouchers}/>
+										<FreeScroll data={vouchers} miniHeight={true}/>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>}
-
+          }
         </div>
       </>
   )
