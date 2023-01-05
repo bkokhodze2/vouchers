@@ -118,7 +118,7 @@ export default function Cart({serverData, productCount}: any) {
           "userIpAddress": "127.0.0.1",
           "methods": [5],
           "expirationMinutes": "5",
-          "callbackUrl": "https://vouchers.pirveli.com/success",
+          "callbackUrl": "https://banking-tbc.pirveli.ge/api/tbc/payments/callback",
           "preAuth": false,
           "language": "EN",
           "merchantPaymentId": "1",
@@ -185,7 +185,7 @@ export default function Cart({serverData, productCount}: any) {
 
         <div className={""}>
           <div
-              className={"min-h-[60vh] mt-0 md:mt-6 ph:container con ph:m-auto mb-[100px] flex flex-col xl:flex-row w-full gap-[30px]"}>
+              className={"min-h-[60vh] mt-0 md:mt-6 ph:container con ph:m-auto mb-[100px] flex flex-col xl:flex-row w-full gap-4 2xl:gap-[30px]"}>
 
             {/*cart list*/}
             <div className={"flex flex-col w-full"}>

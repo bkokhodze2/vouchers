@@ -125,7 +125,7 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
             <h5 className={"text-[#38383880] aveSofRegular"}>Navigatioon</h5>
             <div className={" grid grid-cols-2 gap-3 mt-3"}>
               <NavItem icon={ICONS.ecomerce} text={"მაღაზია"} url={'https://shop.pirveli.com'} bg={"#F5CE5A"}/>
-              <NavItem icon={ICONS.medical} text={"მედიქალი"} url={'https://medical.pirveli.com'} bg={"#7B92DC"}/>
+              <NavItem icon={ICONS.medical} text={"ჯანდაცვა"} url={'https://medical.pirveli.com'} bg={"#7B92DC"}/>
               <NavItem icon={ICONS.lotto} iconSize={20} url={'https://win.pirveli.com'} text={"გათამაშება"}
                        bg={"#56971F"}/>
               <NavItem icon={ICONS.menuPercent} text={"Discounts"} bg={"#E35A43"}/>

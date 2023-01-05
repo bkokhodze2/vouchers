@@ -326,48 +326,67 @@ const Header: React.FC = () => {
         </div>
         <div
             className={"hidden md:flex w-full sticky top-[0px]  h-[44px] min-h-[44px] bg-[#1d1d1e] items-center z-20"}>
-          <div className={"w-full container m-auto flex justify-between"}>
-            <div className={"flex space-x-8"}>
+          <div className={"w-full h-full container m-auto flex justify-between"}>
+            <div className={"flex space-x-8 items-center"}>
               <Link href={"https://pirveli.com"}>
-                <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular "}>მთავარი</span>
+                <div className={"relative h-full flex items-center group"}>
+                <span
+                    className={"text-sm text-[#ffffffb3]  cursor-pointer aveSofRegular "}>მთავარი</span>
+                  <div className={"absolute bottom-[0px] h-[3px] w-full rounded-t-[3px] group-hover:bg-[#db0060]"}/>
+                </div>
               </Link>
               <Link href={"https://shop.pirveli.com"}>
-                <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular "}>მაღაზია</span>
+                <div className={"relative h-full flex items-center group"}>
+                  <span
+                      className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular "}>მაღაზია</span>
+                  <div className={"absolute bottom-[0px] h-[3px] w-full rounded-t-[3px] group-hover:bg-[#5db039]"}/>
+                </div>
               </Link>
               <Link href={"https://medical.pirveli.com"}>
-                <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>მედიქალი</span>
+                <div className={"relative h-full flex items-center group"}>
+                  <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>ჯანდაცვა</span>
+                  <div className={"absolute bottom-[0px] h-[3px] w-full rounded-t-[3px] group-hover:bg-[#ffbbb6]"}/>
+                </div>
               </Link>
               <Link href={"/"}>
-                <div className={"relative flex"}>
+                <div className={"relative h-full flex items-center group"}>
                   <span className={"text-sm text-[#8338EC] cursor-pointer aveSofRegular"}>ვაუჩერები</span>
-                  <div className={"absolute -bottom-[12px] h-[3px] w-full rounded-t-[3px] bg-[#8338EC]"}/>
+                  <div className={"absolute bottom-[0px] h-[3px] w-full rounded-t-[3px] bg-[#8338EC]"}/>
                 </div>
               </Link>
 
-              <a href={"http://s3.pirveli.com/v1/api/getFile?id=6555"} target={"_blank"} rel="noopener noreferrer">
-                <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>გათამაშება</span>
+              <a className={"h-full"} href={"http://s3.pirveli.com/v1/api/getFile?id=6555"} target={"_blank"}
+                 rel="noopener noreferrer">
+                <div className={"relative h-full flex items-center group"}>
+                  <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>გათამაშება</span>
+                  <div className={"absolute bottom-[0px] h-[3px] w-full rounded-t-[3px] group-hover:bg-[#db0060]"}/>
+                </div>
               </a>
 
-              <a href={"http://s3.pirveli.com/v1/api/getFile?id=6556"} target={"_blank"} rel="noopener noreferrer">
-                <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>თამაშები</span>
+              <a className={"h-full"} href={"http://s3.pirveli.com/v1/api/getFile?id=6556"} target={"_blank"}
+                 rel="noopener noreferrer">
+                <div className={"relative h-full flex items-center group"}>
+                  <span className={"text-sm text-[#ffffffb3] cursor-pointer aveSofRegular"}>გართობა</span>
+                  <div className={"absolute bottom-[0px] h-[3px] w-full rounded-t-[3px] group-hover:bg-[#edc520]"}/>
+                </div>
               </a>
             </div>
 
-            <div className={"flex"}>
-              <Image
-                  src={IMAGES.coin}
-                  quality={100}
-                  blurDataURL={IMAGES.placeholder.src}
-                  loading={"lazy"}
-                  width={20}
-                  height={20}
-                  alt={"coin icon"}
-              />
-              <p
-                  className={"text-sm text-[white] mr-8 ml-[5px] capitalize after:content-[''] after:h-[20px] after:bg-[#ffffffb3] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500 aveSofRegular"}>
-                {points}</p>
+            <div className={"flex py-[12px]"}>
+              {!isLogged && <Image
+									src={IMAGES.coin}
+									quality={100}
+									blurDataURL={IMAGES.placeholder.src}
+									loading={"lazy"}
+									width={20}
+									height={20}
+									alt={"coin icon"}
+							/>}
+              {!isLogged &&
+									<p className={"text-sm text-[white] mr-8 ml-[5px] capitalize after:content-[''] after:h-[20px] after:bg-[#ffffffb3] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500 aveSofRegular"}>
+                    {points}</p>}
               <div className={"flex cursor-pointer"}>
-                <img className={"mr-[11px]"} src={ICONS.geoFlag.src} alt={"geo flag"}/>
+                <img className={"mr-[12px] w-[24px] h-[18px]"} src={ICONS.geoFlag.src} alt={"geo flag"}/>
 
                 <Image src={ICONS.arrowDown} alt={"arrow down"}/>
               </div>
@@ -418,7 +437,7 @@ const Header: React.FC = () => {
                       className={"flex w-full justify-end relative"}
                   >
                     <Form.Item
-                        className={"max-w-[622px] lg:w-full w-[50%] searchInput"}
+                        className={"max-w-[622px] mb-[0px] lg:w-full w-[50%] searchInput"}
                         name="search"
                     >
                       <Input className={"h-[48px] rounded-tl-[12px] bg-[#D9D9D94D] border-none rounded-bl-[12px]"}
@@ -545,7 +564,7 @@ const Header: React.FC = () => {
                           />
 
 
-                          <p className={"capitalize mt-[11px] text-sm lg:text-base leading-4 aveSofRegular"}>კალათა</p>
+                          <p className={"capitalize mt-[6px] text-sm lg:text-base leading-4 aveSofRegular"}>კალათა</p>
                         </div>
                       </Badge>
                     </div>
@@ -564,7 +583,7 @@ const Header: React.FC = () => {
                               height={18}
                               alt={"heart icon"}
                           />
-                          <p className={"capitalize mt-[11px] text-sm lg:text-base leading-4 aveSofRegular"}>ფავორიტები</p>
+                          <p className={"capitalize mt-[6px] text-sm lg:text-base leading-4 aveSofRegular"}>ფავორიტები</p>
                         </div>
                       </Badge>
                     </div>
@@ -614,7 +633,7 @@ const Header: React.FC = () => {
                             className={`text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular`}
                         >
                           <div
-                              className={`h-[40px] lg:h-[48px] bg-[#383838] rounded-[8px] lg:rounded-xl px-[23px] lg:px-10 flex justify-center items-center cursor-pointer`}>
+                              className={`h-[40px] lg:h-[48px] bg-[#8338EC] rounded-[8px] lg:rounded-xl px-[23px] lg:px-10 flex justify-center items-center cursor-pointer`}>
                             <p
                                 className={"text-[white] !text-[14px] md:!text-[16px] font-normal whitespace-nowrap aveSofRegular"}>
                               შესვლა</p>

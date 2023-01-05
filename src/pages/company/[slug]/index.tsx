@@ -22,6 +22,7 @@ export default function Company() {
   const baseApi = process.env.baseApi;
   const Router = useRouter();
   const [voucher, setVoucher] = useState<any>([]);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [images, setImages] = useState<any>({
     main: "",
     cover: ""
@@ -47,6 +48,7 @@ export default function Company() {
     if (slug) {
       axios.get(`${baseApi}/vouchers?contractId=662&providerName=${slug}&isValid=true`).then((res) => {
         setVoucher(res.data)
+        setIsLoaded(true)
       })
     }
 
@@ -73,24 +75,24 @@ export default function Company() {
           <meta name="description" content="Company"/>
         </Head>
 
-        <div className={""}>
-          <div
-              className={"lg:pt-6 pt-0 pb-[100px] flex flex-col lg:flex-row container m-auto w-full grid-flow-col gap-[0px] lg:gap-[30px]"}>
-            <div className={"flex  w-full h-[44px] lg:hidden block"}>
-              <div className={"container m-auto flex justify-between"}>
-                <Link href={"/"}>
-                  <div className={"flex cursor-pointer"}>
-                    <Image
-                        src={ICONS.arrowBack}
-                        layout={"fixed"}
-                        width={24}
-                        height={24}
-                    />
-                    <p className={"ml-2 text-[#383838] text-base"}>Back</p>
-                  </div>
-                </Link>
+        <div className={"w-full min-h-[800px]"}>
+          {isLoaded && <div
+							className={"lg:pt-6 pt-0 pb-[100px]  flex flex-col lg:flex-row container m-auto w-full grid-flow-col gap-[0px] lg:gap-[30px]"}>
+						<div className={"flex w-full h-[44px] lg:hidden block"}>
+							<div className={"container m-auto flex justify-between"}>
+								<Link href={"/"}>
+									<div className={"flex cursor-pointer"}>
+										<Image
+												src={ICONS.arrowBack}
+												layout={"fixed"}
+												width={24}
+												height={24}
+										/>
+										<p className={"ml-2 text-[#383838] text-base"}>Back</p>
+									</div>
+								</Link>
 
-                <div className={"flex items-center h-full "}>
+								<div className={"flex items-center h-full "}>
                   {
                     <div className={"cursor-pointer w-11 flex justify-center items-center cursor-pointer"}>
                       <Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
@@ -111,16 +113,16 @@ export default function Company() {
                       </Link>
                     </div>
                   }
-                </div>
+								</div>
 
-              </div>
-            </div>
+							</div>
+						</div>
             {/*company info*/}
-            <div className={"rounded-xl ph:min-w-[360px]"}>
+						<div className={"rounded-xl ph:min-w-[360px]"}>
 
-              <div className={"sticky top-[130px] max-h-[calc(100vh_-_2rem)] overflow-scroll rounded-xl hidebar"}>
+							<div className={" overflow-scroll rounded-xl hidebar"}>
 
-                <div className={"h-[160px] w-full relative bg-[#d9d9d933] rounded-t-xl"}>
+								<div className={"h-[160px] w-full relative bg-[#d9d9d933] rounded-t-xl"}>
                   {images?.cover?.path ? <img src={images?.cover?.path}
                                               loading={"lazy"}
                                               style={{objectFit: "cover", height: "160px", width: "100%"}}
@@ -137,7 +139,7 @@ export default function Company() {
                   />
                   }
 
-                  <div className={"flex justify-center items-center w-full z-10 absolute -bottom-[40px]"}>
+									<div className={"flex justify-center items-center w-full z-10 absolute -bottom-[40px]"}>
                     {images?.main?.path ? <img
                         src={images?.main?.path}
                         alt={"company logo"}
@@ -156,14 +158,14 @@ export default function Company() {
                                 alt={"company logo"}
                     />}
 
-                  </div>
+									</div>
 
-                </div>
-                <div className={"p-4 pt-[60px] ph:px-6 ph:pb-4 bg-[#d9d9d933] rounded-b-xl"}>
-                  <p className={"ph:text-[22px] text-[18px] font-bold text-[#383838] text-center aveSofBold"}>{_.get(voucher, '[0].additionalInfo[0].provider.name', "")}</p>
-                  <div className={"flex space-x-[33px] items-center justify-center mt-6 lg:flex hidden"}>
+								</div>
+								<div className={"p-4 pt-[60px] ph:px-6 ph:pb-4 bg-[#d9d9d933] rounded-b-xl"}>
+									<p className={"ph:text-[22px] text-[18px] font-bold text-[#383838] text-center aveSofBold"}>{_.get(voucher, '[0].additionalInfo[0].provider.name', "")}</p>
+									<div className={"flex space-x-[33px] items-center justify-center mt-6 lg:flex hidden"}>
 
-                    <div className={"flex space-x-[33px] items-center "}>
+										<div className={"flex space-x-[33px] items-center "}>
                       {_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', null) && _.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "").includes("https://") &&
 													<div className={"cursor-pointer"}>
 														<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
@@ -197,11 +199,11 @@ export default function Company() {
 													</div>
                       }
 
-                    </div>
-                  </div>
+										</div>
+									</div>
 
-                  <div
-                      className={" mt-[71px] w-full lg:mt-[28px] bg-[white] px-6 rounded-xl divide-y divide-[#d9d9d94d]"}>
+									<div
+											className={"mt-[71px] w-full lg:mt-[28px] bg-[white] px-6 rounded-xl divide-y divide-[#d9d9d94d]"}>
                     {_.get(voucher, '[0].additionalInfo[0].provider.providerAddresses[0].value', "") &&
 												<div className={"flex py-[18px]"}>
 													<Location classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
@@ -214,10 +216,10 @@ export default function Company() {
 													<a href="tel:+995 599 99 99 63"
 													   className={"ml-2 text-base text-[#383838] aveSofRegular"}>{_.get(voucher, '[0].additionalInfo[0].provider.providerContacts[0].value', "")}</a>
 												</div>}
-                  </div>
+									</div>
 
-                  <div
-                      className={"w-full mt-6 bg-[white] p-6 top-[40px] space-y-5 rounded-xl transition duration-200 ease-in-out"}>
+                  {isLoaded && <div
+											className={"w-full mt-6 bg-[white] p-6 top-[40px] space-y-5 rounded-xl transition duration-200 ease-in-out"}>
 
                     {
                         _.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', []).length == 0 &&
@@ -233,29 +235,29 @@ export default function Company() {
                       })
                     }
 
-                  </div>
+									</div>}
 
-                </div>
-              </div>
+								</div>
+							</div>
 
 
-            </div>
+						</div>
             {/*company info*/}
 
             {/*offers list*/}
 
-            <div
-                className={"mt-[44px] lg:mt-0 grid grid-flow-row-dense grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-[30px] gap-y-[40px]"}>
+						<div
+								className={"mt-[44px] lg:mt-0 grid grid-flow-row-dense grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-[30px] gap-y-[40px]"}>
               {
                 voucher.map((item: any, index: number) => {
                   return <OfferItem data={item} key={index}/>
                 })
               }
 
-            </div>
+						</div>
             {/*offers list*/}
 
-          </div>
+					</div>}
         </div>
       </>
   )

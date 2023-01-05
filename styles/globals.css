@@ -596,3 +596,7 @@ body {
 .ant-btn-primary {
     background-color: #8338EC;
 }
+
+.lazy-load-image-background {
+    width: 100% !important;
+}
