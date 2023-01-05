@@ -74,10 +74,10 @@ const CartItem = ({data, getCount}: ICartItem) => {
   return (
 
       <div
-          className={"p-[16px] md:p-[16px] xl:p-[30px] pr-4 xl:pr-[68px] flex bg-[#FFFFFF] rounded-0 ph:rounded-2xl"}>
+          className={"p-[16px] md:p-[16px] 2xl:p-[30px] pr-4 2xl:pr-[68px] flex bg-[#FFFFFF] rounded-0 ph:rounded-2xl"}>
         <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
           <div
-              className={"w-full cursor-pointer max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px] lg:mr-[30px] md:mr-[16px] mr-[8px] relative"}>
+              className={"w-full cursor-pointer max-w-[148px] min-w-[148px] sm:max-w-[170px] sm:min-w-[170px] xl:max-w-[240px] xl:min-w-[240px] 2xl:mr-[30px] md:mr-[16px] mr-[8px] relative"}>
             <LazyLoadImage src={_.get(data, '[0].additionalInfo[0].attachments[0].path', IMAGES.offerItem.src)}
                            alt={"product image"}
                            loading={"lazy"}
@@ -124,7 +124,7 @@ const CartItem = ({data, getCount}: ICartItem) => {
                 />
               </div>
               <div className={"flex w-full items-center md:justify-start justify-between mt-[11px] md:mt-[0px]"}>
-                <div className={"flex flex-col items-start md:items-center justify-center lg:ml-8 ph:ml-4 ml-1.5"}>
+                <div className={"flex flex-col items-start md:items-center justify-center 2xl:ml-8 ph:ml-4 ml-1.5"}>
                   <p className={"text-[14px] text-[#383838b3] text-center whitespace-nowrap aveSofRegular"}>
                     ჯამური ფასი</p>
                   <div className={"flex items-center"}>
@@ -159,7 +159,7 @@ const CartItem = ({data, getCount}: ICartItem) => {
                        backgroundColor: isDisabled ? "#ababab1a" : "#3838381a",
                        cursor: isDisabled ? "not-allowed" : "pointer"
                      }}
-                     className={"w-[58px] min-w-[58px] h-[28px] rounded-[100px] lg:ml-[40px] ph:ml-4 ml-1.5 relative flex items-center p-[2px] cursor-pointer justify-between"}>
+                     className={"w-[58px] min-w-[58px] h-[28px] rounded-[100px] 2xl:ml-[40px] ph:ml-4 ml-1.5 relative flex items-center p-[2px] cursor-pointer justify-between"}>
                   <p
                       className={"z-10 text-[14px] font-bold transition ml-[5px] pt-1 pb-[2px] flex justify-center items-center"}>
                     <Image
@@ -185,15 +185,19 @@ const CartItem = ({data, getCount}: ICartItem) => {
             </div>
             <div
                 onClick={() => handleRemoveFromCart(data)}
-                className={"items-center min-w-[24px] cursor-pointer hidden md:flex"}>
-              <Image
-                  src={ICONS.trash}
-                  quality={70}
-                  blurDataURL={IMAGES.placeholder.src}
-                  loading={"lazy"}
-                  alt={"trash icon"}
-                  width={24}
-                  height={24}/>
+                className={"items-center cursor-pointer hidden md:flex"}>
+              <div className={"min-w-[36px] flex items-center"}>
+                <Image
+                    src={ICONS.trash}
+                    quality={70}
+                    blurDataURL={IMAGES.placeholder.src}
+                    loading={"lazy"}
+                    alt={"trash icon"}
+                    width={24}
+                    height={24}
+                    // className={"!min-w-[24px]"}
+                />
+              </div>
               <p className={"text-[#383838] ml-[10px] font-[500] aveSofMedium"}>წაშლა</p>
             </div>
           </div>

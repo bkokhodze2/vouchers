@@ -158,12 +158,9 @@ export default function Details() {
   const getWeekByNumber = (index: number) => {
     return weekDays[index - 1]
   }
-  const getOldPrice = () => {
-    return (_.get(voucher, '[0].additionalInfo[0].servicePrice', 0) * 100) / (100 - (_.get(voucher, '[0].additionalInfo[0].percentage', 0)))
-  }
 
   const getSave = () => {
-    return getOldPrice() - _.get(voucher, '[0].additionalInfo[0].servicePrice', 0)
+    return _.get(voucher, '[0].additionalInfo[0].servicePriceOld', 0) - _.get(voucher, '[0].additionalInfo[0].servicePrice', 0)
   }
 
   useEffect(() => {
@@ -243,7 +240,7 @@ export default function Details() {
             "userIpAddress": "127.0.0.1",
             "methods": [5],
             "expirationMinutes": "5",
-            "callbackUrl": "https://vouchers.pirveli.com/success",
+            "callbackUrl": "https://banking-tbc.pirveli.ge/api/tbc/payments/callback",
             "preAuth": false,
             "language": "EN",
             "merchantPaymentId": "1",
@@ -435,7 +432,8 @@ export default function Details() {
                     <Lari color={"#3838384d"}
                           classes={"mr-1"}/> {_.get(voucher, '[0].additionalInfo[0].servicePrice', 0)}</p>
                   <p className={"ml-1 lg:text-base text-sm  text-[#38383899] whitespace-nowrap line-through flex items-center aveSofRegular"}>
-                    <Lari color={"#3838384d"} classes={"mr-1"}/> {Math.round(getOldPrice())}</p>
+                    <Lari color={"#3838384d"}
+                          classes={"mr-1"}/> {_.get(voucher, '[0].additionalInfo[0].servicePriceOld', 0)}</p>
                 </div>
               </div>
             </div>
