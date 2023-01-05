@@ -373,7 +373,7 @@ const Header: React.FC = () => {
             </div>
 
             <div className={"flex py-[12px]"}>
-              {!isLogged && <Image
+              {isLogged && <Image
 									src={IMAGES.coin}
 									quality={100}
 									blurDataURL={IMAGES.placeholder.src}
@@ -382,7 +382,7 @@ const Header: React.FC = () => {
 									height={20}
 									alt={"coin icon"}
 							/>}
-              {!isLogged &&
+              {isLogged &&
 									<p className={"text-sm text-[white] mr-8 ml-[5px] capitalize after:content-[''] after:h-[20px] after:bg-[#ffffffb3] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500 aveSofRegular"}>
                     {points}</p>}
               <div className={"flex cursor-pointer"}>
