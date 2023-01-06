@@ -116,8 +116,8 @@ const Header: React.FC = () => {
             <div onClick={() => Router.push('/')} className={"max-h-[48px]"}>
               <div className={"flex items-center min-w-[240px]  max-h-[48px]"}>
                 <Image
-                    src={IMAGES.logo}
-                    quality={50}
+                    src={IMAGES.logo2}
+                    quality={100}
                     blurDataURL={IMAGES.placeholder.src}
                     loading={"lazy"}
                     width={233}
