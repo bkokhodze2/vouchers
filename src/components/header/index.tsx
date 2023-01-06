@@ -240,7 +240,7 @@ const Header: React.FC = () => {
       <span
           className={"text-[#00000066] text-[14px] leading-[14px] mt-1"}>{points} ქულა</span>
       <div className={"w-full h-[1px] bg-[#D9D9D94D] my-4"}/>
-      <div className={"flex cursor-pointer"} onClick={() => navToProfile()}>
+      <div className={"flex cursor-pointer "} onClick={() => navToProfile()}>
         <Image src={ICONS.liderboard}/>
         <p className={"text-[#383838] text-base ml-2"}>პროფილი</p>
       </div>
@@ -373,7 +373,7 @@ const Header: React.FC = () => {
             </div>
 
             <div className={"flex py-[12px]"}>
-              {isLogged && <Image
+              {!isLogged && <Image
 									src={IMAGES.coin}
 									quality={100}
 									blurDataURL={IMAGES.placeholder.src}
@@ -382,10 +382,10 @@ const Header: React.FC = () => {
 									height={20}
 									alt={"coin icon"}
 							/>}
-              {isLogged &&
-									<p className={"text-sm text-[white] mr-8 ml-[5px] capitalize after:content-[''] after:h-[20px] after:bg-[#ffffffb3] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500 aveSofRegular"}>
+              {!isLogged &&
+									<p className={"text-sm text-[white] mr-[33px] ml-[7px] capitalize after:content-[''] after:h-[20px] after:bg-[#ffffffb3] after:rounded-[2px] after:ml-4 after:absolute after:w-[1px] after:text-red-500 aveSofRegular"}>
                     {points}</p>}
-              <div className={"flex cursor-pointer"}>
+              <div className={"flex cursor-pointer items-center"}>
                 <img className={"mr-[12px] w-[24px] h-[18px]"} src={ICONS.geoFlag.src} alt={"geo flag"}/>
 
                 <Image src={ICONS.arrowDown} alt={"arrow down"}/>
@@ -403,11 +403,11 @@ const Header: React.FC = () => {
               <div onClick={() => navTo("/")} className={"min-w-[220px] sm:min-w-[380px] max-h-[48px]"}>
                 <div className={"flex items-center min-w-[220px] sm:min-w-[380px] max-h-[48px]"}>
                   <Image
-                      src={IMAGES.logo}
-                      quality={50}
+                      src={IMAGES.logo2.src}
+                      quality={100}
                       blurDataURL={IMAGES.placeholder.src}
                       loading={"lazy"}
-                      width={233}
+                      width={234}
                       height={43}
                       alt={"logo"}
                       className={"cursor-pointer"}
@@ -564,7 +564,7 @@ const Header: React.FC = () => {
                           />
 
 
-                          <p className={"capitalize mt-[6px] text-sm lg:text-base leading-4 aveSofRegular"}>კალათა</p>
+                          <p className={"capitalize mt-[6px] text-sm lg:text-base leading-4 text-[#383838b3] aveSofRegular"}>კალათა</p>
                         </div>
                       </Badge>
                     </div>
@@ -583,7 +583,7 @@ const Header: React.FC = () => {
                               height={18}
                               alt={"heart icon"}
                           />
-                          <p className={"capitalize mt-[6px] text-sm lg:text-base leading-4 aveSofRegular"}>ფავორიტები</p>
+                          <p className={"capitalize mt-[6px] text-sm lg:text-base text-[#383838b3] leading-4 aveSofRegular"}>ფავორიტები</p>
                         </div>
                       </Badge>
                     </div>
@@ -664,7 +664,8 @@ const Header: React.FC = () => {
                       layout={"fixed"}
                       alt={"shock offer icon"}
                   />
-                  <p className={"ml-[9px] text-purple text-base whitespace-nowrap aveSofRegular"}>შოკ შეთავაზება</p>
+                  <p className={"ml-[9px] text-purple text-base whitespace-nowrap aveSofBold"}>შოკ
+                    აქციები</p>
                 </div>
 
                 {/*sub categories*/}

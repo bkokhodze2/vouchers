@@ -31,7 +31,7 @@ export {default as mobileBecome} from './mobileBecome.png';
 export {default as mobileBecome2} from './mobileBecome2.png';
 export {default as lookingFor} from './lookingFor.png';
 export {default as gif} from './skeleton-gif.gif';
-export {default as logo} from './logo.png';
+export {default as logo2} from './logo2.png';
 export {default as leftBanner} from './leftBanner.webp';
 export {default as leftBannerMobile} from './leftBannerMobile.webp';
 

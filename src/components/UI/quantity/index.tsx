@@ -7,6 +7,7 @@ import {notification} from "antd";
 import {ICONS} from "public/images";
 
 interface IQuantity {
+  // getCount: () => number,
   getCount: any,
   freeQuantity: number,
   quantityInCart: number,
