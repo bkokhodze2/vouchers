@@ -144,7 +144,7 @@ export default function Category({serverData}: any) {
             </div>
 
             <div
-                className={"mt-[40px] container m-auto mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-5 md:gap-y-[42px] xl:gap-x-[30px]"}>
+                className={"mt-[40px] container m-auto mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 xl:gap-[30px]"}>
               {
                 vouchers?.map((item: any, index: any) => {
                   return <OfferItem data={item} key={index}/>

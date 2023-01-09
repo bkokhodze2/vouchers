@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import {notification, Tabs} from 'antd';
+import {Modal, notification, Tabs} from 'antd';
 // @ts-ignore
 import {ICONS, IMAGES} from "public/images";
 import Image from "next/image";
@@ -17,6 +17,10 @@ import Watch from "/public/images/icons/watch";
 import Location from "/public/images/icons/location";
 // @ts-ignore
 import Lari from "/public/images/icons/lari";
+// @ts-ignore
+import Insta from "/public/images/icons/insta";
+// @ts-ignore
+import Fb from "/public/images/icons/fb";
 
 import Link from "next/link";
 import axios from "axios";
@@ -30,6 +34,8 @@ import {addToCartWithQuantity, getTotals,} from "../../../../../components/slice
 
 import {addToFavourites, getTotalsFavourite} from "../../../../../components/slices/favouritesSlice";
 import FreeScroll from "../../../../../components/UI/slider/free-scroll";
+import {ExclamationCircleOutlined} from "@ant-design/icons";
+
 
 const CountDown = dynamic(
     () => import("../../../../../components/UI/count-down"),
@@ -258,7 +264,7 @@ export default function Details() {
       }
     } else {
       notification['error']({
-        message: 'ამ მომენტში ქულებით ყიდვა ხელმისაწვდომი არ არის',
+        message: 'ამ მომენტში მონეტებით ყიდვა ხელმისაწვდომი არ არის',
       });
     }
 
@@ -273,6 +279,20 @@ export default function Details() {
       }, 1000)
     }
 
+  }
+
+
+  const confirmPay = () => {
+
+    Modal.confirm({
+      title: 'შეტყობინება',
+      icon: <ExclamationCircleOutlined/>,
+      content: 'ნადმვილად გსურთ მონეტებით შეძენა?',
+      okText: 'დიახ',
+      cancelText: 'გაუქმება',
+      className: "confirm",
+      onOk: () => payWithPoints()
+    });
   }
 
   const payWithPoints = () => {
@@ -295,7 +315,7 @@ export default function Details() {
 
       }).catch((res) => {
         notification['error']({
-          message: 'თქვენს ანგარიშზე არ არის საკმარისი ქულები',
+          message: 'თქვენს ანგარიშზე არ არის საკმარისი მონეტები',
         });
       })
     }
@@ -334,7 +354,8 @@ export default function Details() {
                   alt={"coin icon"}
               />
             </span>
-            <p className={" text-base aveSofRegular"} style={{color: !isWithMoney ? "#FFFFFF" : "#383838"}}>ქულებით</p>
+            <p className={" text-base aveSofRegular"}
+               style={{color: !isWithMoney ? "#FFFFFF" : "#383838"}}>მონეტებით</p>
           </div>
         </div>
         <div className={"grid grid-cols-2 grid-rows-1 gap-1 gap-x-[30px] gap-y-6 mt-8"}>
@@ -541,8 +562,8 @@ export default function Details() {
             <Button text={payType || !showPayType ? "ყიდვა" : "აირჩიეთ გადახდის ტიპი"}
                     bgColor={payType || !showPayType ? "#8338EC" : "gray"}
                     classes={"!w-full aveSofRegular"}/>
-          </div> : <div className={"col-span-2"} onClick={() => payWithPoints()}>
-            <Button text={"ქულებით გადახდა"}
+          </div> : <div className={"col-span-2"} onClick={() => confirmPay()}>
+            <Button text={"მონეტებით გადახდა"}
                     bgColor={"#8338EC"}
                     classes={"!w-full aveSofRegular"}/>
           </div>}
@@ -681,8 +702,8 @@ export default function Details() {
                   <div className={"group md:py-0 py-4 flex md:flex-row flex-col items-start md:items-center relative"}>
                     <div className={"flex"}>
                       <Watch classes={"group-hover:stroke-[#8338EC] stroke-[#383838]"}/>
-                      <p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out aveSofRegular"}>Working
-                        Hours</p>
+                      <p className={"ml-[11px] mr-2 group-hover:opacity-100 text-[#383838] group-hover:text-[#8338EC] transition duration-200 ease-in-out aveSofRegular"}>
+                        სამუშაო საათები</p>
                       <div
                           className={"md:flex hidden group-hover:rotate-180 rotate-0 transition duration-200 ease-in-out flex justify-center items-center"}>
                         {_.get(voucher, '[0].additionalInfo[0].provider.providerWorkingHours', 0).length > 0 &&
@@ -756,8 +777,8 @@ export default function Details() {
 													<div className={"cursor-pointer"}>
 														<Link href={_.get(voucher, '[0].additionalInfo[0].provider.facebookUrl', "")}
 														      target={"_blank"}>
-															<div>
-																<Image src={ICONS.fb} alt={"fb icon"}/>
+															<div className={"group"}>
+																<Fb classes={"group-hover:stroke-[#8338ec] stroke-[#383838]"}/>
 															</div>
 														</Link>
 													</div>
@@ -767,8 +788,8 @@ export default function Details() {
 													<div className={"cursor-pointer"}>
 														<Link href={_.get(voucher, '[0].additionalInfo[0].provider.instagramUrl', "")}
 														      target={"_blank"}>
-															<div>
-																<Image src={ICONS.insta} alt={"insta icon"}/>
+															<div className={"group"}>
+																<Insta classes={"group-hover:stroke-[#8338ec] stroke-[#383838]"}/>
 															</div>
 														</Link>
 													</div>
@@ -802,7 +823,8 @@ export default function Details() {
           {
               vouchers.length > 0 && <div className={"flex w-full flex-col mt-[44px] md:mt-[44px] details"}>
 								<div className={"sm:container con pl-0px ph:p-auto ph:m-auto w-full"}>
-									<h1 className={"text-[18px] pl-3 sm:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Recommended</h1>
+									<h1 className={"text-[18px] pl-3 sm:pl-0  m-auto sm:text-[28px] text-[#383838] aveSofMedium"}>რეკომენდირებული
+										შეთავაზებები</h1>
 									<div className={"mt-4"}>
 										<OfferSlider data={vouchers}/>
 										<FreeScroll data={vouchers} miniHeight={true}/>

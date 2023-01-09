@@ -51,3 +51,12 @@ export {default as logout} from './menu/logout.svg';
 export {default as order} from './menu/order.svg';
 
 
+export {default as footerFb} from './footer/fb.svg';
+export {default as footerIn} from './footer/in.svg';
+export {default as footerTk} from './footer/tk.svg';
+export {default as footerYo} from './footer/youtube.svg';
+
+
+
+
+

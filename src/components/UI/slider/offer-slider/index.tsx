@@ -44,7 +44,7 @@ export default function OfferSlider({nav = true, loop = false, data}: IOfferSlid
         <Swiper
             slidesPerView={"auto"}
             spaceBetween={30}
-            // threshold={2}
+            threshold={200}
             autoplay={{
               delay: 5000,
               disableOnInteraction: true,

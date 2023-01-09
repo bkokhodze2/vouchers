@@ -560,6 +560,26 @@ body {
     margin-left: 32px;
 }
 
+.ant-btn-primary {
+    box-shadow: none;
+    outline: none !important;
+    outline-offset: 0px !important;
+}
+
+.ant-btn-primary:hover {
+    background-color: #8338EC !important;
+}
+
+.instaIcon .instaIcon2 {
+    fill: red;
+    stroke: red;
+}
+
+.instaIcon:hover .instaIcon2 {
+    fill: red;
+    stroke: red;
+}
+
 @media (max-width: 1665px) {
 
     .offerSliderPrev, .offerSliderNext {

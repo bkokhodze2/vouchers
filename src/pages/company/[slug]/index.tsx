@@ -247,7 +247,7 @@ export default function Company() {
             {/*offers list*/}
 
 						<div
-								className={"mt-[44px] lg:mt-0 grid grid-flow-row-dense grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-[30px] gap-y-[40px]"}>
+								className={"mt-[44px] lg:mt-0 grid grid-flow-row-dense grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 xl:gap-[30px]"}>
               {
                 voucher.map((item: any, index: number) => {
                   return <OfferItem data={item} key={index}/>
