@@ -18,7 +18,7 @@ const CountDown = ({data}: IOfferItem) => {
     } else {
       // Render a countdown jsx
       return <span
-          className={"sm:text-base text-[14px] font-[500] aveSofMedium"}>{days} Days {hours}:{minutes}:{seconds}</span>;
+          className={"sm:text-base text-[14px] font-[500] aveSofMedium"}>{days} დღე {hours}:{minutes}:{seconds}</span>;
     }
   };
 

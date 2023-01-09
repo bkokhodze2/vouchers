@@ -67,15 +67,15 @@ const Header: React.FC = () => {
   const categories = useSelector((state: any) => state.categories.categoriesList);
   const userInfo = useSelector((state: any) => state.userInfo.userInfo);
 
-  axios.interceptors.request.use((config) => {
-    config.headers = {
-      ...config.headers,
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJzRUNseXdhVnNxOURBMU1oMElNLTVFTUNsRU5WM1FMTnhuNlh1bDJoOVBnIn0.eyJleHAiOjE2NzMyODMyNTIsImlhdCI6MTY3MzI0NzI4MCwiYXV0aF90aW1lIjoxNjczMjQ3MjUyLCJqdGkiOiI0ZWE3ODYyMi1mNGQyLTQ5MTAtYWE2MS1mNmE4ZTMzY2U5YzUiLCJpc3MiOiJodHRwczovL2F1dGgucGlydmVsaS5jb20vcmVhbG1zL3hyYWNvb24tZGVtbyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiY2I1NjcyOC1mM2YxLTRmZjgtYTQ3ZC1kNGExOGFjMDgxOGMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjcy1jYXJ0Iiwic2Vzc2lvbl9zdGF0ZSI6Ijg5NGZhZTYxLTcwYzctNDA1Zi05MzA3LThmNDQ3NDg5NTJiZSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy14cmFjb29uLWRlbW8iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiUFJPVklERVJfQURNSU4iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJzaWQiOiI4OTRmYWU2MS03MGM3LTQwNWYtOTMwNy04ZjQ0NzQ4OTUyYmUiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInVzZXJfaWQiOiJiY2I1NjcyOC1mM2YxLTRmZjgtYTQ3ZC1kNGExOGFjMDgxOGMiLCJuYW1lIjoiaXJha2xpIG9jZGFtZXJ2ZSIsInByZWZlcnJlZF91c2VybmFtZSI6ImlyYWtsaTI4QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJpcmFrbGkiLCJmYW1pbHlfbmFtZSI6Im9jZGFtZXJ2ZSIsImVtYWlsIjoiaXJha2xpMjhAZ21haWwuY29tIn0.RDOg6TxoNBAH_8CmGJMlXqfBwYLbfu04g07fSLDhfH7yQvRLjoraFTG33GrI1yAfhfllq0wyf0Z7k509LtQf5Dqo8a-IFPScEOi_qRgAKQOsgukhAF4OyXAGDYh2CYOH3NhBvyKQIpzB4xEzsOj0SJ99NYErm9A3pHdMCqstPLuU_XCNIq1b7Qxi7aRefS8jeOLvR-SaZ5Is0wmxXv4LZda6Fkuk15ZSt8o1GCnzhIlpUftYoU2E0wX36qKyy0nXeXAMSwWsHbS0M9My2putXASM57gWAyB7RQ7IgMGIyFWO6WEUweFJvKnJG404RQPRwdYodrriv2WNC0yVfSOMgg`
-    };
-    return config;
-  });
+  // axios.interceptors.request.use((config) => {
+  //   config.headers = {
+  //     ...config.headers,
+  //     'Access-Control-Allow-Origin': '*',
+  //     'Content-Type': 'application/json',
+  //     Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJzRUNseXdhVnNxOURBMU1oMElNLTVFTUNsRU5WM1FMTnhuNlh1bDJoOVBnIn0.eyJleHAiOjE2NzMyODMyNTIsImlhdCI6MTY3MzI0NzI4MCwiYXV0aF90aW1lIjoxNjczMjQ3MjUyLCJqdGkiOiI0ZWE3ODYyMi1mNGQyLTQ5MTAtYWE2MS1mNmE4ZTMzY2U5YzUiLCJpc3MiOiJodHRwczovL2F1dGgucGlydmVsaS5jb20vcmVhbG1zL3hyYWNvb24tZGVtbyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiY2I1NjcyOC1mM2YxLTRmZjgtYTQ3ZC1kNGExOGFjMDgxOGMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjcy1jYXJ0Iiwic2Vzc2lvbl9zdGF0ZSI6Ijg5NGZhZTYxLTcwYzctNDA1Zi05MzA3LThmNDQ3NDg5NTJiZSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy14cmFjb29uLWRlbW8iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiUFJPVklERVJfQURNSU4iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJzaWQiOiI4OTRmYWU2MS03MGM3LTQwNWYtOTMwNy04ZjQ0NzQ4OTUyYmUiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInVzZXJfaWQiOiJiY2I1NjcyOC1mM2YxLTRmZjgtYTQ3ZC1kNGExOGFjMDgxOGMiLCJuYW1lIjoiaXJha2xpIG9jZGFtZXJ2ZSIsInByZWZlcnJlZF91c2VybmFtZSI6ImlyYWtsaTI4QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJpcmFrbGkiLCJmYW1pbHlfbmFtZSI6Im9jZGFtZXJ2ZSIsImVtYWlsIjoiaXJha2xpMjhAZ21haWwuY29tIn0.RDOg6TxoNBAH_8CmGJMlXqfBwYLbfu04g07fSLDhfH7yQvRLjoraFTG33GrI1yAfhfllq0wyf0Z7k509LtQf5Dqo8a-IFPScEOi_qRgAKQOsgukhAF4OyXAGDYh2CYOH3NhBvyKQIpzB4xEzsOj0SJ99NYErm9A3pHdMCqstPLuU_XCNIq1b7Qxi7aRefS8jeOLvR-SaZ5Is0wmxXv4LZda6Fkuk15ZSt8o1GCnzhIlpUftYoU2E0wX36qKyy0nXeXAMSwWsHbS0M9My2putXASM57gWAyB7RQ7IgMGIyFWO6WEUweFJvKnJG404RQPRwdYodrriv2WNC0yVfSOMgg`
+  //   };
+  //   return config;
+  // });
 
   const getChosenAvatar = () => {
 
@@ -326,7 +326,7 @@ const Header: React.FC = () => {
           <p className={"aveSofRegular"}>საიტი მუშაობს სატესტო რეჟიმში</p>
         </div>
         <div
-            className={"hidden md:flex w-full sticky top-[0px]  h-[44px] min-h-[44px] bg-[#1d1d1e] items-center z-20"}>
+            className={"hidden md:flex w-full sticky top-[0px] h-[44px] min-h-[44px] bg-[#1d1d1e] items-center z-20"}>
           <div className={"w-full h-full container m-auto flex justify-between"}>
             <div className={"flex space-x-8 items-center"}>
               <Link href={"https://pirveli.com"}>
@@ -502,7 +502,7 @@ const Header: React.FC = () => {
                             setTerm("")
                             Router.push(`/search/${term}`)
                           }}>
-                            <p className={"text-purple text-sm ml-2 cursor-pointer aveSofRegular"}>See all</p>
+                            <p className={"text-purple text-sm ml-2 cursor-pointer aveSofRegular"}>ყველას ნახვა</p>
                           </div>
                         </div> : ""
 
@@ -713,7 +713,7 @@ const Header: React.FC = () => {
                           className={"font-bold text-[#383838] text-[22px] leading-[22px] aveSofBold "}>{chosenCategory?.categoryName} ({getSumOffer() + chosenCategory?.offersQuantity})</p>
                       <Link href={`/category/${chosenCategory?.categoryId}`}>
                         <span
-                            className={"text-[#8338EC] text-[14px] cursor-pointer aveSofRegular"}>see all </span>
+                            className={"text-[#8338EC] text-[14px] cursor-pointer aveSofRegular"}>ყველა</span>
                       </Link>
                     </div>
 
@@ -727,7 +727,7 @@ const Header: React.FC = () => {
                                 className={"text-[#383838b3] text-base mr-2 cursor-pointer hover:text-[#8338ecb3] hover:underline decoration-1 aveSofRegular"}>{item?.categoryName}</p>
                           </Link>
                           <span
-                              className={"text-[#383838] text-[14px] aveSofRegular"}>{item?.offersQuantity} offer</span>
+                              className={"text-[#383838] text-[14px] aveSofRegular"}>{item?.offersQuantity} ვაუჩერი</span>
                         </div>
                       })}
                     </div>

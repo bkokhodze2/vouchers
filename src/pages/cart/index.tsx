@@ -168,7 +168,7 @@ export default function Cart({serverData, productCount}: any) {
 
       }).catch((res) => {
         notification['error']({
-          message: 'თქვენს ანგარიშზე არ არის საკმარისი ქულები',
+          message: 'თქვენს ანგარიშზე არ არის საკმარისი მონეტები',
         });
       })
     }

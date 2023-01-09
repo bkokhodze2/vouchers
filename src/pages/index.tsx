@@ -173,8 +173,8 @@ const Home: NextPage = ({serverData}: any) => {
           {promo?.length > 0 &&
 							<div className={"flex flex-col mt-[44px] md:mt-[40px]"}>
 								<div className={"sm:container h-min con pl-0px ph:p-auto ph:m-auto w-full"}>
-									<h1 className={"text-[18px] pl-3 sm:pl-0 m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Special
-										offers</h1>
+									<h1 className={"text-[18px] pl-3 sm:pl-0 m-auto sm:text-[28px] text-[#383838] aveSofRegular"}>სპეციალური
+										შეთავაზებები</h1>
 									<div className={"mt-4"}>
 										<OfferSlider data={promo} loop={false}/>
 										<FreeScroll data={promo} miniHeight={true}/>
@@ -213,8 +213,8 @@ const Home: NextPage = ({serverData}: any) => {
             {/*Popular offers */}
             {vouchers.length > 0 && <div className={"flex flex-col mt-[44px] md:mt-0"}>
 							<div className={"sm:container con pl-0px ph:p-auto ph:m-auto w-full"}>
-								<h1 className={"text-[18px] pl-3 sm:pl-0  m-auto sm:text-[28px] text-[#383838] font-bold aveSofBold"}>Popular
-									offers</h1>
+								<h1 className={"text-[18px] pl-3 sm:pl-0  m-auto sm:text-[28px] text-[#383838] aveSofRegular"}>პოპულარული
+									შეთავაზებები</h1>
 								<div className={"mt-4"}>
 									<OfferSlider data={vouchers}/>
 									<FreeScroll data={vouchers} miniHeight={true}/>
@@ -380,9 +380,10 @@ const Home: NextPage = ({serverData}: any) => {
           <div
               className={"flex flex-col w-full pb-[98px] mt-[0px] sm:mt-[0px]"}>
             {vouchers.length > 0 && <div className={"container m-auto"}>
-							<h1 className={"text-[18px] sm:text-[28px] text-[#383838] font-bold aveSofBold"}>New offers</h1>
+							<h1 className={"text-[18px] sm:text-[28px] text-[#383838] aveSofRegular"}>ახალი
+								შეთავაზებები</h1>
 							<div
-									className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-5 md:gap-y-[42px] xl:gap-x-[30px]"}>
+									className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 xl:gap-[30px]"}>
                 {
                     Array.isArray(vouchersAll) && !!vouchersAll?.length && vouchersAll?.map((item: any, index: any) => {
                       return <OfferItem data={item} key={index}/>
@@ -398,7 +399,7 @@ const Home: NextPage = ({serverData}: any) => {
                     }}
 										onClick={() => !isLoading && nextPage(page + 1)}>
 
-									<p className={"text-[16px] text-[white] font-normal whitespace-nowrap aveSofRegular"}>{isLoading ? "loading" : "Show more"}</p>
+									<p className={"text-[16px] text-[white] font-normal whitespace-nowrap aveSofRegular"}>{isLoading ? "იტვირთება" : "მეტის ნახვა"}</p>
                   {isLoading &&
 											<PulseLoader size={5} color="#FFFFFF" speedMultiplier={0.7} className={"mt-1.5 ml-1.5 "}/>}
 								</div>

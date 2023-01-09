@@ -31,7 +31,7 @@ export default function Wishlist({}: any) {
 
           {favourites?.favouritesList.length > 0 ?
               <div
-                  className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-x-3 gap-y-5 md:gap-y-[42px] md:gap-x-[30px]"}>
+                  className={"mt-4 grid grid-flow-row-dense grid-cols-1 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 xl:gap-[30px]"}>
 
                 {
                   favourites?.favouritesList.map((item: any, index: number) => {
