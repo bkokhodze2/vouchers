@@ -36,7 +36,8 @@ interface ICategory {
   categoryId: number,
   categoryName: string,
   offersQuantity: number
-  parentCategoryId: number
+  parentCategoryId: number | null,
+  orderNum: number | null
 }
 
 const Header: React.FC = () => {
@@ -66,15 +67,15 @@ const Header: React.FC = () => {
   const categories = useSelector((state: any) => state.categories.categoriesList);
   const userInfo = useSelector((state: any) => state.userInfo.userInfo);
 
-  // axios.interceptors.request.use((config) => {
-  //   config.headers = {
-  //     ...config.headers,
-  //     'Access-Control-Allow-Origin': '*',
-  //     'Content-Type': 'application/json',
-  //     Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJzRUNseXdhVnNxOURBMU1oMElNLTVFTUNsRU5WM1FMTnhuNlh1bDJoOVBnIn0.eyJleHAiOjE2NzIwNzYzMjEsImlhdCI6MTY3MjA0MDMzNSwiYXV0aF90aW1lIjoxNjcyMDQwMzIxLCJqdGkiOiJhYTM3ZjZjNC1iMzI3LTQ2MTQtYjIyOS1mYmMyNTBjMmE5ZDQiLCJpc3MiOiJodHRwczovL2F1dGgucGlydmVsaS5jb20vcmVhbG1zL3hyYWNvb24tZGVtbyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiY2I1NjcyOC1mM2YxLTRmZjgtYTQ3ZC1kNGExOGFjMDgxOGMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjcy1jYXJ0Iiwic2Vzc2lvbl9zdGF0ZSI6ImQ2NzM5ZmUwLTRmNGMtNGFkMC1hN2YwLWJkZmVlNzEwNjJmNyIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy14cmFjb29uLWRlbW8iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiZDY3MzlmZTAtNGY0Yy00YWQwLWE3ZjAtYmRmZWU3MTA2MmY3IiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJ1c2VyX2lkIjoiYmNiNTY3MjgtZjNmMS00ZmY4LWE0N2QtZDRhMThhYzA4MThjIiwibmFtZSI6ImlyYWtsaSBvY2RhbWVydmUiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJpcmFrbGkyOEBnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiaXJha2xpIiwiZmFtaWx5X25hbWUiOiJvY2RhbWVydmUiLCJlbWFpbCI6ImlyYWtsaTI4QGdtYWlsLmNvbSJ9.aZx0oUbHd-J-M6uDPqsrxbASbTey9JL7AZtTYJ-5P1DxVF58DEw_BzPV9ge7hIeNsoEtNhfGUSDNb6XaqJThF1Iqu_hWWcPW2fst8bJvi1IqEgXlPNLY4us74JMeGyrnODc3Oihj7GNZCS_nhZE9wN7tOsURQSkIiX8PemOmr-827yupU7XFgTzB8gqTFLbd7PnQcixHDc2SOY3ZDqGcLiNyKxYUiW-l7bBFbmo6nuZ47yW6XWjtrbz-HSgUphc7naIVzHdGgyiZoFOE1VBF4WWJ5Ik9BHuaSMH04wACwLaJfe3G2R8CPKJWXC4qdxs_skSqNJE6tFTjLKip-KglYQ`
-  //   };
-  //   return config;
-  // });
+  axios.interceptors.request.use((config) => {
+    config.headers = {
+      ...config.headers,
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJzRUNseXdhVnNxOURBMU1oMElNLTVFTUNsRU5WM1FMTnhuNlh1bDJoOVBnIn0.eyJleHAiOjE2NzMyODMyNTIsImlhdCI6MTY3MzI0NzI4MCwiYXV0aF90aW1lIjoxNjczMjQ3MjUyLCJqdGkiOiI0ZWE3ODYyMi1mNGQyLTQ5MTAtYWE2MS1mNmE4ZTMzY2U5YzUiLCJpc3MiOiJodHRwczovL2F1dGgucGlydmVsaS5jb20vcmVhbG1zL3hyYWNvb24tZGVtbyIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJiY2I1NjcyOC1mM2YxLTRmZjgtYTQ3ZC1kNGExOGFjMDgxOGMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjcy1jYXJ0Iiwic2Vzc2lvbl9zdGF0ZSI6Ijg5NGZhZTYxLTcwYzctNDA1Zi05MzA3LThmNDQ3NDg5NTJiZSIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy14cmFjb29uLWRlbW8iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiUFJPVklERVJfQURNSU4iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJzaWQiOiI4OTRmYWU2MS03MGM3LTQwNWYtOTMwNy04ZjQ0NzQ4OTUyYmUiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInVzZXJfaWQiOiJiY2I1NjcyOC1mM2YxLTRmZjgtYTQ3ZC1kNGExOGFjMDgxOGMiLCJuYW1lIjoiaXJha2xpIG9jZGFtZXJ2ZSIsInByZWZlcnJlZF91c2VybmFtZSI6ImlyYWtsaTI4QGdtYWlsLmNvbSIsImdpdmVuX25hbWUiOiJpcmFrbGkiLCJmYW1pbHlfbmFtZSI6Im9jZGFtZXJ2ZSIsImVtYWlsIjoiaXJha2xpMjhAZ21haWwuY29tIn0.RDOg6TxoNBAH_8CmGJMlXqfBwYLbfu04g07fSLDhfH7yQvRLjoraFTG33GrI1yAfhfllq0wyf0Z7k509LtQf5Dqo8a-IFPScEOi_qRgAKQOsgukhAF4OyXAGDYh2CYOH3NhBvyKQIpzB4xEzsOj0SJ99NYErm9A3pHdMCqstPLuU_XCNIq1b7Qxi7aRefS8jeOLvR-SaZ5Is0wmxXv4LZda6Fkuk15ZSt8o1GCnzhIlpUftYoU2E0wX36qKyy0nXeXAMSwWsHbS0M9My2putXASM57gWAyB7RQ7IgMGIyFWO6WEUweFJvKnJG404RQPRwdYodrriv2WNC0yVfSOMgg`
+    };
+    return config;
+  });
 
   const getChosenAvatar = () => {
 
@@ -670,7 +671,9 @@ const Header: React.FC = () => {
 
                 {/*sub categories*/}
                 <div className={"flex items-center space-x-[20px] ml-[20px] sm:space-x-[40px] sm:ml-[40px]"}>
-                  {Array.isArray(categories) && categories?.filter((item: any) => item?.parentCategoryId === null).map((item: ICategory, index: number) => {
+                  {categories?.filter((item: any) => item?.parentCategoryId === null).sort(function (a: any, b: any) {
+                    return a?.orderNum - b?.orderNum;
+                  }).map((item: ICategory, index: number) => {
                     return <div className={"relative"} key={index}
                                 onMouseOver={() => {
                                   timer1 = setTimeout(function () {
@@ -715,7 +718,9 @@ const Header: React.FC = () => {
                     </div>
 
                     <div className={"flex flex-col space-y-[20px] mt-[20px]"}>
-                      {Array.isArray(categories) && categories?.filter((item: any) => item.parentCategoryId === chosenCategory?.categoryId).map((item: any, index: number) => {
+                      {Array.isArray(categories) && categories?.filter((item: any) => item.parentCategoryId === chosenCategory?.categoryId).sort(function (a, b) {
+                        return a?.orderNum - b?.orderNum;
+                      }).map((item: any, index: number) => {
                         return <div className={"flex justify-between items-center"} key={index}>
                           <Link href={`/category/${item.categoryId}`}>
                             <p

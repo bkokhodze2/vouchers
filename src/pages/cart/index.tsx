@@ -197,7 +197,7 @@ export default function Cart({serverData, productCount}: any) {
               </div>
               {/*head*/}
 
-              <div className={"flex flex-col space-y-[16px] ph:space-y-[25px] mt-0 md:mt-4 "}>
+              <div className={"flex flex-col space-y-[16px] ph:space-y-[25px] mt-4 "}>
                 {cart?.cartItems?.map((item: any, index: number) => {
                   return <CartItem data={item} getCount={getCount} key={index}/>
                 })}
