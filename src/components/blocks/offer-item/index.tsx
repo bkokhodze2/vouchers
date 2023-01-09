@@ -127,19 +127,19 @@ const OfferItem = ({data, miniHeight}: IOfferItem) => {
                     photos?.length === 0 ?
                         <Link href={`/company/${companySlug}/voucher/${voucherSlug}`}>
                           <div className={"relative h-full"}>
-                            <Image src={slider?.src}
-                                   alt={"slider img"}
-                                   width={360}
-                                   layout={"fill"}
-                                   onLoad={() => {
-                                     setIsLoaded(true)
-                                   }}
-                                   style={{objectFit: "cover"}}
-                                   loading="lazy"
-                                   className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
+                            <LazyLoadImage src={slider?.src}
+                                           alt={"slider img"}
+                                           width={360}
+                                // layout={"fill"}
+                                           afterLoad={() => {
+                                             setIsLoaded(true)
+                                           }}
+                                           style={{objectFit: "cover"}}
+                                           loading="lazy"
+                                           className="img carousel-wrapper !h-[211px] sm:!h-[220px] object-cover sm:rounded-t-xl sm:rounded-[0px] rounded-xl"/>
                           </div>
                         </Link>
-                        : photos.map((item: any, index: number) => {
+                        : photos?.map((item: any, index: number) => {
                           return <Link href={`/company/${companySlug}/voucher/${voucherSlug}`} key={index}>
                             <div className={"relative h-full"}>
                               <LazyLoadImage src={item.path}

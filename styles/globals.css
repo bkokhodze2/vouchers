@@ -387,12 +387,6 @@ body {
     height: 220px;
 }
 
-@media (max-width: 1665px) {
-
-    .offerSliderPrev, .offerSliderNext {
-        display: none;
-    }
-}
 
 /*antd badge*/
 
@@ -503,50 +497,6 @@ body {
 /*    bottom: 93px !important;*/
 /*}*/
 
-@media (max-width: 600px) {
-
-    .miniHeight .img {
-        height: 155px !important;
-    }
-
-    .miniHeight .carousel .slider-wrapper.axis-horizontal .slider {
-        height: 155px !important;
-    }
-}
-
-@media (max-width: 768px) {
-
-    .swiper-button-next, .swiper-button-prev {
-        display: none !important;
-    }
-
-    .detailsSwiper .swiper-pagination-horizontal {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    /*.swiper-slide img {*/
-    /*    object-fit: cover;*/
-    /*}*/
-    .mySwiper .swiper-pagination {
-        margin-bottom: 2px;
-    }
-
-    .mySwiper {
-        border-radius: unset;
-        overflow: unset;
-    }
-
-    .mySwiper:hover img {
-        transform: scale(1);
-        transition: ease all 0s;
-    }
-
-    .mySwiper .swiper-slide {
-        border-radius: 0;
-    }
-}
-
 
 .container, .con {
     max-width: 1562px !important;
@@ -599,4 +549,71 @@ body {
 
 .lazy-load-image-background {
     width: 100% !important;
+    height: 100% !important;
+}
+
+.galleryFirstPhotoDefault {
+    margin-left: 0px;
+}
+
+.galleryFirstPhoto {
+    margin-left: 32px;
+}
+
+@media (max-width: 1665px) {
+
+    .offerSliderPrev, .offerSliderNext {
+        display: none;
+    }
+}
+
+@media (max-width: 1280px) {
+    .galleryFirstPhoto {
+        margin-left: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .swiper-button-next, .swiper-button-prev {
+        display: none !important;
+    }
+
+    .detailsSwiper .swiper-pagination-horizontal {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /*.swiper-slide img {*/
+    /*    object-fit: cover;*/
+    /*}*/
+    .mySwiper .swiper-pagination {
+        margin-bottom: 2px;
+    }
+
+    .mySwiper {
+        border-radius: unset;
+        overflow: unset;
+    }
+
+    .mySwiper:hover img {
+        transform: scale(1);
+        transition: ease all 0s;
+    }
+
+    .mySwiper .swiper-slide {
+        border-radius: 0;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .miniHeight .img {
+        height: 155px !important;
+    }
+
+    .miniHeight .carousel .slider-wrapper.axis-horizontal .slider {
+        height: 155px !important;
+    }
 }

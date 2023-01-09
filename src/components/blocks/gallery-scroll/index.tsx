@@ -116,8 +116,9 @@ const GalleryScroll = ({data}: any) => {
                 for (let i = 0; i < images.length; i = i + 5) {
                   galleryItem.push(
                       <div key={i + "l"} className={"flex"}>
-                        <SwiperSlide key={i + "f"} className={"min-w-[880px] max-w-[880px] mr-[30px]"}
-                                     style={{marginLeft: `${i === 0 ? '16px' : '0px'}`}}
+                        <SwiperSlide key={i + "f"}
+                                     className={`min-w-[880px] max-w-[880px] mr-[30px] ${i === 0 ? 'galleryFirstPhoto' : 'galleryFirstPhotoDefault'}`}
+                            // style={{marginLeft: `${i === 0 ? '16px' : '0px'}`}}
                         >
                           <Slide1 idx={i} data={images[i]}/>
                         </SwiperSlide>
