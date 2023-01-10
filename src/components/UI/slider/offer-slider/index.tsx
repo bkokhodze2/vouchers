@@ -36,9 +36,9 @@ export default function OfferSlider({nav = true, loop = false, data}: IOfferSlid
         {
             nav && <>
 							<div className={"offerSliderPrev"} ref={prevRef} onClick={() => swiper.current.swiper.slidePrev()}><Image
-									src={ICONS.prev} alt={"prev icon"}/></div>
+									src={ICONS.swiperArrowLeft} alt={"prev icon"}/></div>
 							<div className={"offerSliderNext"} ref={nextRef} onClick={() => swiper.current.swiper.slideNext()}><Image
-									src={ICONS.next} alt={"next icon"}/></div>
+									src={ICONS.swiperArrowRight} alt={"next icon"}/></div>
 						</>
         }
         <Swiper
