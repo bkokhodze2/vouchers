@@ -600,7 +600,7 @@ body {
     }
 
     .detailsSwiper .swiper-pagination-horizontal {
-        left: 50%;
+        left: 50% !important;
         transform: translateX(-50%);
     }
 
