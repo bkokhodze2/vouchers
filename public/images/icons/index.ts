@@ -56,6 +56,9 @@ export {default as footerIn} from './footer/in.svg';
 export {default as footerTk} from './footer/tk.svg';
 export {default as footerYo} from './footer/youtube.svg';
 
+export {default as swiperArrowLeft} from './swiperArrowLeft.svg';
+export {default as swiperArrowRight} from './swiperArrowRight.svg';
+
 
 
 

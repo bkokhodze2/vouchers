@@ -244,7 +244,7 @@ export default function Cart({serverData, productCount}: any) {
 											<div className={"h-[1px] w-full bg-[#38383833] rounded-xl mt-6 mb-[30px]"}/>
 
 											<div className={"flex justify-between"}>
-												<p className={"text-[#383838] ph:text-[28px] text-[18px] font-bold aveSofBold"}>ჯამური ფასი</p>
+												<p className={"text-[#383838] ph:text-[26px] text-[18px] font-bold aveSofBold"}>ჯამური ფასი</p>
 												<div className={"flex items-center"}>
 													<Lari color={"#E35A43"} height={18} width={18}/>
 													<p className={"ph:text-[22px] text-[18px] text-[#E35A43] aveSofMedium"}>{cart?.cartTotalPrice}</p>
@@ -252,7 +252,7 @@ export default function Cart({serverData, productCount}: any) {
 											</div>
 
 											<div className={"flex justify-between"}>
-												<p className={"text-[#383838] ph:text-[28px] text-[18px] font-bold aveSofBold"}>ჯამური
+												<p className={"text-[#383838] ph:text-[26px] text-[18px] font-bold aveSofBold"}>ჯამური
 													ქულები</p>
 												<div className={"flex items-center"}>
 													<p className={"z-10 text-[20px] text-[#E35A43] font-bold transition ml-[10px] mr-1.5"}>
@@ -271,50 +271,52 @@ export default function Cart({serverData, productCount}: any) {
 											</div>
 
 										</div>
-										<div className={"items-end flex justify-center overflow-hidden"}
-										     style={{
-                           height: payType.length === 0 ? "30px" : "0px",
-                           opacity: payType.length === 0 ? 1 : 0,
-                           transition: "0.3s linear all"
-                         }}
-										>
-											<p
-													className={`animate__animated animate__fast ${errorAnim ? "animate__shakeX" : ""}`}
-													style={{
-                            color: errorAnim ? "#ff4d4f" : "#383838",
-                            transition: ".2s linear all"
-                          }}
-											>აირჩიეთ
-												გადახდის
-												მეთოდი</p>
-										</div>
-										<div
-												className={`grid grid-rows-1 grid-cols-2 h-[48px] gap-x-3 mt-6`}>
-											<div onClick={() => setPayType("bog")}
+										<div className={"pb-9 pt-[18px] bg-[white] mt-6 rounded-[12px] px-[18px]"}>
+											<div className={"items-end flex justify-center overflow-hidden "}
 											     style={{
-                             border: payType === "bog" ? "1px solid #8338EC" : "1px solid transparent"
+                             height: payType.length === 0 ? "30px" : "0px",
+                             opacity: payType.length === 0 ? 1 : 0,
+                             transition: "0.3s linear all"
                            }}
-											     className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
-												<Image
-														src={ICONS.bog}
-														quality={70}
-														loading={"lazy"}
-														alt={"coin icon"}
-
-												/>
+											>
+												<p
+														className={`animate__animated animate__fast ${errorAnim ? "animate__shakeX" : ""}`}
+														style={{
+                              color: errorAnim ? "#ff4d4f" : "#383838",
+                              transition: ".2s linear all"
+                            }}
+												>აირჩიეთ
+													გადახდის
+													მეთოდი</p>
 											</div>
-											<div onClick={() => setPayType("tbc")}
-											     style={{
-                             border: payType === "tbc" ? "1px solid #8338EC" : "1px solid transparent"
-                           }}
-											     className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
-												<Image
-														src={ICONS.tbc}
-														quality={70}
-														loading={"lazy"}
-														alt={"coin icon"}
+											<div
+													className={`grid grid-rows-1 grid-cols-2 h-[48px] gap-x-3 mt-6`}>
+												<div onClick={() => setPayType("bog")}
+												     style={{
+                               border: payType === "bog" ? "1px solid #8338EC" : "1px solid #3838381A"
+                             }}
+												     className={"w-full  bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
+													<Image
+															src={ICONS.bog}
+															quality={70}
+															loading={"lazy"}
+															alt={"coin icon"}
 
-												/>
+													/>
+												</div>
+												<div onClick={() => setPayType("tbc")}
+												     style={{
+                               border: payType === "tbc" ? "1px solid #8338EC" : "1px solid #3838381A"
+                             }}
+												     className={"w-full bg-[white] flex justify-center items-center rounded-xl cursor-pointer"}>
+													<Image
+															src={ICONS.tbc}
+															quality={70}
+															loading={"lazy"}
+															alt={"coin icon"}
+
+													/>
+												</div>
 											</div>
 										</div>
 										<div

@@ -249,24 +249,24 @@ body {
 
 .offerSliderPrev, .offerSliderNext {
     position: absolute;
-    top: 50px;
+    top: 77px;
     z-index: 10;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: #F5F6F8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+    /*width: 60px;*/
+    /*height: 60px;*/
+    /*border-radius: 50%;*/
+    /*background-color: #F5F6F8;*/
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*cursor: pointer;*/
 }
 
 .offerSliderPrev {
-    left: -50px;
+    left: -28px;
 }
 
 .offerSliderNext {
-    right: -50px;
+    right: -28px;
 }
 
 /*offerSlider*/
