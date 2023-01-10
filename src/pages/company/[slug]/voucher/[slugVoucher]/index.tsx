@@ -373,7 +373,7 @@ export default function Details() {
               />}
             </div>
             <div className={"flex flex-col ml-[10px]"}>
-              <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>ვაუჩერის ფასი</p>
+              <p className={"text-[#383838] lg:text-base text-sm aveSofRegular"}>ფასი</p>
               <div className={"flex flex-nowrap items-center"}>
                 {
                   isWithMoney ?
@@ -625,7 +625,7 @@ export default function Details() {
             </div>
             {_.get(voucher, '[0].additionalInfo[0].attachments', []).length > 0 && <GalleryScroll data={voucher}/>}
             <div className={"block lg:hidden py-6  col-span-3 bg-[#F7F7F7]"}><RightSide/></div>
-            <div className={"container flex w-full gap-[30px] m-auto pt-8"}>
+            <div className={"container flex w-full gap-[30px] m-auto "}>
               {/*left side*/}
 
               <div className={"h-full w-full"}>

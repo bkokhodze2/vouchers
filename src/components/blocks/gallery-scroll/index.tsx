@@ -81,8 +81,8 @@ const GalleryScroll = ({data}: any) => {
   }, [])
 
   return (
-      <div className={"w-full overflow-x-auto"}>
-        <div className={"py-8 h-[610px] hidden md:flex select-none"}>
+      <div className={"w-full overflow-x-auto pt-0 pb-0 md:pt-[24px] md:pb-[56px]"}>
+        <div className={"h-auto md:h-[546px] hidden md:flex select-none"}>
           {
               isOpen && <Lightbox
 									mainSrc={images[photoIndex].path}
@@ -137,7 +137,7 @@ const GalleryScroll = ({data}: any) => {
 
         </div>
 
-        <div className={"flex h-[226px] ph:h-[400px] flex md:hidden"}>
+        <div className={"flex  flex md:hidden"}>
 
           <Swiper
               direction={"horizontal"}
