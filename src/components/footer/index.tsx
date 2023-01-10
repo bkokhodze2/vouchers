@@ -48,30 +48,26 @@ const Footer: React.FC = () => {
 
               <div className={"space-y-3"}>
                 <h6 className={"text-[#38383899] text-[18px] cursor-pointer aveSofMedium"}>ჩვენი სერვისები</h6>
+
                 <div>
-                  <Link href={"/#"}>
-                    <a className={"mt-3 text-[#383838] text-base cursor-pointer aveSofRegular"}>ვაუჩერები</a>
-                  </Link>
+                  <a href={'https://shop.pirveli.com'} target={"_blank"}
+                     className={"mt-3 text-[#383838] text-base cursor-pointer aveSofRegular"}>მაღაზია</a>
                 </div>
                 <div>
-                  <Link href={"/#"}>
-                    <a className={"mt-3 text-[#383838] text-base cursor-pointer aveSofRegular"}>მაღაზია</a>
-                  </Link>
+                  <a href={'https://medical.pirveli.com'} target={"_blank"}
+                     className={"text-[#383838] text-base cursor-pointer aveSofRegular"}>ჯანდაცვა</a>
                 </div>
                 <div>
-                  <Link href={"/#"}>
-                    <a className={"text-[#383838] text-base cursor-pointer aveSofRegular"}>მედიქალი</a>
-                  </Link>
+                  <a href={'https://vouchers.pirveli.com'} target={"_blank"}
+                     className={"mt-3 text-[#383838] text-base cursor-pointer aveSofRegular"}>ვაუჩერები</a>
                 </div>
                 <div>
-                  <Link href={"/#"}>
-                    <a className={"text-[#383838] text-base cursor-pointer aveSofRegular"}>თამაშები</a>
-                  </Link>
+                  <a href={'https://s3.pirveli.com/v1/api/getFile?id=6555'} target={"_blank"}
+                     className={"text-[#383838] text-base cursor-pointer aveSofRegular"}>გათამაშება</a>
                 </div>
                 <div>
-                  <Link href={"/#"}>
-                    <a className={"text-[#383838] text-base cursor-pointer aveSofRegular"}>გათამაშებები</a>
-                  </Link>
+                  <a href={'https://s3.pirveli.com/v1/api/getFile?id=6556'} target={"_blank"}
+                     className={"text-[#383838] text-base cursor-pointer aveSofRegular"}>გართობა</a>
                 </div>
               </div>
 
