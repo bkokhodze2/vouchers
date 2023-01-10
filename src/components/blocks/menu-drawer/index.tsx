@@ -72,7 +72,7 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
   }
 
   return (
-      <div className={"fixed top-[106px] bottom-[83px] z-50 bg-[white]  w-full"}
+      <div className={"fixed top-[106px] bottom-[57px] z-50 bg-[white]  w-full"}
            style={{
              transition: "all 0.2s ease-in-out 0s",
              left: isOpenMenu ? "0%" : "100%"
@@ -81,7 +81,7 @@ const MenuDrawer = ({isOpenMenu}: IMenu) => {
 
         <div className={"w-full p-4 overflow-y-scroll"}
              style={{
-               height: "calc(100vh - 183px)"
+               height: "calc(100vh - 162px)"
              }}
         >
           {/*// profile*/}
